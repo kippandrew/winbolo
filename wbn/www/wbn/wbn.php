@@ -150,6 +150,8 @@ function verifyClientKey($data) {
 	$clientKey = substr($data, $pos, 32);
 	
 
+	$serverKey = mysql_escape_string($serverKey);
+	$clientKey = mysql_escape_string($clientKey);
 	$userName = mysql_escape_string($userName);
 	$query = "SELECT a.ap_pid from active_player a, users u where " . /* a.ap_left = 0 and */ " u.username = '$userName' and u.user_id = a.ap_pid and a.ap_serverkey = '$serverKey' and a.ap_key = '$clientKey'";
 	openDatabase(true);
@@ -378,6 +380,11 @@ function processClientKeyRequest($data) {
 	$password = substr($data, $pos+1, $passwordLen);
 	$userName = mysql_escape_string($userName);
 	$password = md5($password);
+
+
+	$serverKey = mysql_escape_string($serverKey);
+	$userName = mysql_escape_string($userName);
+	$password = mysql_escape_string($password);
 
 	# Check User Name/Password
 	$query = "SELECT user_id from users where lower(username) = '$userName' and user_password = '$password'";
