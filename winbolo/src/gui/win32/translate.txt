@@ -1,0 +1,524 @@
+IDR_MENU1 MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New",                        ID_FILEMENU_NEW
+        MENUITEM "&Save Map\tCtrl+S",           ID_FILEMENU_SAVEMAP
+        MENUITEM SEPARATOR
+        MENUITEM "&Game Info",                  ID_FILEMENU_GAMEINFO
+        MENUITEM "System &Info",                ID_FILEMENU_SYSTEMINFO
+        MENUITEM "Ne&twork Info",               ID_FILEMENU_NETWORKINFO
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_FILEMENU_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        POPUP "Frame &Rate"
+        BEGIN
+            MENUITEM "60",                          ID_FRAMERATEMENU_60
+            MENUITEM "50",                          ID_FRAMERATEMENU_50
+            MENUITEM "30",                          ID_FRAMERATEMENU_30
+            MENUITEM "20",                          ID_FRAMERATEMENU_20
+            MENUITEM "15",                          ID_FRAMERATEMENU_15
+            MENUITEM "12",                          ID_FRAMERATEMENU_12
+            MENUITEM "10",                          ID_FRAMERATEMENU_10
+        END
+        POPUP "Window Size"
+        BEGIN
+            MENUITEM "Normal",                      ID_WINDOWSIZE_NORMAL
+            MENUITEM "Double",                      ID_WINDOWSIZE_DOUBLE
+            MENUITEM "Quad",                        ID_WINDOWSIZE_QUAD
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&Automatic Scrolling\tCtrl+A", 
+                                                ID_EDITMENU_AUTOMATICSCROLLING
+
+        MENUITEM "Show &Gunsight\tCtrl+G",      ID_EDITMENU_GUNSIGHT
+        MENUITEM "Allow Alliance Requests",     ID_EDITMENU_REQUESTALLIANCE
+        , CHECKED
+        POPUP "Message Sender Names"
+        BEGIN
+            MENUITEM "Short",                       ID_EDIT_MESSAGESENDERNAMES_SHORT
+
+            MENUITEM "Long",                        ID_EDIT_MESSAGESENDERNAMES_LONG
+
+        END
+        POPUP "Tank Labels"
+        BEGIN
+            MENUITEM "None\tCtrl+1",                ID_EDIT_TANKLABELS_NONE
+            MENUITEM "Short\tCtrl+2",               ID_EDIT_TANKLABELS_SHORT
+            MENUITEM "Long\tCtrl+3",                ID_EDIT_TANKLABELS_LONG
+            MENUITEM "Don't label own tank",        ID_EDIT_TANKLABELS_DONTLABELOWNTANK
+
+        END
+        MENUITEM "Pillbox Labels\tCtrl+P",      ID_EDITMENU_PILLLABELS
+        MENUITEM "Refuelling Base Labels\tCtrl+B", ID_EDITMENU_BASELABELS
+        MENUITEM SEPARATOR
+        MENUITEM "Hide Main View\tCtrl+H",      ID_EDITMENU_HIDEMAINVIEW
+    END
+    POPUP "&WinBolo"
+    BEGIN
+        MENUITEM "&Allow New Players",          ID_BOLOMENU_ALLOWNEWPLAYERS
+        , CHECKED
+        MENUITEM "Set &Keys\tCtrl-K",           ID_BOLOMENU_SETKEYS
+        MENUITEM "&Change Player Name",         ID_BOLOMENU_CHANGENAME
+        MENUITEM SEPARATOR
+        MENUITEM "&Sound Effects",              ID_BOLOMENU_SOUNDEFFECTS
+        MENUITEM "Background Sound",            ID_BOLOMENU_BACKGROUNDSOUND
+        MENUITEM "&ISA Sound Card",             ID_BOLOMENU_ISASOUNDCARD
+        MENUITEM SEPARATOR
+        MENUITEM "Newswire Messages",           ID_BOLOMENU_NEWSWIREMESSAGES
+        , CHECKED
+        MENUITEM "Assistant Messages",          ID_BOLOMENU_ASSISTANTMESSAGES
+
+        MENUITEM "AI Brain Messages",           ID_BOLOMENU_AIBRAINMESSAGES
+        MENUITEM "Network Status Messages",     ID_BOLOMENU_NETWORKSTATUSMESSAGES
+
+        MENUITEM "Network Debug Messages",      ID_BOLOMENU_NETWORKDEBUGMESSAGES
+
+        MENUITEM SEPARATOR
+        MENUITEM "&Request Alliance\tCtrl-R",   ID_BOLOMENU_REQUESTALLIENCE
+        , GRAYED
+        MENUITEM "&Leave Alliance",             ID_BOLOMENU_LEAVEALLIENCE
+        , GRAYED
+    END
+    POPUP "&Players"
+    BEGIN
+        MENUITEM "Send &Message\tCtrl+M",       ID_PLAYERSMENU_SENDMESSAGE
+        MENUITEM SEPARATOR
+        MENUITEM "Select &All",                 ID_PLAYERSMENU_SELECTALL
+        MENUITEM "Select &None",                ID_PLAYERSMENU_SELECTNONE
+        MENUITEM "&Select Allies",              ID_PLAYERSMENU_SELECTALLIES
+        MENUITEM "Select Nearby &Tanks",        ID_PLAYERSMENU_SELECTNEARBYTANKS
+
+        MENUITEM SEPARATOR
+        MENUITEM "1",                           ID_PLAYERSMENU_01, GRAYED
+        MENUITEM "2",                           ID_PLAYERSMENU_02, GRAYED
+        MENUITEM "3",                           ID_PLAYERSMENU_03, GRAYED
+        MENUITEM "4",                           ID_PLAYERSMENU_04, GRAYED
+        MENUITEM "5",                           ID_PLAYERSMENU_05, GRAYED
+        MENUITEM "6",                           ID_PLAYERSMENU_06, GRAYED
+        MENUITEM "7",                           ID_PLAYERSMENU_07, GRAYED
+        MENUITEM "8",                           ID_PLAYERSMENU_08, GRAYED
+        MENUITEM "9",                           ID_PLAYERSMENU_09, GRAYED
+        MENUITEM "10",                          ID_PLAYERSMENU_10, GRAYED
+        MENUITEM "11",                          ID_PLAYERSMENU_11, GRAYED
+        MENUITEM "12",                          ID_PLAYERSMENU_12, GRAYED
+        MENUITEM "13",                          ID_PLAYERSMENU_13, GRAYED
+        MENUITEM "14",                          ID_PLAYERSMENU_14, GRAYED
+        MENUITEM "15",                          ID_PLAYERSMENU_15, GRAYED
+        MENUITEM "16",                          ID_PLAYERSMENU_16, GRAYED
+    END
+    POPUP "&Brains"
+    BEGIN
+        MENUITEM "&Manual",                     ID_BRAINSMENU_MANUAL
+        , CHECKED
+        MENUITEM SEPARATOR
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&Help",                       ID_HELP_HELP
+        MENUITEM "&About",                      ID_HELPMENU_ABOUT
+    END
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGOPENING_TITLE    "Network Selection"
+    STR_DLGOPENING_TEXT     "Welcome to WinBolo, the multiplayer tank game.\nPlease choose a game type from the list below:"
+    STR_DLGOPENING_OPTION1  "Practice (Single Player; No Network)"
+    STR_DLGOPENING_OPTION2  "TCP/IP"
+    STR_DLGOPENING_OPTION3  "Internet (Tracker Search)"
+    STR_DLGOPENING_SKIP     "Skip this Dialog Next Time"
+    STR_OK                  "OK"
+    STR_DLGOPENING_BUTTON2  "Quit"
+    STR_DLGLANG_TITLE       "Language Select"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGLANG_NAME_CAPTION "Name:"
+    STR_DLGLANG_NAME        "English (Default)"
+    STR_DLGLANG_AUTHOR_CAPTION "Author: "
+    STR_DLGLANG_AUTHOR      "John Morrison"
+    STR_DLGOPENING_OPTION4  "Local Network (Broadcast Search)"
+    STR_DLGOPENING_OPTION0  "Tutorial (Instruction for first-time player)"
+    STR_DLGLANG_NOTES_CAPTION "Notes: "
+    STR_DLGLANG_NOTES       "None."
+    STR_DLGLANG_DEFAULTNOTE "Note: For incomplete translations the missing items default back to English."
+    STR_DLGABOUT_TITLE      "About WinBolo"
+    STR_DLGABOUT_BLURB      "The WinBolo package may be freely distributed provided the neither the program nor any of the accompanying files are omitted or modified in any way.\n\nWinBolo is a shareware program. Shareware software is not free. It costs money, just like other software you buy, except that with shareware you get to try it out first to decide if you like it.\n\nWinBolo costs $25(US) If you decide to keep WinBolo you can pay for it via the following methods:\n\nRun the program register.exe in the WinBolo directory, it allow you to pay via cheque, money order, cash or credit card via email, fax or postal mediums.\n\nTo register via credit card online visit: http://order.kagi.com/?XYV and fill out the form.\n\nRead the text file Readme(Shareware) included in the distribution for more information."
+    STR_DLGALLIANCE_TITLE   "Alliance Request"
+    STR_DLGALLIANCE_ACCEPT  "&Accept"
+    STR_DLGALLIANCE_DECLINE "&Reject"
+    STR_DLGALLIANCE_BLURB   " requests alliance. Accept?"
+    STR_DLGGAMEFINDER_REFRESHFIRST "Try hitting refresh first."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGGAMEFINDER_MESSAGEOFTHEDAY "Message of the Day"
+    STR_DLGGAMEFINDER_WRONGVERSION 
+                            "The game you tried to join is a different version of WinBolo. Try joining a different game"
+    STR_DLGGAMEFINDER_NOGAMESINPROGRESS "No games in progress (Start one!)"
+    STR_YES                 "Yes"
+    STR_NO                  "No"
+    STR_DLGGAMEFINDER_YESADV "Yes (Adv)"
+    STR_DLGGAMEFINDER_OPEN  "Open"
+    STR_DLGGAMEFINDER_TOURNAMENT "Tournament"
+    STR_DLGGAMEFINDER_STRICTTOURNAMENT "Strict"
+    STR_DLGGAMEINFO_TITLE   "WinBolo Game Information"
+    STR_DLGGAMEINFO_MAPNAME "Map Name: "
+    STR_DLGGAMEINFO_NUMPLAYERS "Number of Players: "
+    STR_DLGGAMEINFO_GAMETYPE "Game Type: "
+    STR_DLGGAMEINFO_HIDDENMINES "Hidden Mines: "
+    STR_DLGGAMEINFO_ALLOWCOMPTANKS "Computer Tanks Allowed: "
+    STR_DLGGAMEINFO_TIMELIMIT "Game Time Limit: "
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGGAMESETUP_BLURB  "Please select the options you want for your new game:"
+    STR_CANCEL              "Cancel"
+    STR_DLGGAMESETUP_TITLE  "Game Setup"
+    STR_DLGGAMESETUP_CHOOSEMAP "Choose map"
+    STR_DLGGAMESETUP_SELECTEDMAP "Selected Map: "
+    STR_DLGGAMESETUP_SELECTEDMAPINBUILT 
+                            "Selected Map: Everard Island (Inbuilt)"
+    STR_DLGGAMESETUP_RADIO1 "Open Game (each new tank comes pre-armed)"
+    STR_DLGGAMESETUP_RADIO2 "Tournament (free ammunition early in the game)"
+    STR_DLGGAMESETUP_RADIO3 "Strict Tournament (no free ammunition at all)"
+    STR_DLGGAMESETUP_HIDDENMINES "Allow Hidden Mines"
+    STR_DLGGAMESETUP_ALLOWCOMPTANKS "Allow Computer Tanks"
+    STR_DLGGAMESETUP_ALLOWCOMPTANKSADV "and give them an advantage"
+    STR_DLGGAMESETUP_PASSWORD "Game Password"
+    STR_DLGGAMESETUP_MINUTES "minutes"
+    STR_DLGGAMESETUP_SECONDS "seconds"
+    STR_DLGGAMESETUP_STARTDELAY "Game start delay"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGGAMESETUP_TIMELIMIT "Game time limit"
+    STR_DLGGAMESETUP_ERROROPENINGMAP "Error Opening Map."
+    STR_DLGGAMEINFO_TIMEREMAINING "About %d minute(s)"
+    STR_DLGGAMEINFO_OPEN    "Open"
+    STR_DLGGAMEINFO_TOURN   "Tournament"
+    STR_DLGGAMEINFO_STRICT  "Strict Tournament"
+    STR_DLGGAMEINFO_AIADV   "Yes (With an Advantage)"
+    STR_DLGGAMESETUP_DEFAULTNAME "Me"
+    STR_DLGKEYSETUP_TITLE   "Choose Key Settings"
+    STR_DLGKEYSETUP_BLURB   "Click on the option you wish to change then the next key pressed will be assigned to it. The key ALT, PRINT SCREEN and PAUSE can not be assigned to anything."
+    STR_DLGKEYSETUP_DRIVETANK "Drive Tank:"
+    STR_DLGKEYSETUP_TURNTANK "Rotate Tank:"
+    STR_DLGKEYSETUP_GUNRANGE "Gun Range:"
+    STR_DLGKEYSETUP_WEAPONS "Weapons:"
+    STR_DLGKEYSETUP_VIEW    "Change Views:"
+    STR_DLGKEYSETUP_SCROLL  "Scroll:"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGKEYSETUP_LEFT    "(left)"
+    STR_DLGKEYSETUP_RIGHT   "(right)"
+    STR_DLGKEYSETUP_AUTOSLOWDOWN "Auto slowdown"
+    STR_DLGKEYSETUP_AUTOGUNSIGHT "Enable Automatic show and hide of gunsight"
+    STR_DLGKEYSETUP_FASTER  "Accelerate"
+    STR_DLGKEYSETUP_SLOWER  "Decelerate"
+    STR_DLGKEYSETUP_TURNLEFT "Anti-clockwise"
+    STR_DLGKEYSETUP_TURNRIGHT "Clockwise"
+    STR_DLGKEYSETUP_INCREASE "Increase"
+    STR_DLGKEYSETUP_DECREASE "Decrease"
+    STR_DLGKEYSETUP_SHOOT   "Shoot"
+    STR_DLGKEYSETUP_LAYMINE "Lay mine"
+    STR_DLGKEYSETUP_TANKVIEW "Tank view"
+    STR_DLGKEYSETUP_PILLVIEW "Pillbox"
+    STR_DLGKEYSETUP_SCROLLUP "Up"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGKEYSETUP_SCROLLDOWN "Down"
+    STR_DLGKEYSETUP_SCROLLLEFT "Left"
+    STR_DLGKEYSETUP_SCROLLRIGHT "Right"
+    STR_DLGKEYSETUP_NEWKEYFOR "Press new key for "
+    STR_DLGKEYSETUP_FORWARD "forward"
+    STR_DLGKEYSETUP_BACKWARD "backward"
+    STR_DLGKEYSETUP_ROTATELEFT "rotate left"
+    STR_DLGKEYSETUP_ROTATERIGHT "rotate right"
+    STR_DLGKEYSETUP_INCREASERANGE "increase range"
+    STR_DLGKEYSETUP_DECREASERANGE "decrease range"
+    STR_DLGKEYSETUP_SETSHOOT "shoot"
+    STR_DLGKEYSETUP_SETLAYMINE "lay mine"
+    STR_DLGKEYSETUP_SETTANKVIEW "tank view"
+    STR_DLGKEYSETUP_SETPILLVIEW "pillbox view"
+    STR_DLGKEYSETUP_SETSCROLLUP "scroll up"
+    STR_DLGKEYSETUP_SETSCROLLDOWN "scroll down"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGKEYSETUP_SETSCROLLLEFT "scroll left"
+    STR_DLGKEYSETUP_SETSCROLLRIGHT "scroll right"
+    STR_DLGMSG_BUTTON       "&Send"
+    STR_DLGMSG_ALLPLAYERS   "All players"
+    STR_DLGMSG_ALLALLIES    "All allies"
+    STR_DLGMSG_NEARBY       "All nearby tanks"
+    STR_DLGMSG_SELECTION    "Selection on the Players menu"
+    STR_DLGMSG_SENDPLAYER   "Sending message to %d player"
+    STR_DLGMSG_SENDPLAYERS  "Sending message to %d players"
+    STR_DLGNETINFO_TITLE    "WinBolo Network Information"
+    STR_DLGNETINFO_SERVERADDRESS "Server address:"
+    STR_DLGNETINFO_THISGAMEADDRESS "This game address:"
+    STR_DLGNETINFO_SERVERPING "Server ping (ms):"
+    STR_DLGNETINFO_PACKETS  "Packets per second (per player):"
+    STR_DLGNETINFO_STATUS   "Network status:"
+    STR_DLGNETINFO_ERRORS   "Network errors:"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    NETERR_JOININIT         "There was no response from the game you tried to contact.\nThis usually means 1 of 3 things:\n1. You have the address and port fields incorrect.\n2. You are behind some kind of firewall preventing UDP access.\n3. Check that your version of WinBolo is the same as the game"
+    NETERR_GAMEFULL         "This game is currently full"
+    NETERR_SERVERCONNECT    "Failed to make a connection with the server. Try a different machine or wait a few seconds and try again."
+    NETERR_PASSWORDWRONG    "The password is incorrect"
+    NETERR_PLAYERNAMEINUSE  "Your player name is in use. Select another and try again"
+    NETERR_NONEWPLAYERS     "Sorry, this game is currently not accepting players"
+    NETERR_CONNECTNOJOIN    "You were able to connect to the game but you were not allowed to join. This probably means that your player name has been taken. Please try again with a new name"
+    NET_STATUS_JOINING      "Joining"
+    NET_STATUS_OK           "OK"
+    NET_STATUS_FAILED       "Failed"
+    NETERR_LOSTCONNECTION   "You have lost your connection to the server.\nNow dropping you to single player mode"
+    STR_DLGMSG_TITLE        "Compose Message"
+    STR_DLGOPENING_BUTTON3  "Languages"
+    STR_DLGOPENING_BUTTON4  "Help"
+    STRERR_HELPFILE         "Error opening help file."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGPASSWORD_TITLE   "Password"
+    STR_DLGPASSWORD_BLURB   "This game is password protected. Enter the correct password to join:"
+    STR_DLGSETNAME_TITLE    "Enter Player Name"
+    STR_DLGSETNAME_BLURB    "Enter the new player name for your tank"
+    STR_DLGTRACKER_TITLE    "Tracker Config"
+    STR_DLGTRACKER_USETRACKER "Use Tracker"
+    STR_DLGTRACKER_TRACKERADDRESS "Tracker Address:"
+    STR_DLGTRACKER_TRACKERPORT "Tracker Port:"
+    STR_DLGSYSINFO_TITLE    "WinBolo System Information"
+    STR_DLGSYSINFO_CPUUSAGE "CPU usage:"
+    STR_DLGSYSINFO_SIMMODELING "Simulation Modelling:"
+    STR_DLGSYSINFO_COMPROCESSING "Communications processing:"
+    STR_DLGSYSINFO_GRAHPICSDISPLAY "Graphics display:"
+    STR_DLGSYSINFO_AICONTROLPROCESSING "AI tank control processing:"
+    STR_DLGSYSINFO_TOTAL    "Total:"
+    STR_DLGSYSINFO_GRAPHICSFPS "Graphics frames per second"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGTCP_TITLE        "UDP (Internet) Setup"
+    STR_DLGTCP_BLURB        "To join an internet Bolo game, you must give the name (or IP address) of a host machine running Bolo, and the UDP port number of the Bolo process on that machine."
+    STR_DLGTCP_JOIN         "&Join"
+    STR_DLGTCP_REJOIN       "Re&join"
+    STR_DLGTCP_NEW          "&New"
+    STR_DLGTCP_TRACKERSETUP "&Tracker Setup"
+    STR_DLGTCP_REMEMBER     "Remember player name"
+    STR_DLGTCP_MACHINENAME  "Machine Name (or IP adrress):"
+    STR_DLGTCP_THEREUDP     "UDP port of Bolo on the server machine:"
+    STR_DLGTCP_USUDP        "UDP port for the Bolo on this machine:"
+    STR_DLGTCP_NAME         "Your player name for the game:"
+    STR_DLGTCP_NEWBLURB     "Click ""New"" to begin a game"
+    STR_DLGTCP_JOINBLURB    "Click to ""join"" an existing game"
+    STR_DLGTCP_REJOINBLURB  "Click ""Rejoin"" to rejoin a game and reclaim your old posessions"
+    STR_ERR_DLGTCP_PORTS    "Server and own ports are the same!"
+    STR_ERR_DLGTCP_NOTRIGHT "Something isn't correct here..."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_ERR_DLGTCP_SUBCLASS "Can't set the window subclass for copying!"
+    STR_DLGGAMEFINDER_JOINADDRESS "Join &By Address"
+    STR_DLGGAMEFINDER_REFRESH "&Refresh"
+    STR_DLGGAMEFINDER_PLAYERNAME "Set &Player Name"
+    STR_DLGGAMEFINDER_MOTD  "&Message of the Day"
+    STR_DLGGAMEFINDER_STATUSBLURB "Status: "
+    STR_DLGGAMEFINDER_SELECTEDGAME "Selected Game Information"
+    STR_DLGGAMEFINDER_BRAINS "Brains:"
+    STR_DLGGAMEFINDER_PASSWORD "Password:"
+    STR_DLGGAMEFINDER_PILLS "No of free Pillboxes:"
+    STR_DLGGAMEFINDER_BASES "No of free Bases:"
+    STR_DLGGAMEFINDER_HIDDENMINES "Hidden Mines:"
+    STR_DLGGAMEFINDER_NUMPLAYERS "No of Players:"
+    STR_DLGGAMEFINDER_VERSION "Version:"
+    STR_DLGGAMEFINDER_GAMETYPE "Game Type:"
+    STR_DLGGAMEFINDER_PORT  "Server Port:"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGGAMEFINDER_ADDRESS "Server Address:"
+    STR_BRAINERR_BRAINDIR   "Brains Directory does not exist.\nNot going to load brains!"
+    STR_BRAINERR_LAUNCH     "Error Launching Brain"
+    STR_BRAINERR_LAUNCHMAIN "Error Launching Brain - Brain Does not contain ""BrainMain"""
+    STR_BRAINERR_INIT       "Erorr initing brain"
+    STR_BRAINERR_EXEC       "Could not execute brain"
+    STR_DRAWERROR_CREATEOBJECT "Creating DD Object Failed"
+    STR_DRAWERROR_SETCOOPLEVEL "Creating DD co-op level Failed"
+    STR_DRAWERROR_CREATEPRIMARY "Creating DD Primary Surface Failed"
+    STR_DRAWERROR_GETPIXELFORMAT "Getting DD Pixel Format Failed"
+    STR_DRAWERROR_GETDESC   "Getting Surface Description Failed"
+    STR_DRAWERROR_TOOFEWCOLOURS 
+                            "This Version of WinBolo does not run in palette mode.\n Please change your colour depth to greater than 256 colours"
+    STR_DRAWERROR_BUFFERCREATE "Creating DD buffer Failed"
+    STR_DRAWERROR_GETDCFAILED "DD Get DC failed"
+    STR_DRAWERROR_CLIPPERFAILED "Creating DD Clipper Failed"
+    STR_DRAWERROR_BRUSH     "Error Creating Drawing Brush"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DRAWERROR_PEN       "Error Creating Drawing Pen"
+    STR_DRAW_GAMESTARTSIN   "Game Starts in "
+    STR_DRAWERROR_RELEASEDC "Error Releasing DC for drawing tank label (Thats bad)"
+    STR_DRAW_PILLBOXVIEW    "Pillbox View"
+    STR_FONTERR_NOCOURIERFONT "Cant load font Courier New"
+    STR_GAMEFRONTERR_CORRUPTPREFS 
+                            "An error occurred in reading preferences. The defaults will be used"
+    STR_GAMEFRONTERR_WINDOW "Error Creating Window"
+    STR_GAMEFRONTERR_DDRAW  "Error Setting up Direct Draw"
+    STR_GAMEFRONTERR_DSOUND "Error Setting up Direct Sound"
+    STR_GAMEFRONTERR_DINPUT "Error Setting up Direct Input"
+    STR_GAMEFRONTERR_CURSOR "Error Loading Cursor"
+    STR_GAMEFRONTERR_FONTS  "Error Loading Fonts"
+    STR_GAMEFRONT_LANFINDER_TITLE "LAN Game Finder"
+    STR_GAMEFRONT_TRACKERFINDER_TITLE "Tracker Game Finder"
+    STR_GAMEFRONTERR_JOINGAME "An error occured trying to join the game"
+    STR_GAMEFRONTERR_SPAWNSERVER 
+                            "An error occured trying to spawn the server process.\n Is the program ""WinBoloDS"" in the same directory as WinBolo?"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_GAMEFRONTERR_NETSINGLEPLAYER 
+                            "Something really bizzare happened in the networking subsystems which is strange since you selected a single player game. Lucky you..."
+    STR_GAMEFRONT_SERVERSTARTMSG 
+                            "This release of WinBolo make use of the standalone server to run network games\nThis will be changed in subsequent releases"
+    STR_GAMEFRONT_INPUTERR_CREATE 
+                            "Creation of Direct Input Keyboard Device Failed"
+    STR_GAMEFRONT_INPUTERR_DATAFORMAT 
+                            "Setting the Data Format for the Direct Input Keyboard Device Failed"
+    STR_GAMEFRONT_INPUTERR_COOPLEVEL 
+                            "Setting the Co-operative Level for the Direct Input Keyboard Device Failed"
+    STR_NETCLIENTERR_WINSOCKFAILSTARTUP "Error Starting Winsock"
+    STR_NETCLIENTERR_CREATEUDPFAIL "Error Creating UDP Socket"
+    STR_NETCLIENTERR_CREATETCPFAIL "Error Creating TCP Socket"
+    STR_NETCLIENTERR_BINDUDPFAIL 
+                            "Error Binding UDP Socket\n Some other program has this port assigned already. Try choosing another.\n\nNOTE: If you started a network game and it launched successfully then it is still running.\n You will not need to start it again"
+    STR_NETCLIENTERR_CHAINFAIL 
+                            "Error adding network Events to messaging chain"
+    STR_NETCLIENTERR_TRACKERVERSIONFAIL "Unsupported Tracker Version"
+    STR_NETCLIENTERR_TRACKERDNSFAIL 
+                            "Error finding tracker (DNS lookup failure)"
+    STR_NETCLIENTERR_TRACKERCONNECTFAIL "Error Connecting to tracker"
+    STR_NETCLIENTERR_TRACKERNOBLOCK "Error setting socket to be noblocking"
+    STR_NETCLIENT_TRACKERGETRESPONSE "Receiving game info..."
+    STR_NETCLIENT_TRACKERPROCESSRESPONSE "Processing tracker data..."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_NETCLIENTERR_TRACKERNODATA "Error: Tracker sent no data"
+    STR_NETCLIENT_TRACKERCONNECT "Connecting: "
+    STR_NETCLIENT_IDLE      "Idle"
+    STR_NETCLIENTERR_BIND   "Error binding socket"
+    STR_NETCLIENTERR_BROADCAST "Error sending broadcast"
+    STR_NETCLIENT_GETRESPONSES "Receiving responses..."
+    STR_SOUNDERR_FILENOTFOUND 
+                            "Can't Load WinBolo Sounds - Continuing without Sound"
+    STR_SOUNDERR_HARDWAREINUSE 
+                            "Error Setting Up Direct Sound - Hardware is in use by another application.\nContinuing without sound."
+    STR_SOUNDERR_CREATEFAILED 
+                            "Creating DS Object Failed\nContinuing without sound."
+    STR_SOUNDERR_COOPFAILED "Creating DS Co-Op Level Failed"
+    STR_SOUNDERR_PRIMARYBUFFFAIL "Creating DS Primary Buffer Failed"
+    STR_SOUNDERR_LOADSOUNDFAILED "Loading of one or more sound files failed"
+    STR_WBERR_MUTEXCREATE   "Error Creating Mutex. (Thats bad)"
+    STR_WBERR_BRAINLISTLOAD "Error Loading Brain List"
+    STR_WBERR_KEYCLASSSETUP "Error Setting up Key Setup Class"
+    STR_WBTIMELIMIT_END     "Timelimit has expired. The Game has ended."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_WBERR_SAVEMAP       "Error Saving Map (Disk full?)"
+    STR_TUTORIAL01          "Ahead of you is a short river leading inland. Hold\ndown the ""Q"" to drive your boat to the end of the\nriver.\n\nWhen you get there, keep holding ""Q"". The tank will\ndisembark from the boat and the boat will be left\nmoored at the end of the river"
+    STR_TUTORIAL02          "You are now on the grass. The tank moves quite\nquickly on grass.\n\n\nKeep pressing ""Q"" to move ahead to the forest."
+    STR_TUTORIAL03          "You are now in the forest. The tank moves more\nslowly in the forest than it does on grass.\n\n\nKeep pressing ""Q"" to move ahead to the swamp."
+    STR_TUTORIAL04          "You are now in the swamp. The tank moves very\nslowly in swamp. Fortunately there is a road ahead.\n\n\nKeep pressing ""Q"" to move ahead to the road."
+    STR_TUTORIAL05          "You are now on the road. The tank can move very\nquickly on road and if you press ""Q"" the tank will\nspeed up.\n\n\nIf you find yourself going too fast you can press ""A"""
+    STR_TUTORIAL06          "There are some buildings ahead. Buildings are solid\nobstacles that you cannot drive through, so you will\nhave to find your way through the maze to the other\nside.\n\nTo make the tank turn left press ""O""\nTo make the tank turn right press ""P"""
+    STR_TUTORIAL07          "These round objects with the red guns poking out are\nautomatic pillboxes. They will shoot at any tank\ncomes with within range.\n\n\nFortunately the buildings provide protection from the\nshots, so the pillboxes will not be able to hit you\nunless you wait so long that they manage to\ncompletely shoot their way through the buildings."
+    STR_TUTORIAL08          "Forest also provides protection from pillboxes, but in\na different way. As well as slowing down the tank a\nlot, driving through forest also limits visibility.\n\n\nWhen you are inside forest you can still clearly see\neverything outside the forest, but pillboxes (and\nother players) cannot see your tank unless you get\nvery close to them."
+    STR_TUTORIAL09          "Line up your tank with the middle of the strip of\nforest and drive due North. If you go straight\nand don't stray too close to the edges of the forest,\nthe pillboxes will not see you and they will not shoot.\n\n\nDon't drive outside the forest of you'll get blown to pieces.\n"
+    STR_TUTORIAL10          "There is one other simple way to escape pillboxes -\nspeed.\n\n\nMake sure you are correctly lined up with the centre\nof the road, and hold ""Q"" to go full speed past the\npillboxes."
+    STR_TUTORIAL11          "When they notice you they will start shooting, but if\nyou keep going straight ahead and don't lose your\nnerve you will be out of range before the shots can\nhit you.\n\n\nDon't run off the road into the marsh or you'll be a\nsitting duck targe for the pillboxes, and you don't be\nable to move quickly enough to escape."
+    STR_TUTORIAL12          "Ahead of you is a refuelling base. Refuelling bases provide\nshells for you to shoot, mines for you to lay secret traps\nwith, and they also repair your tank's armour back to full\nstrength if it has been damaged.\n\n\nStop on the refuelling base and load up your tank\nwith shells."
+    STR_TUTORIAL13          "You are on the refuelling base. Your tank will now\nload up with shells and mines, as the indicators on\nthe right will show. Ahead of you, beyond the\nbuildings, is a minefield."
+    STR_TUTORIAL14          "If you drive your tank into the minefield it will be\ndestroyed. Fortunately you can clear a minefield by\nshooting. Press the space-bar to shoot.\n\nShoot a hole through the building, and then land a\nshell in the middle of the minefield to detonate it.\nWhen you blow up the mines they will make a big\ncrater in the ground, which you can drive through,\nalthough it is as slow as driving through swamp."
+    STR_TUTORIAL15          "Ahead is another minefield. Do the same trick again:\nDrive onto the refuelling base, shoot through the\nwall, and land a shell in the middle of the minefield to\ndetonate it.\n\nThis time though, the minefield is adjacent to a large\nriver, and water will flood into the craters. You can\ndrive the tank through the water like you can through\ncraters and marsh."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_TUTORIAL16          "WinBolo automatically scrolls the window to show you\nthe area around your tank but you can use the arrow keys\non the keyboard to the manually override the view WinBolo\nchooses.\n\nPress the Up-Arrow key on the keyboard now to get a\nbetter view of the river ahead of you."
+    STR_TUTORIAL17          "As well as being very slow, driving through water has\nanother disadvantage: It will also deplete your tank's\nsupplies of shells and mines.\n\n\nWhen you get to the other side your tank will still be\nin working condition, but you will have lost all\noffensive capability."
+    STR_TUTORIAL18          "This time we are going to be more subtle about\ncrossing the river. Instead of just driving through the\nwater, we are going to build a bridge.\n\n\nSelect tree farming mode by clicking on the forest\nicon (top left of the window) and click on the forest.\nYour builder will run out of the tank and harvest one\ntree for building materials."
+    STR_TUTORIAL19          "After farming some tree, select the road/bridge tool\n(the second button from the top) and click the mouse\non the river at the end of the road.\n\n\nYour builder will run out of the tank and build one\nsegment of bridge. Click again to complete the bridge\nand then drive across to the other side."
+    STR_TUTORIAL20          "This river is wider than the last, and at the centre it is\ntoo deep for you to build a bridge. If you try to just\ndrive through the tank will sink to the bottom and be\ndestroyed."
+    STR_TUTORIAL21          "To cross this river you will have to build a boat. Boats\ntake five trees, so click on the five trees to farm them.\nThen select the wall/boat tool (the third button from\nthe top) and click on the water to build a boat.\n\nIf you click on the land you will build a wall instead\nand you will have to farm some more trees to build a\nboat. Drive onto the boat and cross the river to the\nother side."
+    STR_TUTORIAL22          "There is a pillbox ahead, and some refuelling bases to\nprovide you with ammunition. Collect shells from the\nrefuelling base and attack the pillbox.\n\n\nIt will shoot back, but if you tank gets hit you can easily\nreturn to the refuelling base to get your armour repaired\nback to full strength again."
+    STR_TUTORIAL23          "With patience and caution you should be able to destroy this\npillbox. Use the skills you have learned to make it easier:\n\n\nHide in the forest so that the pillbox can't see you,\nfarm trees, build roads to make your tank move\nfaster, and build buildings to provide cover against\npillbox shots."
+    STR_TUTORIAL24          "After you manage to defeat this pillbox, your final\nchallenge of the tutorial is to take out the two\npillboxes guarding the exit, build a boat, and escape.\n\n\nTake special care to watch your tank's armour level -\nif you get your tank destroyed you'll have to start\nwith a new tank on a new boat out at sea again."
+    STR_TUTORIAL25          "Congratulations. You have completed the WinBolo\ntutorial.\n\n\n\nNow organise some friends to play with and find out\nwhat it is like to compete against intelligent human\nopponents instead of stationary unthinking targets."
+    STR_TUTORIAL_START01    "Welcome to the WinBolo tutorial. This island introduces\nthe basic principles of WinBolo and leads you through\nthem one at a time. Each new principle will be\ndescribed in a window like this one.\n\nAfter reading each message, you can proceed by\nclicking the ""OK"" button on the mouse or simply\nby pressing the <Return> key on the keyboard"
+    STR_TUTORIAL_START02    "WinBolo is a clone of the classic Macintosh network game Bolo.\nYou can find out strategy hints and other information from the official website:\n\nhttp://www.lgm.com/bolo\n\nor\n\nhttp://www.lgm.com/winbolo\n"
+    STR_TUTORIAL_START03    "One quick note about Internet play.\n\nIf you join a online game and are a lot of network errors\nthen leave the game straight away before\nyou ruin the game for the other players."
+    STR_TUTORIAL_START04    "You are in control of a tank, which is currently on a\nboat at sea. Press ""Q"" to make the tank (and boat) go\nforwards, and press ""A"" to make it slow down and\nstop.\n\nDon't tap the keys as if you are typing a letter -\npress and hold them until the tank is going at the speed\nyou want and then let go. Press ""Q"" now to make the\nboat drive forwards towards the land.\n(Press <Return> first to dismiss the window)"
+    LGM_MAN_DEAD            "You cannot build until your new man parachutes in"
+    LGM_NO_BUILD            "You cannot build that there"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    LGM_INSUFFICIENT_TREES  "You don't have the trees you require to build that"
+    LGM_NO_PILLS            "You have no pillbox to place"
+    LGM_INSUFFICIENT_MINES  "You have no mines to place"
+    LGM_BUILDTANK           "The man cannot build on a tank"
+    LGM_NO_TREE             "There is no tree to farm there"
+    LGM_PILL_NO_NEED_REPAIR "That pillbox does not need repairing"
+    LGM_PILL_NO_BUILD_ON_MINE 
+                            "The man cannot build on a mine. It would kill him."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    MESSAGE_ASSISTANT       "Online Assistant"
+    MESSAGE_NEWSWIRE        "Newswire"
+    MESSAGE_AI              "Brain"
+    MESSAGE_CHANGENAME      " has handed control over to """
+    MESSAGE_NETSERVER       "Network Server"
+    MESSAGE_THIS_COMPUTER   "This Computer"
+    MESSAGE_CAPTURE_BASE    " captured a Neutral Base"
+    MESSAGE_CAPTURE_PILL    " captured a Neutral Pillbox"
+    MESSAGE_STOLE_PILL      " just stole pillbox from "
+    MESSAGE_STOLE_BASE      " just stole base from "
+    MESSAGE_LGM_DEAD        " just lost his builder"
+    MESSAGE_SAVED_MAP       " just saved map file"
+    MESSAGE_QUIT_GAME       " has quit game"
+    MESSAGE_TIME_LIMIT_EXPIRED 
+                            "Time Limit has expired. Game is over. Go in peace"
+    MESSAGE_TANKSUNK        "Tank Sunk in Deep Sea"
+    NETERR_TRACKERDNS       "The tracker hostname lookup failed. Tracker notification disabled"
+END
+

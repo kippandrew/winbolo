@@ -1,0 +1,42 @@
+<?
+/*
+ * $Id$
+ *
+ * Copyright (c) 1998-2008 John Morrison.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */	
+
+
+require "../../php/header.php";
+header("Content-type: text/xml");
+echo '<?xml version="1.0"?>' . "\n";
+?>
+<rss version="2.0">
+<channel>
+<?
+$nis = getNewsItems(10);
+$size = sizeof($nis);
+$count = 0;
+if ($size > 0) {
+        while ($count < $size) {
+                $item = $nis[$count];
+		echo "	<item>\n";
+		echo "		<title>" . $item->getSubject() . "</title>\n";
+		echo "		<description>" . htmlspecialchars($item->getText()) . "</description>\n";
+		echo "		<link>http://www.winbolo.net/forums/viewtopic.php?t=" . $item->getPostId() . "</link>\n";
+                echo "</item>\n";
+                $count++;
+        }
+}
+?>
+</channel>
+</rss>

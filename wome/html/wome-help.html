@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+     "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>WinBolo Online Map editor</title>
+<body bgcolor="#000000" text="#FFFFFF" link="#00FF00" vlink="#0000FF" alink="#FF0000">
+<div align="left">
+  <table border=0 width="95%">
+    <tr> 
+      <td align=RIGHT> 
+  </table>
+  <p><b><font face="Verdana,Arial" size="4" color="#FFFF00">WinBolo Online Map 
+    Editor - Help</font></b></p>
+    <p>Version 1.00 - John Morrison (<A HFREF="http:/www.winbolo.com"http://www.winbolo.com"</A>)</p>
+  <p><br>
+    <font face="Verdana, Arial, Helvetica, sans-serif"><b><font color="#FFFF00">About</font></b></font><br>
+    WinBolo Online Map Editor (WOME) is a stateless cgi-based map editor for making 
+    and editing <a href="http://www.winbolo.com/">WinBolo</a> maps. Although not 
+    a replacement for a desktop based map editor it is rather neat (and a little pointless).</p>
+  <p><br>
+    <font face="Verdana, Arial, Helvetica, sans-serif"><b><font color="#FFFF00">Simple Help</font></b></font><br>
+    From the Tools on the left select the terrain type or base/pill/start to place. 
+    Click on the map to place it there. Use the Up/Down/Left/Right buttons to 
+    move the map around or use the goto at the bottom of the page. When finished 
+    click the save map button to save your map. You can upload a map by clicking 
+    on the upload button.</p>
+  <p><font face="Verdana, Arial, Helvetica, sans-serif"><b><font color="#FFFF00">Know Issues <br>
+    </font></b></font>
+    <ul><li>Some times the browser places spaces between the map view squares. This is due to images loading at different speeds. Hit refresh in your browser to fix it.</li>
+    <li>Mined tiles don't show up. (See todo)</li>
+    <li>Netscape 4.7 is really slow to render tables. Try changing browsers.</li></ul></p>
+    
+  <p><font face="Verdana, Arial, Helvetica, sans-serif"><b><font color="#FFFF00">Why?</font></b></font><br>
+    I wrote this as a twisted form of stress relief inbetween preparing and taking part in a 
+    2 day <a href="http://www.sqi.gu.edu.au/spice/">SPICE</a> assessment. Plus 
+    it would give me a reason to do some real cgi and it is rather neat. Historically, 
+    it was suggested by Creo on channel #winbolo on the irc network efnet.<br>
+  </p>
+  <p><font face="Verdana, Arial, Helvetica, sans-serif"><b><font color="#FFFF00">How 
+    it works</font></b></font><br>
+    The idea was to create a stateless web based map editor. A couple of years 
+    ago I wrote a program called <a href="http://members.xoom.com/jamorrison/bmapview.html">BMAPView</a> 
+    which allowed viewing of WinBolo maps in Windows. (It was rather useless back 
+    in 1998) The code was written in a quite portable and reuseable fashion. I 
+    took the display view function and replaced the window out code with a HTML 
+    table out function. A collection of simple modify functions were added to 
+    set map cells. It took about 20 hours to write the whole cgi script. To keep it stateless do this 
+    the map must be sent to and from the server with each request. Thus sending 
+    the webpage to the user the map is compressed and then base64 encoded. Upon 
+    doing an update the map is base64 decoded then decompressed. The map update 
+    occurs then the result is sent back to the user after compression and encoding.<br>
+  </p>
+  <p><font face="Verdana, Arial, Helvetica, sans-serif"><b><font color="#FFFF00">Todo<br>
+    </font></b></font>
+(These may or may not get done.)<br>
+  </p>
+  <ul>  <li>Preferences (+ Cookie storing) Allow the size of the currently viewable map 
+    to be set, borders and cell padding.</li>
+    <li>Allow adding mines to map (Would require adding mines to each of the graphics)</li>
+    <li>General tidy up and userability increase. ie when we reach the top of the map remove the &quot;Up&quot; button.</li>
+    <li>Vanity - Set the map name when set, display it in load on open</li>
+    <li>Shrink outputed HTML files</li>
+    <li>Map uploading. (Intergrate into winbolo.com so your map appears in the collection 
+    - long shot maybe)</li>
+    <li>Map overview. Show a 256x256 gif of the whole map. Maybe not feasible as the 
+    editor is stateless and it would require a seperate cgi file reading the current 
+    map in via a GET post. (GET's are unreliable after 200 bytes and most maps 
+    are about 10K encoded)</li></ul>
+  <p><font face="Verdana, Arial, Helvetica, sans-serif"><b><font color="#FFFF00">Leasons 
+    Learned</font></b></font><br>
+    As I'm new to cgi here is a few things I learned.<br>
+    1. Cgi (duh)<br>
+    2. UUEncoding is bad for generating valid HTML.<br>
+    3. image submission buttons don't send their values, just the x and y co-ordinates 
+    of where the user is sent.</p>
+  <p align="center">&nbsp;</p>
+  <div align="center">
+    <table width="95%" border="1" cellspacing="0">
+      <tr> 
+        <td>
+          <div align="center"><a href="http://www.winbolo.com/wome/wome.cgi">Back to WOME</a></div>
+        </td>
+        <td>
+          <div align="center"><a href="http://www.winbolo.com/">www.winbolo.com</a></div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <p align="center">&nbsp;</p>
+</div>
+<p align="center">&nbsp;</p>

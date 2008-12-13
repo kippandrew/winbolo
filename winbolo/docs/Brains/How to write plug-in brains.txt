@@ -1,0 +1,334 @@
+WinBolo (c) 1998-2000 John Morrison
+Bolo    (c) 1987-1995 Stuart Cheshire
+
+Tip: If necessary, choose Word Wrap from the Notepad Edit menu or 
+Wrap To Window from the WordPad View/Options menu to wrap the text 
+within the document window.
+
+
+Note: A lot of the information in this document comes directly from the 
+Document "How to write plug-in brains.txt" included with the Bolo 
+distribution which is copyrighted (c) 1987-1995 Stuart Cheshire.
+
+Modifications have been made to make it applicable to
+WinBolo. Also it should be noted that WinBolo only supports revision 3 of
+the brain interface.
+
+What are "Plug-In Brains?"
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+WinBolo supports plug-in 'brain' modules to drive WinBolo tanks, to allow:
+1. One player games against a number of 'AI' tanks.
+2. Two player games, where each player commands a platoon of AI tanks.
+3. 'Core War' style tournaments where people compete to write the best AI
+   algorithms.
+
+Sample code is provided. At this stage it is a basic brain template which
+authors can build on top of. A replacement Standard Autopilot will be added
+in future revisions.
+
+How to write plug-in 'brain' modules to drive WinBolo tanks.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Each plug-in brain module is a separate file, stored in the "Brains" folder.
+
+The file is a standard Win32 DLL but with the extension changed to "BRN". 
+When the user selects your brain from the "Tank Control" menu in Bolo, your
+brain is loaded via LoadLibrary() and GetProcAddress() calls.
+
+A single parameter is passed on the stack to your brain. You should declare
+your main routine thus:
+
+__declspec( dllexport ) short BrainMain(const BrainInfo *brainInfo)
+
+The structure you are passed looks like this:
+typedef struct
+	{
+	u_short BoloVersion;	// two hex bytes, eg. 0x0098 means version 0.98
+	u_short InfoVersion;	// current version of the BrainInfo structure is 1
+	void   *userdata;	// Initially points to address of your CODE resource
+	u_short padding1;	// unused at present
+	u_short PrefsVRefNum;
+	u_char *PrefsFileName;
+	u_short operation;	// 0=OPEN, 1=CLOSE, 2=THINK, 200+ menu
+	u_short menu_item;
+	... // (see accompanying header files for more details)
+	} BrainInfo;
+
+BoloVersion is passed for informational value only. Most Brains should
+not care what version of Bolo is running. You should however check that
+InfoVersion indicates a version of the BrainInfo structure that your code
+understands. If your codes does not understand the InfoVersion then you
+should return a non-zero error code from the "OPEN" call.
+
+The userdata field, PrefsVRefNum and PresFileName are unused. It is 
+requested that if a brain author needs to keep a preference file they do so
+in a ini file stored in users Windows directory.
+
+A lot more information is passed in the BrainInfo structure, although most
+of it will only be relevant to the "THINK" call.
+
+The operation codes.
+~~~~~~~~~~~~~~~~~~~~
+0: OPEN.
+The first call, made once, immediately after the brain is loaded. If you wish
+to offer user-configurability, you may add a menu to the menu bar. The menu 
+items ID's must start at 2001 for the first entry and be sequentially higher 
+for each additional entry. If you fail to set your entries correctly then 
+requests for your menu items may not be heard or misinterpreted for one of 
+WinBolo's own menu items. Return zero if initialization was successful, or 
+non-zero if it failed (eg. insufficient memory, failed resource loading). If
+non-zero is returned, your code will not be called again (not even a CLOSE
+message), so you must tidy up before returning.
+
+1: CLOSE.
+Called once as the final call when the user turns off your brain. You should
+ensure that all allocated memory is released, all menus are removed etc.
+
+2: THINK.
+This, the most important call, is done as frequently as the load on the
+Macintosh will allow. Each time, information describing the current start of
+the world around the tank is given, and your code should decide what action to
+take.
+
+200: MENU.
+Called when the user chooses an item from your menu. The number of the item
+which was selected from the menu is given in "menu_item".
+
+The THINK message.
+~~~~~~~~~~~~~~~~~~
+Every time through the main event loop, WinBolo will send you a THINK message.
+This means that you are subject to the vagaries of the Windows process
+scheduling mechanism. If another application holds the CPU for a long time, or
+the user performs some action which hogs the machine, then it is possible that
+you might not get any calls for a significant length of time. You should be
+aware of this limitation, and users should be aware that if they overload the
+machine then AI routines will not perform very well. A corollary of this is
+that YOU can hog the CPU for a long time if you wish. However, WinBolo is a
+real-time game. If you spend too long deciding what to do, then your tank 
+will have been shot and destroyed by the time you make up your mind. A good 
+guideline is no more than a tenth of a second of thinking time per call. 
+If you want to be very ambitious and do dynamic adjustment, you can use
+GetTickCount to measure the passage of time, and return when some suitable
+Length of time has passed.
+
+The information you are passed is basically a software interface to the
+information that a human player has available visually.
+
+The maximum number of players is given because it controls the size of the
+player bitmap structures used for messages and alliances. It may also be
+useful to determine your memory allocation needs.
+
+You are told your tank's current position, speed, direction, whether it is
+on a boat etc.
+You are told your current tank stocks and other status information.
+
+If newtank is non-zero it indicates that your tank was just killed, and this
+is new tank you are controlling. This is done so that your algorithm is not
+hopelessly confused to find itself suddenly on a boat out in the deep sea.
+Your first THINK message after the OPEN call will have this 'new tank'
+indication set.
+
+If there is a friendly base within range, then its position and stocks are
+given. Otherwise base will be NULL.
+
+If man_status is zero, the man is in the tank, ready for action. If man_status
+is one, then your man is dead and a new man is parachuting in. If man_status
+is any other value, then the man is outside the tank, building, in which case
+man_direction gives the direction of travel of the man, and (man_x, man_y)
+gives his current position.
+
+If (*pillview) is non-negative, then the view you are given is centred on the
+pillbox with the given number. If (*pillview) is -1 then the view is centred on
+your tank. To change where your next view will come from, set (*pillview) to
+the desired value. You may attempt to view from a dead pillbox (or one you
+don't own) if you wish, but you will not see anything. (Your view will return 
+to the tanks) - Note: At the moment WinBolo will change the screens view to be
+the pill selected.
+
+The array of TERRAIN squares is given as horizontal rows, from top to bottom,
+with the squares running left to right in each row (similar to the map file
+format). The map view information shows you everything within 14 squares of the
+tank -- ie anything a human could see by scrolling the tank view around with
+the cursor keys. For pillbox views, the visibility range is restricted to 7
+squares in every direction, as it is for humans.
+The bytes of the array have the values given below. The top bit of the byte
+will be set if the square has a mine (that you can see) on it.
+
+typedef BYTE TERRAIN;
+enum
+	{
+	BUILDING=0, RIVER, SWAMP, CRATER, ROAD, FOREST, RUBBLE, GRASS,
+	HALFBUILDING, BOAT, DEEPSEA, REFBASE_T, PILLBOX_T,
+	NUM_TERRAINS,
+	TERRAIN_MASK = 0xF,
+	TERRAIN_MINE = 0x80,
+	};
+
+For each object you can see, you are told its position, and some information.
+Your own tank is not included in the array of objects. All friendly pillboxes
+and bases are included in the array, even if currently beyond visual range.
+
+typedef u_short OBJECT;
+enum
+	{
+	OBJECT_TANK=0,
+	OBJECT_SHOT,
+	OBJECT_PILLBOX,
+	OBJECT_REFBASE,
+	OBJECT_BUILDMAN,
+	OBJECT_PARACHUTE
+	};
+#define OBJECT_HOSTILE 1	// Object is hostile to us
+#define OBJECT_NEUTRAL 2	// Object is not loyal to any other player
+// Note that being neutral means that an object has no particular loyalty
+// to any player -- whether it is hostile or friendly to us is an orthogonal
+// question. Currently, neutral refuelling bases are friendly to everyone
+// and neutral pillboxes are hostile to everyone.
+
+typedef struct
+	{
+	OBJECT object;
+	WORLD_X x;
+	WORLD_Y y;
+	WORD idnum;
+	BYTE direction;
+	BYTE info;
+	} ObjectInfo;
+
+For tanks, pillboxes, refuelling bases, and men, an identifying number is
+given, which ranges from zero to the number of that kind of object minus one.
+One useful fact is that man number n is owned by tank number n.
+
+For tanks and shots the approximate direction of travel is given.
+For pillboxes the 'direction' value gives the pillbox's current strength, in
+the range 0-15, as can be determined by human players looking at the graphics
+on the screen.
+For refuling bases, the 'direction' value will be zero if the base is dead
+and capturable, and non-zero otherwise. Unlike pillboxes, it does not tell
+you the exact strength of the base, only a rough approximation.
+For building men, the 'direction' value is unused.
+
+Bit 0 of the info field (OBJECT_HOSTILE) is set if the object is hostile,
+      and clear if it is friendly.
+Bit 1 of the info field (OBJECT_NEUTRAL) is set if the object is neutral --
+      ie it is not currently 'owned' by any player.
+
+MessageInfo structure
+~~~~~~~~~~~~~~~~~~~~~
+If a message was sent to you then the MessageInfo pointer will be non-null, and
+will point to a MessageInfo structure as described below.
+
+typedef struct
+	{
+	u_short sender;
+	PlayerMap *receivers;
+	u_char *message;
+	} MessageInfo;
+
+The sender field tells you which player sent the message. You may examine
+playernames[sender] to find out the ASCII name of that player. The receivers
+field points to a bit map indicating which players the message was sent to, and
+the text of the message is given by the message field.
+
+Controlling the tank
+~~~~~~~~~~~~~~~~~~~~
+Macros are provided to set bits in the BoloKeyMap structure. Each bit
+corresponds to a tank control -- accelerate, decelerate, turn, shoot, etc.
+Setting a bit in the holdkeys structure is equivalent to the user holding that
+key down (until you clear the bit explicitly). Setting a bit in the tapkeys
+structure is equivalent to the user tapping the key briefly (for about 1/12th
+of a second). This can be useful for things like firing a single shot.
+
+Building Control
+~~~~~~~~~~~~~~~~
+typedef BYTE BUILDMODE;
+enum
+	{
+	BUILDMODE_FARM=1, BUILDMODE_ROAD,
+	BUILDMODE_BUILD, BUILDMODE_PBOX, BUILDMODE_MINE
+	};
+
+typedef struct
+	{
+	MAP_X x;
+	MAP_Y y;
+	BUILDMODE action;
+	} BuildInfo;
+
+If the action field is zero, you may set the x and y coordinates to the
+location you wish to build at, and set the action field to the operation
+you wish the man to perform. When the man has been dispatched from the
+tank to do the building, the action field will be reset to zero, and you
+may then queue up the next action, to be performed when the man returns.
+
+Alliances
+~~~~~~~~~
+The field "PlayerBitMap *allies" tells you who you are currently allied to.
+At this point WinBolo does not support brains requesting or accepting 
+alliances. This will be changed in subsequent releases.
+
+Sending messages
+~~~~~~~~~~~~~~~~
+messagedest points to a bitmap of flags as described above. For each tank you
+want to send to, set the appropriate bit in the bitmap. If sendmessage[0] is
+zero then you may write a message into the buffer it points to. The message
+should be a pascal string -- ie sendmessage[0] will then contain the length of
+the string. When the message has been sent, sendmessage[0] will be reset to
+zero. You can send a message to yourself only for the purpose of displaying
+debugging messages, if necessary.
+
+A note on types
+~~~~~~~~~~~~~~~
+Directions are given as single bytes, with the circle divided into 256
+divisions. 0 is North, 64 is East, 128 is South, 192 is West, and 255 is all
+the way around, almost back to due North.
+
+MAP coordinates are 8 bits each for X and Y, and the unit is one map square.
+0,0 is the top left corner of the 'world', and coordinates increase downwards
+and to the right. 255,255 is the bottom right corner of the world. The position
+of pillboxes and refueling bases are given in MAP coordinates, since they are
+constrained to lie on map squares.
+
+WORLD coordinates are 16 bits each for X and Y. They are a higher resolution
+version of MAP coordinates, used for objects such as tanks which can move on a
+finer grid than whole map squares. Like MAP coordinates, WORLD coordinates
+start with 0,0 in the top left, increasing downwards and to the right. 256
+WORLD coordinate units make one MAP coordinate unit, so effectively the top
+byte of the WORLD coordinate gives the MAP square, and the low byte gives the
+location within the square.
+
+The coordinates given for objects like tanks and shots give the position of the
+centre of the object.
+
+Other Notes for Brain Authors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+MessageBox() calls.should be used with care. It is because MessageBox calls do
+not return until the user clicks OK in them. This causes your brain to sit there
+and wait for control to be returned to them from the message box. That inturn 
+causes WinBolo to sit and wait for your brain to return. In future versions it
+may prove better to set a thread for brain communication but for the moment
+avoid MessageBox() calls. A better solution is to create a dialog box template
+with no owner and show and hide the dialog box as required. The BrainTemplate.c
+file provides more information on how to do this.
+
+Debugging: You debug a brain you can simply compile the debug version of the
+brain in the Brains folder and set the breakpoints. The same process used to
+debug any DLL can be used. It should be noted that like MessageBox calls WinBolo
+will sit and wait for your brain to return. If this takes a long time WinBolo 
+must play "catch up" and will appear to lock up while it is doing so. It is 
+strongly recommended that brains be perfected in Single Player mode before they
+are tested under networked conditions.
+
+Testing: Brains was a last minute addition to WinBolo before its initial release.
+As such there has been limited testing of the Brain interface. Please report any
+bugs to me via the usual bug reporting system. (All components have been tested
+individually and they work)
+
+A sample Brain Template is included in this folder. Also a  zip file containing
+the original MacBolo Standard Autopilot brain. It has not been modified and thus
+wont compile. It is provided as an example of creating AI brains. Source code
+to a Windows version will be included in a subsequent releases. More sample
+brain code can be found at the official Bolo ftp server at: 
+<ftp://ftp.lgm.com/bolo/brains/resources/>
+
+

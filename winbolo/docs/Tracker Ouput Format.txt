@@ -1,0 +1,59 @@
+This file describes the format of the tracker output that is parsed 
+by WinBolo for use in its Tracker Search function. It is useful for
+programmers who wish to write trackers or other tracker related 
+utilities. (Game monitor's etc.) The format of the output is a 
+simple human readable format that allows people to view it if they
+wished.
+
+The format is as followed:
+TVERSION=1
+MOTDL=2
+MOTD=This is line 1 of the message of the day
+MOTD=This is line 2 of the message of the day
+NGAMES=2
+GAME001=address1.com:27500
+VERSION=1.01
+MAP=Test Map
+TYPE=Tournament
+PLAYERS=5
+BASES=5
+PILLBOXES=5
+HIDMINES=no
+PASSWORD=yes
+BRAINS=yesAdv
+DELAY=60
+LIMIT=-1
+STARTTIME=8
+GAME002=address2.com:50000
+VERSION=1.01
+MAP=Everard Island
+TYPE=Open
+PLAYERS=3
+BASES=11
+PILLBOXES=10
+HIDMINES=yes
+PASSWORD=no
+BRAINS=no
+DELAY=60
+LIMIT=-1
+STARTTIME=8
+
+Explainataion:
+TVERSION:  Version of the tracker information. Version 1 the
+           most current version of the tracker information format.
+MOTDL:     Number of lines in the Message of the day.
+MOTD:      Each line of the message of the day.
+GAMEXXX:   Address:port of the games server. The XXX represents the
+           sequence number.
+VERSION:   Version of WinBolo running.
+MAP:       Name of the map being played.
+PLAYERS:   Number of players in the game.
+BASES:     Number of free bases in the game.
+PILLBOXES: Number of free pillboxes in the game.
+HIDMINES:  Whether hidden mines are enabled or not.
+BRAINS:    Whether brains are allowed (no/yes/yesAdv)
+DELAY:     Game start delay.
+TIMELIMIT: Timelimit on the game. (-1 unlimited)
+STARTTIME: Time the game was started. 
+
+Each line should end with a "\r\n" carriage return.

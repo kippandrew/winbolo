@@ -1,0 +1,657 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU DISCARDABLE 
+BEGIN
+    POPUP "&Fil"
+    BEGIN
+        MENUITEM "&Nytt spel",                  ID_FILEMENU_NEW
+        MENUITEM "&Spara spel\tCtrl+S",         ID_FILEMENU_SAVEMAP
+        MENUITEM SEPARATOR
+        MENUITEM "Spelin&formation",            ID_FILEMENU_GAMEINFO
+        MENUITEM "System&information",          ID_FILEMENU_SYSTEMINFO
+        MENUITEM "Nä&tverksinformation",        ID_FILEMENU_NETWORKINFO
+        MENUITEM SEPARATOR
+        MENUITEM "&Avsluta",                    ID_FILEMENU_EXIT
+    END
+    POPUP "&Redigera"
+    BEGIN
+        POPUP "Frame &Rate"
+        BEGIN
+            MENUITEM "60",                          ID_FRAMERATEMENU_60
+            MENUITEM "50",                          ID_FRAMERATEMENU_50
+            MENUITEM "30",                          ID_FRAMERATEMENU_30
+            , CHECKED
+            MENUITEM "20",                          ID_FRAMERATEMENU_20
+            MENUITEM "15",                          ID_FRAMERATEMENU_15
+            MENUITEM "12",                          ID_FRAMERATEMENU_12
+            MENUITEM "10",                          ID_FRAMERATEMENU_10
+        END
+        POPUP "Fönsterstorlek"
+        BEGIN
+            MENUITEM "Normal",                      ID_WINDOWSIZE_NORMAL
+            , CHECKED
+            MENUITEM "Dubbel",                      ID_WINDOWSIZE_DOUBLE
+            MENUITEM "Fyrdubbel",                   ID_WINDOWSIZE_QUAD
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&Automatisk scrollning\tCtrl+A", 
+                                                ID_EDITMENU_AUTOMATICSCROLLING
+
+        MENUITEM "Visa &gevärssikte\tCtrl+G",   ID_EDITMENU_GUNSIGHT
+        POPUP "Avsändarnamn"
+        BEGIN
+            MENUITEM "Korta",                       ID_EDIT_MESSAGESENDERNAMES_SHORT
+
+            MENUITEM "Långa",                       ID_EDIT_MESSAGESENDERNAMES_LONG
+
+        END
+        POPUP "Stridsvagnsmärkning"
+        BEGIN
+            MENUITEM "Inga\tCtrl+1",                ID_EDIT_TANKLABELS_NONE
+            MENUITEM "Korta\tCtrl+2",               ID_EDIT_TANKLABELS_SHORT
+            MENUITEM "Långa\tCtrl+3",               ID_EDIT_TANKLABELS_LONG
+            MENUITEM "Ingen märkning av egen stridsvagn", 
+                                                    ID_EDIT_TANKLABELS_DONTLABELOWNTANK
+
+        END
+        MENUITEM "Bunkermärkning\tCtrl+P",      ID_EDITMENU_PILLLABELS
+        MENUITEM "Märkning av &bränslepåfyllningsbaser\tCtrl+B", 
+                                                ID_EDITMENU_BASELABELS
+        MENUITEM SEPARATOR
+        MENUITEM "Dölj &huvudsynfält\tCtrl+H",  ID_EDITMENU_HIDEMAINVIEW
+    END
+    POPUP "&WinBolo"
+    BEGIN
+        MENUITEM "&Tillåt nya spelare",         ID_BOLOMENU_ALLOWNEWPLAYERS
+        , CHECKED
+        MENUITEM "Ställ in tangenter\tCtrl-K",  ID_BOLOMENU_SETKEYS
+        MENUITEM "&Ändra spelarnamn",           ID_BOLOMENU_CHANGENAME
+        MENUITEM SEPARATOR
+        MENUITEM "&Ljudeffekter",               ID_BOLOMENU_SOUNDEFFECTS
+        MENUITEM "&Bakgrundsljud",              ID_BOLOMENU_BACKGROUNDSOUND
+        MENUITEM "&ISA ljudkort",               ID_BOLOMENU_ISASOUNDCARD
+        MENUITEM SEPARATOR
+        MENUITEM "Telegrafmeddelanden",         ID_BOLOMENU_NEWSWIREMESSAGES
+        MENUITEM "Assistentmeddelanden",        ID_BOLOMENU_ASSISTANTMESSAGES
+
+        MENUITEM "Meddelanden från datorstyrda stridsvagnar", 
+                                                ID_BOLOMENU_AIBRAINMESSAGES
+        MENUITEM "Nätverksstatusmeddelanden",   ID_BOLOMENU_NETWORKSTATUSMESSAGES
+
+        MENUITEM SEPARATOR
+        MENUITEM "Efterf&råga allians\tCtrl-R", ID_BOLOMENU_REQUESTALLIENCE
+        , GRAYED
+        MENUITEM "&Lämna allians",              ID_BOLOMENU_LEAVEALLIENCE
+        , GRAYED
+    END
+    POPUP "&Spelare"
+    BEGIN
+        MENUITEM "Skicka &meddelande\tCtrl+M",  ID_PLAYERSMENU_SENDMESSAGE
+        MENUITEM SEPARATOR
+        MENUITEM "Välj &alla",                  ID_PLAYERSMENU_SELECTALL
+        MENUITEM "Välj i&ngen",                 ID_PLAYERSMENU_SELECTNONE
+        MENUITEM "&Välj allierade",             ID_PLAYERSMENU_SELECTALLIES
+        MENUITEM "Välj närliggande s&tridsvagnar", 
+                                                ID_PLAYERSMENU_SELECTNEARBYTANKS
+
+        MENUITEM SEPARATOR
+        MENUITEM "1",                           ID_PLAYERSMENU_01, GRAYED
+        MENUITEM "2",                           ID_PLAYERSMENU_02, GRAYED
+        MENUITEM "3",                           ID_PLAYERSMENU_03, GRAYED
+        MENUITEM "4",                           ID_PLAYERSMENU_04, GRAYED
+        MENUITEM "5",                           ID_PLAYERSMENU_05, GRAYED
+        MENUITEM "6",                           ID_PLAYERSMENU_06, GRAYED
+        MENUITEM "7",                           ID_PLAYERSMENU_07, GRAYED
+        MENUITEM "8",                           ID_PLAYERSMENU_08, GRAYED
+        MENUITEM "9",                           ID_PLAYERSMENU_09, GRAYED
+        MENUITEM "10",                          ID_PLAYERSMENU_10, GRAYED
+        MENUITEM "11",                          ID_PLAYERSMENU_11, GRAYED
+        MENUITEM "12",                          ID_PLAYERSMENU_12, GRAYED
+        MENUITEM "13",                          ID_PLAYERSMENU_13, GRAYED
+        MENUITEM "14",                          ID_PLAYERSMENU_14, GRAYED
+        MENUITEM "15",                          ID_PLAYERSMENU_15, GRAYED
+        MENUITEM "16",                          ID_PLAYERSMENU_16, GRAYED
+    END
+    POPUP "&Datorstyrda stridsvagnar"
+    BEGIN
+        MENUITEM "&Inga",                       ID_BRAINSMENU_MANUAL
+        , CHECKED
+        MENUITEM SEPARATOR
+    END
+    POPUP "&Hjälp"
+    BEGIN
+        MENUITEM "&Hjälp",                      ID_HELP_HELP
+        MENUITEM "&Om Winbolo",                 ID_HELPMENU_ABOUT
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "0c0904b0"
+        BEGIN
+            VALUE "Comments", "WinBolo Language Set\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "WinBolo Svenska Language Set\0"
+            VALUE "FileVersion", "1.00\0"
+            VALUE "InternalName", "\0"
+            VALUE "OriginalFilename", "\0"
+            VALUE "ProductName", "\0"
+            VALUE "ProductVersion", "1.00\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0xc09, 1200
+    END
+END
+
+#endif    // !_MAC
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (Australia) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENA)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_AUS
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGOPENING_TITLE    "Nätverksselektion"
+    STR_DLGOPENING_TEXT     "Välkommen till WinBolo, stridsvagnsspelet för flera spelare.Välj typ av spel från nedanstående lista:"
+    STR_DLGOPENING_OPTION1  "Övning (En spelare; Inget nätverk)"
+    STR_DLGOPENING_OPTION2  "TCP/IP"
+    STR_DLGOPENING_OPTION3  "Internet (Sökning efter andra spelare online)"
+    STR_DLGOPENING_SKIP     "Hoppa över denna dialogruta nästa gång"
+    STR_OK                  "OK"
+    STR_DLGOPENING_BUTTON2  "Avsluta"
+    STR_DLGLANG_TITLE       "Välj språk"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    NETERR_JOININIT         "Inget svar erhölls från spelet du försökte kontakta.\nDetta beror vanligen på en av följande anledningar:\n1. Adressen och porten är felaktigt angivna.\n2. Du befinner dig bakom någon slags brandvägg som förhindrar UDP-överföring.\n3. Din version av WinBolo är inte samma som spelets version"
+    NETERR_GAMEFULL         "Detta spel är förnuvarande fullt"
+    NETERR_SERVERCONNECT    "Misslyckades med att skapa en förbindelse med servern. Försök med att kontakta en annan spelare eller vänta några sekunder och försök igen."
+    NETERR_PASSWORDWRONG    "Lösenordet är felaktigt"
+    NETERR_PLAYERNAMEINUSE  "Ditt spelarnamn används redan. Välj ett annat och försök igen"
+    NETERR_NONEWPLAYERS     "Tyvärr, detta spelet accepterar förnuvarande inga fler spelare"
+    NETERR_CONNECTNOJOIN    "Du kunde kopplas upp mot servern men du tilläts inte ansluta dig. Detta betyder antagligen att ditt spelarnamn redan används. Försök igen med ett nytt namn"
+    NET_STATUS_JOINING      "Ansluter"
+    NET_STATUS_OK           "OK"
+    NET_STATUS_FAILED       "Misslyckades"
+    NETERR_LOSTCONNECTION   "Du har förlorat din uppkoppling till servern.\nSpelet har återgått till typen singel-spelare."
+    STR_DLGMSG_TITLE        "Skriv meddelande till"
+    STR_DLGOPENING_BUTTON3  "Språken"
+    STR_DLGOPENING_BUTTON4  "Hjälp"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGLANG_NAME_CAPTION "Språk: "
+    STR_DLGLANG_NAME        "Svenska"
+    STR_DLGLANG_AUTHOR_CAPTION "Författare: "
+    STR_DLGLANG_AUTHOR      "C.H."
+    STR_DLGOPENING_OPTION4  "Lokalt nätverk (Sökning efter andra spelare)"
+    STR_DLGOPENING_OPTION0  "Handledning (Instruktion för förstagångsspelare)"
+    STR_DLGLANG_NOTES_CAPTION "Noteringar: "
+    STR_DLGLANG_NOTES       "Ett löfte är ett löfte. Make peace, not war...=-)"
+    STR_DLGLANG_DEFAULTNOTE "Notera att alla ofullständigt översatta termer ersätts med de ursprungliga engelska"
+    STR_DLGABOUT_TITLE      "Om WinBolo"
+    STR_DLGABOUT_BLURB      "WinBolo-paketet får distribueras fritt förutsatt att varken programmet eller någon av de medföljande filerna utelämnas eller ändras på något som helst sätt.\n\nWinBolo är ett shareware program. Shareware program är inte gratis. Det kostar pengar, precis som vilket annat program du köper, med det undantaget att du kan prova shareware program innan du bestämmer dig för om du tycker om det.\n\nWinBolo kostar $25(US). Om du betämmer dig för att behålla WinBolo kan du betala för det på ett av följande sätt:\n\nKör programmet ""register.exe"" som finns i WinBolo-foldern. Det möjliggör för dig att betala via check, postanvisning, kontant eller med kreditkort via e-mail, fax eller post.\n\nFör att kunna betala med kreditkort via Internet, gå till: http://order.kagi.com/?XYV och fyll i formuläret.\n\nFör mer information läs filen ""Readme(Shareware)"" som medföljer Winbolo-paketet."
+    STR_DLGALLIANCE_TITLE   "Alliansförfrågan"
+    STR_DLGALLIANCE_ACCEPT  "&Acceptera"
+    STR_DLGALLIANCE_DECLINE "&Avböj"
+    STR_DLGALLIANCE_BLURB   " efterfrågar allians. Acceptera?"
+    STR_DLGGAMEFINDER_REFRESHFIRST 
+                            "Försök med att trycka på ""refresh"" först."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGGAMEFINDER_MESSAGEOFTHEDAY "Dagens meddelande"
+    STR_DLGGAMEFINDER_WRONGVERSION 
+                            "Spelet du försökte att ansluta dig till är av en annan version av WinBolo. Försök ansluta dig till ett annat spel istället"
+    STR_DLGGAMEFINDER_NOGAMESINPROGRESS "Inga spel pågår (Starta ett!)"
+    STR_YES                 "Ja"
+    STR_NO                  "Nej"
+    STR_DLGGAMEFINDER_YESADV "Ja (Med en fördel)"
+    STR_DLGGAMEFINDER_OPEN  "Öppet"
+    STR_DLGGAMEFINDER_TOURNAMENT "Turnering"
+    STR_DLGGAMEFINDER_STRICTTOURNAMENT "Strikt"
+    STR_DLGGAMEINFO_TITLE   "WinBolo spelinformation"
+    STR_DLGGAMEINFO_MAPNAME "Kartnamn: "
+    STR_DLGGAMEINFO_NUMPLAYERS "Antal spelare: "
+    STR_DLGGAMEINFO_GAMETYPE "Speltyp: "
+    STR_DLGGAMEINFO_HIDDENMINES "Gömda minor: "
+    STR_DLGGAMEINFO_ALLOWCOMPTANKS "Tillåtna datorstridsvagnar: "
+    STR_DLGGAMEINFO_TIMELIMIT "Tidsbegränsning: "
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGGAMESETUP_BLURB  "Välj de alternativ du vill ha för ditt nya spel:"
+    STR_CANCEL              "Avbryt"
+    STR_DLGGAMESETUP_TITLE  "Spelinställningar"
+    STR_DLGGAMESETUP_CHOOSEMAP "Välj karta"
+    STR_DLGGAMESETUP_SELECTEDMAP "Vald karta: "
+    STR_DLGGAMESETUP_SELECTEDMAPINBUILT 
+                            " Vald karta: Everard Island (Inbyggd)"
+    STR_DLGGAMESETUP_RADIO1 " Öppet spel (varje ny stridsvagn kommer beväpnad)"
+    STR_DLGGAMESETUP_RADIO2 "Turnering (fri ammunition tidigt i spelet)"
+    STR_DLGGAMESETUP_RADIO3 "Strikt turnering (ingen fri ammunition alls)"
+    STR_DLGGAMESETUP_HIDDENMINES "Tillåt gömda minor"
+    STR_DLGGAMESETUP_ALLOWCOMPTANKS " Tillåt datorstridsvagnar"
+    STR_DLGGAMESETUP_ALLOWCOMPTANKSADV "och ge dem en fördel"
+    STR_DLGGAMESETUP_PASSWORD "Spellösenord "
+    STR_DLGGAMESETUP_MINUTES "minuter"
+    STR_DLGGAMESETUP_SECONDS "sekunder"
+    STR_DLGGAMESETUP_STARTDELAY "Fördröjning av spelstart"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGGAMESETUP_TIMELIMIT "Tidsbegränsning "
+    STR_DLGGAMESETUP_ERROROPENINGMAP "Fel uppstod under öppnandet av karta."
+    STR_DLGGAMEINFO_TIMEREMAINING "Ungefär %d minut(er)"
+    STR_DLGGAMEINFO_OPEN    "Öppen"
+    STR_DLGGAMEINFO_TOURN   "Turnering"
+    STR_DLGGAMEINFO_STRICT  "Strikt turnering "
+    STR_DLGGAMEINFO_AIADV   "Ja (med en fördel)"
+    STR_DLGGAMESETUP_DEFAULTNAME "Jag"
+    STR_DLGKEYSETUP_TITLE   "Välj tangentinställningar"
+    STR_DLGKEYSETUP_BLURB   "Klicka på det alternativet som du vill ändra och sedan på den tangent som den ska tillskrivas. Tangenterna ALT, PRINT SCREEN och PAUSE kan inte tillskrivas några kommandon."
+    STR_DLGKEYSETUP_DRIVETANK "Kör stridsvagn:"
+    STR_DLGKEYSETUP_TURNTANK "Rotera stridsvagn:"
+    STR_DLGKEYSETUP_GUNRANGE "Skottvidd:"
+    STR_DLGKEYSETUP_WEAPONS "Vapen:"
+    STR_DLGKEYSETUP_VIEW    "Ändra synfält:"
+    STR_DLGKEYSETUP_SCROLL  "Scrolla:"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGKEYSETUP_LEFT    "(vänster)"
+    STR_DLGKEYSETUP_RIGHT   "(höger)"
+    STR_DLGKEYSETUP_AUTOSLOWDOWN "Automatisk insaktning"
+    STR_DLGKEYSETUP_AUTOGUNSIGHT "Automatisk visning/döljning av gevärssikte"
+    STR_DLGKEYSETUP_FASTER  "Accelerera"
+    STR_DLGKEYSETUP_SLOWER  "Sakta ned"
+    STR_DLGKEYSETUP_TURNLEFT "Moturs"
+    STR_DLGKEYSETUP_TURNRIGHT "Medurs"
+    STR_DLGKEYSETUP_INCREASE "Öka"
+    STR_DLGKEYSETUP_DECREASE "Minska"
+    STR_DLGKEYSETUP_SHOOT   "Skjut"
+    STR_DLGKEYSETUP_LAYMINE "Lägg mina"
+    STR_DLGKEYSETUP_TANKVIEW "Stridsvagnssynfält"
+    STR_DLGKEYSETUP_PILLVIEW "Bunker"
+    STR_DLGKEYSETUP_SCROLLUP "Upp"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGKEYSETUP_SCROLLDOWN "Ned"
+    STR_DLGKEYSETUP_SCROLLLEFT "Vänster"
+    STR_DLGKEYSETUP_SCROLLRIGHT "Höger"
+    STR_DLGKEYSETUP_NEWKEYFOR "Håll ned ny tangent för "
+    STR_DLGKEYSETUP_FORWARD "framåt"
+    STR_DLGKEYSETUP_BACKWARD "bakåt"
+    STR_DLGKEYSETUP_ROTATELEFT "Rotera vänster"
+    STR_DLGKEYSETUP_ROTATERIGHT "Rotera höger"
+    STR_DLGKEYSETUP_INCREASERANGE "Öka skottvidd"
+    STR_DLGKEYSETUP_DECREASERANGE "Minska skottvidd"
+    STR_DLGKEYSETUP_SETSHOOT " Skjut "
+    STR_DLGKEYSETUP_SETLAYMINE "Lägg mina"
+    STR_DLGKEYSETUP_SETTANKVIEW "Stridsvagnssynfält "
+    STR_DLGKEYSETUP_SETPILLVIEW "Bunkersynfält "
+    STR_DLGKEYSETUP_SETSCROLLUP "Scrolla uppåt"
+    STR_DLGKEYSETUP_SETSCROLLDOWN "Scrolla nedåt"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGKEYSETUP_SETSCROLLLEFT "Scrolla vänster"
+    STR_DLGKEYSETUP_SETSCROLLRIGHT "Scrolla höger"
+    STR_DLGMSG_BUTTON       "&Skicka"
+    STR_DLGMSG_ALLPLAYERS   "Alla spelare"
+    STR_DLGMSG_ALLALLIES    "Alla allierade"
+    STR_DLGMSG_NEARBY       "Alla närliggande stridsvagnar"
+    STR_DLGMSG_SELECTION    "Markerade spelare i spelarmenyn"
+    STR_DLGMSG_SENDPLAYER   "Skickar meddelande till %d spelare"
+    STR_DLGMSG_SENDPLAYERS  "Skickar meddelande till %d spelare"
+    STR_DLGNETINFO_TITLE    "WinBolo nätverksinformation"
+    STR_DLGNETINFO_SERVERADDRESS "Serveradress:"
+    STR_DLGNETINFO_THISGAMEADDRESS "Detta spelets adress:"
+    STR_DLGNETINFO_SERVERPING "Server ping (ms):"
+    STR_DLGNETINFO_PACKETS  "Paket per sekund (per spelare):"
+    STR_DLGNETINFO_STATUS   "Nätverksstatus:"
+    STR_DLGNETINFO_ERRORS   "Nätverksfel:"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGPASSWORD_TITLE   "Lösenord"
+    STR_DLGPASSWORD_BLURB   "Detta spel är lösenordsskyddat. Fyll i det rätta lösenordet för att ansluta dig:"
+    STR_DLGSETNAME_TITLE    "Fyll i spelarnamn"
+    STR_DLGSETNAME_BLURB    "Fyll i det nya spelarnamnet på din stridsvagn"
+    STR_DLGTRACKER_TITLE    "Sökarkonfiguration"
+    STR_DLGTRACKER_USETRACKER "Använd sökare"
+    STR_DLGTRACKER_TRACKERADDRESS "Sökarens adress:"
+    STR_DLGTRACKER_TRACKERPORT "Sökarens port:"
+    STR_DLGSYSINFO_TITLE    "WinBolo systeminformation"
+    STR_DLGSYSINFO_CPUUSAGE "CPU användning:"
+    STR_DLGSYSINFO_SIMMODELING "Simulationsmodulering:"
+    STR_DLGSYSINFO_COMPROCESSING "Kommunikationsprocessande:"
+    STR_DLGSYSINFO_GRAHPICSDISPLAY "Skärmgrafik:"
+    STR_DLGSYSINFO_AICONTROLPROCESSING 
+                            "Processandet utav datorstyrda stridsvagnar:"
+    STR_DLGSYSINFO_TOTAL    "Totalt:"
+    STR_DLGSYSINFO_GRAPHICSFPS "Graphics frames per second:"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGTCP_TITLE        "UDP (Internet) inställningar"
+    STR_DLGTCP_BLURB        "För att ansluta dig till ett Internet Bolo-spel måste du ange namnet eller IP-adressen på en värdmaskin som kör Bolo, samt UDP-portnumret på värdmaskinen som kör Bolo-programmet."
+    STR_DLGTCP_JOIN         "&Anslut"
+    STR_DLGTCP_REJOIN       "&Återanslut"
+    STR_DLGTCP_NEW          "&Ny"
+    STR_DLGTCP_TRACKERSETUP "&Sökareinställningar"
+    STR_DLGTCP_REMEMBER     "Kom ihåg spelarnamn"
+    STR_DLGTCP_MACHINENAME  "Maskinnamn (eller IP-adress):"
+    STR_DLGTCP_THEREUDP     "UDP-porten för Bolo på serverdatorn:"
+    STR_DLGTCP_USUDP        "UDP-porten för Bolo på din dator:"
+    STR_DLGTCP_NAME         "Ditt spelarnamn i spelet:"
+    STR_DLGTCP_NEWBLURB     "Klicka på ""Nytt spel"" för att starta ett spel"
+    STR_DLGTCP_JOINBLURB    "Klicka på ""Anslut"" för att gå med i ett pågående spel"
+    STR_DLGTCP_REJOINBLURB  "Klicka på ""Återanslut"" för att återansluta dig till ett spel och återkräva dina gamla besittningar"
+    STR_ERR_DLGTCP_PORTS    "Serverns och den egna porten är samma!"
+    STR_ERR_DLGTCP_NOTRIGHT "Något är inte helt rätt här..."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_ERR_DLGTCP_SUBCLASS "Can't set the window subclass for copying!"
+    STR_DLGGAMEFINDER_JOINADDRESS "Anslut &via adress"
+    STR_DLGGAMEFINDER_REFRESH "&Refresh"
+    STR_DLGGAMEFINDER_PLAYERNAME "Ställ in s&pelarnamn"
+    STR_DLGGAMEFINDER_MOTD  "Dagens &meddelande"
+    STR_DLGGAMEFINDER_STATUSBLURB "Status"
+    STR_DLGGAMEFINDER_SELECTEDGAME "Selekterad spelinformation"
+    STR_DLGGAMEFINDER_BRAINS "Datorstyrda stridsvagnar:"
+    STR_DLGGAMEFINDER_PASSWORD "Lösenord:"
+    STR_DLGGAMEFINDER_PILLS "Antal fria bunkrar:"
+    STR_DLGGAMEFINDER_BASES "Antal fria baser:"
+    STR_DLGGAMEFINDER_HIDDENMINES "Gömda minor:"
+    STR_DLGGAMEFINDER_NUMPLAYERS "Antal spelare:"
+    STR_DLGGAMEFINDER_VERSION "Version:"
+    STR_DLGGAMEFINDER_GAMETYPE "Speltyp:"
+    STR_DLGGAMEFINDER_PORT  "Serverport:"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGGAMEFINDER_ADDRESS "Serveradress:"
+    STR_BRAINERR_BRAINDIR   """Brains""-foldern existerar inte.\nKommer inte att ladda datorstyrda stridsvagnar!"
+    STR_BRAINERR_LAUNCH     "Ett fel uppstod under uppladdning av datorstyrd stridsvagn"
+    STR_BRAINERR_LAUNCHMAIN " Ett fel uppstod under uppladdning av den datorstyrda stridsvagnen - den datorstyrda stridsvagnen saknar funktionen ""BrainMain"""
+    STR_BRAINERR_INIT       " Ett fel uppstod under uppladdning av datorstyrd stridsvagn "
+    STR_BRAINERR_EXEC       "Kan inte köra den datorstyrda stridsvagnen"
+    STR_DRAWERROR_CREATEOBJECT "Creating DD Object Failed"
+    STR_DRAWERROR_SETCOOPLEVEL "Creating DD co-op level Failed"
+    STR_DRAWERROR_CREATEPRIMARY "Creating DD Primary Surface Failed"
+    STR_DRAWERROR_GETPIXELFORMAT "Getting DD Pixel Format Failed"
+    STR_DRAWERROR_GETDESC   "Hämtning av ytbeskrivning misslyckades"
+    STR_DRAWERROR_TOOFEWCOLOURS 
+                            "Denna version av Bolo inte köras i palett-mode.\n Ändra din skärms färgdjup till större än 256 färger"
+    STR_DRAWERROR_BUFFERCREATE "Creating DD buffer Failed"
+    STR_DRAWERROR_GETDCFAILED "DD Get DC failed"
+    STR_DRAWERROR_CLIPPERFAILED "Creating DD Clipper Failed"
+    STR_DRAWERROR_BRUSH     "Fel uppstod under skapandet av målarverktyg"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DRAWERROR_PEN       " Fel uppstod under skapandet av ritverktyg"
+    STR_DRAW_GAMESTARTSIN   "Spelet startar om "
+    STR_DRAWERROR_RELEASEDC " Ett fel uppstod under då DC skulle återöverlämnas under ritandet av stridsvagnsmärkningen(Det är inte så bra...)"
+    STR_DRAW_PILLBOXVIEW    "Bunkersynfält"
+    STR_FONTERR_NOCOURIERFONT "Kan inte ladda fonten Courier"
+    STR_GAMEFRONTERR_CORRUPTPREFS 
+                            "Ett fel uppstod under inläsningen av dina förinställningar. De förinbyggda inställningarna används istället"
+    STR_GAMEFRONTERR_WINDOW "Error Creating Window"
+    STR_GAMEFRONTERR_DDRAW  "Error Setting up Direct Draw"
+    STR_GAMEFRONTERR_DSOUND "Error Setting up Direct Sound"
+    STR_GAMEFRONTERR_DINPUT "Error Setting up Direct Input"
+    STR_GAMEFRONTERR_CURSOR "Error Loading cursor"
+    STR_GAMEFRONTERR_FONTS  "Error Loading Fonts"
+    STR_GAMEFRONT_LANFINDER_TITLE "LAN spelsökare"
+    STR_GAMEFRONT_TRACKERFINDER_TITLE "Spelsökare"
+    STR_GAMEFRONTERR_JOINGAME "Ett fel uppstod under anslutandet till spelet"
+    STR_GAMEFRONTERR_SPAWNSERVER 
+                            " Ett fel uppstod under försöket att köra spelet.\n Befinner sig programmet ""WinBoloDS"" i samma folder som WinBolo?"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_GAMEFRONTERR_NETSINGLEPLAYER 
+                            "Något verkligen bisarrt hände i nätverkets subsystem vilket är konstigt eftersom du valt att spela ett singelspel... Lyckans dig..."
+    STR_GAMEFRONT_SERVERSTARTMSG 
+                            "Denna utgåva av WinBolo använder sig av en fristående server för att köra nätverksspel.\nDetta kommer att ändras i  efterföljande utgåvor."
+    STR_GAMEFRONT_INPUTERR_CREATE 
+                            "Skapandet utav Direct Input Keyboard Device failed"
+    STR_GAMEFRONT_INPUTERR_DATAFORMAT 
+                            "Setting the Data Format for the Direct Input Keyboard Device failed "
+    STR_GAMEFRONT_INPUTERR_COOPLEVEL 
+                            "Setting the Co-operative Level for the Direct Input Keyboard Device failed "
+    STR_NETCLIENTERR_WINSOCKFAILSTARTUP "Error Starting Winsock"
+    STR_NETCLIENTERR_CREATEUDPFAIL "Error Creating UDP Socket"
+    STR_NETCLIENTERR_CREATETCPFAIL "Error Creating TCP Socket"
+    STR_NETCLIENTERR_BINDUDPFAIL 
+                            "Error Binding UDP Socket\n Some other program has this port assigned already. Try choosing another.\n\nNOTE: If du started a network game och it launched successfully then it is still running.\n You will not need to start it again"
+    STR_NETCLIENTERR_CHAINFAIL 
+                            "Error adding network Events to messaging chain"
+    STR_NETCLIENTERR_TRACKERVERSIONFAIL "Unsupported Tracker Version"
+    STR_NETCLIENTERR_TRACKERDNSFAIL 
+                            "Error finding tracker (DNS lookup failure)"
+    STR_NETCLIENTERR_TRACKERCONNECTFAIL "Error Connecting to tracker"
+    STR_NETCLIENTERR_TRACKERNOBLOCK "Error setting socket to be noblocking"
+    STR_NETCLIENT_TRACKERGETRESPONSE "Receiving game info..."
+    STR_NETCLIENT_TRACKERPROCESSRESPONSE "Processing tracker data..."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_NETCLIENTERR_TRACKERNODATA "Error: Tracker sent no data"
+    STR_NETCLIENT_TRACKERCONNECT "Connecting: "
+    STR_NETCLIENT_IDLE      "Idle"
+    STR_NETCLIENTERR_BIND   "Error binding socket"
+    STR_NETCLIENTERR_BROADCAST "Error sending broadcast"
+    STR_NETCLIENT_GETRESPONSES "Mottar svar..."
+    STR_SOUNDERR_FILENOTFOUND 
+                            "Kan inte ladda WinBolo Sounds - Fortsätter utan ljud"
+    STR_SOUNDERR_HARDWAREINUSE 
+                            "Error Setting Up Direct Sound - Hårdvaran används av en annan applikation.\n Fortsätter utan ljud."
+    STR_SOUNDERR_CREATEFAILED 
+                            "Skapandet av DS Object misslyckades\nFortsätter utan ljud."
+    STR_SOUNDERR_COOPFAILED "Skapandet av DS Co-Op Level misslyckades "
+    STR_SOUNDERR_PRIMARYBUFFFAIL 
+                            "Skapandet av DS Primary Buffer misslyckades "
+    STR_SOUNDERR_LOADSOUNDFAILED 
+                            "Uppladdningen av en eller flera ljudfiler misslyckades "
+    STR_WBERR_MUTEXCREATE   "Ett fel uppstod under skapandet av Mutex. (Det är inte så bra...)"
+    STR_WBERR_BRAINLISTLOAD "Ett fel uppstod under uppladdningen av listan på datorstyrda stridsvagnar"
+    STR_WBERR_KEYCLASSSETUP "Error Setting up Key Setup Class"
+    STR_WBTIMELIMIT_END     "Tiden har gått ut. Spelet har avslutats."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_WBERR_SAVEMAP       "Ett fel uppstod under sparandet av kartan (Är din skiva full?)"
+    STR_TUTORIAL01          "Framför dig finns en liten flod som leder inåt land. Håll \nnere""Q""-tangenten för att köra din båt till flodens utlopp.\n\nNär du kommer dit, forsätt att hålla nere ""Q"". Stridsvagnen \nkommer att landstiga ifrån båten och båten kommer att förtöjas vid\n flodmynningen"
+    STR_TUTORIAL02          "Du befinner dig nu på gräsmark. Stridsvagnen rör sig ganska \nsnabbt på gräs.\n\n\n \nFortsätt att hålla nere ""Q"" för att köra mot skogen."
+    STR_TUTORIAL03          "Du är nu i skogen. Stridsvagnen rör sig långsammare i skog än \npå gräs. Fortsätt att hålla nere ""Q"" för att köra mot träsket."
+    STR_TUTORIAL04          "Du befinner dig nu i träskmark. Stridsvagnen rör sig mycket långsamt\n i träskmark. Som tur är finns det en väg längre fram. Fortsätt att \nhålla nere ""Q"" för att köra fram till vägen."
+    STR_TUTORIAL05          "Du befinner dig nu på vägen. Stridsvagnen kan röra sig mycket snabbt\n på vägar och om du håller nere ""Q"" kommer stridsvagnen att \naccelerera.\n\n\nOm du tycker att det går för fort så håll nere ""A""."
+    STR_TUTORIAL06          "Det finns några byggnader längre fram. Byggnader är solida\nhinder som du inte kan köra genom, så du måste leta dig fram \ngenom labyrinten till den andra sidan.\n\nFör att rikta stridsvagen åt vänster, håll nere ""O""\nFör att rikta stridsvagen åt höger, håll nere ""P""."
+    STR_TUTORIAL07          "De runda objekten med röda gevär som sticker ut är automatiserade \nbunkrar. De kommer att skjuta alla stridsvagnar som kommer inom \n skotthåll.\n\n\nSom tur är utgör byggnaderna skydd från skotten, så bunkrarna \nkommer inte att kunna träffa dig såvida du inte dröjer kvar så \npass länge att de lyckas\nskjuta sig igenom byggnaderna helt."
+    STR_TUTORIAL08          "Skog utgör också skydd från bunkrarna, men på ett annat sätt.\nSkogen saktar visserligen ned stridsvagnen rejält a men skogen\nbegränsar samtidigt din synlighet.\n\n\nNär du befinner dig inne i skogen kan du fortfarande tydligt se\nallt utanför skogen, men bunkrarna (och andra spelare) kan inte\nse din stridsvagn såvida du inte kommer dem väldigt nära."
+    STR_TUTORIAL09          "Räta upp din stridsvagn längs mitten av skogsremsan och kör rakt\nnorrut. Om du kör rakt fram och undviker att köra för nära \nskogens utkanter, kommer inte bunkrarna att se dig och därför\ninte heller att skjuta.\n\n\nKör inte utanför skogen för då blir du skjuten i bitar."
+    STR_TUTORIAL10          "Det finns ett annat enkelt sätt att undkomma bunkrarna - fart.\n\n\nSe till att du är rätt uppställd framför vägens mitt, och håll\nnere ""Q"" för att köra i full fart förbi bunkrarna."
+    STR_TUTORIAL11          "När de märker dig kommer de att börja skjuta, men om du forsätter\natt köra rakt fram och håller huvudet kallt kommer du att vara\nutom skotthåll innan de kan träffa dig.\n\n\nKör inte av vägen in i träsket för då blir du en levande måltavla\nför bunkrarna, och du kommer inte att kunna röra dig fort nog för\natt undkomma."
+    STR_TUTORIAL12          "Framför dig finns en bränslepåfyllingsbas. Bränslepåfyllingsbaser\ntillhandhåller granater som du kan skjuta och minor som du kan\nrigga hemliga fällor med. Baserna kan också reparera din stridsvagns\npansar tillbaks till full styrka om den har skadats.\n\n\nStanna till på bränslepåfyllingsbasen och fyll på din stridsvagn\nmed granater."
+    STR_TUTORIAL13          "Du befinner dig på bränslepåfyllingsbasen. Din stridsvagn kommer nu\natt lastas med granater och minor, vilket indikatorerna till\nhöger visar. Framför dig, bortom byggnaderna, finns ett minfält."
+    STR_TUTORIAL14          "Om du kör din stridsvagn in i minfältet kommer den att\nförstöras. Som tur är kan du rensa ett minfält genom\natt avlossa skott. Tryck ned mellanslagstangenten för att\nskjuta.\n\nSkjut ett hål genom byggnaden, och placera sedan en\ngranat i mitten av minfältet för att detonera det.\nNär du spränger minorna kommer de att skapa stora\nkratrar i marken vilka du kan köra genom, även om det\ngår lika långsamt som genom träskmark."
+    STR_TUTORIAL15          "Framför dig finns ytterligare ett minfält. Gör om samma\ntrick igen:\nKör upp på bränslepåfyllingsbasen, skjut genom \nväggen, och placera en granat i mitten av minfältet\nför att detonera det.\n\nDenna gång däremot, ligger minfältet vid en stor\nflod, och vatten kommer att översvämma kratrarna.\nDu kan köra stridsvagnen genom vattnet precis som genom\nkratrar och sumpmark."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_TUTORIAL16          "WinBolo scrollar automatiskt fönstret för att visa dig\nområdet runtomkring din stridsvagn men du kan använda\npiltangenterna på tangentbordet för att manuellt kontrollera\nsynfältet istället.\n\nTryck på uppåt-pilen på tangentbordet nu för att få ett\nbättre synfält av floden framför dig."
+    STR_TUTORIAL17          "Att köra genom vatten går inte bara mycket långsamt, det\nmedför också en annan nackdel: det kommer att tömma din\nstridsvagns förråd på granater och minor.\n\n\nNär du kommer över till den andra sidan kommer din stridsvagn\nfortfarande att fungera, men du kommer att ha förlorat all\nstridskapacitet."
+    STR_TUTORIAL18          "Denna gång ska vi vara lite listigare när vi korsar floden.\nIstället för att bara köra rakt genom vattnet, ska vi bygga\nen bro.\n\n\nSelektera trädfällningsverktyget genom att klicka på skogsikonen\n(längst upp till vänster i fönstret) och sedan på skogen.\nDin byggmästare kommer att hoppa ut ur stridsvagnen och fälla\nett träd som kan användas som byggnadsmaterial."
+    STR_TUTORIAL19          "Efter att ha fällt några träd, välj väg/bro-verktyget (andra\nknappen uppifrån) och klicka med markören på floden vid slutet\nav vägen.\n\n\nDin byggmästare kommer att hoppa ut ur stridsvagnen och bygga\nett segment av bron. Klicka igen för att komplettera bron och\nkör sedan över till den andra sidan."
+    STR_TUTORIAL20          "Denna floden är bredare än den förra, och dess mitt är alltför\ndjup för att du ska kunna bygga en bro. Om du försöker att köra\nrakt igenom vattnet kommer stridsvagnen sjunka till botten och\nförstöras."
+    STR_TUTORIAL21          "För att korsa denna flod måste du bygga en båt. Båtar kräver fem\nträd, så klicka på de fem träden för att fälla dem. Välj sedan\nvägg/båt-verktyget (tredje knappen uppifrån) och klicka på vattnet\nför att bygga en båt.\n\nOm du klickar på land kommer du att bygga en mur istället och du\nkommer att behöva fälla ytterligare några träd för att bygga en båt.\nKör upp på båten och korsa floden för att komma till den andra sidan."
+    STR_TUTORIAL22          "Det finns en bunker lite längre fram, och några bränslepåfyllingsbaser\nför att tillhandahålla dig med ammunition. Samla på dig granater från\nbränslepåfyllingsbasen och attackera bunkern.\n\n\nDen kommer att besvara beskjutningen, men om din stridsvagn blir\nträffad kan du lätt återvända till bränslepåfyllingsbasen för att\nfå ditt pansar reparerat tillbaks till full styrka igen."
+    STR_TUTORIAL23          "Med tålamod och försiktighet borde du kunna oskadliggöra denna \nbunker. Använd de färdigheter du lärt dig för att göra det lättare:\n\n\nGöm dig i skogen så att bunkern inte kan se dig, fäll träd och bygg\nvägar för att kunna röra dig snabbare, samt bygg byggnader för att\nskapa skydd mot bunkrarnas skott."
+    STR_TUTORIAL24          "Efter att du lyckats besegra denna bunker, är din slutliga utmaning\ni denna genomgång att besegra de två bunkrarna som vaktar utgången,\nbygga en båt, och fly.\n\n\nHåll noggrann koll på din stridsvagns pansarnivå - om din stridsvagn\nblir förstörd måste du börja om från början med en ny stridsvagn, på\nen ny båt, ute till havs igen."
+    STR_TUTORIAL25          "Grattis. Du har gjort färdigt genomgången av WinBolo.\n\n\n\nSamla nu ihop ett gäng vänner att spela med och ta reda på hur det är\natt tävla mot intelligenta, mänskliga motståndare istället för \nstationära, icke-tänkande mål."
+    STR_TUTORIAL_START01    "Välkommen till WinBolo-handledningen. Denna ö introducerar\nWinBolos grundläggande principer och tar dig igenom dem\nen efter en. Varje ny princip kommer att beskrivas i ett\nfönster som det här.\n\nEfter att du läst varje meddelande, fortsätt genom att\nklicka på ""OK"" -knappen med musen eller genom att\nhelt enkelt trycka på <Retur>-tangenten på tangentbordet"
+    STR_TUTORIAL_START02    "WinBolo är en klon av Bolo, det klassiska nätverksspelet\ni Macintoshmiljö. Du kan hitta strategitips och annan\ninformation på den officiella websidan:\n\nhttp://www.lgm.com/bolo\n\neller\n\nhttp://www.lgm.com/winbolo\n"
+    STR_TUTORIAL_START03    "En snabb kommentar angående spel via Internet.\n\n \nOm du ansluter dig till ett online-spel och en massa\nnätverksfel uppstår, lämna isåfall spelet meddetsamma\ninnan du förstör spelet för de andra spelarna."
+    STR_TUTORIAL_START04    "Du kontrollerar en stridsvagn, som förnuvarande befinner\nsig på en båt till sjöss. Håll nere ""Q"" för att få\nstridsvagnen (och båten) att åka framåt, och tryck på ""A""\nför att sakta ned och stanna.\n\nKnacka inte på tangenterna som när du skriver på maskin -\nhåll istället nere dem tills stridsvagnen uppnår önskad hastighet\noch släpp först därefter upp tangenten ifråga. Tryck nu ned ""Q""\nför att få båten att åka framåt, mot land.(Tryck <Retur> först\nför att stänga detta fönstret)"
+    LGM_MAN_DEAD            "Du kan inte bygga förrän din nya byggmästare har landat via fallskärm"
+    LGM_NO_BUILD            "Du kan inte bygga det där"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    LGM_INSUFFICIENT_TREES  "Du har inte de träd som du behöver för att bygga det där"
+    LGM_NO_PILLS            "Du har ingen bunker att placera ut"
+    LGM_INSUFFICIENT_MINES  "Du har inga minor att placera ut"
+    LGM_BUILDTANK           "Byggmästaren kan inte bygga på en stridsvagn"
+    LGM_NO_TREE             "Det finns inga träd att fälla där"
+    LGM_PILL_NO_NEED_REPAIR "Den där bunkern behöver inte repareras"
+    LGM_PILL_NO_BUILD_ON_MINE 
+                            "Han kan inte bygga på en mina. Det är livsfarligt."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    MESSAGE_ASSISTANT       "Byggmästare"
+    MESSAGE_NEWSWIRE        "Telegrafmeddelande"
+    MESSAGE_AI              "Datorstyrd stridsvagn"
+    MESSAGE_CHANGENAME      "har lämnat över kontrollen till """
+    MESSAGE_NETSERVER       "Nätverkserver"
+    MESSAGE_THIS_COMPUTER   "Denna dator"
+    MESSAGE_CAPTURE_BASE    " har intagit en neutral bas"
+    MESSAGE_CAPTURE_PILL    " har intagit en neutral bunker"
+    MESSAGE_STOLE_PILL      " stal just bunkern från "
+    MESSAGE_STOLE_BASE      " stal just basen från "
+    MESSAGE_LGM_DEAD        " förlorade precis sin byggmästare"
+    MESSAGE_SAVED_MAP       " sparade precis kartfilen"
+    MESSAGE_QUIT_GAME       " har lämnat spelet"
+    MESSAGE_TIME_LIMIT_EXPIRED 
+                            "Tiden har gått ut. Spelet är över. Ha en bra dag :)"
+    MESSAGE_TANKSUNK        "Stridsvagnen har sjunkit i havet"
+    NETERR_TRACKERDNS       "Uppletandet utav sökarens värdnamn misslyckades. Sökarnotifieringen har avbrutits"
+END
+
+#endif    // English (Australia) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

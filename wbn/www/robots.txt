@@ -1,0 +1,5 @@
+User-Agent: *
+Disallow: /activegames.php
+Disallow: /archivedgames.php
+Disallow: /gameinfo.php
+Disallow: /gamelog.php

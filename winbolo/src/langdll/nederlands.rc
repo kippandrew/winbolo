@@ -1,0 +1,656 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Nieuw",                      ID_FILEMENU_NEW
+        MENUITEM "&Opslaan Map\tCtrl+S",        ID_FILEMENU_SAVEMAP
+        MENUITEM SEPARATOR
+        MENUITEM "&Spel Info",                  ID_FILEMENU_GAMEINFO
+        MENUITEM "Systeem &Info",               ID_FILEMENU_SYSTEMINFO
+        MENUITEM "Ne&twerk Info",               ID_FILEMENU_NETWORKINFO
+        MENUITEM SEPARATOR
+        MENUITEM "V&erlaat",                    ID_FILEMENU_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        POPUP "Frame &Rate"
+        BEGIN
+            MENUITEM "60",                          ID_FRAMERATEMENU_60
+            MENUITEM "50",                          ID_FRAMERATEMENU_50
+            MENUITEM "30",                          ID_FRAMERATEMENU_30
+            , CHECKED
+            MENUITEM "20",                          ID_FRAMERATEMENU_20
+            MENUITEM "15",                          ID_FRAMERATEMENU_15
+            MENUITEM "12",                          ID_FRAMERATEMENU_12
+            MENUITEM "10",                          ID_FRAMERATEMENU_10
+        END
+        POPUP "Scherm grote"
+        BEGIN
+            MENUITEM "Normaal",                     ID_WINDOWSIZE_NORMAL
+            , CHECKED
+            MENUITEM "Dubbel",                      ID_WINDOWSIZE_DOUBLE
+            MENUITEM "Vier maal",                   ID_WINDOWSIZE_QUAD
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&Automatische Scrolling\tCtrl+A", 
+                                                ID_EDITMENU_AUTOMATICSCROLLING
+
+        MENUITEM "Bekijk &Geweer aanzicht\tCtrl+G", ID_EDITMENU_GUNSIGHT
+        POPUP "Bericht Namen"
+        BEGIN
+            MENUITEM "Kort",                        ID_EDIT_MESSAGESENDERNAMES_SHORT
+            , CHECKED
+            MENUITEM "Lang",                        ID_EDIT_MESSAGESENDERNAMES_LONG
+
+        END
+        POPUP "Tank Benoemen"
+        BEGIN
+            MENUITEM "Geen\tCtrl+1",                ID_EDIT_TANKLABELS_NONE
+            MENUITEM "Kort\tCtrl+2",                ID_EDIT_TANKLABELS_SHORT
+            , CHECKED
+            MENUITEM "Lang\tCtrl+3",                ID_EDIT_TANKLABELS_LONG
+            MENUITEM "Benoem eigen tank niet",      ID_EDIT_TANKLABELS_DONTLABELOWNTANK
+
+        END
+        MENUITEM "Geschut namen\tCtrl+P",       ID_EDITMENU_PILLLABELS
+        MENUITEM "Tank stations namen\tCtrl+B", ID_EDITMENU_BASELABELS
+        MENUITEM SEPARATOR
+        MENUITEM "Verberg Hoofd scherm\tCtrl+H", ID_EDITMENU_HIDEMAINVIEW
+    END
+    POPUP "&WinBolo"
+    BEGIN
+        MENUITEM "Set &Keys\tCtrl-K",           ID_BOLOMENU_SETKEYS
+        MENUITEM "&Verander spelers naam",      ID_BOLOMENU_CHANGENAME
+        MENUITEM SEPARATOR
+        MENUITEM "&Geluids Effecten",           ID_BOLOMENU_SOUNDEFFECTS
+        , CHECKED
+        MENUITEM "Achtergrond Muziek",          ID_BOLOMENU_BACKGROUNDSOUND
+        , CHECKED
+        MENUITEM "&ISA Geluidskaart",           ID_BOLOMENU_ISASOUNDCARD
+        , CHECKED
+        MENUITEM SEPARATOR
+        MENUITEM "Nieuws Bericht",              ID_BOLOMENU_NEWSWIREMESSAGES
+        , CHECKED
+        MENUITEM "Berichten Assistent",         ID_BOLOMENU_ASSISTANTMESSAGES
+        , CHECKED
+        MENUITEM "Computer Inteligentie Berichten", 
+                                                ID_BOLOMENU_AIBRAINMESSAGES
+        , CHECKED
+        MENUITEM "Netwerk Status Berichten",    ID_BOLOMENU_NETWORKSTATUSMESSAGES
+        , CHECKED
+        MENUITEM SEPARATOR
+        MENUITEM "&Verzoek tot Verbondschap\tCtrl-R", 
+                                                ID_BOLOMENU_REQUESTALLIENCE
+        , GRAYED
+        MENUITEM "&Verlaat verbondschap",       ID_BOLOMENU_LEAVEALLIENCE
+        , GRAYED
+    END
+    POPUP "&Players"
+    BEGIN
+        MENUITEM "Verstuur &bericht\tCtrl+M",   ID_PLAYERSMENU_SENDMESSAGE
+        MENUITEM SEPARATOR
+        MENUITEM "Selecteer &Alles",            ID_PLAYERSMENU_SELECTALL
+        MENUITEM "Selecteer &Niets",            ID_PLAYERSMENU_SELECTNONE
+        MENUITEM "&Selecteer Bondgenoten",      ID_PLAYERSMENU_SELECTALLIES
+        MENUITEM "Selecteer &Tanks dichtbij",   ID_PLAYERSMENU_SELECTNEARBYTANKS
+
+        MENUITEM SEPARATOR
+        MENUITEM "1",                           ID_PLAYERSMENU_01, GRAYED
+        MENUITEM "2",                           ID_PLAYERSMENU_02, GRAYED
+        MENUITEM "3",                           ID_PLAYERSMENU_03, GRAYED
+        MENUITEM "4",                           ID_PLAYERSMENU_04, GRAYED
+        MENUITEM "5",                           ID_PLAYERSMENU_05, GRAYED
+        MENUITEM "6",                           ID_PLAYERSMENU_06, GRAYED
+        MENUITEM "7",                           ID_PLAYERSMENU_07, GRAYED
+        MENUITEM "8",                           ID_PLAYERSMENU_08, GRAYED
+        MENUITEM "9",                           ID_PLAYERSMENU_09, GRAYED
+        MENUITEM "10",                          ID_PLAYERSMENU_10, GRAYED
+        MENUITEM "11",                          ID_PLAYERSMENU_11, GRAYED
+        MENUITEM "12",                          ID_PLAYERSMENU_12, GRAYED
+        MENUITEM "13",                          ID_PLAYERSMENU_13, GRAYED
+        MENUITEM "14",                          ID_PLAYERSMENU_14, GRAYED
+        MENUITEM "15",                          ID_PLAYERSMENU_15, GRAYED
+        MENUITEM "16",                          ID_PLAYERSMENU_16, GRAYED
+    END
+    POPUP "&Geheugen"
+    BEGIN
+        MENUITEM "&Handleiding",                ID_BRAINSMENU_MANUAL
+        , CHECKED
+        MENUITEM SEPARATOR
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&Info",                       ID_HELPMENU_ABOUT
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (Australia) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENA)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_AUS
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "0c0904b0"
+        BEGIN
+            VALUE "Comments", "WinBolo Language Set\0"
+            VALUE "CompanyName", " \0"
+            VALUE "FileDescription", "WinBolo Nederlands Language Set\0"
+            VALUE "FileVersion", "1, 0, 0, 0\0"
+            VALUE "InternalName", "\0"
+            VALUE "OriginalFilename", "\0"
+            VALUE "ProductName", "\0"
+            VALUE "ProductVersion", "1, 0, 0, 0\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0xc09, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGOPENING_TITLE    "Netwerk Selectie"
+    STR_DLGOPENING_TEXT     "Welkom bij WinBoloa, het tank  \nspel voor meerdere spelers.\nSelecteer een spel soort van de onderstaande lijst:"
+    STR_DLGOPENING_OPTION1  "Oefenen (Enkele Speler; Geen Netwerk)"
+    STR_DLGOPENING_OPTION2  "TCP/IP"
+    STR_DLGOPENING_OPTION3  "Internet (Zoek Tracker)"
+    STR_DLGOPENING_SKIP     "Vraag niet niet opnieuw"
+    STR_OK                  "KLAAR"
+    STR_DLGOPENING_BUTTON2  "STOP"
+    STR_DLGLANG_TITLE       "Selecteer Taal"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGLANG_NAME_CAPTION "Naam: "
+    STR_DLGLANG_NAME        "Nederlands"
+    STR_DLGLANG_AUTHOR_CAPTION "Auteur: "
+    STR_DLGLANG_AUTHOR      "P.D. Krijgsman"
+    STR_DLGOPENING_OPTION4  "Lokaal Netwerk (Zoekt netwerk af)"
+    STR_DLGOPENING_OPTION0  "Spel uitleg (Instructies voor beginners)"
+    STR_DLGLANG_NOTES_CAPTION "Notities: "
+    STR_DLGLANG_NOTES       "Geen."
+    STR_DLGLANG_DEFAULTNOTE "Houd u er rekening mee dat alle talen die nog niet geheel af zijn \nautomatisch in het Engels gezet worden."
+    STR_DLGABOUT_TITLE      "About WinBolo"
+    STR_DLGABOUT_BLURB      "WinBolo mag in zijn geheel vrijblijvend gebruikt en gedistributeerd worden \nmits het programma, of de bijbehorende bestanden, ongewijzigd blijven.\n\nWinBolo is een shareware programma. \nShareware programmatuur is niet gratis. Het kost geld, net als de meeste andere software, met de uitzondering \ndat je shareware programmatuur eerst gratis mag uitproberen voordat je moet besluiten of je ervoor wilt betalen \nof niet.\n\nWinBolo kost ca. E25,00.  Als u besluit om WinBolo langer te gebruiken dan 30 dagen dan dient u het \ngenoemde bedrag te betalen. U kunt gebruik maken van de volgende methodes:\n\n \nMaak gebruik van register.exe in de WinBolo directory. Dan krijgt u de optie om via cheque, CreditCard of kontant, \nvia email, fax of post te betalen. \n\n \nOm mbv uw creditcard te betalen dient u de volgende pagina te bezoeken : http: \nformulier in te vullen.\n\n\\ Lees de text Leesmij(Shareware) bijgevoegd in deze distibutie (mist deze niet in het \nNederlands aanwezig is verwijzen wij u door naar het Engelstalige bestand Readme) voor meer informatie."
+    STR_DLGALLIANCE_TITLE   "Verzoek voor Bondgenootschap"
+    STR_DLGALLIANCE_ACCEPT  "&Accepteer"
+    STR_DLGALLIANCE_DECLINE "&Negeer"
+    STR_DLGALLIANCE_BLURB   " verzoekt een bondgenootschap. Accepteren?"
+    STR_DLGGAMEFINDER_REFRESHFIRST 
+                            "Probeert u eerst op refresh/vernieuwen te klikken."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGGAMEFINDER_MESSAGEOFTHEDAY "Bericht van de dag"
+    STR_DLGGAMEFINDER_WRONGVERSION 
+                            "Het spel waaraan u wilt meedoen heeft een verschillende versie \nvan WinBolo. Probeert u een ander spel"
+    STR_DLGGAMEFINDER_NOGAMESINPROGRESS "Geen spel bezig (Begin een spel!)"
+    STR_YES                 "Ja"
+    STR_NO                  "Nee"
+    STR_DLGGAMEFINDER_YESADV "Ja (Adv)"
+    STR_DLGGAMEFINDER_OPEN  "Open"
+    STR_DLGGAMEFINDER_TOURNAMENT "Tournament"
+    STR_DLGGAMEFINDER_STRICTTOURNAMENT "Strict"
+    STR_DLGGAMEINFO_TITLE   "WinBolo Spel Informatie"
+    STR_DLGGAMEINFO_MAPNAME "Kaart Naam: "
+    STR_DLGGAMEINFO_NUMPLAYERS "Aantal spelers: "
+    STR_DLGGAMEINFO_GAMETYPE "Spel Soort: "
+    STR_DLGGAMEINFO_HIDDENMINES "Verborgen mijnen: "
+    STR_DLGGAMEINFO_ALLOWCOMPTANKS "Computer Tanks toegestaan: "
+    STR_DLGGAMEINFO_TIMELIMIT "Spel Tijd Limiet: "
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGGAMESETUP_BLURB  "Selecteer de opties voor het nieuwe spel:"
+    STR_CANCEL              "Negeer"
+    STR_DLGGAMESETUP_TITLE  "Spel Opties"
+    STR_DLGGAMESETUP_CHOOSEMAP "Kies kaart"
+    STR_DLGGAMESETUP_SELECTEDMAP "Geselecteerde Kaart: "
+    STR_DLGGAMESETUP_SELECTEDMAPINBUILT 
+                            "Geselecteerde Kaart: Everard Eiland (Ingebouwd)"
+    STR_DLGGAMESETUP_RADIO1 "Open Spel (elke nieuwe tank komt bewapend)"
+    STR_DLGGAMESETUP_RADIO2 "Tournament (gratis munitie in het begin van het spel)"
+    STR_DLGGAMESETUP_RADIO3 "Strict Tournament (helemaal geen gratis munitie)"
+    STR_DLGGAMESETUP_HIDDENMINES "Sta verborgen mijnen toe"
+    STR_DLGGAMESETUP_ALLOWCOMPTANKS "Sta Computer Tanks toe"
+    STR_DLGGAMESETUP_ALLOWCOMPTANKSADV "en geef ze een voorsprong"
+    STR_DLGGAMESETUP_PASSWORD "Spel wachtwoord"
+    STR_DLGGAMESETUP_MINUTES "minuten"
+    STR_DLGGAMESETUP_SECONDS "seconden"
+    STR_DLGGAMESETUP_STARTDELAY "Opstart vertraging"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGGAMESETUP_TIMELIMIT "Tijd limiet"
+    STR_DLGGAMESETUP_ERROROPENINGMAP "Fout bij het openen van de Kaart."
+    STR_DLGGAMEINFO_TIMEREMAINING "Ongeveer %d minute(n)"
+    STR_DLGGAMEINFO_OPEN    "Open"
+    STR_DLGGAMEINFO_TOURN   "Tournament"
+    STR_DLGGAMEINFO_STRICT  "Strict Tournament"
+    STR_DLGGAMEINFO_AIADV   "Ja (Met voorsprong)"
+    STR_DLGGAMESETUP_DEFAULTNAME "Ikke"
+    STR_DLGKEYSETUP_TITLE   "Selecteer hoofd settings"
+    STR_DLGKEYSETUP_BLURB   "Klik op de optie die u wilt wijzigen en de toets die u dan aanslaat \nzal toegewezen worden aan de geselecteerde aktie. De toetsen ALT, PRINT SCREEN en PAUSE  \nkunnen niet gebruikt worden."
+    STR_DLGKEYSETUP_DRIVETANK "Bestuur Tank:"
+    STR_DLGKEYSETUP_TURNTANK "Draai Tank:"
+    STR_DLGKEYSETUP_GUNRANGE "Wapen bereik :"
+    STR_DLGKEYSETUP_WEAPONS "Wapens:"
+    STR_DLGKEYSETUP_VIEW    "Wijzig Scherm:"
+    STR_DLGKEYSETUP_SCROLL  "Scroll:"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGKEYSETUP_LEFT    "(links)"
+    STR_DLGKEYSETUP_RIGHT   "(rechts)"
+    STR_DLGKEYSETUP_AUTOSLOWDOWN "Auto afremmen"
+    STR_DLGKEYSETUP_AUTOGUNSIGHT "Auto Wapen bereik AAN"
+    STR_DLGKEYSETUP_FASTER  "Sneller"
+    STR_DLGKEYSETUP_SLOWER  "Afremmen"
+    STR_DLGKEYSETUP_TURNLEFT "Tegen de klok"
+    STR_DLGKEYSETUP_TURNRIGHT "Met de klok mee"
+    STR_DLGKEYSETUP_INCREASE "Toevoegen"
+    STR_DLGKEYSETUP_DECREASE "Terug nemen"
+    STR_DLGKEYSETUP_SHOOT   "Schiet"
+    STR_DLGKEYSETUP_LAYMINE "Leeg mijn"
+    STR_DLGKEYSETUP_TANKVIEW "Tank scherm"
+    STR_DLGKEYSETUP_PILLVIEW "Geschut"
+    STR_DLGKEYSETUP_SCROLLUP "Omhoog"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGKEYSETUP_SCROLLDOWN "Omlaag"
+    STR_DLGKEYSETUP_SCROLLLEFT "Links"
+    STR_DLGKEYSETUP_SCROLLRIGHT "Rechts"
+    STR_DLGKEYSETUP_NEWKEYFOR "Sla een nieuwe toets aan voor "
+    STR_DLGKEYSETUP_FORWARD "Vooruit"
+    STR_DLGKEYSETUP_BACKWARD "Achteruit"
+    STR_DLGKEYSETUP_ROTATELEFT "roteer links"
+    STR_DLGKEYSETUP_ROTATERIGHT "roteer rechts"
+    STR_DLGKEYSETUP_INCREASERANGE "Vergroot bereik"
+    STR_DLGKEYSETUP_DECREASERANGE "Verklein bereik"
+    STR_DLGKEYSETUP_SETSHOOT "schiet"
+    STR_DLGKEYSETUP_SETLAYMINE "leg mijn"
+    STR_DLGKEYSETUP_SETTANKVIEW "tank scherm"
+    STR_DLGKEYSETUP_SETPILLVIEW "geschut scherm"
+    STR_DLGKEYSETUP_SETSCROLLUP "scroll omhoog"
+    STR_DLGKEYSETUP_SETSCROLLDOWN "scroll omlaag"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGKEYSETUP_SETSCROLLLEFT "scroll links"
+    STR_DLGKEYSETUP_SETSCROLLRIGHT "scroll rechts"
+    STR_DLGMSG_BUTTON       "&Verstuur"
+    STR_DLGMSG_ALLPLAYERS   "Alle spelers"
+    STR_DLGMSG_ALLALLIES    "Alle bondgenoten"
+    STR_DLGMSG_NEARBY       "Alle tanks dichtbij"
+    STR_DLGMSG_SELECTION    "Speler menu selectie"
+    STR_DLGMSG_SENDPLAYER   "Bezig met het versturen van het bericht naar %d speler"
+    STR_DLGMSG_SENDPLAYERS  "Bezig met het versturen van het bericht naar %d spelers"
+    STR_DLGNETINFO_TITLE    "WinBolo Netwerk Informatie"
+    STR_DLGNETINFO_SERVERADDRESS "Server adres:"
+    STR_DLGNETINFO_THISGAMEADDRESS "Adres van dit spel:"
+    STR_DLGNETINFO_SERVERPING "Server ping (ms):"
+    STR_DLGNETINFO_PACKETS  "Packetten per seconden (per speler):"
+    STR_DLGNETINFO_STATUS   "Netwerk status:"
+    STR_DLGNETINFO_ERRORS   "Netwerk fouten:"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    NETERR_JOININIT         "Er was geen reactie van het spel dat u probeerde te bereiken.\n \nDat kan drie dingen betekenen:\n1. U heeft een verkeerd adres en  \nport nummer.\n2. U bevind zich achter een 'firewall' dat spellen onmogelijk maakt.\n3. Controleer of uw versie van WinBolo hetzelfde is als het spel gebruikt"
+    NETERR_GAMEFULL         "Dit spel is momenteel vol"
+    NETERR_SERVERCONNECT    "het is niet gelukt om een connectie te maken met de server. Probeer een andere computer of wacht \nen paar seconden en probeert u het dan nog eens."
+    NETERR_PASSWORDWRONG    "Het wachtwoord is onjuist"
+    NETERR_PLAYERNAMEINUSE  "Uw naam is al in gebruik. Verander uw naam en probeer opnieuw"
+    NETERR_NONEWPLAYERS     "Sorry, dit spel accepteerd momenteel geen spelers"
+    NETERR_CONNECTNOJOIN    "U was bijna in het spel maar mocht niet meedoen. Dit betekend waarschijnlijk dat uw naam al in gebruik is. \nVerander uw naam en probeert u het opnieuw"
+    NET_STATUS_JOINING      "Mee doen"
+    NET_STATUS_OK           "Ja"
+    NET_STATUS_FAILED       "Mislukt"
+    NETERR_LOSTCONNECTION   "U heeft uw connectie met de server verloren.\nHet spel gaat verder in enkele speler mode."
+    STR_DLGMSG_TITLE        "Schrijf bericht"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGPASSWORD_TITLE   "Wachtwoord"
+    STR_DLGPASSWORD_BLURB   "Dit spel is beveiligd met een wachtwoord. Geef het juiste wachtwoord om door te gaan:"
+    STR_DLGSETNAME_TITLE    "Geen spelers naam"
+    STR_DLGSETNAME_BLURB    "Naam van de nieuwe speler voor de tank naam"
+    STR_DLGTRACKER_TITLE    "Tracker Configuratie"
+    STR_DLGTRACKER_USETRACKER "Gebruik Tracker"
+    STR_DLGTRACKER_TRACKERADDRESS "Tracker Adres:"
+    STR_DLGTRACKER_TRACKERPORT "Tracker Port:"
+    STR_DLGSYSINFO_TITLE    "WinBolo Systeem Informatie"
+    STR_DLGSYSINFO_CPUUSAGE "CPU gebruik:"
+    STR_DLGSYSINFO_SIMMODELING "Simulatie opzet:"
+    STR_DLGSYSINFO_COMPROCESSING "Communicatie opzet:"
+    STR_DLGSYSINFO_GRAHPICSDISPLAY "Grafisch scherm:"
+    STR_DLGSYSINFO_AICONTROLPROCESSING "Computer Intelligentie tank opzet:"
+    STR_DLGSYSINFO_TOTAL    "Totaal:"
+    STR_DLGSYSINFO_GRAPHICSFPS "Computer Intelligentie tank opzet:"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGTCP_TITLE        "UDP (Internet) Opzet"
+    STR_DLGTCP_BLURB        "Om mee te doen aan een internet Bolo spel, dient u te beschikken over het adres of naam van de computer die het spel heeft gestart. Ook heeft u het UDP port nummer nodig."
+    STR_DLGTCP_JOIN         "&Mee doen"
+    STR_DLGTCP_REJOIN       "&Opnieuw meedoen"
+    STR_DLGTCP_NEW          "&Nieuw"
+    STR_DLGTCP_TRACKERSETUP "&Tracker Opzet"
+    STR_DLGTCP_REMEMBER     "Bewaar spelers naam"
+    STR_DLGTCP_MACHINENAME  "Computer naam (of IP adres):"
+    STR_DLGTCP_THEREUDP     "UDP port van Bolo op de server computer:"
+    STR_DLGTCP_USUDP        "UDP port van deze computer:"
+    STR_DLGTCP_NAME         "Naam van de speler voor dit spel:"
+    STR_DLGTCP_NEWBLURB     "Klik ""Nieuw"" om zelf een spel te starten"
+    STR_DLGTCP_JOINBLURB    "Voor een bestaand spel klik ""Mee doen"" "
+    STR_DLGTCP_REJOINBLURB  "Klik op ""Opnieuw meedoen"" om verder te gaan met een bestaand spel waar u gebleven was"
+    STR_ERR_DLGTCP_PORTS    "Server en eigen porten zijn hetzelfde!"
+    STR_ERR_DLGTCP_NOTRIGHT "Er is iets niet helemaal goed..."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_ERR_DLGTCP_SUBCLASS "Kan een subclass niet uitvoeren!"
+    STR_DLGGAMEFINDER_JOINADDRESS "Meedoen &Per Adres"
+    STR_DLGGAMEFINDER_REFRESH "&Vernieuwen"
+    STR_DLGGAMEFINDER_PLAYERNAME "Wijzig &Spelers naam"
+    STR_DLGGAMEFINDER_MOTD  "&Bericht van de dag"
+    STR_DLGGAMEFINDER_STATUSBLURB "Status"
+    STR_DLGGAMEFINDER_SELECTEDGAME "Geselecteerde Spel informatie"
+    STR_DLGGAMEFINDER_BRAINS "Bots:"
+    STR_DLGGAMEFINDER_PASSWORD "Wachtwoord:"
+    STR_DLGGAMEFINDER_PILLS "Geen gratis Geschut:"
+    STR_DLGGAMEFINDER_BASES "Geen gratis Basissen:"
+    STR_DLGGAMEFINDER_HIDDENMINES "Verborgen mijnen:"
+    STR_DLGGAMEFINDER_NUMPLAYERS "Aantal spelers:"
+    STR_DLGGAMEFINDER_VERSION "Versie:"
+    STR_DLGGAMEFINDER_GAMETYPE "Spel soort:"
+    STR_DLGGAMEFINDER_PORT  "Server Port:"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DLGGAMEFINDER_ADDRESS "Server Adres:"
+    STR_BRAINERR_BRAINDIR   "Bots Directory bestaat niet.\nEr worden geen bots geladen!"
+    STR_BRAINERR_LAUNCH     "Fout tijdens laden van bots"
+    STR_BRAINERR_LAUNCHMAIN "Fout tijdens laden van bots - Bot bevat geen  \n""BrainMain"""
+    STR_BRAINERR_INIT       "Fout tijden het initializeren van Bots"
+    STR_BRAINERR_EXEC       "Kan het bot niet starten"
+    STR_DRAWERROR_CREATEOBJECT "Maken van DD Object mislukt"
+    STR_DRAWERROR_SETCOOPLEVEL "Maken van DD co-op level mislukt"
+    STR_DRAWERROR_CREATEPRIMARY "Maken van DD Primary Surface mislukt"
+    STR_DRAWERROR_GETPIXELFORMAT "Verkrijgen van DD Pixel Format mislukt"
+    STR_DRAWERROR_GETDESC   "Verkrijgen van Surface Description mislukt"
+    STR_DRAWERROR_TOOFEWCOLOURS 
+                            "Deze versie van Bolo draait niet in palette  \nmode.\n U dient uw windows-kleur aan te passen aan meer dan 256 kleuren"
+    STR_DRAWERROR_BUFFERCREATE "Creating DD buffer Failed"
+    STR_DRAWERROR_GETDCFAILED "DD Get DC mislukt"
+    STR_DRAWERROR_CLIPPERFAILED "Aanmaken DD Clipper mislukt"
+    STR_DRAWERROR_BRUSH     "Fout Creating Drawing Brush"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_DRAWERROR_PEN       "Fout Creating Drawing Pen"
+    STR_DRAW_GAMESTARTSIN   "Spel begint in "
+    STR_DRAWERROR_RELEASEDC "Fout Releasing DC voor het maken van Tank naam (Dit is slecht)"
+    STR_DRAW_PILLBOXVIEW    "Geschut scherm"
+    STR_FONTERR_NOCOURIERFONT "Kan Courier font niet laden"
+    STR_GAMEFRONTERR_CORRUPTPREFS 
+                            "An error occurred in reading preferences. The  \ndefaults will be used"
+    STR_GAMEFRONTERR_WINDOW "Fout bij aanmaken Window"
+    STR_GAMEFRONTERR_DDRAW  "Fout bij Direct Draw"
+    STR_GAMEFRONTERR_DSOUND "Fout bij Direct Sound"
+    STR_GAMEFRONTERR_DINPUT "Fout bij Direct Input"
+    STR_GAMEFRONTERR_CURSOR "Fout bij laden van Cursor"
+    STR_GAMEFRONTERR_FONTS  "Fout bij laden Fonts"
+    STR_GAMEFRONT_LANFINDER_TITLE "LAN Spel zoeker"
+    STR_GAMEFRONT_TRACKERFINDER_TITLE "Tracker Spel zoeker"
+    STR_GAMEFRONTERR_JOINGAME 
+                            "Er is een fout opgetreden tijdens het meedoen aan bestaand spel"
+    STR_GAMEFRONTERR_SPAWNSERVER 
+                            "Er is een fout opgetreden tijdens het server  \nproces.\n Is het programma ""WinBoloDS"" in dezelfde directory als WinBolo?"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_GAMEFRONTERR_NETSINGLEPLAYER 
+                            "Er is een maffe fout opgetreden in het netwerk subsysteem. Heel erg gek eigenlijk gezien het feit \ndat je gekozen hebt voor een enkele speler spel. Wat heb je toch weer een geluk..."
+    STR_GAMEFRONT_SERVERSTARTMSG 
+                            "Deze versie van WinBolo maakt gebruik van de alleenstaande server  \nom het netwerkspel te draaien\nDit zal in de toekomst gewijzigd worden."
+    STR_GAMEFRONT_INPUTERR_CREATE 
+                            "Creation of Direct Input Keyboard Device  \nFailed"
+    STR_GAMEFRONT_INPUTERR_DATAFORMAT 
+                            "Setting the Data Format for the Direct Input  \nKeyboard Device Failed"
+    STR_GAMEFRONT_INPUTERR_COOPLEVEL 
+                            "Setting the Co-operative Level for the Direct  \nInput Keyboard Device Failed"
+    STR_NETCLIENTERR_WINSOCKFAILSTARTUP "Fout met Winsock"
+    STR_NETCLIENTERR_CREATEUDPFAIL "Fout met UDP Socket"
+    STR_NETCLIENTERR_CREATETCPFAIL "Fout met TCP Socket"
+    STR_NETCLIENTERR_BINDUDPFAIL 
+                            "Fout met Binding UDP Socket\n Een ander programma  \nmaakt reeds gebruik van de port. Probeer een andere port.\n\nNOTITIE: Als u eerder successvol een netwerkspel hebt gestart \ndan bestaat de kans dat het nog steeds draait.\n U hoeft het niet nogmaals te starten."
+    STR_NETCLIENTERR_CHAINFAIL 
+                            "Fout bij het toevoegen van netwerk evenementen aan de berichten kring"
+    STR_NETCLIENTERR_TRACKERVERSIONFAIL "Niet ondersteunde Tracker Versie"
+    STR_NETCLIENTERR_TRACKERDNSFAIL 
+                            "Fout bij het vinden van tracker (DNS lookup fout)"
+    STR_NETCLIENTERR_TRACKERCONNECTFAIL "Fout bij tracker connectie"
+    STR_NETCLIENTERR_TRACKERNOBLOCK 
+                            "Fout bij het opzetten van noblocking socket"
+    STR_NETCLIENT_TRACKERGETRESPONSE "Bezig met verkrijgen van spel info..."
+    STR_NETCLIENT_TRACKERPROCESSRESPONSE "Verwerken van tracker data..."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_NETCLIENTERR_TRACKERNODATA "Fout: Tracker heeft geen data verstuurd"
+    STR_NETCLIENT_TRACKERCONNECT "Contact maken: "
+    STR_NETCLIENT_IDLE      "Pause"
+    STR_NETCLIENTERR_BIND   "Fout met socket binding"
+    STR_NETCLIENTERR_BROADCAST "Fout met sending broadcast"
+    STR_NETCLIENT_GETRESPONSES "Verkrijgen van reacties..."
+    STR_SOUNDERR_FILENOTFOUND 
+                            "Kan WinBolo geluiden niet laden - Verder zonder geluid"
+    STR_SOUNDERR_HARDWAREINUSE 
+                            "Fout tijdens Direct Sound opzetten- Hardware is in  \ngebruik door een andere applicatie.\nVerder zonder geluid."
+    STR_SOUNDERR_CREATEFAILED 
+                            "Maken van DS Object mislukt\nVerder zonder geluid."
+    STR_SOUNDERR_COOPFAILED "Maken van DS Co-Op Level mislukt"
+    STR_SOUNDERR_PRIMARYBUFFFAIL "Maken van DS Primary Buffer mislukt"
+    STR_SOUNDERR_LOADSOUNDFAILED 
+                            "Laden van een of meerder geluids bestanden mislukt"
+    STR_WBERR_MUTEXCREATE   "Fout bij aanmaken van Mutex. (Dat is slecht)"
+    STR_WBERR_BRAINLISTLOAD "Fout bij laden van Bots Lijst"
+    STR_WBERR_KEYCLASSSETUP "Fout bij aanmaken Key Setup Class"
+    STR_WBTIMELIMIT_END     "Tijdslimiet is bereikt. Het spel is beeindigd."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_WBERR_SAVEMAP       "Fout bij bewaren van kaart (Disk vol?)"
+    STR_TUTORIAL01          "Voor u is een kleine rivier lands-in-waards. druk\\op de\n""Q"" om uw boot naar het einde van de rivier te laten\nvaren.\n\n \nAls u daar aankomt, blijf dan op de ""Q"" drukken. De\ntank zal van de boot gelost worden en de boot zal\ngedocked achterblijven"
+    STR_TUTORIAL02          "U bevind zich nu op gras. De tank manouvreed gemakkelijker\nop gras.\n\n\n\nBlijf op de ""Q"" drukken om het bos in te rijden."
+    STR_TUTORIAL03          "U bevind zich nu in het bos. De tank manouvreed\n\n \nlangzamer in het bos dan op het gras.\n\n\nBlijf op de ""Q"" drukken om door te rijden het moeras in."
+    STR_TUTORIAL04          "U bevind zich nu in het moeras. De tank manouvreed heel\nerg langzaam in het moeras. Gelukkis is er een weg iest\nverderop.\n\n\nblijf op de ""Q"" drukken om naar de weg te rijden."
+    STR_TUTORIAL05          "U bent nu op de weg. De tank rijd zeer snel op de weg.\nWanneer u op de ""Q"" blijft drukken zal de snelheid\ntoenemen.\n\n\nAls u het te snel vind gaan kunt u op de ""A"" drukken."
+    STR_TUTORIAL06          "Er staan wat gebouwen verderop. Gebouwen zijn solide\nobstacels waar u niet doorheen kunt rijden, dus u zul\neen een weg moeten vinden door het doolhof.\n\nOm de tank naar links te manouvreren, drukt u op de ""O""\nDruk op ""P"" als u naar recht wilt gaan."
+    STR_TUTORIAL07          "Deze ronde objecten met de rode geweren die naar buiten\nsteken zijn automatische geschutten. Deze zullen schieten\nals een tank binnen bereik komt.\n\n\nGelukkig bieden gebouwen bescherming tegen de schoten,\ndus het geschut zal u niet kunnen raken tenzij u zo lang\nwacht tot zij alle gebouwen vernietigd hebben."
+    STR_TUTORIAL08          "Bossen bieden ook bescherming tegen geschut, maar in\neen andere manier. Het vermoeilijkt niet alleen de snelheid\nvan de tank, het rijden door het bos limiteerd ook het zicht.\n\n\nAls u zich in het bos bevind ziet u alles wat zich buiten het\nbos bevind, maar geschut (en of andere spelers) kunnen uw tank\nniet zien totdat u zich vlakbij elkaar bevind."
+    STR_TUTORIAL09          "Plaats uw tank in het midden van de bos strook en rij richting\nhet noorden. Als je goed recht rijd en niet te dichtbij de\nbosrand komt, zal het geschut u niet zien en niet schieten.\n\n\nRij niet het bos uit, anders zult u kapot geschoten worden.\n"
+    STR_TUTORIAL10          "Er is nog een andere, simpele, manier om aan geschut te ontsnappen -\nsnelheid.\n\n\nZorg dat u goed in het midden van de weg staat, en druk op ""Q""\nom op volle snelheid langs het geschut te rijden."
+    STR_TUTORIAL11          "Zij zullen direct schieten zodra zij u zien, maar als u rechtdoor\nblijft rijden en vol blijft houden dan zult u buiten bereik zijn\nvoordat de schoten u kunnen raken.\n\n\nDwaal niet van de weg af of u bent een schietschijf voor het gesch,\nen u kunt niet snel genoeg zijn om te ontsnappen."
+    STR_TUTORIAL12          "Voor u is een tankstation. Tank stations geven meer dan alleen benzine,\nze bevooraden u van kogels, mijnen en ze repareren uw tank tot voledige \nsterkte wanneer deze beschadigd is.\n\n\nStop op het tankstation en bevoorraad uw tank met munitie."
+    STR_TUTORIAL13          "U bent nu bij het tankstation. Uw tank zal volledig beladen worden met\nmunitie en mijnen, kijk maar op de indicaters aan uwrechter kant. Voor u,\nvoorbij de gebouwen, is een mijnenveld."
+    STR_TUTORIAL14          "Als u met uw tank door een mijnenveld rijd zal de tank worden\nvernietigd. Gelukkig kunt u een mijnen veld ruimen door erop te\n \nschieten. Druk op de spatiebalk om te schieten.\n\nSchiet een gat door het gebouw en schiet daarna in het midden van\nhet mijnen veld om de mijnen te laten ontploffen. Wanneer een mijn\nis ontploft zal er een grote krater in de grond achterblijven, waar\nu gewoon door kunt rijden, de snelheid zal echter wel afnemen alsof\nu door een moeras rijd."
+    STR_TUTORIAL15          "Voor u bevind zich een volgend mijnenveld. Doe nu precies hetzelfde\nals hiervoor. Schiet door de muur , en opnieuw in het midden van het\nveld om het tot ontploffen te brengen.\n\nDit keer bevind het veld zich naast een grote rivier, en het water\nloopt in de krater. U kunt met de tank door het water net als door\nkraters en moeras."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    STR_TUTORIAL16          "WinBolo scrolled het scherm automatische naar het volgende gebied.\nMaar mbv de pijltjes toetsen kunt u dit handmatig aanpassen.\n\nGebruik het Omhoog pijltje om de rivier iets beter te zien.."
+    STR_TUTORIAL17          "Het rijden door water is net alleen langzaam het heeft een ander\nnadeel: alle munitie word nat en word onbruikbaar. Uw aanvalskracht\nneemt af.\n\n\nWanneer u aan de andere kant aankomt zal de tank nog prima werken maar\nu kunt geen mijnen meer legen of aan kunnen vallen."
+    STR_TUTORIAL18          "Dit keer zullen we iets subtieler zijn met het oversteken van een\nrivier. Inplaats dan erdoor te rijden gaan we een brug bouwen.\n\n\nSelecteer de 'Bomen kappen' optie door op het BOOM icoon te drukken\n(linkboven). Een genie zal uit de tank rennen en een boom kappen om\nte gebruiken als materiaal."
+    STR_TUTORIAL19          "Nadat u een paar bomen heeft gekapt, selecteer dan het weg/brug\nicoontje (tweede knop bovenaan) en klik met de muis op de rivier\n \naan het einde van de weg.\n\n\nUw genie zal opnieuw uit de tank komen om een gedeelte van de brug\nte bouwen. Klik opnieuw om de brug af te maken en rij over de brug\nnaar de overkant."
+    STR_TUTORIAL20          "Deze rivier is wilder dan de vorige, en is in het midden te diep om\neen brug te maken. Als u probeert erdoor te rijden zal de tank zinken\nen niet meer boven komen."
+    STR_TUTORIAL21          "Om aan de overkant van deze rivier te komen zult u een boot moeten\nbouwen Daarvoor heeft u vijf bomen nodig, dus klik op vijf bomen om\nze te kappen. Klik vervolgens op de muur/boot icoon(de derde van\n \nboven) en klik op het water om de boot te bouwen.\n\nAls u op het land klikt zal de genie een muur bouwen en zult u opnieuw\nvijf bomen moeten kappen om een boot te maken. Rij op de boot en steek\nvan wal. Op naar de overkant."
+    STR_TUTORIAL22          "Even verderop staat geschut, en een paar tank stations die u kunnen\nvoorzien van de nodige munitie. Verzamel munitie van het tankstation\nen val het geschut aan.\n\n\nHet zal terug schieten, maar als u zwaar beschadigd bent kunt u\ngemakketlijk uterug naar het tankstation om u volledig te laten repareren.."
+    STR_TUTORIAL23          "Met wat geduld en voorzichtigheid moet u dit geschut kunnen vernietigen.\nMaak gebruik van de taktieken die u heeft geleerd om het u gemakkelijker\nte maken.:\n\n\nVerberg u in het bos zodat het geschut u niet kan zien, kap bomen, maak\nwegen om uw tank sneller te laten rijdenfaster, en maak gebouwen om\ndekking te geven van het geschut."
+    STR_TUTORIAL24          "Nadat u het geschut heeft uitgeschakeld, de laatste uitdaging van deze\nleermodule is om de twee\ngeschutten die de uitgang bewaken te vernietigen\n,bouw een boot en maak dat u weg komt.\n\n\nLet speciaal op uw tank's Armour nivo. Dit laat zien hoeveel uw tank\nnog kan hebben voordat hij het helmaal begeeft. Als hij defect is\nzult u helemaal opnieuw moeten beginnen.."
+    STR_TUTORIAL25          "Gefeliciteerd. U heeft de WinBolo oefenopdracht gehaald.\n\n\n\nOrganizeer nu een groep met vrieden zodat u tegen elkaar kunt spelen\nipv tegen een domme computer."
+    STR_TUTORIAL_START01    "Welkom bij de WinBolo oefenopdracht. Dit eiland introduceerd\nu in de basis principes van WinBolo en leid u voorzichtig door het\nspel. Elk nieuw principe word uitgelegd in een scherm als deze.\n\nNa het lezen van de berichtjes, kunt u doorgaan door op ""OK"" te\nkliken of op enter/return te drukken"
+    STR_TUTORIAL_START02    "WinBolo is een kloon van het klassieke Macintosh netwerk spel Bolo.\nU kunt strategy hints en andere information vinden op de officiele\nwebpagina:\n\nhttp://www.lgm.com/bolo\n\nof\n\nhttp://www.lgm.com/winbolo\n"
+    STR_TUTORIAL_START03    "Een kleine opmerking over de Internet optie.\n\nAls u een mee doet aan een online spel en er zijn een groot aantal\nerrors verlaat het spel dan direct voor u het voor de andere spelers\nverpest."
+    STR_TUTORIAL_START04    "U heeft de controle over een tank, dat zich momenteel op een boot,\n op zee, bevind. Druk op """"Q"""" om de tank (en boot) vooruit\nte laten gaan, en druk op """"A"""" om langzamer te gaan of te stoppen.\n\nDruk niet kort op de toets alsof u een brief aan het schrijven bent, -\ndruk en houd de toest ingedrukt tot de tank de gewenste snelheid\nheeft en laat dan pas los. Druk op de """"Q"""" om de boot richting\nhet land te laten varen.\n(Druk eerst op <Return> om dit scherm te laten verdwijnen)"
+    LGM_MAN_DEAD            "U kunt datn niet bouwen totdat uw nieuwe Genie gedropt is"
+    LGM_NO_BUILD            "U kunt dat hier niet bouwen"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    LGM_INSUFFICIENT_TREES  "U heeft niet genoeg bomen om dat te bouwen"
+    LGM_NO_PILLS            "U heeft geen geschut om te plaatsen"
+    LGM_INSUFFICIENT_MINES  "U heeft geen mijnen om te plaatsen"
+    LGM_BUILDTANK           "The Genie is niet zo goed dat hij OP een tank kan bouwen"
+    LGM_NO_TREE             "Er is geen boom aanwezig om te kappen"
+    LGM_PILL_NO_NEED_REPAIR "Dat geschut hoeft niet gerepareerd te worden"
+    LGM_PILL_NO_BUILD_ON_MINE 
+                            "De Genie kan niet op een mijn bouwen, hij zal ontploffen."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    MESSAGE_ASSISTANT       "Online Assistent"
+    MESSAGE_NEWSWIRE        "Nieuws berichten"
+    MESSAGE_AI              "Bots"
+    MESSAGE_CHANGENAME      "heeft het gezag over gegeven aan """
+    MESSAGE_NETSERVER       "Netwerk Server"
+    MESSAGE_THIS_COMPUTER   "Deze computer"
+    MESSAGE_CAPTURE_BASE    " heeft een neutrale basis ingenomen"
+    MESSAGE_CAPTURE_PILL    " heeft een neutraal geschut ingenomen"
+    MESSAGE_STOLE_PILL      " heeft een geschut gestolen van "
+    MESSAGE_STOLE_BASE      " heeft een basis gestolen van "
+    MESSAGE_LGM_DEAD        " genie is verloren gegaan"
+    MESSAGE_SAVED_MAP       " heeft de kaart bewaard"
+    MESSAGE_QUIT_GAME       " heeft het spel verlaten"
+    MESSAGE_TIME_LIMIT_EXPIRED 
+                            "Tijdlimiet is verstreken. Het spel is afgelopen Ga heen in vrede..."
+    MESSAGE_TANKSUNK        "Tank is gezonken in deep water"
+    NETERR_TRACKERDNS       "De tracker hostname lookup mislukt. Tracker  \nnotificatie uitgeschakeld"
+END
+
+#endif    // English (Australia) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,821 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,1,5
+ PRODUCTVERSION 1,0,1,5
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "0c0904b0"
+        BEGIN
+            VALUE "Comments", "WinBolo Dedicated Server"
+            VALUE "CompanyName", "John Morrison"
+            VALUE "FileDescription", "WinBolo"
+            VALUE "FileVersion", "1.15"
+            VALUE "InternalName", "WinBolo"
+            VALUE "LegalCopyright", "WinBolo © 1998-2005 John Morrison - Bolo © 1987-1995 Stuart Cheshire"
+            VALUE "OriginalFilename", "WinBoloDS.exe"
+            VALUE "ProductName", "WinBoloDS"
+            VALUE "ProductVersion", "1.15"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0xc09, 1200
+    END
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (Australia) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENA)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_AUS
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// MAPS
+//
+
+IDR_EVERARD MAPS 
+BEGIN
+    0x6881, 0x5aff, 0x5a5a, 0xcd00, 0x0000, 0x0000, 0xcd01, 0xcdcd, 0x69af, 
+    0x5aff, 0x5a5a, 0xcd00, 0x0000, 0x0000, 0xcd01, 0xcdcd, 0x6e56, 0x5aff, 
+    0x5a5a, 0xcd00, 0x0000, 0x0000, 0xcd01, 0xcdcd, 0x7aae, 0x5aff, 0x5a5a, 
+    0xcd00, 0x0000, 0x0000, 0xcd01, 0xcdcd, 0x7b79, 0x5aff, 0x5a5a, 0xcd00, 
+    0x0000, 0x0000, 0xcd01, 0xcdcd, 0x7c6c, 0x5aff, 0x5a5a, 0xcd00, 0x0000, 
+    0x0000, 0xcd01, 0xcdcd, 0x7d8b, 0x5aff, 0x5a5a, 0xcd00, 0x0000, 0x0000, 
+    0xcd01, 0xcdcd, 0x8b6d, 0x5aff, 0x5a5a, 0xcd00, 0x0000, 0x0000, 0xcd01, 
+    0xcdcd, 0x8d55, 0x5aff, 0x5a5a, 0xcd00, 0x0000, 0x0000, 0xcd01, 0xcdcd, 
+    0x92a5, 0x5aff, 0x5a5a, 0xcd00, 0x0000, 0x0000, 0xcd01, 0xcdcd, 0x987e, 
+    0x5aff, 0x5a5a, 0xcd00, 0x0000, 0x0000, 0xcd01, 0xcdcd, 0xcdcd, 0xcdcd, 
+    0xcdcd, 0xcdcd, 0x0000, 0x0000, 0xcd01, 0xcdcd, 0xcdcd, 0xcdcd, 0xcdcd, 
+    0xcdcd, 0x0000, 0x0000, 0xcd01, 0xcdcd, 0xcdcd, 0xcdcd, 0xcdcd, 0xcdcd, 
+    0x0000, 0x0000, 0xcd01, 0xcdcd, 0xcdcd, 0xcdcd, 0xcdcd, 0xcdcd, 0x0000, 
+    0x0000, 0xcd01, 0xcdcd, 0xcdcd, 0xcdcd, 0xcdcd, 0xcdcd, 0x0000, 0x0000, 
+    0xcd01, 0xcdcd, 0xcd0b, 0xcdcd, 0x915b, 0x0fff, 0x0049, 0x2064, 0x6300, 
+    0xff6e, 0x490f, 0x6400, 0x0020, 0x745f, 0x0fff, 0x0049, 0x2064, 0x5400, 
+    0xff75, 0x490f, 0x6400, 0x0020, 0x6c70, 0x0fff, 0x0049, 0x2064, 0x8100, 
+    0xff6b, 0x490f, 0x6400, 0x0020, 0x6eab, 0x0fff, 0x0049, 0x2064, 0xae00, 
+    0xff78, 0x490f, 0x6400, 0x0020, 0x7cae, 0x0fff, 0x0049, 0x2064, 0x9a00, 
+    0xff92, 0x490f, 0x6400, 0x0020, 0x875e, 0x0fff, 0x0049, 0x2064, 0x6900, 
+    0xff89, 0x490f, 0x6400, 0x0020, 0x8971, 0x0fff, 0x0049, 0x2064, 0x6c00, 
+    0xff7f, 0x490f, 0x6400, 0x0020, 0x786c, 0x0fff, 0x0049, 0x2064, 0xad00, 
+    0xff89, 0x490f, 0x6400, 0x0020, 0x4c10, 0x008c, 0x7c4c, 0x5c00, 0x0d64, 
+    0x646c, 0x7c0c, 0x0c64, 0x648c, 0x9c0c, 0x0c64, 0x64ac, 0xb80b, 0x087c, 
+    0x8cb8, 0xac08, 0x059c, 0x9c9c, 0x8c04, 0x049c, 0x9c7c, 0x6c04, 0x049c, 
+    0x9c5c, 0x1003, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffcc, 0x01b0, 0xffff, 0xffca, 0x01b2, 0xffff, 0xffc9, 
+    0x0181, 0x048a, 0x0581, 0x0100, 0x0788, 0x0085, 0x078a, 0x0182, 0xffff, 
+    0xffc9, 0x0180, 0x0481, 0x0587, 0x0400, 0x0581, 0x0100, 0x0788, 0x0080, 
+    0x0782, 0x0084, 0x0782, 0x0080, 0x0781, 0x0180, 0xffff, 0xffc9, 0x0100, 
+    0x0481, 0x0588, 0x0400, 0x0581, 0x0100, 0x0788, 0x0080, 0x0700, 0x008a, 
+    0x0700, 0x0080, 0x0781, 0x0180, 0xffff, 0xffc9, 0x0100, 0x0480, 0x0580, 
+    0x0485, 0x0580, 0x0400, 0x0581, 0x0100, 0x0788, 0x0080, 0x0701, 0x8800, 
+    0x0107, 0x0700, 0x0084, 0x0100, 0xffff, 0xffc9, 0x0101, 0x8004, 0x8005, 
+    0x8304, 0x0005, 0x8004, 0x0005, 0x8104, 0x0005, 0x8801, 0x8007, 0x0400, 
+    0x0007, 0x0007, 0x8907, 0x8000, 0x8007, 0x0000, 0xff01, 0xc9ff, 0x01ff, 
+    0x0401, 0x0580, 0x0400, 0x0584, 0x0400, 0x0580, 0x0401, 0x8007, 0x8705, 
+    0x8001, 0x8007, 0x0400, 0x0007, 0x0007, 0x8307, 0x8600, 0x8007, 0x0000, 
+    0xff01, 0xc9ff, 0x01ff, 0x0401, 0x0580, 0x0400, 0x0580, 0x0480, 0x0580, 
+    0x0400, 0x0580, 0x0400, 0x0589, 0x0100, 0x0780, 0x0080, 0x0781, 0x0000, 
+    0x0781, 0x0480, 0x0780, 0x0084, 0x0700, 0x0080, 0x0100, 0xffff, 0xffc9, 
+    0x0101, 0x8004, 0x0005, 0x8004, 0x8005, 0x8004, 0x0005, 0x8004, 0x0005, 
+    0x8904, 0x0005, 0x8001, 0x8407, 0x8100, 0x0007, 0x8004, 0x8007, 0x8400, 
+    0x8007, 0x0000, 0xff01, 0xc9ff, 0x01ff, 0x0401, 0x0580, 0x0400, 0x0580, 
+    0x0400, 0x0581, 0x0400, 0x0580, 0x0400, 0x0588, 0x0180, 0x0780, 0x0080, 
+    0x0701, 0x8300, 0x0007, 0x8a04, 0x0000, 0xff01, 0xc9ff, 0x01ff, 0x0401, 
+    0x0580, 0x0400, 0x0580, 0x0483, 0x0580, 0x0400, 0x0588, 0x0100, 0x0083, 
+    0x0701, 0x8300, 0x0007, 0x8004, 0x8600, 0x8007, 0x0000, 0xff01, 0xc9ff, 
+    0x01ff, 0x0401, 0x0580, 0x0400, 0x0587, 0x0400, 0x0583, 0x0081, 0x0580, 
+    0x0100, 0x0083, 0x0701, 0x8300, 0x0007, 0x8004, 0x0000, 0x8707, 0x0000, 
+    0xff01, 0xc9ff, 0x01ff, 0x0401, 0x0580, 0x0400, 0x0587, 0x0400, 0x0580, 
+    0x0483, 0x0000, 0x0580, 0x0100, 0x0080, 0x0782, 0x0000, 0x0783, 0x0400, 
+    0x0080, 0x0700, 0x0087, 0x0100, 0xffff, 0xffc9, 0x0101, 0x8004, 0x8905, 
+    0x8004, 0x0005, 0x8004, 0x0205, 0x0400, 0x8000, 0x0005, 0x8001, 0x8500, 
+    0x8107, 0x0000, 0x8004, 0x8000, 0x0007, 0x8504, 0x0007, 0xff01, 0xc9ff, 
+    0x01ff, 0x0401, 0x058d, 0x0400, 0x0580, 0x0000, 0x0490, 0x0086, 0x0700, 
+    0x0080, 0x0701, 0xff01, 0xc9ff, 0x01ff, 0x0401, 0x058d, 0x0400, 0x0580, 
+    0x0002, 0x0004, 0x0580, 0x0100, 0x0780, 0x0581, 0x0700, 0x0581, 0x0001, 
+    0x8804, 0x0000, 0x8007, 0x0100, 0x0107, 0xffff, 0xffc9, 0x0100, 0x048f, 
+    0x0581, 0x0400, 0x0581, 0x0100, 0x0780, 0x0581, 0x0705, 0x0705, 0x0705, 
+    0x8104, 0x0007, 0x8500, 0x8107, 0x0000, 0xff01, 0xc9ff, 0x00ff, 0x8b01, 
+    0x0005, 0x8407, 0x0005, 0x8004, 0x8005, 0x8001, 0x8107, 0x0005, 0x8107, 
+    0x0105, 0x0407, 0x0781, 0x0000, 0x0782, 0x0084, 0x0100, 0xffff, 0xffc9, 
+    0x0100, 0x0592, 0x0400, 0x0580, 0x0100, 0x0781, 0x0508, 0x0507, 0x0507, 
+    0x0507, 0x0407, 0x0087, 0x0781, 0x0181, 0xffff, 0xffc9, 0x0100, 0x0592, 
+    0x0400, 0x0580, 0x0101, 0x8107, 0x0005, 0x8107, 0x0005, 0x8007, 0x0005, 
+    0x8204, 0x8300, 0x8207, 0x0101, 0x0107, 0xffff, 0xffc9, 0x0100, 0x0592, 
+    0x0400, 0x0580, 0x0101, 0x8107, 0x0005, 0x8107, 0x0005, 0x8007, 0x0005, 
+    0x8404, 0x8207, 0x8201, 0x0007, 0xff01, 0xc9ff, 0x00ff, 0x8501, 0x0005, 
+    0x8707, 0x8105, 0x0001, 0x8104, 0x0001, 0x8107, 0x0005, 0x8107, 0x0005, 
+    0x8007, 0x0005, 0x8104, 0x8207, 0x8501, 0x0007, 0xff01, 0xc9ff, 0x00ff, 
+    0x8e01, 0x8205, 0x0001, 0x8304, 0x8701, 0x0007, 0x8004, 0x8007, 0x8101, 
+    0x8502, 0x0007, 0xff01, 0xc9ff, 0x00ff, 0x8e01, 0x8205, 0x0001, 0x8504, 
+    0x8201, 0x8107, 0x0001, 0x8104, 0x8201, 0x8502, 0x0007, 0xff01, 0xc9ff, 
+    0x85ff, 0x8701, 0x8305, 0x0001, 0x8b04, 0x0101, 0x0402, 0x0285, 0x0785, 
+    0x0100, 0xffff, 0xffc9, 0x0101, 0x8200, 0x0007, 0x8601, 0x8405, 0x0001, 
+    0x8604, 0x8401, 0x0002, 0x8304, 0x8702, 0x0000, 0xff01, 0xc9ff, 0x01ff, 
+    0x0001, 0x0782, 0x0183, 0x0582, 0x0184, 0x0400, 0x0186, 0x0284, 0x0400, 
+    0x0281, 0x0089, 0x0100, 0xffff, 0xffc9, 0x0101, 0x8600, 0x8907, 0x0001, 
+    0x8604, 0x8401, 0x0002, 0x8004, 0x8a02, 0x0000, 0xff01, 0xc9ff, 0x01ff, 
+    0x0001, 0x078b, 0x0184, 0x0400, 0x0187, 0x0283, 0x0400, 0x008c, 0x0100, 
+    0xffff, 0xffc9, 0x0101, 0x8b00, 0x8407, 0x0001, 0x8704, 0x8301, 0x0002, 
+    0x8c04, 0x0000, 0xff01, 0xc9ff, 0x01ff, 0x0001, 0x0781, 0x0481, 0x0785, 
+    0x0181, 0x0200, 0x0180, 0x0401, 0x8002, 0x0001, 0x8302, 0x8301, 0x0002, 
+    0x8004, 0x8300, 0x8502, 0x0007, 0xff01, 0xc9ff, 0x01ff, 0x0001, 0x0780, 
+    0x0483, 0x0784, 0x0184, 0x0400, 0x0187, 0x0283, 0x0480, 0x0000, 0x0283, 
+    0x0785, 0x0100, 0xffff, 0xffc9, 0x0102, 0x0700, 0x0485, 0x0783, 0x0184, 
+    0x0400, 0x0187, 0x0283, 0x0400, 0x0080, 0x0283, 0x0781, 0x0180, 0x0780, 
+    0x0100, 0xffff, 0xffc9, 0x0101, 0x8700, 0x8204, 0x8407, 0x0001, 0x8604, 
+    0x8401, 0x0002, 0x8504, 0x8002, 0x8207, 0x0101, 0x0107, 0xffff, 0xffc9, 
+    0x0101, 0x8700, 0x8204, 0x8407, 0x0001, 0x8504, 0x8501, 0x0002, 0x8504, 
+    0x8002, 0x8407, 0xff01, 0xc9ff, 0x01ff, 0x0001, 0x0487, 0x0783, 0x0183, 
+    0x0400, 0x0184, 0x0286, 0x0400, 0x0285, 0x0780, 0x0184, 0xffff, 0xffc9, 
+    0x0102, 0x0700, 0x0485, 0x0784, 0x0183, 0x0400, 0x0183, 0x0084, 0x0281, 
+    0x0400, 0x0285, 0x0780, 0x0182, 0x0701, 0xff01, 0xc9ff, 0x01ff, 0x0001, 
+    0x0780, 0x0483, 0x0784, 0x0184, 0x0400, 0x0188, 0x0000, 0x0281, 0x0400, 
+    0x0285, 0x0781, 0x0180, 0x0780, 0x0100, 0xffff, 0xffc9, 0x0101, 0x8100, 
+    0x8107, 0x8504, 0x0007, 0x8301, 0x0000, 0x8704, 0x0000, 0x8001, 0x8000, 
+    0x0002, 0x8504, 0x8502, 0x0007, 0xff01, 0xc9ff, 0x01ff, 0x0001, 0x0782, 
+    0x0400, 0x0786, 0x0101, 0x8100, 0x0004, 0x8700, 0x0004, 0x8300, 0x0001, 
+    0x8204, 0x8101, 0x8502, 0x0007, 0xff01, 0xc9ff, 0x01ff, 0x0001, 0x0782, 
+    0x0400, 0x0786, 0x0102, 0x0400, 0x0081, 0x0400, 0x0085, 0x0400, 0x0081, 
+    0x0100, 0x0780, 0x0400, 0x0781, 0x0183, 0x0784, 0x0100, 0xffff, 0xffc9, 
+    0x0101, 0x8200, 0x0007, 0x8604, 0x0307, 0x0001, 0x0004, 0x0481, 0x0000, 
+    0x0483, 0x0005, 0x0004, 0x0004, 0x8001, 0x0307, 0x0004, 0x0007, 0x0782, 
+    0x0186, 0xffff, 0xffc9, 0x0101, 0x8200, 0x0007, 0x8604, 0x0407, 0x0001, 
+    0x0004, 0x8104, 0x0000, 0x8104, 0x0900, 0x0004, 0x0004, 0x0004, 0x0701, 
+    0x0400, 0x0785, 0x0100, 0x0784, 0x0100, 0xffff, 0xffc9, 0x0101, 0x8200, 
+    0x0007, 0x8604, 0x0907, 0x0001, 0x0004, 0x0004, 0x0004, 0x0004, 0x0481, 
+    0x0005, 0x0004, 0x0004, 0x8001, 0x0007, 0x8104, 0x8200, 0x0007, 0x8401, 
+    0x0007, 0xff01, 0xc9ff, 0x00ff, 0x8001, 0x8100, 0x0007, 0x8204, 0x8107, 
+    0x0b00, 0x0107, 0x0400, 0x0400, 0x0400, 0x0400, 0x0400, 0x0081, 0x0404, 
+    0x0400, 0x0100, 0x0780, 0x0400, 0x0785, 0x0100, 0x0784, 0x0100, 0xffff, 
+    0xffc9, 0x0101, 0x8e00, 0x0204, 0x0400, 0x8100, 0x0004, 0x8100, 0x0004, 
+    0x8100, 0x0104, 0x0100, 0x0780, 0x0401, 0x8407, 0x0000, 0x8401, 0x0007, 
+    0xff01, 0xc9ff, 0x03ff, 0x0201, 0x0204, 0x0785, 0x0008, 0x0004, 0x0107, 
+    0x0400, 0x0400, 0x0083, 0x0408, 0x0400, 0x0400, 0x0400, 0x0100, 0x0782, 
+    0x0000, 0x0781, 0x0080, 0x0100, 0x0784, 0x0100, 0xffff, 0xffc9, 0x0103, 
+    0x0402, 0x8602, 0x0007, 0x8004, 0x0507, 0x0001, 0x0004, 0x0004, 0x0483, 
+    0x0007, 0x0004, 0x0004, 0x0004, 0x8201, 0x0007, 0x8100, 0x8007, 0x0000, 
+    0x8401, 0x0007, 0xff01, 0xc9ff, 0x02ff, 0x0201, 0x8004, 0x8502, 0x0007, 
+    0x8004, 0x0407, 0x0001, 0x0004, 0x8304, 0x0900, 0x0004, 0x0004, 0x0004, 
+    0x0004, 0x0701, 0x0082, 0x0702, 0x0705, 0x0080, 0x0100, 0x0784, 0x0100, 
+    0xffff, 0xffc9, 0x0180, 0x0401, 0x8101, 0x8302, 0x0007, 0x8004, 0x0507, 
+    0x0001, 0x0004, 0x0004, 0x0481, 0x0002, 0x0004, 0x0481, 0x0003, 0x0004, 
+    0x8001, 0x8000, 0x0307, 0x0700, 0x0705, 0x0080, 0x0100, 0x0784, 0x0100, 
+    0xffff, 0xffc9, 0x0102, 0x0402, 0x0181, 0x0200, 0x0783, 0x0400, 0x0780, 
+    0x0102, 0x0400, 0x0081, 0x0406, 0x0400, 0x0400, 0x0400, 0x0083, 0x0100, 
+    0x0080, 0x0780, 0x0000, 0x0781, 0x0001, 0x8007, 0x8301, 0x0007, 0xff01, 
+    0xc9ff, 0x00ff, 0x8101, 0x0002, 0x8001, 0x8302, 0x0007, 0x8004, 0x0107, 
+    0x0001, 0x0483, 0x0006, 0x0004, 0x0004, 0x0004, 0x0481, 0x0001, 0x8001, 
+    0x8400, 0x0007, 0x8000, 0x0007, 0x8201, 0x8007, 0xff01, 0xc9ff, 0x00ff, 
+    0x8101, 0x0002, 0x8001, 0x8302, 0x0007, 0x8004, 0x0007, 0x8501, 0x0200, 
+    0x0004, 0x8104, 0x0400, 0x0004, 0x0004, 0x8001, 0x8000, 0x0007, 0x8100, 
+    0x0007, 0x8000, 0x0007, 0x8201, 0x8007, 0xff01, 0xc9ff, 0x83ff, 0x8001, 
+    0x8302, 0x0007, 0x8004, 0x0107, 0x0001, 0x0485, 0x0000, 0x0483, 0x0004, 
+    0x0004, 0x0701, 0x0082, 0x0780, 0x0080, 0x0780, 0x0100, 0x0781, 0x0181, 
+    0xffff, 0xffc9, 0x0100, 0x0281, 0x0100, 0x0280, 0x0783, 0x0400, 0x0780, 
+    0x0102, 0x0400, 0x008b, 0x0402, 0x0100, 0x0782, 0x0000, 0x0780, 0x0000, 
+    0x0781, 0x0100, 0x0781, 0x0181, 0xffff, 0xffc9, 0x0100, 0x0281, 0x0100, 
+    0x0280, 0x0783, 0x0400, 0x0780, 0x0107, 0x0400, 0x0400, 0x0400, 0x8100, 
+    0x0004, 0x8100, 0x0304, 0x0400, 0x0100, 0x0782, 0x0000, 0x0780, 0x0000, 
+    0x0781, 0x0180, 0x0780, 0x0181, 0xffff, 0xffc9, 0x0100, 0x0281, 0x0100, 
+    0x0280, 0x0783, 0x0400, 0x0780, 0x0112, 0x0400, 0x0400, 0x0400, 0x0400, 
+    0x0400, 0x0400, 0x0400, 0x0400, 0x0100, 0x0780, 0x0081, 0x0700, 0x0080, 
+    0x0782, 0x0100, 0x0781, 0x0180, 0xffff, 0xffc9, 0x0100, 0x0281, 0x0180, 
+    0x0200, 0x0783, 0x0400, 0x0780, 0x0103, 0x0400, 0x8100, 0x0b04, 0x0400, 
+    0x0400, 0x0400, 0x0400, 0x0400, 0x0100, 0x0780, 0x0400, 0x0787, 0x0100, 
+    0x0781, 0x0180, 0xffff, 0xffc9, 0x0100, 0x0281, 0x0180, 0x0200, 0x0783, 
+    0x0400, 0x0780, 0x0112, 0x0400, 0x0400, 0x0400, 0x0400, 0x0400, 0x0400, 
+    0x0400, 0x0400, 0x0100, 0x0780, 0x0400, 0x0787, 0x0100, 0x0781, 0x0180, 
+    0xffff, 0xffc9, 0x0100, 0x0282, 0x0101, 0x8302, 0x0007, 0x8004, 0x0507, 
+    0x0001, 0x0004, 0x0004, 0x0481, 0x0004, 0x0004, 0x0004, 0x0481, 0x0001, 
+    0x8001, 0x0007, 0x8204, 0x8107, 0x8005, 0x8007, 0x8101, 0x0007, 0xff01, 
+    0xc9ff, 0x00ff, 0x8201, 0x0002, 0x8001, 0x8202, 0x0007, 0x8004, 0x0207, 
+    0x0001, 0x8104, 0x0000, 0x8104, 0x0200, 0x0004, 0x8104, 0x0200, 0x0004, 
+    0x8001, 0x0007, 0x8204, 0x0107, 0x0705, 0x0580, 0x0780, 0x0100, 0x0781, 
+    0x0100, 0xffff, 0xffc9, 0x0100, 0x0282, 0x0180, 0x0200, 0x0782, 0x0400, 
+    0x0780, 0x0101, 0x8100, 0x0004, 0x8100, 0x0204, 0x0400, 0x8100, 0x0304, 
+    0x0400, 0x0100, 0x0780, 0x0400, 0x0782, 0x0500, 0x0780, 0x0580, 0x0700, 
+    0x0180, 0x0780, 0x0100, 0xffff, 0xffc9, 0x0182, 0x0280, 0x0101, 0x8202, 
+    0x0007, 0x8004, 0x0407, 0x0001, 0x0004, 0x8304, 0x0000, 0x8104, 0x0400, 
+    0x0004, 0x0004, 0x8001, 0x0007, 0x8204, 0x8007, 0x8005, 0x0107, 0x0705, 
+    0x0180, 0x0780, 0x0100, 0xffff, 0xffc9, 0x0100, 0x0280, 0x0100, 0x0280, 
+    0x0101, 0x8202, 0x0007, 0x8004, 0x0307, 0x0001, 0x0004, 0x0489, 0x0003, 
+    0x0004, 0x8001, 0x0007, 0x8304, 0x8007, 0x8205, 0x0007, 0x8001, 0x0007, 
+    0xff01, 0xc9ff, 0x00ff, 0x8001, 0x8002, 0x0101, 0x0102, 0x0281, 0x0702, 
+    0x0400, 0x0080, 0x0102, 0x0400, 0x008b, 0x0402, 0x0100, 0x0780, 0x0400, 
+    0x0781, 0x0082, 0x0500, 0x0781, 0x0100, 0x0780, 0x0100, 0xffff, 0xffc9, 
+    0x0100, 0x0281, 0x0182, 0x0280, 0x0701, 0x9000, 0x0304, 0x0400, 0x0100, 
+    0x0780, 0x0400, 0x0781, 0x0001, 0x8307, 0x0100, 0x0107, 0x0780, 0x0100, 
+    0xffff, 0xffc9, 0x0100, 0x0284, 0x0100, 0x0281, 0x0081, 0x0401, 0x8d01, 
+    0x0200, 0x0004, 0x8001, 0x0007, 0x8104, 0x0207, 0x0700, 0x8100, 0x0207, 
+    0x0700, 0x8001, 0x0007, 0xff01, 0xc9ff, 0x00ff, 0x8401, 0x0002, 0x8101, 
+    0x8102, 0x0007, 0x8e04, 0x0001, 0x8004, 0x8001, 0x0007, 0x8904, 0x0007, 
+    0x8001, 0x0007, 0xff01, 0xc9ff, 0x00ff, 0x8401, 0x0002, 0x8101, 0x0002, 
+    0x8007, 0x0101, 0x0104, 0x0089, 0x0100, 0x0081, 0x0400, 0x0782, 0x0481, 
+    0x0081, 0x0782, 0x0002, 0x0107, 0x0780, 0x0100, 0xffff, 0xffc9, 0x0100, 
+    0x0284, 0x0101, 0x8202, 0x0101, 0x0407, 0x0784, 0x0582, 0x0780, 0x0100, 
+    0x0781, 0x0400, 0x0781, 0x0003, 0x0004, 0x8704, 0x0300, 0x0001, 0x0107, 
+    0xffff, 0xffc9, 0x0100, 0x0281, 0x0184, 0x0200, 0x0781, 0x0400, 0x0780, 
+    0x0500, 0x0782, 0x0580, 0x0781, 0x0180, 0x0780, 0x0484, 0x0000, 0x0485, 
+    0x0081, 0x0100, 0x0080, 0x0100, 0xffff, 0xffc9, 0x0183, 0x0280, 0x0100, 
+    0x0281, 0x0781, 0x0401, 0x8207, 0x8105, 0x8107, 0x8005, 0x0007, 0x8401, 
+    0x0207, 0x0400, 0x8300, 0x8301, 0x8204, 0xff01, 0xc9ff, 0x80ff, 0x8301, 
+    0x0002, 0x8101, 0x8102, 0x0007, 0x8004, 0x0007, 0x8505, 0x0007, 0x8005, 
+    0x0007, 0x8401, 0x0107, 0x0400, 0x0083, 0x0105, 0x0104, 0x0104, 0x8204, 
+    0xff01, 0xc9ff, 0x80ff, 0x8301, 0x0002, 0x8101, 0x8102, 0x0007, 0x8504, 
+    0x8207, 0x8005, 0x0007, 0x8401, 0x0107, 0x0400, 0x0184, 0x0404, 0x0401, 
+    0x0401, 0x0182, 0xffff, 0xffc9, 0x0180, 0x0282, 0x0180, 0x0200, 0x0783, 
+    0x0400, 0x0781, 0x0581, 0x0700, 0x0582, 0x0780, 0x0180, 0x0783, 0x0001, 
+    0x8d04, 0xff01, 0xc9ff, 0x80ff, 0x8201, 0x0002, 0x8001, 0x8302, 0x0207, 
+    0x0704, 0x8000, 0x0107, 0x0500, 0x0786, 0x0100, 0x0783, 0x0001, 0x8d04, 
+    0xff01, 0xc9ff, 0x80ff, 0x8201, 0x0002, 0x8001, 0x8302, 0x0007, 0x8104, 
+    0x8107, 0x8605, 0x0007, 0x8301, 0x0007, 0x8300, 0x8104, 0x0001, 0x8502, 
+    0xff01, 0xc9ff, 0x80ff, 0x8101, 0x8002, 0x8001, 0x8302, 0x0007, 0x8c04, 
+    0x0007, 0x8301, 0x0107, 0x0400, 0x018d, 0xffff, 0xffc9, 0x0180, 0x0281, 
+    0x0100, 0x0281, 0x0783, 0x0402, 0x0507, 0x0784, 0x0583, 0x0701, 0x8301, 
+    0x0107, 0x0400, 0x0183, 0x0400, 0x0180, 0x0400, 0x0184, 0xffff, 0xffc9, 
+    0x0180, 0x0281, 0x0100, 0x0281, 0x0783, 0x0401, 0x8007, 0x8005, 0x0007, 
+    0x8000, 0x0607, 0x0705, 0x0705, 0x0705, 0x8301, 0x0107, 0x0400, 0x0081, 
+    0x0180, 0x0400, 0x0180, 0x0400, 0x0184, 0xffff, 0xffc9, 0x0180, 0x0280, 
+    0x0180, 0x0281, 0x0783, 0x0400, 0x0780, 0x0580, 0x0782, 0x0506, 0x0507, 
+    0x0507, 0x0107, 0x0783, 0x0000, 0x0481, 0x0000, 0x0180, 0x0400, 0x0180, 
+    0x0400, 0x0184, 0xffff, 0xffc9, 0x0180, 0x0280, 0x0100, 0x0282, 0x0783, 
+    0x0400, 0x0781, 0x0580, 0x0787, 0x0180, 0x0782, 0x0081, 0x0486, 0x0083, 
+    0x0100, 0xffff, 0xffc9, 0x0180, 0x0280, 0x0100, 0x0282, 0x0783, 0x0402, 
+    0x0007, 0x0780, 0x0580, 0x0782, 0x0500, 0x0782, 0x0100, 0x0785, 0x0400, 
+    0x0084, 0x0401, 0x8000, 0x8007, 0x0002, 0xff01, 0xc9ff, 0x80ff, 0x0001, 
+    0x8202, 0x8001, 0x8302, 0x0007, 0x8304, 0x8007, 0x8005, 0x8107, 0x8105, 
+    0x0007, 0x8301, 0x8007, 0x0000, 0x8004, 0x8107, 0x0000, 0x8207, 0x8004, 
+    0x0002, 0xff01, 0xc9ff, 0x80ff, 0x0101, 0x0102, 0x0280, 0x0181, 0x0783, 
+    0x0401, 0x8007, 0x8105, 0x8007, 0x8005, 0x0007, 0x8205, 0x0007, 0x8401, 
+    0x0107, 0x0400, 0x0780, 0x0000, 0x0781, 0x0081, 0x0400, 0x0280, 0x0100, 
+    0xffff, 0xffc9, 0x0180, 0x0201, 0x8201, 0x0002, 0x8301, 0x0107, 0x0704, 
+    0x0580, 0x078a, 0x0102, 0x0007, 0x0780, 0x0081, 0x0400, 0x0780, 0x0007, 
+    0x0007, 0x0007, 0x0007, 0x8004, 0x0002, 0xff01, 0xc9ff, 0x82ff, 0x8201, 
+    0x0002, 0x8301, 0x0007, 0x8204, 0x0007, 0x8105, 0x8307, 0x8005, 0x8007, 
+    0x8401, 0x0000, 0x8004, 0x8307, 0x0200, 0x0007, 0x8004, 0x0002, 0xff01, 
+    0xc9ff, 0x82ff, 0x8201, 0x8002, 0x8201, 0x0007, 0x8004, 0x0207, 0x0700, 
+    0x8105, 0x0007, 0x8105, 0x0007, 0x8105, 0x0107, 0x0701, 0x0083, 0x0400, 
+    0x0782, 0x0001, 0x8004, 0x0107, 0x0400, 0x0280, 0x0100, 0xffff, 0xffc9, 
+    0x0100, 0x0280, 0x0100, 0x0283, 0x0100, 0x0782, 0x0400, 0x0782, 0x0500, 
+    0x0781, 0x0500, 0x0781, 0x0500, 0x0781, 0x0100, 0x0781, 0x0081, 0x0400, 
+    0x0780, 0x0002, 0x0007, 0x0782, 0x0400, 0x0280, 0x0100, 0xffff, 0xffc9, 
+    0x0100, 0x0280, 0x0100, 0x0283, 0x0180, 0x0781, 0x0400, 0x0580, 0x078c, 
+    0x0100, 0x0781, 0x0085, 0x0701, 0x8000, 0x0207, 0x0700, 0x8004, 0x0002, 
+    0xff01, 0xc9ff, 0x00ff, 0x8001, 0x0002, 0x8401, 0x0002, 0x8101, 0x0007, 
+    0x8004, 0x8105, 0x8807, 0x0105, 0x0107, 0x0787, 0x0001, 0x8207, 0x0100, 
+    0x0407, 0x0280, 0x0100, 0xffff, 0xffc9, 0x0100, 0x0280, 0x0100, 0x0284, 
+    0x0181, 0x0701, 0x8304, 0x0007, 0x8805, 0x0007, 0x8501, 0x0507, 0x0700, 
+    0x0700, 0x0700, 0x0080, 0x0701, 0x8004, 0x0002, 0xff01, 0xc9ff, 0x00ff, 
+    0x8001, 0x0002, 0x8601, 0x0202, 0x0701, 0x8004, 0x0007, 0x8000, 0x8807, 
+    0x0105, 0x0107, 0x0785, 0x0005, 0x0007, 0x0007, 0x8007, 0x0100, 0x0407, 
+    0x0280, 0x0100, 0xffff, 0xffc9, 0x0100, 0x0280, 0x0100, 0x0286, 0x0102, 
+    0x0407, 0x078c, 0x0502, 0x0107, 0x0785, 0x0001, 0x8107, 0x8000, 0x0007, 
+    0x8200, 0x0007, 0xff01, 0xc9ff, 0x00ff, 0x8001, 0x8002, 0x8501, 0x0302, 
+    0x0001, 0x0004, 0x0785, 0x0583, 0x0703, 0x0705, 0x8501, 0x8107, 0x8100, 
+    0x8007, 0x8200, 0x0007, 0xff01, 0xc9ff, 0x01ff, 0x0201, 0x0080, 0x0100, 
+    0x0285, 0x0101, 0x8500, 0x8004, 0x0807, 0x0705, 0x0705, 0x0705, 0x0705, 
+    0x8901, 0x8107, 0x8300, 0x0007, 0xff01, 0xc9ff, 0x02ff, 0x0201, 0x8a00, 
+    0x0004, 0x8100, 0x0307, 0x0705, 0x0705, 0x0583, 0x0703, 0x0705, 0x9001, 
+    0x8007, 0xff01, 0xc9ff, 0x04ff, 0x0201, 0x0400, 0x8501, 0x0002, 0x8101, 
+    0x0000, 0x8002, 0x0c07, 0x0705, 0x0705, 0x0705, 0x0705, 0x0705, 0x0705, 
+    0x8501, 0x8107, 0x8605, 0x8007, 0xff01, 0xc9ff, 0x00ff, 0x8101, 0x8002, 
+    0x8401, 0x8002, 0x8101, 0x8002, 0x8107, 0x0005, 0x8307, 0x8105, 0x0007, 
+    0x8501, 0x8107, 0x8505, 0x8107, 0xff01, 0xc9ff, 0x00ff, 0x8201, 0x0002, 
+    0x8501, 0x0002, 0x8101, 0x8002, 0x8107, 0x8705, 0x0007, 0x8e01, 0x8207, 
+    0xff01, 0xc9ff, 0x80ff, 0x8101, 0x0002, 0x8501, 0x0002, 0x8101, 0x8002, 
+    0x8107, 0x8705, 0x0007, 0x8001, 0x8207, 0x8601, 0x8407, 0xff01, 0xc9ff, 
+    0xb2ff, 0xff01, 0xcaff, 0xb0ff, 0xff01, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 
+    0xd0ff, "\377" 
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON2               ICON                    "winbolods.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    STR_DLGOPENING_TITLE    "Network Selection"
+    STR_DLGOPENING_TEXT     "Welcome to WinBolo, the multiplayer tank game.\nPlease choose a game type from the list below:"
+    STR_DLGOPENING_OPTION1  "Practice (Single Player; No Network)"
+    STR_DLGOPENING_OPTION2  "TCP/IP"
+    STR_DLGOPENING_OPTION3  "Internet (Tracker Search)"
+    STR_DLGOPENING_SKIP     "Skip this Dialog Next Time"
+    STR_OK                  "OK"
+    STR_DLGOPENING_BUTTON2  "Quit"
+    STR_DLGLANG_TITLE       "Language Select"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGLANG_NAME_CAPTION "Name:"
+    STR_DLGLANG_NAME        "English (Default)"
+    STR_DLGLANG_AUTHOR_CAPTION "Author: "
+    STR_DLGLANG_AUTHOR      "John Morrison"
+    STR_DLGOPENING_OPTION4  "Local Network (Broadcast Search)"
+    STR_DLGOPENING_OPTION0  "Tutorial (Instruction for first-time player)"
+    STR_DLGLANG_NOTES_CAPTION "Notes: "
+    STR_DLGLANG_NOTES       "None."
+    STR_DLGLANG_DEFAULTNOTE "Note: For incomplete translations the missing items default back to English."
+    STR_DLGABOUT_TITLE      "About WinBolo"
+    STR_DLGABOUT_BLURB      "The WinBolo package may be freely distributed provided the neither the program nor any of the accompanying files are omitted or modified in any way.\n\nWinBolo is a shareware program. Shareware software is not free. It costs money, just like other software you buy, except that with shareware you get to try it out first to decide if you like it.\n\nWinBolo costs $25(US) If you decide to keep WinBolo you can pay for it via the following methods:\n\nRun the program register.exe in the WinBolo directory, it allow you to pay via cheque, money order, cash or credit card via email, fax or postal mediums.\n\nTo register via credit card online visit: http://order.kagi.com/?XYV and fill out the form.\n\nRead the text file Readme(Shareware) included in the distribution for more information."
+    STR_DLGALLIANCE_TITLE   "Alliance Request"
+    STR_DLGALLIANCE_ACCEPT  "&Accept"
+    STR_DLGALLIANCE_DECLINE "&Reject"
+    STR_DLGALLIANCE_BLURB   " requests alliance. Accept?"
+    STR_DLGGAMEFINDER_REFRESHFIRST "Try hitting refresh first."
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGGAMEFINDER_MESSAGEOFTHEDAY "Message of the Day"
+    STR_DLGGAMEFINDER_WRONGVERSION 
+                            "The game you tried to join is a different version of WinBolo. Try joining a different game"
+    STR_DLGGAMEFINDER_NOGAMESINPROGRESS "No games in progress (Start one!)"
+    STR_YES                 "Yes"
+    STR_NO                  "No"
+    STR_DLGGAMEFINDER_YESADV "Yes (Adv)"
+    STR_DLGGAMEFINDER_OPEN  "Open"
+    STR_DLGGAMEFINDER_TOURNAMENT "Tournament"
+    STR_DLGGAMEFINDER_STRICTTOURNAMENT "Strict"
+    STR_DLGGAMEINFO_TITLE   "WinBolo Game Information"
+    STR_DLGGAMEINFO_MAPNAME "Map Name: "
+    STR_DLGGAMEINFO_NUMPLAYERS "Number of Players: "
+    STR_DLGGAMEINFO_GAMETYPE "Game Type: "
+    STR_DLGGAMEINFO_HIDDENMINES "Hidden Mines: "
+    STR_DLGGAMEINFO_ALLOWCOMPTANKS "Computer Tanks Allowed: "
+    STR_DLGGAMEINFO_TIMELIMIT "Game Time Limit: "
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGGAMESETUP_BLURB  "Please select the options you want for your new game:"
+    STR_CANCEL              "Cancel"
+    STR_DLGGAMESETUP_TITLE  "Game Setup"
+    STR_DLGGAMESETUP_CHOOSEMAP "Choose map"
+    STR_DLGGAMESETUP_SELECTEDMAP "Selected Map: "
+    STR_DLGGAMESETUP_SELECTEDMAPINBUILT 
+                            "Selected Map: Everard Island (Inbuilt)"
+    STR_DLGGAMESETUP_RADIO1 "Open Game (each new tank comes pre-armed)"
+    STR_DLGGAMESETUP_RADIO2 "Tournament (free ammunition early in the game)"
+    STR_DLGGAMESETUP_RADIO3 "Strict Tournament (no free ammunition at all)"
+    STR_DLGGAMESETUP_HIDDENMINES "Allow Hidden Mines"
+    STR_DLGGAMESETUP_ALLOWCOMPTANKS "Allow Computer Tanks"
+    STR_DLGGAMESETUP_ALLOWCOMPTANKSADV "and give them an advantage"
+    STR_DLGGAMESETUP_PASSWORD "Game Password"
+    STR_DLGGAMESETUP_MINUTES "minutes"
+    STR_DLGGAMESETUP_SECONDS "seconds"
+    STR_DLGGAMESETUP_STARTDELAY "Game start delay"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGGAMESETUP_TIMELIMIT "Game time limit"
+    STR_DLGGAMESETUP_ERROROPENINGMAP "Error Opening Map."
+    STR_DLGGAMEINFO_TIMEREMAINING "About %d minute(s)"
+    STR_DLGGAMEINFO_OPEN    "Open"
+    STR_DLGGAMEINFO_TOURN   "Tournament"
+    STR_DLGGAMEINFO_STRICT  "Strict Tournament"
+    STR_DLGGAMEINFO_AIADV   "Yes (With an Advantage)"
+    STR_DLGGAMESETUP_DEFAULTNAME "Me"
+    STR_DLGKEYSETUP_TITLE   "Choose Key Settings"
+    STR_DLGKEYSETUP_BLURB   "Click on the option you wish to change then the next key pressed will be assigned to it. The key ALT, PRINT SCREEN and PAUSE can not be assigned to anything."
+    STR_DLGKEYSETUP_DRIVETANK "Drive Tank:"
+    STR_DLGKEYSETUP_TURNTANK "Rotate Tank:"
+    STR_DLGKEYSETUP_GUNRANGE "Gun Range:"
+    STR_DLGKEYSETUP_WEAPONS "Weapons:"
+    STR_DLGKEYSETUP_VIEW    "Change Views:"
+    STR_DLGKEYSETUP_SCROLL  "Scroll:"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGKEYSETUP_LEFT    "(left)"
+    STR_DLGKEYSETUP_RIGHT   "(right)"
+    STR_DLGKEYSETUP_AUTOSLOWDOWN "Auto slowdown"
+    STR_DLGKEYSETUP_AUTOGUNSIGHT "Enable Automatic show and hide of gunsight"
+    STR_DLGKEYSETUP_FASTER  "Accelerate"
+    STR_DLGKEYSETUP_SLOWER  "Decelerate"
+    STR_DLGKEYSETUP_TURNLEFT "Anti-clockwise"
+    STR_DLGKEYSETUP_TURNRIGHT "Clockwise"
+    STR_DLGKEYSETUP_INCREASE "Increase"
+    STR_DLGKEYSETUP_DECREASE "Decrease"
+    STR_DLGKEYSETUP_SHOOT   "Shoot"
+    STR_DLGKEYSETUP_LAYMINE "Lay mine"
+    STR_DLGKEYSETUP_TANKVIEW "Tank view"
+    STR_DLGKEYSETUP_PILLVIEW "Pillbox"
+    STR_DLGKEYSETUP_SCROLLUP "Up"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGKEYSETUP_SCROLLDOWN "Down"
+    STR_DLGKEYSETUP_SCROLLLEFT "Left"
+    STR_DLGKEYSETUP_SCROLLRIGHT "Right"
+    STR_DLGKEYSETUP_NEWKEYFOR "Press new key for "
+    STR_DLGKEYSETUP_FORWARD "forward"
+    STR_DLGKEYSETUP_BACKWARD "backward"
+    STR_DLGKEYSETUP_ROTATELEFT "rotate left"
+    STR_DLGKEYSETUP_ROTATERIGHT "rotate right"
+    STR_DLGKEYSETUP_INCREASERANGE "increase range"
+    STR_DLGKEYSETUP_DECREASERANGE "decrease range"
+    STR_DLGKEYSETUP_SETSHOOT "shoot"
+    STR_DLGKEYSETUP_SETLAYMINE "lay mine"
+    STR_DLGKEYSETUP_SETTANKVIEW "tank view"
+    STR_DLGKEYSETUP_SETPILLVIEW "pillbox view"
+    STR_DLGKEYSETUP_SETSCROLLUP "scroll up"
+    STR_DLGKEYSETUP_SETSCROLLDOWN "scroll down"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGKEYSETUP_SETSCROLLLEFT "scroll left"
+    STR_DLGKEYSETUP_SETSCROLLRIGHT "scroll right"
+    STR_DLGMSG_BUTTON       "&Send"
+    STR_DLGMSG_ALLPLAYERS   "All players"
+    STR_DLGMSG_ALLALLIES    "All allies"
+    STR_DLGMSG_NEARBY       "All nearby tanks"
+    STR_DLGMSG_SELECTION    "Selection on the Players menu"
+    STR_DLGMSG_SENDPLAYER   "Sending message to %d player"
+    STR_DLGMSG_SENDPLAYERS  "Sending message to %d players"
+    STR_DLGNETINFO_TITLE    "WinBolo Network Information"
+    STR_DLGNETINFO_SERVERADDRESS "Server address:"
+    STR_DLGNETINFO_THISGAMEADDRESS "This game address:"
+    STR_DLGNETINFO_SERVERPING "Server ping (ms):"
+    STR_DLGNETINFO_PACKETS  "Packets per second (per player):"
+    STR_DLGNETINFO_STATUS   "Network status:"
+    STR_DLGNETINFO_ERRORS   "Network errors:"
+END
+
+STRINGTABLE 
+BEGIN
+    NETERR_JOININIT         "There was no response from the game you tried to contact.\nThis usually means 1 of 3 things:\n1. You have the address and port fields incorrect.\n2. You are behind some kind of firewall preventing UDP access.\n3. Check that your version of WinBolo is the same as the game"
+    NETERR_GAMEFULL         "This game is currently full"
+    NETERR_SERVERCONNECT    "Failed to make a connection with the server. Try a different machine or wait a few seconds and try again."
+    NETERR_PASSWORDWRONG    "The password is incorrect"
+    NETERR_PLAYERNAMEINUSE  "Your player name is in use. Select another and try again"
+    NETERR_NONEWPLAYERS     "Sorry, this game is currently not accepting players"
+    NETERR_CONNECTNOJOIN    "You were able to connect to the game but you were not allowed to join. This probably means that your player name has been taken. Please try again with a new name"
+    NET_STATUS_JOINING      "Joining"
+    NET_STATUS_OK           "OK"
+    NET_STATUS_FAILED       "Failed"
+    NETERR_LOSTCONNECTION   "You have lost your connection to the server.\nNow dropping you to single player mode"
+    STR_DLGMSG_TITLE        "Compose Message"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGPASSWORD_TITLE   "Password"
+    STR_DLGPASSWORD_BLURB   "This game is password protected. Enter the correct password to join:"
+    STR_DLGSETNAME_TITLE    "Enter Player Name"
+    STR_DLGSETNAME_BLURB    "Enter the new player name for your tank"
+    STR_DLGTRACKER_TITLE    "Tracker Config"
+    STR_DLGTRACKER_USETRACKER "Use Tracker"
+    STR_DLGTRACKER_TRACKERADDRESS "Tracker Address:"
+    STR_DLGTRACKER_TRACKERPORT "Tracker Port:"
+    STR_DLGSYSINFO_TITLE    "WinBolo System Information"
+    STR_DLGSYSINFO_CPUUSAGE "CPU usage:"
+    STR_DLGSYSINFO_SIMMODELING "Simulation Modelling:"
+    STR_DLGSYSINFO_COMPROCESSING "Communications processing:"
+    STR_DLGSYSINFO_GRAHPICSDISPLAY "Graphics display:"
+    STR_DLGSYSINFO_AICONTROLPROCESSING "AI tank control processing:"
+    STR_DLGSYSINFO_TOTAL    "Total:"
+    STR_DLGSYSINFO_GRAPHICSFPS "Graphics frames per second"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGTCP_TITLE        "UDP (Internet) Setup"
+    STR_DLGTCP_BLURB        "To join an internet Bolo game, you must give the name (or IP address) of a host machine running Bolo, and the UDP port number of the Bolo process on that machine."
+    STR_DLGTCP_JOIN         "&Join"
+    STR_DLGTCP_REJOIN       "&Rejoin"
+    STR_DLGTCP_NEW          "&New"
+    STR_DLGTCP_TRACKERSETUP "&Tracker Setup"
+    STR_DLGTCP_REMEMBER     "Remember player name"
+    STR_DLGTCP_MACHINENAME  "Machine Name (or IP adrress):"
+    STR_DLGTCP_THEREUDP     "UDP port of Bolo on the server machine:"
+    STR_DLGTCP_USUDP        "UDP port for the Bolo on this machine:"
+    STR_DLGTCP_NAME         "Your player name for the game:"
+    STR_DLGTCP_NEWBLURB     "Click ""New"" to begin a game"
+    STR_DLGTCP_JOINBLURB    "Click to ""join"" an existing game"
+    STR_DLGTCP_REJOINBLURB  "Click ""Rejoin"" to rejoin a game and reclaim your old posessions"
+    STR_ERR_DLGTCP_PORTS    "Server and own ports are the same!"
+    STR_ERR_DLGTCP_NOTRIGHT "Something isn't correct here..."
+END
+
+STRINGTABLE 
+BEGIN
+    STR_ERR_DLGTCP_SUBCLASS "Can't set the window subclass for copying!"
+    STR_DLGGAMEFINDER_JOINADDRESS "Join &By Address"
+    STR_DLGGAMEFINDER_REFRESH "&Refresh"
+    STR_DLGGAMEFINDER_PLAYERNAME "Set &Player Name"
+    STR_DLGGAMEFINDER_MOTD  "&Message of the Day"
+    STR_DLGGAMEFINDER_STATUSBLURB "Status"
+    STR_DLGGAMEFINDER_SELECTEDGAME "Selected Game Information"
+    STR_DLGGAMEFINDER_BRAINS "Brains:"
+    STR_DLGGAMEFINDER_PASSWORD "Password:"
+    STR_DLGGAMEFINDER_PILLS "No of free Pillboxes:"
+    STR_DLGGAMEFINDER_BASES "No of free Bases:"
+    STR_DLGGAMEFINDER_HIDDENMINES "Hidden Mines:"
+    STR_DLGGAMEFINDER_NUMPLAYERS "No of Players:"
+    STR_DLGGAMEFINDER_VERSION "Version:"
+    STR_DLGGAMEFINDER_GAMETYPE "Game Type:"
+    STR_DLGGAMEFINDER_PORT  "Server Port:"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGGAMEFINDER_ADDRESS "Server Address:"
+    STR_BRAINERR_BRAINDIR   "Brains Directory does not exist.\nNot going to load brains!"
+    STR_BRAINERR_LAUNCH     "Error Launching Brain"
+    STR_BRAINERR_LAUNCHMAIN "Error Launching Brain - Brain Does not contain ""BrainMain"""
+    STR_BRAINERR_INIT       "Erorr initing brain"
+    STR_BRAINERR_EXEC       "Could not execute brain"
+    STR_DRAWERROR_CREATEOBJECT "Creating DD Object Failed"
+    STR_DRAWERROR_SETCOOPLEVEL "Creating DD co-op level Failed"
+    STR_DRAWERROR_CREATEPRIMARY "Creating DD Primary Surface Failed"
+    STR_DRAWERROR_GETPIXELFORMAT "Getting DD Pixel Format Failed"
+    STR_DRAWERROR_GETDESC   "Getting Surface Description Failed"
+    STR_DRAWERROR_TOOFEWCOLOURS 
+                            "This Version of WinBolo does not run in palette mode.\n Please change your colour depth to greater than 256 colours"
+    STR_DRAWERROR_BUFFERCREATE "Creating DD buffer Failed"
+    STR_DRAWERROR_GETDCFAILED "DD Get DC failed"
+    STR_DRAWERROR_CLIPPERFAILED "Creating DD Clipper Failed"
+    STR_DRAWERROR_BRUSH     "Error Creating Drawing Brush"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DRAWERROR_PEN       "Error Creating Drawing Pen"
+    STR_DRAW_GAMESTARTSIN   "Game Starts in "
+    STR_DRAWERROR_RELEASEDC "Error Releasing DC for drawing tank label (Thats bad)"
+    STR_DRAW_PILLBOXVIEW    "Pillbox View"
+    STR_FONTERR_NOCOURIERFONT "Cant load font Courier New"
+    STR_GAMEFRONTERR_CORRUPTPREFS 
+                            "An error occurred in reading preferences. The defaults will be used"
+    STR_GAMEFRONTERR_WINDOW "Error Creating Window"
+    STR_GAMEFRONTERR_DDRAW  "Error Setting up Direct Draw"
+    STR_GAMEFRONTERR_DSOUND "Error Setting up Direct Sound"
+    STR_GAMEFRONTERR_DINPUT "Error Setting up Direct Input"
+    STR_GAMEFRONTERR_CURSOR "Error Loading Cursor"
+    STR_GAMEFRONTERR_FONTS  "Error Loading Fonts"
+    STR_GAMEFRONT_LANFINDER_TITLE "LAN Game Finder"
+    STR_GAMEFRONT_TRACKERFINDER_TITLE "Tracker Game Finder"
+    STR_GAMEFRONTERR_JOINGAME "An error occured trying to join the game"
+    STR_GAMEFRONTERR_SPAWNSERVER 
+                            "An error occured trying to spawn the server process.\n Is the program ""WinBoloDS"" in the same directory as WinBolo?"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_GAMEFRONTERR_NETSINGLEPLAYER 
+                            "Something really bizzare happened in the networking subsystems which is strange since you selected a single player game. Lucky you..."
+    STR_GAMEFRONT_SERVERSTARTMSG 
+                            "This release of WinBolo make use of the standalone server to run network games\nThis will be changed in subsequent releases"
+    STR_GAMEFRONT_INPUTERR_CREATE 
+                            "Creation of Direct Input Keyboard Device Failed"
+    STR_GAMEFRONT_INPUTERR_DATAFORMAT 
+                            "Setting the Data Format for the Direct Input Keyboard Device Failed"
+    STR_GAMEFRONT_INPUTERR_COOPLEVEL 
+                            "Setting the Co-operative Level for the Direct Input Keyboard Device Failed"
+    STR_NETCLIENTERR_WINSOCKFAILSTARTUP "Error Starting Winsock"
+    STR_NETCLIENTERR_CREATEUDPFAIL "Error Creating UDP Socket"
+    STR_NETCLIENTERR_CREATETCPFAIL "Error Creating TCP Socket"
+    STR_NETCLIENTERR_BINDUDPFAIL 
+                            "Error Binding UDP Socket\n Some other program has this port assigned already. Try choosing another.\n\nNOTE: If you started a network game and it launched successfully then it is still running.\n You will not need to start it again"
+    STR_NETCLIENTERR_CHAINFAIL 
+                            "Error adding network Events to messaging chain"
+    STR_NETCLIENTERR_TRACKERVERSIONFAIL "Unsupported Tracker Version"
+    STR_NETCLIENTERR_TRACKERDNSFAIL 
+                            "Error finding tracker (DNS lookup failure)"
+    STR_NETCLIENTERR_TRACKERCONNECTFAIL "Error Connecting to tracker"
+    STR_NETCLIENTERR_TRACKERNOBLOCK "Error setting socket to be noblocking"
+    STR_NETCLIENT_TRACKERGETRESPONSE "Receiving game info..."
+    STR_NETCLIENT_TRACKERPROCESSRESPONSE "Processing tracker data..."
+END
+
+STRINGTABLE 
+BEGIN
+    STR_NETCLIENTERR_TRACKERNODATA "Error: Tracker sent no data"
+    STR_NETCLIENT_TRACKERCONNECT "Connecting: "
+    STR_NETCLIENT_IDLE      "Idle"
+    STR_NETCLIENTERR_BIND   "Error binding socket"
+    STR_NETCLIENTERR_BROADCAST "Error sending broadcast"
+    STR_NETCLIENT_GETRESPONSES "Receiving responses..."
+    STR_SOUNDERR_FILENOTFOUND 
+                            "Can't Load WinBolo Sounds - Continuing without Sound"
+    STR_SOUNDERR_HARDWAREINUSE 
+                            "Error Setting Up Direct Sound - Hardware is in use by another application.\nContinuing without sound."
+    STR_SOUNDERR_CREATEFAILED 
+                            "Creating DS Object Failed\nContinuing without sound."
+    STR_SOUNDERR_COOPFAILED "Creating DS Co-Op Level Failed"
+    STR_SOUNDERR_PRIMARYBUFFFAIL "Creating DS Primary Buffer Failed"
+    STR_SOUNDERR_LOADSOUNDFAILED "Loading of one of more sound files failed"
+    STR_WBERR_MUTEXCREATE   "Error Creating Mutex. (Thats bad)"
+    STR_WBERR_BRAINLISTLOAD "Error Loading Brain List"
+    STR_WBERR_KEYCLASSSETUP "Error Setting up Key Setup Class"
+    STR_WBTIMELIMIT_END     "Timelimit has expired. The Game has ended."
+END
+
+STRINGTABLE 
+BEGIN
+    STR_WBERR_SAVEMAP       "Error Saving Map (Disk full?)"
+    STR_TUTORIAL01          "Ahead of you is a short river leading inland. Hold\ndown the ""Q"" to drive your boat to the end of the\nriver.\n\nWhen you get there, keep holding ""Q"". The tank will\ndisembark from the boat and the boat will be left\nmoored at the end of the river"
+    STR_TUTORIAL02          "You are now on the grass. The tank moves quite\nquickly on grass.\n\n\nKeep pressing ""Q"" to move ahead to the forest."
+    STR_TUTORIAL03          "You are now in the forest. The tank moves more\nslowly in the forest than it does on grass.\n\n\nKeep pressing ""Q"" to move ahead to the swamp."
+    STR_TUTORIAL04          "You are now in the swamp. The tank moves very\nslowly in swamp. Fortunately there is a road ahead.\n\n\nKeep pressing ""Q"" to move ahead to the road."
+    STR_TUTORIAL05          "You are now on the road. The tank can move very\nquickly on road and if you press ""Q"" the tank will\nspeed up.\n\n\nIf you find yourself going too fast you can press ""A"""
+    STR_TUTORIAL06          "There are some buildings ahead. Buildings are solid\nobstacles that you cannot drive through, so you will\nhave to find your way through the maze to the other\nside.\n\nTo make the tank turn left press ""O""\nTo make the tank turn left press ""P"""
+    STR_TUTORIAL07          "These round objects with the red guns poking out are\nautomatic pillboxes. They will shoot at any tank\ncomes with within range.\n\n\nFortunately the buildings provide protection from the\nshots, so the pillboxes will not be able to hit you\nunless you wait so long that they manage to\ncompletely shoot their way through the buildings."
+    STR_TUTORIAL08          "Forest also provides protection from pillboxes, but in\na different way. As well as slowing down the tank a\nlot, driving through forest also limits visibility.\n\n\nWhen you are inside forest you can still clearly see\neverything outside the forest, but pillboxes (and\nother players) cannot see your tank unless you get\nvery close to them."
+    STR_TUTORIAL09          "Line up your tank with the middle of the strip of\nforest and drive due North. If you go straight\nand don't stray too close to the edges of the forest,\nthe pillboxes will not see you and they will not shoot.\n\n\nDon't drive outside the forest of you'll get blown to pieces.\n"
+    STR_TUTORIAL10          "There is one other simple way to escape pillboxes -\nspeed.\n\n\nMake sure you are correctly lined up with the centre\nof the road, and hold ""Q"" to go full speed past the\npillboxes."
+    STR_TUTORIAL11          "When they notice you they will start shooting, but if\nyou keep going straight ahead and don't lose your\nnerve you will be out of range before the shots can\nhit you.\n\n\nDon't run off the road into the marsh or you'll be a\nsitting duck targe for the pillboxes, and you don't be\nable to move quickly enough to escape."
+    STR_TUTORIAL12          "Ahead of you is a refuelling base. Refuelling bases provide\nshells for you to shoot, mines for you to lay secret traps\nwith, and they also repair your tank's armour back to full\nstrength if it has been damaged.\n\n\nStop on the refuelling base and load up your tank\nwith shells."
+    STR_TUTORIAL13          "You are on the refuelling base. Your tank will now\nload up with shells and mines, as the indicators on\nthe right will show. Ahead of you, beyond the\nbuildings, is a minefield."
+    STR_TUTORIAL14          "If you drive your tank into the minefield it will be\ndestroyed. Fortunately you can clear a minefield by\nshooting. Press the space-bar to shoot.\n\nShoot a hole through the building, and then land a\nshell in the middle of the minefield to detonate it.\nWhen you blow up the mines they will make a big\ncrater in the ground, which you can drive through,\nalthough it is as slow as driving through swamp."
+    STR_TUTORIAL15          "Ahead is another minefield. Do the same trick again:\nDrive onto the refuelling base, shoot through the\nwall, and land a shell in the middle of the minefield to\ndetonate it.\n\nThis time though, the minefield is adjacent to a large\nriver, and water will flood into the craters. You can\ndrive the tank through the water like you can through\ncraters and marsh."
+END
+
+STRINGTABLE 
+BEGIN
+    STR_TUTORIAL16          "WinBolo automatically scrolls the window to show you\nthe area around your tank but you can use the arrow keys\non the keyboard to the manually override the view WinBolo\nchooses.\n\nPress the Up-Arrow key on the keyboard now to get a\nbetter view of the river ahead of you."
+    STR_TUTORIAL17          "As well as being very slow, driving through water has\nanother disadvantage: It will also deplete your tank's\nsupplies of shells and mines.\n\n\nWhen you get to the other side your tank will still be\nin working condition, but you will have lost all\noffensive capability."
+    STR_TUTORIAL18          "This time we are going to be more subtle about\ncrossing the river. Instead of just driving through the\nwater, we are going to build a bridge.\n\n\nSelect tree farming mode by clicking on the forest\nicon (top left of the window) and click on the forest.\nYour builder will run out of the tank and harvest one\ntree for building materials."
+    STR_TUTORIAL19          "After farming some tree, select the road/bridge tool\n(the second button from the top) and click the mouse\non the river at the end of the road.\n\n\nYour builder will run out of the tank and build one\nsegment of bridge. Click again to complete the bridge\nand then drive across to the other side."
+    STR_TUTORIAL20          "This river is wider than the last, and at the centre it is\ntoo deep for you to build a bridge. If you try to just\ndrive through the tank will sink to the bottom and be\ndestroyed."
+    STR_TUTORIAL21          "To cross this river you will have to build a boat. Boats\ntake five trees, so click on the five trees to farm them.\nThen select the wall/boat tool (the third button from\nthe top) and click on the water to build a boat.\n\nIf you click on the land you will build a wall instead\nand you will have to farm some more trees to build a\nboat. Drive onto the boat and cross the river to the\nother side."
+    STR_TUTORIAL22          "There is a pillbox ahead, and some refuelling bases to\nprovide you with ammunition. Collect shells from the\nrefuelling base and attack the pillbox.\n\n\nIt will shoot back, but if you tank gets hit you can easily\nreturn to the refuelling base to get your armour repaired\nback to full strength again."
+    STR_TUTORIAL23          "With patience and caution you should be able to destroy this\npillbox. Use the skills you have learned to make it easier:\n\n\nHide in the forest so that the pillbox can't see you,\nfarm trees, build roads to make your tank move\nfaster, and build buildings to provide cover against\npillbox shots."
+    STR_TUTORIAL24          "After you manage to defeat this pillbox, your final\nchallenge of the tutorial is to take out the two\npillboxes guarding the exit, build a boat, and escape.\n\n\nTake special care to watch your tank's armour level -\nif you get your tank destroyed you'll have to start\nwith a new tank on a new boat out at sea again."
+    STR_TUTORIAL25          "Congratulations. You have completed the WinBolo\ntutorial.\n\n\n\nNow organise some friends to play with and find out\nwhat it is like to compete against intelligent human\nopponents instead of stationary unthinking targets."
+    STR_TUTORIAL_START01    "Welcome to the WinBolo tutorial. This island introduces\nthe basic principles of WinBolo and leads you through\nthem one at a time. Each new principle will be\ndescribed in a window like this one.\n\nAfter reading each message, you can proceed by\nclicking the ""OK"" button on the mouse or simply\nby pressing the <Return> key on the keyboard"
+    STR_TUTORIAL_START02    "WinBolo is a clone of the classic Macintosh network game Bolo.\nYou can find out strategy hints and other information from the official website:\n\nhttp://www.lgm.com/bolo\n\nor\n\nhttp://www.lgm.com/winbolo\n"
+    STR_TUTORIAL_START03    "One quick note about Internet play.\n\nIf you join a online game and are a lot of network errors\nthen leave the game straight away before\nyou ruin the game for the other players."
+    STR_TUTORIAL_START04    "You are in control of a tank, which is currently on a\nboat at sea. Press \\""Q\\"" to make the tank (and boat) go\nforwards, and press \\""A\\"" to make it slow down and\nstop.\n\nDon't tap the keys as if you are typing a letter -\npress and hold them until the tank is going at the speed\nyou want and then let go. Press \\""Q\\"" now to make the\nboat drive forwards towards the land.\n(Press <Return> first to dismiss the window)"
+    LGM_MAN_DEAD            "You cannot build until your new man parachutes in"
+    LGM_NO_BUILD            "You cannot build that there"
+END
+
+STRINGTABLE 
+BEGIN
+    LGM_INSUFFICIENT_TREES  "You don't have the trees you require to build that"
+    LGM_NO_PILLS            "You have no pillbox to place"
+    LGM_INSUFFICIENT_MINES  "You have no mines to place"
+    LGM_BUILDTANK           "The man cannot build on a tank"
+    LGM_NO_TREE             "There is no tree to farm there"
+    LGM_PILL_NO_NEED_REPAIR "That pillbox does not need repairing"
+    LGM_PILL_NO_BUILD_ON_MINE 
+                            "The man cannot build on a mine. It would kill him."
+END
+
+STRINGTABLE 
+BEGIN
+    MESSAGE_ASSISTANT       "Online Assistant"
+    MESSAGE_NEWSWIRE        "Newswire"
+    MESSAGE_AI              "Brain"
+    MESSAGE_CHANGENAME      " has handed control over to """
+    MESSAGE_NETSERVER       "Network Server"
+    MESSAGE_THIS_COMPUTER   "This Computer"
+    MESSAGE_CAPTURE_BASE    " captured a Neutral Base"
+    MESSAGE_CAPTURE_PILL    " captured a Neutral Pillbox"
+    MESSAGE_STOLE_PILL      " just stole pillbox from "
+    MESSAGE_STOLE_BASE      " just stole base from "
+    MESSAGE_LGM_DEAD        " just lost his builder"
+    MESSAGE_SAVED_MAP       " just saved map file"
+    MESSAGE_QUIT_GAME       " has quit game"
+    MESSAGE_TIME_LIMIT_EXPIRED 
+                            "Time Limit has expired. Game is over. Go in peace"
+    MESSAGE_TANKSUNK        "Tank Sunk in Deep Sea"
+    NETERR_TRACKERDNS       "The tracker hostname lookup failed. Tracker notification disabled"
+END
+
+#endif    // English (Australia) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

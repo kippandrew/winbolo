@@ -1,0 +1,90 @@
+body { 
+	margin: 10px;
+	background-color: #FFFFFF;
+}
+
+a {
+	font-family: geneva, arial, sans-serif;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+a:hover {
+	font-family: geneva, arial, sans-serif;
+	font-size: 12px;
+	text-decoration: underline;
+}
+
+.leftborder {
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #000000;
+
+}
+
+.bottomborder {
+
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #000000;
+}
+
+.rightborder {
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #000000;
+
+}
+
+.topborder {
+	border-top-width: 1px;
+	background-color: #993300;
+	border-top-style: solid;
+	border-top-color: #000000;
+
+}
+.topborder2 {
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #000000;
+
+}
+.heading, .subheading, .bodytext, .loggedin {
+	font-family: geneva, arial, sans-serif;
+}
+
+.heading {
+	font-size: 13px;
+	color: #FFFFFF;
+	font-weight: bold;
+	background-color: #993300;
+}
+
+.subheading {
+	font-size: 12px;
+	font-weight: bold;
+	border-bottom-width: 1px;
+	border-bottom-style: dashed;
+	border-bottom-color: #993300;
+}
+
+.bodytext { 
+	font-size: 12px;
+}
+
+.loggedin {
+	font-size: 13px;
+	color:#3366CC;
+	font-weight: bold;
+}
+
+.leftborderdashed {
+	border-left-width: 1px;
+	border-left-style: dashed;
+	border-left-color: #3366CC;
+
+}.copy {
+	font-family: Geneva, Arial, Helvetica, san-serif;
+	font-size: 9px;
+	color: #FFFFFF;
+}

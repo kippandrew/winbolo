@@ -1,0 +1,6 @@
+#!/bin/sh
+# Deletes an alias
+# $1 is address to forward to
+# $2 is alias address
+
+# Unix command to remove an alias from your mail server

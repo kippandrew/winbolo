@@ -1,0 +1,1632 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// MAPS
+//
+
+IDR_EVERARD MAPS 
+BEGIN
+    0x4d42, 0x5041, 0x4f42, 0x4f4c, 0x1001, 0x100b, 0x915b, 0x0fff, 0x6365, 
+    0xff6e, 0x650f, 0x745f, 0x0fff, 0x5465, 0xff75, 0x650f, 0x6c70, 0x0fff, 
+    0x8165, 0xff6b, 0x650f, 0x6eab, 0x0fff, 0xae65, 0xff78, 0x650f, 0x7cae, 
+    0x0fff, 0x9a65, 0xff92, 0x650f, 0x875e, 0x0fff, 0x6965, 0xff89, 0x650f, 
+    0x8971, 0x0fff, 0x6c65, 0xff7f, 0x650f, 0x786c, 0x0fff, 0xad65, 0xff89, 
+    0x650f, 0x6881, 0x5aff, 0x5a5a, 0x69af, 0x5aff, 0x5a5a, 0x6e56, 0x5aff, 
+    0x5a5a, 0x7aae, 0x5aff, 0x5a5a, 0x7b79, 0x5aff, 0x5a5a, 0x7c6c, 0x5aff, 
+    0x5a5a, 0x7d8b, 0x5aff, 0x5a5a, 0x8b6d, 0x5aff, 0x5a5a, 0x8d55, 0x5aff, 
+    0x5a5a, 0x92a5, 0x5aff, 0x5a5a, 0x987e, 0x5aff, 0x5a5a, 0x8c4c, 0x4c00, 
+    0x007c, 0x645c, 0x6c0d, 0x0c64, 0x647c, 0x8c0c, 0x0c64, 0x649c, 0xac0c, 
+    0x0b64, 0x7cb8, 0xb808, 0x088c, 0x9cac, 0x9c05, 0x049c, 0x9c8c, 0x7c04, 
+    0x049c, 0x9c6c, 0x5c04, 0x039c, 0x6610, 0xb44e, 0xf1f1, 0xf1f1, 0xf1f1, 
+    0xf1f1, 0xf1f1, 0x91f1, 0x6718, 0xb54d, 0xf4a1, 0xd5b4, 0xf001, 0x90f0, 
+    0x0192, 0x0192, 0x01e2, 0xf1e2, 0xf2e1, 0x9192, 0x681d, 0xb54d, 0x9491, 
+    0x85f5, 0xd504, 0xe701, 0xe794, 0xc400, 0x0182, 0x01e2, 0x01e2, 0xb2f2, 
+    0xd281, 0x9290, 0x1f81, 0x4d69, 0x81b5, 0xf594, 0x0495, 0x01d5, 0xb4d7, 
+    0x04e7, 0x8192, 0x0182, 0x91e2, 0x01c2, 0x82f2, 0x91f1, 0x8400, 0x8192, 
+    0x6a20, 0xb54d, 0x8481, 0xf485, 0x0485, 0x01d5, 0xd4c7, 0x04d7, 0x8287, 
+    0xb2f1, 0xa281, 0xe281, 0xf2a1, 0x8102, 0x8104, 0x8182, 0x6b23, 0xb54d, 
+    0x0481, 0x8485, 0x04d5, 0x0485, 0x01d5, 0xf4b7, 0x04c7, 0x1297, 0x2b1c, 
+    0x2019, 0x201a, 0x2a1c, 0x2018, 0x291f, 0x4221, 0x20b1, 0x4d6c, 0x81b5, 
+    0x8504, 0xe504, 0x8504, 0xd504, 0x9791, 0xd4f4, 0xf297, 0xb192, 0x01a2, 
+    0xa192, 0x81b2, 0x82f2, 0xa204, 0x2081, 0x4d6d, 0x81b5, 0x8504, 0x8504, 
+    0x85a4, 0x8504, 0xf504, 0x9701, 0xc7f4, 0xf704, 0xb2b7, 0x01f1, 0x01f2, 
+    0x82f2, 0xa204, 0x2381, 0x4d6e, 0x81b5, 0x8504, 0x8504, 0x1584, 0x5048, 
+    0x5048, 0x504a, 0x507a, 0x7d1a, 0x704d, 0x7f4f, 0x207c, 0x2a1f, 0x1e2a, 
+    0x4a20, 0x1028, 0x6f20, 0xb54d, 0x0481, 0x0485, 0x04b5, 0x0485, 0x0485, 
+    0x01f5, 0xb4b7, 0x04e7, 0xf7f7, 0x81b2, 0xf792, 0x91a7, 0x04c2, 0x81a2, 
+    0x7021, 0xb54d, 0x0481, 0x0485, 0x04b5, 0x0485, 0x0485, 0x81f5, 0x94b7, 
+    0x04f7, 0xf7f7, 0x9287, 0xa201, 0xc7f7, 0xa291, 0xa204, 0x2081, 0x4d71, 
+    0x81b5, 0x8504, 0x85d4, 0x8504, 0xf504, 0x1f15, 0x727d, 0x0f04, 0x797e, 
+    0x7008, 0x7f1f, 0x7079, 0x201a, 0x284a, 0x1e10, 0x4d72, 0x81b5, 0xf504, 
+    0x0485, 0x0485, 0x15f5, 0x7d1f, 0x0f70, 0x494f, 0x0741, 0xf781, 0x97f7, 
+    0x04b1, 0x8281, 0x1d81, 0x4d73, 0x81b5, 0xf504, 0x0485, 0x0485, 0x15f5, 
+    0x7d1f, 0x0472, 0x7e0f, 0x0474, 0x1f07, 0x7d7f, 0x0178, 0xb140, 0x7419, 
+    0xb54d, 0xf481, 0x85a4, 0x7f14, 0x1f50, 0x707e, 0x7f4f, 0x0f70, 0x4f4f, 
+    0x404b, 0x2809, 0x1d10, 0x4d75, 0x81b5, 0x07b5, 0x04f5, 0xf1e5, 0x8701, 
+    0x04e1, 0xf1f1, 0x4911, 0x7f1f, 0x7878, 0x7159, 0x8004, 0x8192, 0x7622, 
+    0xb54d, 0xf581, 0x04c5, 0xf1d5, 0xd0b1, 0xf004, 0x40f0, 0x1040, 0x0587, 
+    0x0097, 0x8587, 0x1087, 0x5978, 0x5a78, 0x4771, 0x81a2, 0x7720, 0xb54d, 
+    0xf581, 0xb485, 0xf1b5, 0x00d1, 0xa4f4, 0xf400, 0x30a4, 0x7910, 0x785c, 
+    0x7859, 0x7051, 0x00a7, 0x0487, 0x81b7, 0x7822, 0xb54d, 0xb5e1, 0xe504, 
+    0x02f1, 0x10d1, 0x084f, 0x4002, 0x004d, 0x0349, 0x1040, 0x0587, 0x2587, 
+    0x9775, 0xf785, 0x04a7, 0x81b7, 0x7925, 0xb54d, 0xb781, 0xb501, 0xe504, 
+    0xe1f1, 0x4020, 0x40f4, 0x4040, 0x00b4, 0x4094, 0x1040, 0x0587, 0x2587, 
+    0xa705, 0x9785, 0xc795, 0xb504, 0x2681, 0x4d7a, 0x81b5, 0x01b7, 0x10a5, 
+    0x0b49, 0x1e5f, 0x0019, 0x024f, 0x4940, 0x4b00, 0x4005, 0x1040, 0x95b7, 
+    0x0087, 0x8587, 0x95c7, 0x0487, 0x9587, 0x2381, 0x4d7b, 0x81b5, 0x01b7, 
+    0x00a5, 0xf4f4, 0x94f4, 0x9400, 0x4020, 0x2094, 0xd440, 0x4070, 0x1040, 
+    0x7a5f, 0x5b78, 0x5772, 0x7b59, 0x1058, 0x7c27, 0xb54d, 0xb781, 0xa501, 
+    0x1490, 0x5f0b, 0x2d10, 0x0411, 0x44b0, 0x0404, 0x0490, 0x74b0, 0x0404, 
+    0x0104, 0x8510, 0x8587, 0x05f7, 0x25b7, 0xe775, 0x2781, 0x4d7d, 0x81b5, 
+    0x01b7, 0x04d5, 0xf1c5, 0x20e1, 0xb440, 0x4020, 0x00b4, 0x70b4, 0x4040, 
+    0x1040, 0x5009, 0x5978, 0x5b79, 0x5479, 0x7575, 0x587b, 0x1078, 0x7e2a, 
+    0xb54d, 0xb781, 0xd501, 0x8504, 0xf1f1, 0x3091, 0x4b40, 0x4d00, 0x4d00, 
+    0x4007, 0x1040, 0x1557, 0x5978, 0x5a70, 0x5870, 0x5970, 0x5777, 0x5757, 
+    0x0557, 0x8187, 0x7f27, 0xb54d, 0xb781, 0x8501, 0x04b1, 0xa791, 0x02e1, 
+    0x40d1, 0x4040, 0x84f4, 0xf400, 0x4040, 0x8710, 0x97a5, 0x0795, 0x1795, 
+    0x7359, 0x5757, 0x87b5, 0x2781, 0x4d80, 0x81b5, 0xa1b7, 0x04a0, 0x95a7, 
+    0xd1f1, 0x4070, 0x4040, 0x004d, 0x054f, 0x4040, 0xf710, 0xa705, 0x8705, 
+    0x9705, 0x7575, 0x7575, 0x5870, 0x1078, 0x8124, 0xb54d, 0xf781, 0x04a0, 
+    0x95a7, 0xf107, 0x40a1, 0x4010, 0x0094, 0x20d4, 0xd440, 0x4040, 0xa140, 
+    0x95d7, 0x95b7, 0x5747, 0xb557, 0x8187, 0x8223, 0xb54d, 0xf781, 0x8780, 
+    0xd504, 0xf107, 0x4291, 0x0401, 0x04f0, 0x2490, 0xb004, 0x0474, 0x0104, 
+    0x7b00, 0x7c1f, 0x5772, 0x785e, 0x2310, 0x4d83, 0x81b5, 0x80f0, 0x0487, 
+    0xc795, 0x01f1, 0x2082, 0xf410, 0x0084, 0x0094, 0x00b4, 0x4094, 0x1040, 
+    0xe1b7, 0x15e7, 0x597c, 0x1078, 0x841f, 0xb54d, 0xf081, 0x8780, 0xd504, 
+    0x0187, 0xb192, 0x1092, 0x001d, 0x004b, 0x004d, 0x014d, 0xf710, 0xc197, 
+    0xb7f7, 0x1c81, 0x4d85, 0x81b5, 0xc700, 0xb700, 0xa704, 0x8795, 0xf201, 
+    0x0082, 0x0091, 0x00f4, 0xf4f4, 0xf784, 0xf1c7, 0x1ee1, 0x4d86, 0x81b5, 
+    0x7a10, 0x7b00, 0x7401, 0x87d5, 0xf201, 0x9082, 0xf001, 0xf0f0, 0x8701, 
+    0xf704, 0x80b7, 0xb7f7, 0x1e81, 0x4d87, 0x81b5, 0x7020, 0x00a7, 0x34b7, 
+    0x5b57, 0x1f78, 0x202a, 0x1f0f, 0x181f, 0x7018, 0x7c4f, 0x0f78, 0x787a, 
+    0x1c10, 0x4d88, 0x81b5, 0x7030, 0x0b7a, 0x4d70, 0x7850, 0x2b1f, 0x1f20, 
+    0x0f7a, 0x707e, 0x7c4f, 0x0f78, 0x7979, 0x1e10, 0x4d89, 0x81b5, 0xf790, 
+    0x4020, 0x9597, 0x1f17, 0x202c, 0x7018, 0x7c0b, 0x7c0f, 0x0471, 0x80f0, 
+    0xb097, 0x07f7, 0x1f91, 0x4d8a, 0x81b5, 0x8007, 0x8007, 0x00c7, 0xf4f4, 
+    0xb4f4, 0x0087, 0x00a7, 0x0087, 0xf4f4, 0x30c4, 0x7b70, 0x700f, 0x1079, 
+    0x8b2b, 0xb54d, 0x0781, 0x0780, 0xc780, 0x4020, 0x8087, 0x0197, 0x90a2, 
+    0x0c14, 0x1724, 0x0a07, 0x0a70, 0x0870, 0x0f70, 0x7078, 0x094a, 0x4810, 
+    0x0413, 0xd007, 0x07f7, 0x2691, 0x4d8c, 0x81b5, 0x8007, 0x8007, 0x00e4, 
+    0x8087, 0x0197, 0xb0a2, 0x01c2, 0x1097, 0x007c, 0x0f7b, 0x7978, 0x1041, 
+    0x0491, 0x0081, 0x00f4, 0x87f7, 0x2a81, 0x4d8d, 0x81b5, 0x8007, 0x8007, 
+    0x7d14, 0x7808, 0x7808, 0x2919, 0x260f, 0x0717, 0x0f07, 0x7a7f, 0x0278, 
+    0x0941, 0x4810, 0x0118, 0xc740, 0x7a10, 0x7808, 0x7858, 0x2b10, 0x4d8e, 
+    0x81b5, 0x8007, 0x8007, 0xf087, 0x0780, 0x9281, 0xf2a0, 0xa781, 0x8700, 
+    0xc785, 0xd700, 0x0790, 0x2480, 0x9110, 0xa104, 0x0c14, 0x0a70, 0x0870, 
+    0x5878, 0x1078, 0x8f29, 0xb54d, 0x8781, 0x7020, 0x8087, 0x80a7, 0x0087, 
+    0x0187, 0xa0a2, 0x12f2, 0x701a, 0x7a0d, 0x7a08, 0x7051, 0x8097, 0x1024, 
+    0x04e1, 0x07b0, 0x87d0, 0x8785, 0x2981, 0x4d90, 0x81b5, 0x3087, 0x7970, 
+    0x7800, 0x7800, 0x7008, 0x7008, 0x2b19, 0x210f, 0xa721, 0xb7f0, 0x8705, 
+    0x9085, 0x1087, 0x1a4d, 0x0848, 0x0c70, 0x0d70, 0x1078, 0x9128, 0xb54d, 
+    0x8781, 0x4790, 0x0707, 0x0480, 0x8780, 0x7810, 0x2b19, 0x210f, 0xa721, 
+    0xf7b0, 0x8785, 0x8005, 0x0097, 0xd1a4, 0x8004, 0xf007, 0x0b17, 0x1078, 
+    0x922a, 0xb54d, 0xa781, 0x7050, 0x7870, 0x7800, 0x7208, 0x1a07, 0x0f7b, 
+    0x7f70, 0x1f18, 0x5878, 0x5071, 0x0097, 0xa184, 0xa102, 0x0914, 0x0471, 
+    0x0087, 0x00a7, 0x81b7, 0x9328, 0xb54d, 0x0781, 0x47a0, 0x0707, 0x0780, 
+    0x0780, 0x1780, 0x7b1a, 0x780f, 0x1e70, 0x1b7c, 0x5878, 0x0970, 0x0978, 
+    0x1c4a, 0x0949, 0x0079, 0x0b78, 0x1078, 0x9426, 0xb54d, 0x0781, 0x47a0, 
+    0x0707, 0x0780, 0x2780, 0x8107, 0xb0a7, 0xa197, 0x01a7, 0xa7f7, 0xb7b1, 
+    0x0780, 0x0490, 0x80f1, 0x0a14, 0x0b7c, 0x1079, 0x9522, 0xb54d, 0x9781, 
+    0x8700, 0x7030, 0x0a78, 0x0772, 0x7b1b, 0x7c08, 0x7019, 0x7e1f, 0x1c7a, 
+    0x0978, 0x124d, 0x4a07, 0x790f, 0x1079, 0x9620, 0xb54d, 0x8791, 0xa700, 
+    0x7810, 0x7a00, 0x7101, 0xb0b7, 0xc187, 0x0197, 0xf7f7, 0xf107, 0x81f1, 
+    0x7f10, 0x4c40, 0x107a, 0x971d, 0xb54d, 0x8791, 0x07f0, 0x81a0, 0xb0b7, 
+    0xa197, 0x01a7, 0x87f7, 0xf791, 0x80a7, 0x11f1, 0x280f, 0x7b2b, 0x1b10, 
+    0x4d98, 0xb1b5, 0x97f0, 0x0180, 0xb0c7, 0x81a7, 0x01b7, 0xe1f7, 0x87f7, 
+    0xf100, 0x0f11, 0x2928, 0x107d, 0x9910, 0xb44e, 0xf1f1, 0xf1f1, 0xf1f1, 
+    0xf1f1, 0xf1f1, 0x91f1, 0xff04, 0xffff
+END
+
+IDR_TUTORIAL MAPS 
+BEGIN
+    0x4d42, 0x5041, 0x4f42, 0x4f4c, 0x0c01, 0x0105, 0xa474, 0x0fff, 0x8465, 
+    0xff96, 0x650f, 0x957c, 0x0fff, 0x8465, 0xff94, 0x650f, 0x8779, 0x0fff, 
+    0x8765, 0xff86, 0x650f, 0x8579, 0x0fff, 0x8765, 0xff84, 0x650f, 0x8379, 
+    0x0fff, 0x8065, 0xff21, 0x650f, 0x167e, 0x0fff, 0x8265, 0xff16, 0x650f, 
+    0x7880, 0x5aff, 0x5a5a, 0x6780, 0x5aff, 0x5a5a, 0x2d80, 0x5aff, 0x5a5a, 
+    0x208c, 0x5aff, 0x5a5a, 0x1c72, 0x5aff, 0x5a5a, 0xd580, 0x0804, 0x6115, 
+    0xf07e, 0xf0f0, 0x0880, 0x8315, 0xf0a0, 0xf0f0, 0x0980, 0x6116, 0xf07f, 
+    0xf0f0, 0x0780, 0x1609, 0xa082, 0xf007, 0xf0f0, 0x0880, 0x6117, 0xf07e, 
+    0xf0f0, 0x0880, 0x8317, 0xf0a0, 0xf0f0, 0x0880, 0x6118, 0xf080, 0xf0f0, 
+    0x08a0, 0x8118, 0xf0a0, 0xf0f0, 0x08a0, 0x6119, 0xf080, 0xf0f0, 0x08a0, 
+    0x8119, 0xf0a0, 0xf0f0, 0x0da0, 0x611a, 0xf0a0, 0xf7c0, 0x91c7, 0xc7f7, 
+    0xc0f0, 0x1b10, 0xa061, 0xc0f0, 0x1597, 0x5c7a, 0x1f79, 0x7f7c, 0x000c, 
+    0x1c0d, 0xa061, 0xc0f0, 0xd597, 0xf7f7, 0xf0b7, 0x0dc0, 0x611d, 0xf0a0, 
+    0x07c0, 0xf7f5, 0xb7f7, 0xc0f0, 0x1e11, 0xa061, 0xc0f0, 0x9507, 0xc507, 
+    0x5f17, 0x787f, 0x0c7f, 0x0e00, 0x611f, 0xf0a0, 0x07c0, 0x95f5, 0xf7f7, 
+    0xf087, 0x0fc0, 0x6120, 0xf0a0, 0x87c0, 0x0795, 0xf7d5, 0x87f7, 0xc0f0, 
+    0x210f, 0xa061, 0xc0f0, 0xf507, 0x1795, 0x7f5f, 0x0c7f, 0x1000, 0x6122, 
+    0xf0a0, 0x07c0, 0x0785, 0x0785, 0xf7e5, 0xf0f7, 0x0cc0, 0x6123, 0xf0a0, 
+    0xf5c0, 0xf7c5, 0xf0f7, 0x0fc0, 0x6124, 0xf0a0, 0xb5c0, 0x8507, 0xc507, 
+    0xf7f7, 0xc0f0, 0x250e, 0xa061, 0xc0f0, 0x0785, 0x95f5, 0xf7f7, 0xc0f0, 
+    0x2610, 0xa061, 0xc0f0, 0x07c5, 0xf7d5, 0x5727, 0x97a5, 0xc0f0, 0x2710, 
+    0xa061, 0xc0f0, 0xe587, 0x8507, 0x07f7, 0x97d5, 0xc0f0, 0x2814, 0xa061, 
+    0xc0f0, 0x8587, 0x8507, 0xc507, 0xb5d7, 0x5727, 0x8785, 0xc0f0, 0x2910, 
+    0xa061, 0xc0f0, 0xf587, 0xc785, 0x07b5, 0x87c5, 0xc0f0, 0x2a11, 0xa061, 
+    0xc0f0, 0xb507, 0x8507, 0x07f7, 0x95f5, 0xf087, 0x15c0, 0x612b, 0xf0a0, 
+    0x07c0, 0x0785, 0xf7c5, 0x0795, 0x0785, 0x0785, 0x8785, 0xc0f0, 0x2c0f, 
+    0xa061, 0xc0f0, 0xd507, 0x97f7, 0x85f5, 0xf087, 0x12c0, 0x612d, 0xf0a0, 
+    0x07c0, 0xf7c5, 0x85b7, 0x8507, 0x9507, 0xf097, 0x0fc0, 0x612e, 0xf0a0, 
+    0x87c0, 0xf7c5, 0xf5a7, 0x8705, 0xc0f0, 0x2f0e, 0xa061, 0xc0f0, 0xa597, 
+    0xa7f7, 0xb7e5, 0xc0f0, 0x300c, 0xa061, 0xc0f0, 0xf7f7, 0xc7f7, 0xc0f0, 
+    0x310d, 0xa061, 0xc0f0, 0xd7f7, 0xf701, 0xf0d7, 0x0dc0, 0x6132, 0xf0a0, 
+    0xf7c0, 0x91c7, 0xc7f7, 0xc0f0, 0x3315, 0xa061, 0x00f0, 0x97b1, 0x9791, 
+    0x8791, 0x87b1, 0x9791, 0x9791, 0xf0b1, 0x0d00, 0x6134, 0xf0a0, 0xf100, 
+    0xf1f1, 0xd1f1, 0x00f0, 0x350d, 0xa061, 0x00f0, 0xf1f1, 0xf1f1, 0xf0d1, 
+    0x0500, 0x6136, 0xe069, 0x3605, 0xa098, 0x05e0, 0x6137, 0xe069, 0x3705, 
+    0xa098, 0x05e0, 0x6138, 0xe069, 0x3805, 0xa098, 0x0de0, 0x6139, 0xf0a0, 
+    0xf100, 0xf1f1, 0xd1f1, 0x00f0, 0x3a11, 0xa061, 0x00f0, 0xf1f1, 0x8401, 
+    0x8401, 0xf1f1, 0xf001, 0x1300, 0x613b, 0xf0a0, 0xe100, 0x9197, 0x8197, 
+    0x81b4, 0x9197, 0xe197, 0x00f0, 0x3c0d, 0xa061, 0xc0f0, 0xb7f7, 0xf7b4, 
+    0xf0b7, 0x0ec0, 0x613d, 0xf0a0, 0xc7c0, 0xc7e5, 0xf785, 0xf087, 0x0dc0, 
+    0x613e, 0xf0a0, 0xd7c0, 0xb7d5, 0xf7b5, 0xc0f0, 0x3f12, 0xa061, 0xc0f0, 
+    0x95b7, 0xb507, 0x85a7, 0x8507, 0x07f7, 0xc0f0, 0x4011, 0xa061, 0xc0f0, 
+    0xc5b7, 0x9507, 0xc597, 0x5d17, 0x0c7f, 0x0f00, 0x6141, 0xf0a0, 0xa7c0, 
+    0x07b5, 0x87b5, 0xd7f5, 0xc0f0, 0x4211, 0xa061, 0xc0f0, 0xf5a7, 0x8785, 
+    0x2795, 0x9557, 0xf0d7, 0x13c0, 0x6143, 0xf0a0, 0xa7c0, 0x0795, 0x0795, 
+    0xb795, 0x17a5, 0x7f5d, 0x000c, 0x440d, 0xa061, 0xc0f0, 0xe5b7, 0xc5d7, 
+    0xf0d7, 0x0fc0, 0x6145, 0xf0a0, 0xa7c0, 0xe7e5, 0x0785, 0xc7a5, 0xc0f0, 
+    0x460d, 0xa061, 0xc0f0, 0xf7f7, 0xb587, 0xf0e7, 0x0dc0, 0x6147, 0xf0a0, 
+    0xf7c0, 0x97f7, 0xf795, 0xc0f0, 0x480d, 0xa061, 0xc0f0, 0xd7f7, 0xf704, 
+    0xf0d7, 0x15c0, 0x6149, 0xf0a0, 0xb100, 0x9197, 0x9197, 0x04a7, 0x91a7, 
+    0x9197, 0xb197, 0x00f0, 0x4a0f, 0xa061, 0x00f0, 0xf1f1, 0x0491, 0xf1f1, 
+    0xf091, 0x0d00, 0x614b, 0xf0a0, 0xf100, 0xf1f1, 0xd1f1, 0x00f0, 0x4c0d, 
+    0xa061, 0x00f0, 0xf1f1, 0xf1f1, 0xf0d1, 0x0f00, 0x614d, 0xf0a0, 0xf100, 
+    0x91f1, 0xf104, 0x91f1, 0x00f0, 0x4e14, 0xa061, 0x00f0, 0x97e1, 0x9791, 
+    0x2791, 0x9147, 0x9197, 0xe197, 0x00f0, 0x4f0e, 0xa061, 0xc0f0, 0x95f7, 
+    0x04a7, 0xd7f7, 0xc0f0, 0x500e, 0xa061, 0xc0f0, 0xd5d7, 0x85c7, 0x87f7, 
+    0xc0f0, 0x510f, 0xa061, 0xc0f0, 0xe5c7, 0xa5c7, 0x5d17, 0x0c7f, 0x0d00, 
+    0x6152, 0xf0a0, 0xc7c0, 0xa7f5, 0xd7d5, 0xc0f0, 0x530d, 0xa061, 0xc0f0, 
+    0xe5d7, 0xf597, 0xf0c7, 0x0dc0, 0x6154, 0xf0a0, 0xd7c0, 0x97e5, 0xc7f5, 
+    0xc0f0, 0x550d, 0xa061, 0xc0f0, 0xe5d7, 0xe5a7, 0xf0c7, 0x0fc0, 0x6156, 
+    0xf0a0, 0xd7c0, 0x8785, 0xc785, 0xd7d5, 0xc0f0, 0x570c, 0xa061, 0xc0f0, 
+    0xf7f7, 0xf7c5, 0xc0f0, 0x580e, 0xa061, 0xc0f0, 0xf7f7, 0x9587, 0x07f7, 
+    0xc0f0, 0x590c, 0xa061, 0xc0f0, 0xf7f7, 0xc7f7, 0xc0f0, 0x5a0e, 0xa061, 
+    0x00f0, 0xf7c1, 0xf7f7, 0xc1a7, 0x00f0, 0x5b0d, 0xa061, 0x00f0, 0xf1f1, 
+    0xf1f1, 0xf0d1, 0x0d00, 0x615c, 0xf0a0, 0xf100, 0xf1f1, 0xd1f1, 0x00f0, 
+    0x5d0c, 0xa061, 0xc0f0, 0xf1f1, 0xc1f1, 0xc0f0, 0x5e0e, 0xa061, 0xc0f0, 
+    0xf10f, 0xf1f1, 0x0fa1, 0xc0f0, 0x5f15, 0xa061, 0xc0f0, 0x018f, 0x919f, 
+    0x919f, 0x919f, 0x919f, 0x019f, 0xf08f, 0x0cc0, 0x6160, 0xf0a0, 0xffc0, 
+    0xffff, 0xf0cf, 0x0cc0, 0x6161, 0xf0a0, 0xffc0, 0xffff, 0xf0cf, 0x0cc0, 
+    0x6162, 0xf0a0, 0xffc0, 0xffff, 0xf0cf, 0x13c0, 0x6163, 0xf0a0, 0x9fc0, 
+    0x9f97, 0x9f97, 0x9f97, 0x9f97, 0x9f97, 0xc0f0, 0x640e, 0xa061, 0xc0f0, 
+    0xf78f, 0xf7f7, 0x8f87, 0xc0f0, 0x650e, 0xa061, 0xc0f0, 0xf70f, 0xf7f7, 
+    0x0fa7, 0xc0f0, 0x660d, 0xa061, 0xc0f0, 0xc7f7, 0xf790, 0xf0c7, 0x0ec0, 
+    0x6167, 0xf0a0, 0xf7c0, 0x20c7, 0xf770, 0xf0c7, 0x0fc0, 0x6168, 0xf0a0, 
+    0xf7c0, 0x00b7, 0x0097, 0xb7f7, 0xc0f0, 0x690c, 0xa061, 0xc0f0, 0xf7f7, 
+    0xc7f7, 0xc0f0, 0x6a0c, 0xa061, 0xc0f0, 0xf7f7, 0xc7f7, 0xc0f0, 0x6b0c, 
+    0xa061, 0xc0f0, 0xf7f7, 0xc7f7, 0xc0f0, 0x6c0c, 0xa061, 0xc0f0, 0xf7f7, 
+    0xc7f7, 0xc0f0, 0x6d0c, 0xa061, 0xc0f0, 0xf7f7, 0xc7f7, 0xc0f0, 0x6e17, 
+    0xa061, 0xc0f0, 0x878f, 0x878f, 0x878f, 0xb78f, 0x878f, 0x878f, 0x878f, 
+    0xf08f, 0x17c0, 0x616f, 0xf0a0, 0x8fc0, 0x8f87, 0x8f87, 0x8f87, 0x8fb7, 
+    0x8f87, 0x8f87, 0x8f87, 0xc0f0, 0x7017, 0xa061, 0xc0f0, 0x8f87, 0x8f87, 
+    0x8f87, 0xbf87, 0x8f87, 0x8f87, 0x8f87, 0xf087, 0x17c0, 0x6171, 0xf0a0, 
+    0x87c0, 0x878f, 0x878f, 0x878f, 0x87bf, 0x878f, 0x878f, 0x878f, 0xc0f0, 
+    0x7217, 0xa061, 0xc0f0, 0x8f87, 0x8f87, 0x8f87, 0xbf87, 0x8f87, 0x8f87, 
+    0x8f87, 0xf087, 0x17c0, 0x6173, 0xf0a0, 0x8fc0, 0x8f87, 0x8f87, 0x8f87, 
+    0x8fb7, 0x8f87, 0x8f87, 0x8f87, 0xc0f0, 0x7417, 0xa061, 0xc0f0, 0x878f, 
+    0x878f, 0x878f, 0xb78f, 0x878f, 0x878f, 0x878f, 0xf08f, 0x0cc0, 0x6175, 
+    0xf0a0, 0xf7c0, 0xf7f7, 0xf0c7, 0x0cc0, 0x6176, 0xf0a0, 0xf7c0, 0xf7f7, 
+    0xf0c7, 0x0dc0, 0x6177, 0xf0a0, 0xf7c0, 0x90c7, 0xc7f7, 0xc0f0, 0x780e, 
+    0xa061, 0xc0f0, 0xc7f7, 0x7020, 0xc7f7, 0xc0f0, 0x790f, 0xa061, 0xc0f0, 
+    0xb7f7, 0x9700, 0xf700, 0xf0b7, 0x0fc0, 0x617a, 0xf0a0, 0xf7c0, 0x00a7, 
+    0x00b7, 0xa7f7, 0xc0f0, 0x7b0f, 0xa061, 0xc0f0, 0x97f7, 0xd700, 0xf700, 
+    0xf097, 0x11c0, 0x617c, 0xf0a0, 0xf2c0, 0x0082, 0x04a2, 0x00a2, 0x82f2, 
+    0xc0f0, 0x7d11, 0xa061, 0xc0f0, 0x12f2, 0x200b, 0x204b, 0x200f, 0x0c2f, 
+    0x0d00, 0x617e, 0xf0a0, 0xf2c0, 0x04d2, 0xd2f2, 0xc0f0, 0x7f0d, 0xa061, 
+    0xc0f0, 0xd2f2, 0xf204, 0xf0d2, 0x0dc0, 0x6180, 0xf0a0, 0xf2c0, 0x04d2, 
+    0xd2f2, 0xc0f0, 0x810d, 0xa061, 0xc0f0, 0xd2f2, 0xf204, 0xf0d2, 0x0dc0, 
+    0x6182, 0xf0a0, 0xf2c0, 0x04d2, 0xd2f2, 0xc0f0, 0x830e, 0xa061, 0xc0f0, 
+    0x07f2, 0x04c2, 0xd2f2, 0xc0f0, 0x840e, 0xa061, 0xc0f0, 0xd2f2, 0xc204, 
+    0xf207, 0xc0f0, 0x850e, 0xa061, 0xc0f0, 0x07f2, 0x04c2, 0xd2f2, 0xc0f0, 
+    0x860e, 0xa061, 0xc0f0, 0xd2f2, 0xc204, 0xf207, 0xc0f0, 0x870e, 0xa061, 
+    0xc0f0, 0x07f2, 0x04c2, 0xd2f2, 0xc0f0, 0x880d, 0xa061, 0xc0f0, 0xd2f2, 
+    0xf204, 0xf0d2, 0x0dc0, 0x6189, 0xf0a0, 0xf2c0, 0x04d2, 0xd2f2, 0xc0f0, 
+    0x8a0d, 0xa061, 0xc0f0, 0xd2f2, 0xf204, 0xf0d2, 0x0dc0, 0x618b, 0xf0a0, 
+    0xf2c0, 0x04d2, 0xd2f2, 0xc0f0, 0x8c0f, 0xa061, 0xc0f0, 0xb7f7, 0x0485, 
+    0xf785, 0xf0b7, 0x0dc0, 0x618d, 0xf0a0, 0xf7c0, 0xb5b7, 0xb7f7, 0xc0f0, 
+    0x8e0d, 0xa061, 0xc0f0, 0xb7f7, 0xf7b5, 0xf0b7, 0x0dc0, 0x618f, 0xf0a0, 
+    0xf7c0, 0xb5b7, 0xb7f7, 0xc0f0, 0x900d, 0xa061, 0xc0f0, 0xb7f7, 0xf7b5, 
+    0xf0b7, 0x0dc0, 0x6191, 0xf0a0, 0xf7c0, 0x95c7, 0xc7f7, 0xc0f0, 0x920d, 
+    0xa061, 0xc0f0, 0xc7f7, 0xf795, 0xf0c7, 0x0dc0, 0x6193, 0xf0a0, 0xf7c0, 
+    0x95c7, 0xc7f7, 0xc0f0, 0x940d, 0xa061, 0xc0f0, 0xc7f7, 0xf795, 0xf0c7, 
+    0x0dc0, 0x6195, 0xf0a0, 0xf7c0, 0x95c7, 0xc7f7, 0xc0f0, 0x960d, 0xa061, 
+    0xc0f0, 0xc7f7, 0xf795, 0xf0c7, 0x0dc0, 0x6197, 0xf0a0, 0xf7c0, 0x95c7, 
+    0xc7f7, 0xc0f0, 0x980d, 0xa061, 0xc0f0, 0xc7f7, 0xf795, 0xf0c7, 0x0dc0, 
+    0x6199, 0xf0a0, 0xf7c0, 0x95c7, 0xc7f7, 0xc0f0, 0x9a0d, 0xa061, 0xc0f0, 
+    0xc7f7, 0xf795, 0xf0c7, 0x0dc0, 0x619b, 0xf0a0, 0xf7c0, 0x95c7, 0xc7f7, 
+    0xc0f0, 0x9c0d, 0xa061, 0xc0f0, 0xc7f7, 0xf795, 0xf0c7, 0x0dc0, 0x619d, 
+    0xf0a0, 0xf0f0, 0x05a0, 0xf0f0, 0xa0f0, 0x9e0d, 0xa061, 0xf0f0, 0xa0f0, 
+    0xf007, 0xf0f0, 0x0da0, 0x619f, 0xf0a0, 0xf0f0, 0x9780, 0xf0f0, 0xa0f0, 
+    0xa00d, 0xa061, 0xc0f0, 0xb0f7, 0xf007, 0xf0f0, 0x0fc0, 0x61a1, 0xf0a0, 
+    0x07c0, 0x07d0, 0xf7b0, 0xf007, 0xc0f0, 0xa20f, 0xa061, 0xc0f0, 0xd007, 
+    0xf007, 0x07b0, 0xf0f0, 0x0fc0, 0x61a3, 0xf0a0, 0x07c0, 0x9780, 0xf780, 
+    0xf0d7, 0xc0f0, 0xa40e, 0xa061, 0xc0f0, 0x8007, 0xf097, 0xf0f0, 0xc0f0, 
+    0xa50e, 0xa061, 0xc0f0, 0x8007, 0xf097, 0xf0f0, 0xc0f0, 0xa60d, 0xa061, 
+    0xc0f0, 0xd007, 0xf0b7, 0xf0f0, 0x10e0, 0x61a7, 0xf0a0, 0x07c0, 0x07d0, 
+    0xb790, 0x9700, 0xf0f0, 0x11f0, 0x61a8, 0xf0a0, 0xf7c0, 0x0790, 0x4790, 
+    0x0707, 0xf790, 0xc0f0, 0xa90e, 0xa061, 0xf0f0, 0xd7f0, 0x7910, 0x7f0f, 
+    0x000c, 0xaa0d, 0xa061, 0xf0f0, 0xe0f0, 0xb007, 0xf0d7, 0x0dc0, 0x61ab, 
+    0xf0a0, 0xf0f0, 0xb7a0, 0xd7b0, 0xc0f0, 0xac0d, 0xa061, 0xf0f0, 0xd7d0, 
+    0xf7a0, 0xf097, 0x0fc0, 0x61ad, 0xf0a0, 0xa0f0, 0xa0b7, 0xb007, 0x87f7, 
+    0xc0f0, 0xae0c, 0xa061, 0xc0f0, 0xf7f7, 0xc7f7, 0xc0f0, 0xaf0f, 0xa061, 
+    0xc0f0, 0xb7f7, 0x7440, 0xf770, 0xf0b7, 0x0dc0, 0x61b0, 0xf0a0, 0xf2c0, 
+    0x04d2, 0xd2f2, 0xc0f0, 0xb110, 0xa061, 0xc0f0, 0x92f2, 0x9201, 0xf204, 
+    0xa291, 0xc0f0, 0xb215, 0xa061, 0xc0f0, 0xd192, 0x0182, 0x1492, 0x1828, 
+    0x1828, 0x1a29, 0x0c2f, 0x1500, 0x61b3, 0xf0a0, 0x92c0, 0x82d1, 0x9201, 
+    0x2814, 0x2818, 0x2918, 0x2f1a, 0x000c, 0xb413, 0xa061, 0xc0f0, 0x91b2, 
+    0x01a2, 0x0492, 0x81b2, 0x9182, 0xf0a2, 0x11c0, 0x61b5, 0xf0a0, 0xc2c0, 
+    0xd201, 0x92b4, 0x9201, 0xb281, 0xc0f0, 0xb611, 0xa061, 0xc0f0, 0x8192, 
+    0x0192, 0xf482, 0xf284, 0xf082, 0x12c0, 0x61b7, 0xf0a0, 0x92c0, 0x0291, 
+    0x0291, 0x84f4, 0xa1a2, 0xf092, 0x10c0, 0x61b8, 0xf0a0, 0xd2c0, 0xf281, 
+    0x91a2, 0x0182, 0xf0b2, 0x12c0, 0x61b9, 0xf0a0, 0x92c0, 0xb281, 0xf201, 
+    0xa182, 0x0192, 0xf092, 0x10c0, 0x61ba, 0xf0a0, 0x82c0, 0x82b1, 0xf281, 
+    0xa182, 0xf0d2, 0x0cc0, 0x61bb, 0xf0a0, 0xf2c0, 0xf2f2, 0xf0c2, 0x0cc0, 
+    0x61bc, 0xf0a0, 0xf5c0, 0xf5f5, 0xf0c5, 0x0cc0, 0x61bd, 0xf0a0, 0xf5c0, 
+    0xf5f5, 0xf0c5, 0x0cc0, 0x61be, 0xf0a0, 0xf5c0, 0xf5f5, 0xf0c5, 0x0cc0, 
+    0x61bf, 0xf0a0, 0xf5c0, 0xf5f5, 0xf0c5, 0x0cc0, 0x61c0, 0xf0a0, 0xf5c0, 
+    0xf5f5, 0xf0c5, 0x0cc0, 0x61c1, 0xf0a0, 0xf5c0, 0xf5f5, 0xf0c5, 0x0cc0, 
+    0x61c2, 0xf0a0, 0xf7c0, 0xf7f7, 0xf0c7, 0x0cc0, 0x61c3, 0xf0a0, 0xf7c0, 
+    0xf7f7, 0xf0c7, 0x0cc0, 0x61c4, 0xf0a0, 0xf7c0, 0xf7f7, 0xf0c7, 0x0cc0, 
+    0x61c5, 0xf0a0, 0xf7c0, 0xf7f7, 0xf0c7, 0x0cc0, 0x61c6, 0xf0a0, 0xf7c0, 
+    0xf7f7, 0xf0c7, 0x0cc0, 0x61c7, 0xf0a0, 0xf7c0, 0xf7f7, 0xf0c7, 0x0cc0, 
+    0x61c8, 0xf0a0, 0xf7c0, 0xf7f7, 0xf0c7, 0x0dc0, 0x61c9, 0xf0a0, 0xf7c0, 
+    0x01d7, 0xd7f7, 0xc0f0, 0xca0d, 0xa061, 0xc0f0, 0xd7f7, 0xf701, 0xf0d7, 
+    0x0dc0, 0x61cb, 0xf0a0, 0xf7c0, 0x01d7, 0xd7f7, 0xc0f0, 0xcc0d, 0xa061, 
+    0xc0f0, 0xd7f7, 0xf701, 0xf0d7, 0x0dc0, 0x61cd, 0xf0a0, 0xf7c0, 0x01d7, 
+    0xd7f7, 0xc0f0, 0xce0d, 0xa061, 0xc0f0, 0xc7f7, 0xf791, 0xf0c7, 0x0cc0, 
+    0x61cf, 0xf0a0, 0xf1c0, 0xf1f1, 0xf0c1, 0x0cc0, 0x61d0, 0xf0a0, 0xf1c0, 
+    0xf1f1, 0xf0c1, 0x0cc0, 0x61d1, 0xf0a0, 0xf1c0, 0xf1f1, 0xf0c1, 0x0cc0, 
+    0x61d2, 0xf0a0, 0xf1c0, 0xf1f1, 0xf0c1, 0x06c0, 0x61d3, 0xf070, 0x06c0, 
+    0x91d3, 0xf0a0, 0x06c0, 0x61d4, 0xf070, 0x06c0, 0x91d4, 0xf0a0, 0x06c0, 
+    0x61d5, 0xf070, 0x06c0, 0x91d5, 0xf0a0, 0x06c0, 0x61d6, 0xf070, 0x06c0, 
+    0x91d6, 0xf0a0, 0x06c0, 0x61d7, 0xf070, 0x06c0, 0x91d7, 0xf0a0, 0x06c0, 
+    0x61d8, 0xf070, 0x06c0, 0x91d8, 0xf0a0, 0x06c0, 0x61d9, 0xf070, 0x06c0, 
+    0x91d9, 0xf0a0, 0x06c0, 0x61da, 0xf070, 0x06c0, 0x91da, 0xf0a0, 0x06c0, 
+    0x61db, 0xf070, 0x06c0, 0x91db, 0xf0a0, 0x06c0, 0x61dc, 0xf070, 0x06c0, 
+    0x91dc, 0xf0a0, 0x06c0, 0x61dd, 0xf070, 0x06c0, 0x91dd, 0xf0a0, 0x06c0, 
+    0x61de, 0xf070, 0x06c0, 0x91de, 0xf0a0, 0x06c0, 0x61df, 0xf070, 0x06c0, 
+    0x91df, 0xf0a0, 0x06c0, 0x61e0, 0xf070, 0x06c0, 0x91e0, 0xf0a0, 0x0bc0, 
+    0x61e1, 0xf0a0, 0xf0f0, 0xf0f0, 0xf0f0, 0xe20b, 0xa061, 0xf0f0, 0xf0f0, 
+    0xf0f0, 0x0bf0, 0x61e3, 0xf0a0, 0xf0f0, 0xf0f0, 0xf0f0, 0xe40b, 0xa061, 
+    0xf0f0, 0xf0f0, 0xf0f0, 0x0bf0, 0x61e5, 0xf0a0, 0xf0f0, 0xf0f0, 0xf0f0, 
+    0xe60b, 0xa061, 0xf0f0, 0xf0f0, 0xf0f0, 0x0bf0, 0x61e7, 0xf0a0, 0xf0f0, 
+    0xf0f0, 0xf0f0, 0xe80b, 0xa061, 0xf0f0, 0xf0f0, 0xf0f0, 0x0bf0, 0x61e9, 
+    0xf0a0, 0xf0f0, 0xf0f0, 0xf0f0, 0xea0b, 0xa061, 0xf0f0, 0xf0f0, 0xf0f0, 
+    0x0bf0, 0x61eb, 0xf0a0, 0xf0f0, 0xf0f0, 0xf0f0, 0xff04, 0xffff
+END
+
+#endif    // Neutral resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New",                        ID_FILEMENU_NEW
+        MENUITEM "&Save Map\tCtrl+S",           ID_FILEMENU_SAVEMAP
+        MENUITEM SEPARATOR
+        MENUITEM "&Game Info",                  ID_FILEMENU_GAMEINFO
+        MENUITEM "System &Info",                ID_FILEMENU_SYSTEMINFO
+        MENUITEM "Ne&twork Info",               ID_FILEMENU_NETWORKINFO
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_FILEMENU_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        POPUP "Frame &Rate"
+        BEGIN
+            MENUITEM "60",                          ID_FRAMERATEMENU_60
+            MENUITEM "50",                          ID_FRAMERATEMENU_50
+            MENUITEM "30",                          ID_FRAMERATEMENU_30
+            MENUITEM "20",                          ID_FRAMERATEMENU_20
+            MENUITEM "15",                          ID_FRAMERATEMENU_15
+            MENUITEM "12",                          ID_FRAMERATEMENU_12
+            MENUITEM "10",                          ID_FRAMERATEMENU_10
+        END
+        POPUP "Window Size"
+        BEGIN
+            MENUITEM "Normal",                      ID_WINDOWSIZE_NORMAL
+            MENUITEM "Double",                      ID_WINDOWSIZE_DOUBLE
+            MENUITEM "Quad",                        ID_WINDOWSIZE_QUAD
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&Automatic Scrolling\tCtrl+A", 
+                                                ID_EDITMENU_AUTOMATICSCROLLING
+
+        MENUITEM "Show &Gunsight\tCtrl+G",      ID_EDITMENU_GUNSIGHT
+        POPUP "Message Sender Names"
+        BEGIN
+            MENUITEM "Short",                       ID_EDIT_MESSAGESENDERNAMES_SHORT
+
+            MENUITEM "Long",                        ID_EDIT_MESSAGESENDERNAMES_LONG
+
+        END
+        POPUP "Tank Labels"
+        BEGIN
+            MENUITEM "None\tCtrl+1",                ID_EDIT_TANKLABELS_NONE
+            MENUITEM "Short\tCtrl+2",               ID_EDIT_TANKLABELS_SHORT
+            MENUITEM "Long\tCtrl+3",                ID_EDIT_TANKLABELS_LONG
+            MENUITEM "Don't label own tank",        ID_EDIT_TANKLABELS_DONTLABELOWNTANK
+
+        END
+        MENUITEM "Pillbox Labels\tCtrl+P",      ID_EDITMENU_PILLLABELS
+        MENUITEM "Refuelling Base Labels\tCtrl+B", ID_EDITMENU_BASELABELS
+        MENUITEM SEPARATOR
+        MENUITEM "Hide Main View\tCtrl+H",      ID_EDITMENU_HIDEMAINVIEW
+    END
+    POPUP "&WinBolo"
+    BEGIN
+        MENUITEM "&Allow New Players",          ID_BOLOMENU_ALLOWNEWPLAYERS
+        , CHECKED
+        MENUITEM "Allow Alliance Requests",     ID_BOLOMENU_REQUESTALLIANCE
+        , CHECKED
+        MENUITEM "Set &Keys\tCtrl-K",           ID_BOLOMENU_SETKEYS
+        MENUITEM "&Change Player Name",         ID_BOLOMENU_CHANGENAME
+        MENUITEM SEPARATOR
+        MENUITEM "&Sound Effects",              ID_BOLOMENU_SOUNDEFFECTS
+        MENUITEM "Background Sound",            ID_BOLOMENU_BACKGROUNDSOUND
+        MENUITEM "&ISA Sound Card",             ID_BOLOMENU_ISASOUNDCARD
+        MENUITEM SEPARATOR
+        MENUITEM "Newswire Messages",           ID_BOLOMENU_NEWSWIREMESSAGES
+        , CHECKED
+        MENUITEM "Assistant Messages",          ID_BOLOMENU_ASSISTANTMESSAGES
+
+        MENUITEM "AI Brain Messages",           ID_BOLOMENU_AIBRAINMESSAGES
+        MENUITEM "Network Status Messages",     ID_BOLOMENU_NETWORKSTATUSMESSAGES
+
+        MENUITEM "Network Debug Messages",      ID_BOLOMENU_NETWORKDEBUGMESSAGES
+
+        MENUITEM SEPARATOR
+        MENUITEM "&Request Alliance\tCtrl-R",   ID_BOLOMENU_REQUESTALLIENCE
+        , GRAYED
+        MENUITEM "&Leave Alliance",             ID_BOLOMENU_LEAVEALLIENCE
+        , GRAYED
+    END
+    POPUP "&Players"
+    BEGIN
+        MENUITEM "Send &Message\tCtrl+M",       ID_PLAYERSMENU_SENDMESSAGE
+        MENUITEM SEPARATOR
+        MENUITEM "Select &All",                 ID_PLAYERSMENU_SELECTALL
+        MENUITEM "Select &None",                ID_PLAYERSMENU_SELECTNONE
+        MENUITEM "&Select Allies",              ID_PLAYERSMENU_SELECTALLIES
+        MENUITEM "Select Nearby &Tanks",        ID_PLAYERSMENU_SELECTNEARBYTANKS
+
+        MENUITEM SEPARATOR
+        MENUITEM "1",                           ID_PLAYERSMENU_01, GRAYED
+        MENUITEM "2",                           ID_PLAYERSMENU_02, GRAYED
+        MENUITEM "3",                           ID_PLAYERSMENU_03, GRAYED
+        MENUITEM "4",                           ID_PLAYERSMENU_04, GRAYED
+        MENUITEM "5",                           ID_PLAYERSMENU_05, GRAYED
+        MENUITEM "6",                           ID_PLAYERSMENU_06, GRAYED
+        MENUITEM "7",                           ID_PLAYERSMENU_07, GRAYED
+        MENUITEM "8",                           ID_PLAYERSMENU_08, GRAYED
+        MENUITEM "9",                           ID_PLAYERSMENU_09, GRAYED
+        MENUITEM "10",                          ID_PLAYERSMENU_10, GRAYED
+        MENUITEM "11",                          ID_PLAYERSMENU_11, GRAYED
+        MENUITEM "12",                          ID_PLAYERSMENU_12, GRAYED
+        MENUITEM "13",                          ID_PLAYERSMENU_13, GRAYED
+        MENUITEM "14",                          ID_PLAYERSMENU_14, GRAYED
+        MENUITEM "15",                          ID_PLAYERSMENU_15, GRAYED
+        MENUITEM "16",                          ID_PLAYERSMENU_16, GRAYED
+    END
+    POPUP "&Brains"
+    BEGIN
+        MENUITEM "&Manual",                     ID_BRAINSMENU_MANUAL
+        , CHECKED
+        MENUITEM SEPARATOR
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&Help",                       ID_HELP_HELP
+        MENUITEM "&About",                      ID_HELPMENU_ABOUT
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,1,5
+ PRODUCTVERSION 1,0,1,5
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "0c0904b0"
+        BEGIN
+            VALUE "Comments", "WinBolo"
+            VALUE "CompanyName", "John Morrison"
+            VALUE "FileDescription", "WinBolo"
+            VALUE "FileVersion", "1.15"
+            VALUE "InternalName", "WinBolo"
+            VALUE "LegalCopyright", "WinBolo © 1998-2006 John Morrison - Bolo © 1987-1995 Stuart Cheshire"
+            VALUE "OriginalFilename", "WinBolo.exe"
+            VALUE "ProductName", "WinBolo"
+            VALUE "ProductVersion", "1.15"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0xc09, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BACKGROUND          BITMAP                  "background.bmp"
+IDB_TILE                BITMAP                  "tile.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_POINTER             CURSOR                  "arrow.cur"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (Australia) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENA)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_AUS
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_LOGOSMALL           BITMAP                  "smalllogo.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_BOLOCURSOR          CURSOR                  "Cursor.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_BOLO                ICON                    "Bolo.ico"
+IDI_BSOUNDS             ICON                    "BoloSounds.ico"
+IDI_BMAP                ICON                    "Map.ico"
+IDI_BRAIN               ICON                    "Brain.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_SYSTEM_INFO DIALOG  0, 0, 225, 109
+STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
+CAPTION "WinBolo System Information"
+FONT 8, "MS Sans Serif"
+BEGIN
+    RTEXT           "Graphics frames per second: ",IDC_FPSS,14,86,104,8
+    LTEXT           "",IDC_FRAME_RATE,121,86,85,8
+    LTEXT           "",IDC_GRAPHICS,174,44,37,8
+    LTEXT           "",IDC_CPUUSAGES,14,6,194,8
+    LTEXT           "Simulation modeling:",IDC_SIMMODELS,14,24,153,8
+    LTEXT           "Communications processing:",IDC_COMPROCESSS,14,34,149,8
+    LTEXT           "Graphics display:",IDC_GRAPHICSDISPLAYS,14,44,149,8
+    LTEXT           "AI tank control processing:",IDC_AITANKS,14,55,153,8
+    LTEXT           "",IDC_SIM,174,24,44,9
+    LTEXT           "",IDC_COMMUNICATION,174,34,44,8
+    LTEXT           "0.00%",IDC_AI,174,55,34,8
+    LTEXT           "Total:",IDC_TOTALS,14,66,146,8
+    LTEXT           "",IDC_TOTAL,173,66,34,8
+END
+
+IDD_GAME_INFO DIALOG  0, 0, 241, 86
+STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
+CAPTION "WinBolo Game Info"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Map Name: ",IDC_MAPS,17,6,91,8
+    LTEXT           "",IDC_MAP_NAME,130,6,104,14
+    LTEXT           "",IDC_NUM_PLAYERS,130,17,104,14
+    LTEXT           "Number of Players: ",IDC_PLAYERSS,17,17,91,8
+    LTEXT           "Game Type: ",IDC_GAMETS,17,28,91,8
+    LTEXT           "Hidden Mines: ",IDC_HIDMINESS,17,39,91,8
+    LTEXT           "Computer Tanks Allowed: ",IDC_COMPTANKSS,17,50,91,8
+    LTEXT           "Game Time Limit: ",IDC_GAMETIMES,17,61,91,8
+    LTEXT           "",IDC_GAME_TYPE,130,28,104,14
+    LTEXT           "",IDC_HIDDEN_MINES,130,39,104,14
+    LTEXT           "",IDC_COMPUTER_TANKS,130,50,104,14
+    LTEXT           "",IDC_GAME_TIMELIMIT,130,61,104,14
+END
+
+IDD_GAME_SETUP DIALOG  0, 0, 239, 206
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Game Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDC_OK,64,185,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,125,185,50,14
+    LTEXT           "Please select the options you want for your new game:",
+                    IDC_BLURB,7,7,225,14
+    PUSHBUTTON      "Choose Map",IDC_CHOOSE_MAP,13,22,67,13
+    LTEXT           "Selected Map: None",IDC_SELECTEDMAP,87,24,128,8
+    CONTROL         "Open Game (each new tank comes pre-armed)",IDC_RADIO1,
+                    "Button",BS_AUTORADIOBUTTON | WS_TABSTOP,7,49,201,10
+    CONTROL         "Tournament (free ammunition early in the game)",
+                    IDC_RADIO2,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,7,61,
+                    165,10
+    CONTROL         "Strict Tournament (no free ammunition at all)",
+                    IDC_RADIO3,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,7,73,
+                    154,10
+    CONTROL         "Allow Hidden Mines",IDC_HIDDEN_MINES,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,91,133,10
+    CONTROL         "Allow Computer Tanks",IDC_ALLOWCOMP1,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,103,100,10
+    CONTROL         "and give them an advantage",IDC_ALLOWCOMP2,"Button",
+                    BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,111,102,109,
+                    10
+    CONTROL         "Game Password",IDC_CHECKPASS,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,122,103,10
+    EDITTEXT        IDC_EDITPASS,115,119,101,15,ES_PASSWORD | WS_DISABLED
+    CONTROL         "Game start delay",IDC_GAMESTART,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,142,102,10
+    EDITTEXT        IDC_EDITSTART,115,140,34,12,ES_NUMBER | WS_DISABLED
+    LTEXT           "seconds",IDC_SECONDS,164,142,68,8
+    CONTROL         "Game time limit",IDC_CHECKTIME_LIMIT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,161,103,13
+    EDITTEXT        IDC_EDITTIMELIMIT,115,161,34,12,ES_NUMBER | WS_DISABLED
+    LTEXT           "minutes",IDC_MINUTES,164,163,55,8
+END
+
+IDD_OPENING DIALOGEX 0, 0, 186, 294
+STYLE DS_SETFONT | DS_CENTER | WS_POPUP | WS_CAPTION
+CAPTION "Network Selection"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,35,273,50,14
+    PUSHBUTTON      "Quit",IDCANCEL,97,273,50,14
+    LTEXT           "",IDC_BLURB,7,92,161,30,0,WS_EX_TRANSPARENT
+    CONTROL         143,IDC_STATIC,"Static",SS_BITMAP | SS_SUNKEN,7,7,172,78
+    CONTROL         "Practice (Single Player; No Network)",IDC_GAMETYPE00,
+                    "Button",BS_AUTORADIOBUTTON | WS_TABSTOP,16,129,162,11
+    CONTROL         "TCP/IP",IDC_GAMETYPE01,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,16,145,162,11
+    CONTROL         "Tutorial",IDC_GAMETYPE02,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,16,159,162,11
+    CONTROL         "TCP/IP",IDC_GAMETYPE3,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,16,174,162,11
+    CONTROL         "TCP/IP",IDC_GAMETYPE4,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,16,190,162,11
+    CONTROL         "Skip this Dialog Next Time",IDC_SKIP_DIALOG,"Button",
+                    BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,15,212,155,13
+    PUSHBUTTON      "Languges",IDC_LANG,35,252,51,13
+    PUSHBUTTON      "Help",IDC_OPENINGHELP,95,252,51,13
+    PUSHBUTTON      "WinBolo.net",IDC_WBNSETUP,36,234,52,13
+    PUSHBUTTON      "Skins",IDC_SKINSSETUP,93,234,52,13
+    LTEXT           "v1.15",IDC_STATIC,158,278,20,9
+END
+
+IDD_KEY_SETUP DIALOG  0, 0, 306, 247
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Choose Key Settings"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "OK",IDOK,249,205,50,14,NOT WS_TABSTOP
+    PUSHBUTTON      "Cancel",IDCANCEL,249,226,50,14,NOT WS_TABSTOP
+    LTEXT           "Click on the option you wish to change then the next key pressed will be assigned to it. The key ALT, PRINT SCREEN and PAUSE can not be assigned to anything.",
+                    IDC_BLURB,7,7,292,27
+    CONTROL         "Drive Tank:",IDC_DRIVES,"Static",SS_LEFTNOWORDWRAP | 
+                    WS_GROUP,7,39,65,8
+    CONTROL         "Accelerate",IDC_CACCEL,"Button",BS_AUTOCHECKBOX,80,38,
+                    91,10
+    CONTROL         "Decelerate",IDC_CDECEL,"Button",BS_AUTOCHECKBOX,80,50,
+                    91,10
+    CONTROL         "Rotate Tank: ",IDC_ROTATES,"Static",SS_LEFTNOWORDWRAP | 
+                    WS_GROUP,7,67,68,8
+    CONTROL         "Anti-clockwise",IDC_CLEFT,"Button",BS_AUTOCHECKBOX,80,
+                    66,91,10
+    CONTROL         "Clockwise",IDC_CRIGHT,"Button",BS_AUTOCHECKBOX,80,79,91,
+                    10
+    LTEXT           "(left)",IDC_LEFTS,218,66,81,8
+    LTEXT           "(right)",IDC_RIGHTS,218,78,81,8
+    CONTROL         "Auto slowdown",IDC_AUTOSLOWDOWN,"Button",
+                    BS_AUTOCHECKBOX | BS_VCENTER,218,37,81,25
+    CONTROL         "Gun Range: ",IDC_GUNRANGES,"Static",SS_LEFTNOWORDWRAP | 
+                    WS_GROUP,7,98,67,8
+    CONTROL         "Increase",IDC_CINCREASE,"Button",BS_AUTOCHECKBOX,80,97,
+                    91,10
+    CONTROL         "Decrease",IDC_CDECREASE,"Button",BS_AUTOCHECKBOX,79,110,
+                    91,10
+    CONTROL         "",IDC_ACCEL,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,36,25,12
+    CONTROL         "",IDC_DECEL,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,49,25,12
+    CONTROL         "",IDC_LEFT,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,65,25,12
+    CONTROL         "",IDC_RIGHT,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,78,25,12
+    CONTROL         "",IDC_INCREASE,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,95,25,12
+    CONTROL         "",IDC_DECREASE,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,108,25,12
+    CONTROL         "Weapons:",IDC_WEAPONS,"Static",SS_LEFTNOWORDWRAP | 
+                    WS_GROUP,7,127,69,8
+    CONTROL         "Shoot",IDC_CSHOOT,"Button",BS_AUTOCHECKBOX,80,126,91,10
+    CONTROL         "Lay mine",IDC_CLAYMINE,"Button",BS_AUTOCHECKBOX,80,139,
+                    91,10
+    CONTROL         "",IDC_SHOOT,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,124,25,12
+    CONTROL         "",IDC_LAYMINE,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,137,25,12
+    CONTROL         "Change Views:",IDC_VIEWS,"Static",SS_LEFTNOWORDWRAP | 
+                    WS_GROUP,7,156,67,8
+    CONTROL         "Tank view",IDC_CTANKVIEW,"Button",BS_AUTOCHECKBOX,80,
+                    155,91,13
+    CONTROL         "Pillbox",IDC_CPILLVIEW,"Button",BS_AUTOCHECKBOX,80,167,
+                    91,10
+    CONTROL         "",IDC_TANKVIEW,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,153,25,12
+    CONTROL         "",IDC_PILLVIEW,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,166,25,12
+    CONTROL         "Scroll:",IDC_SCROLLS,"Static",SS_LEFTNOWORDWRAP | 
+                    WS_GROUP,7,185,67,8
+    CONTROL         "Up",IDC_CSCROLLUP,"Button",BS_AUTOCHECKBOX,80,184,91,10
+    CONTROL         "Down",IDC_CSCROLLDOWN,"Button",BS_AUTOCHECKBOX,80,196,
+                    91,10
+    CONTROL         "",IDC_SCROLLUP,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,182,25,12
+    CONTROL         "",IDC_SCROLLDOWN,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,194,25,12
+    CONTROL         "Left",IDC_CSCROLLLEFT,"Button",BS_AUTOCHECKBOX,80,208,
+                    91,10
+    CONTROL         "Right",IDC_CSCROLLRIGHT,"Button",BS_AUTOCHECKBOX,80,220,
+                    91,10
+    CONTROL         "",IDC_SCROLLLEFT,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | 
+                    WS_GROUP,177,206,25,12
+    CONTROL         "",IDC_SCROLLRIGHT,"Static",SS_LEFTNOWORDWRAP | 
+                    SS_SUNKEN | WS_GROUP,177,218,25,12
+    CONTROL         "Enable Automatic show and hide of gunsight",
+                    IDC_AUTOGUNSIGHT,"Button",BS_AUTOCHECKBOX | BS_MULTILINE,
+                    217,89,82,36
+END
+
+IDD_SETPLAYERNAME DIALOG  0, 0, 191, 57
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,134,25,50,14
+    LTEXT           "",IDC_BLURB,7,7,177,17
+    EDITTEXT        IDC_EDITNAME,7,26,120,12
+END
+
+IDD_MESSAGES DIALOGEX 0, 0, 186, 108
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Compose Message"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "&Send",IDOK,129,84,50,14
+    EDITTEXT        IDC_EDITSEND,7,85,117,12,ES_AUTOHSCROLL | ES_NOHIDESEL,
+                    WS_EX_NOPARENTNOTIFY
+    LTEXT           "Sending message to %d players",IDC_NUM_PLAYERS,7,72,172,
+                    11
+    CONTROL         "All players",IDC_ALL_PLAYERS,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,7,7,172,13
+    CONTROL         "All allies",IDC_ALL_ALLIES,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,7,23,172,13
+    CONTROL         "All nearby tanks",IDC_ALL_NEARBY,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,7,39,172,13
+    CONTROL         "Selection on Players menu",IDC_ALL_SELECTION,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,7,55,172,13
+END
+
+IDD_TCPIP_SETUP DIALOG  0, 0, 266, 246
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "UDP (Internet) Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "&Join",ID_JOIN,148,185,56,14
+    PUSHBUTTON      "Cancel",IDCANCEL,209,162,50,14
+    LTEXT           "To join an internet Bolo game, you must give the name (or IP address) of a host machine running Bolo, and the UDP port number of the Bolo process on that machine.",
+                    IDC_BLURB,7,7,252,33
+    PUSHBUTTON      "&New",ID_NEW,148,162,56,14
+    LTEXT           "Click to ""join"" an existing game",IDC_JOINS,13,188,
+                    130,21
+    LTEXT           "Click ""New"" to begin a game",IDC_NEWS,13,164,128,8
+    LTEXT           "Machine Name (or IP adrress):",IDC_ADDRESSS,7,39,102,20,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_EDITIP,118,42,141,14,ES_AUTOHSCROLL
+    LTEXT           "UDP port of the Bolo on that machine:",IDC_THEREUDPS,7,
+                    70,132,8
+    EDITTEXT        IDC_UDP,147,65,112,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "UDP port for the Bolo on this machine:",IDC_OURUDPS,7,
+                    90,130,8
+    EDITTEXT        IDC_MYUDP,147,87,112,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Your player name for the game:",IDC_PLAYERNAMES,7,111,
+                    130,8
+    EDITTEXT        IDC_PLAYERNAME,147,108,112,14,ES_AUTOHSCROLL
+    CONTROL         "Remember player name",IDC_CHECK_REMEMBER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,157,126,102,11
+    PUSHBUTTON      "&Tracker Setup",IDC_TRACKER,148,143,112,13
+    PUSHBUTTON      "&Rejoin",ID_REJOIN,149,211,56,14
+    LTEXT           "Rejoin",IDC_REJOINS,13,212,128,26
+END
+
+IDD_PASSWORD DIALOG  0, 0, 186, 65
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Password"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,129,34,50,14
+    LTEXT           "This game is password protected. Enter the correct password to join:",
+                    IDC_BLURB,7,7,172,21
+    EDITTEXT        IDC_PASSWORD,7,33,112,13,ES_PASSWORD | ES_AUTOHSCROLL
+END
+
+IDD_NETWORK_INFO DIALOG  0, 0, 231, 100
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "WinBolo Network Information"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "",IDC_SERVERS,7,13,113,8
+    LTEXT           "",IDC_THISADDRESSS,7,25,116,8
+    LTEXT           "",IDC_PPSPLS,7,52,116,8
+    LTEXT           "",IDC_SERVERPINGS,7,38,114,8
+    LTEXT           "",IDC_NETSTATUSS,7,66,118,8
+    LTEXT           "",IDC_NETERRORSS,7,79,117,8
+    LTEXT           "",IDC_SERVER,127,13,97,8
+    LTEXT           "",IDC_THISADDRESS,127,25,97,8
+    LTEXT           "0",IDC_PING,127,38,97,8
+    LTEXT           "0",IDC_PACKETSPERSECOND,127,52,97,8
+    LTEXT           "OK",IDC_NETSTATUS,127,66,97,8
+    LTEXT           "0",IDC_NETERRORS,127,79,97,8
+END
+
+IDD_ABOUT DIALOGEX 0, 0, 279, 223
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About WinBolo"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,114,202,50,14
+    LTEXT           "WinBolo v1.15 © 1998-2006 John Morrison\nBolo © 1987-1995 Stuart Cheshire",
+                    IDC_STATIC,35,9,226,21
+    ICON            IDI_BOLO,IDC_STATIC,7,7,20,20
+    LTEXT           "IDC_BLURB",IDC_BLURB,7,33,265,167
+END
+
+IDD_TRACKERSETUP DIALOG  0, 0, 186, 79
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Tracker Config"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,38,58,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,96,58,50,14
+    LTEXT           "Tracker Address: ",IDC_TRACKERADDRESSS,7,7,64,8
+    RTEXT           "Tracker Port: ",IDC_TRACKERPORTS,7,23,63,8
+    EDITTEXT        IDC_TRACKERADDRESS,73,7,106,12,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    EDITTEXT        IDC_TRACKERPORT,73,23,106,12,ES_AUTOHSCROLL | ES_NUMBER | 
+                    WS_DISABLED
+    CONTROL         "Use Tracker",IDC_USETRACKER,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,65,39,114,8
+END
+
+IDD_GAMEFINDER DIALOG  0, 0, 370, 254
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Game Finder"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "&Join",ID_JOIN,313,183,50,14,WS_DISABLED
+    PUSHBUTTON      "Cancel",IDCANCEL,313,224,50,14
+    PUSHBUTTON      "Join &By Address",IDC_JOINADDRESS,235,183,57,15
+    PUSHBUTTON      "&Refresh",IDC_REFRESH,235,204,57,15
+    PUSHBUTTON      "&Tracker Setup",IDC_TRACKER,27,183,74,15
+    LISTBOX         IDC_LIST,7,13,126,157,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_TABSTOP
+    GROUPBOX        "Selected Game Information",IDC_FRAME,139,7,224,143
+    RTEXT           "Server Address:",IDC_SADRESS,142,18,84,10
+    RTEXT           "Server Port:",IDC_SPORT,142,31,67,10
+    RTEXT           "No of Players:",IDC_NOPLAYERSS,155,57,84,9
+    RTEXT           "No of free Bases:",IDC_FREEBASESS,150,82,92,10
+    RTEXT           "No of free Pillboxes:",IDC_FREEPILLSS,145,95,97,10
+    RTEXT           "Map Name:",IDC_MAPNAMES,158,43,81,10
+    RTEXT           "Version:",IDC_VERSIONS,249,31,66,10
+    RTEXT           "Hidden Mines:",IDC_HIDMINES,151,108,91,10
+    RTEXT           "Brains:",IDC_BRAINSS,149,131,93,10
+    RTEXT           "Password: ",IDC_PASSS,149,121,93,10
+    LTEXT           "IDC_SERVERADDRESS",IDC_SERVERADDRESS,231,18,100,10
+    LTEXT           "55500",IDC_PORT,217,31,28,10
+    LTEXT           "IDC_MAPNAME",IDC_MAPNAME,248,43,106,10
+    LTEXT           "IDC_VERSION",IDC_VERSION,319,31,35,10
+    LTEXT           "IDC_NOPLAYERS",IDC_NOPLAYERS,248,58,38,10
+    LTEXT           "IDC_FREEBASES",IDC_FREEBASES,248,82,88,10
+    LTEXT           "IDC_FREEPILLS",IDC_FREEPILLS,248,95,106,10
+    LTEXT           "IDC_MINES",IDC_MINES,248,108,89,10
+    LTEXT           "IDC_PASSWORD",IDC_PASSWORD,248,121,88,10
+    LTEXT           "IDC_BRAINS",IDC_BRAINS,248,131,102,10
+    PUSHBUTTON      "&New",IDC_NEW,235,225,57,15
+    RTEXT           "Game Type:",IDC_GAMETYPES,152,70,90,10
+    LTEXT           "IDC_GAMETYPE",IDC_GAMETYPE,248,70,112,10
+    PUSHBUTTON      "&Message of the Day",IDC_MESSAGE,27,225,73,15
+    PUSHBUTTON      "&Player Name",IDC_SETPLAYERNAME,27,204,73,15
+    RTEXT           "Status: ",IDC_STATUSS,139,156,67,10
+    LTEXT           "Idle",IDC_STATUS,207,157,156,19
+    PUSHBUTTON      "Rej&oin",IDC_REJOIN,311,203,52,15,WS_DISABLED
+END
+
+IDD_LANGUAGES DIALOG  0, 0, 273, 170
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,79,149,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,147,149,50,14
+    LISTBOX         IDC_LIST1,7,19,114,83,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_TABSTOP
+    GROUPBOX        "Information",IDC_INFO,128,15,138,99
+    RTEXT           "Name: ",IDC_LANGNAMES,131,23,45,9
+    LTEXT           "Name: ",IDC_LANGNAME,180,23,77,9
+    RTEXT           "A",IDC_AUTHORS,131,37,45,9
+    LTEXT           "Name: ",IDC_AUTHOR,180,37,77,9
+    RTEXT           "S",IDC_NOTESS,131,48,45,9
+    LTEXT           "Name: ",IDC_NOTES,180,48,77,60
+    CTEXT           "Default",IDC_DEFAULT,7,120,259,25
+END
+
+IDD_ALLIANCE DIALOG  0, 0, 186, 65
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,35,44,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,97,44,50,14
+    CTEXT           "Static",IDC_LABEL,7,14,172,13
+END
+
+IDD_COMDLG32 DIALOG  0, 0, 380, 171
+STYLE DS_SETFONT | DS_3DLOOK | DS_CONTROL | DS_CENTER | WS_CHILD | 
+    WS_CLIPSIBLINGS
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "",IDC_MAP,"Static",SS_ETCHEDFRAME,7,7,170,157
+    LTEXT           "",1119,212,7,161,156
+END
+
+IDD_WINBOLONET DIALOG  0, 0, 271, 118
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "WinBolo.net Login"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,72,97,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,149,97,50,14
+    CONTROL         "Use WinBolo.net",IDC_USEWBN,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,89,46,69,10
+    LTEXT           "WinBolo.net Username: ",IDC_STATIC,7,7,78,8
+    LTEXT           "WinBolo.net Password: ",IDC_STATIC,7,29,76,8
+    EDITTEXT        IDC_WBNPASS,89,26,87,14,ES_PASSWORD | ES_AUTOHSCROLL
+    PUSHBUTTON      "More Information",IDC_WBNMORE,197,7,60,14
+    LTEXT           "Static",IDC_WBNNAME,88,7,90,12
+    LTEXT           "Winbolo.net is a free real time game tracking and player statisitics website. To signup or for more informaton please visit http://www.winbolo.net",
+                    IDC_STATIC,7,74,257,21
+    CONTROL         "Save WinBolo.net Password",IDC_SAVEPASS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,89,60,106,10
+END
+
+IDD_SKINS DIALOG  0, 0, 293, 154
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,81,134,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,149,134,50,14
+    LISTBOX         IDC_SKINLIST,9,4,114,83,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Information",IDC_INFO,130,0,138,99
+    RTEXT           "Name: ",IDC_SKINNAMES,133,8,45,9
+    LTEXT           "Name: ",IDC_SKINNAME,182,8,77,9
+    RTEXT           "A",IDC_SKINAUTHORS,133,22,45,9
+    LTEXT           "Name: ",IDC_SKINAUTHOR,182,22,77,9
+    RTEXT           "S",IDC_SKINNOTESS,133,33,45,9
+    LTEXT           "Name: ",IDC_SKINNOTES,182,33,77,60
+    CTEXT           "Default",IDC_SKINDEFAULT,9,105,259,25
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_SYSTEM_INFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 218
+        TOPMARGIN, 6
+        BOTTOMMARGIN, 102
+    END
+
+    IDD_GAME_INFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 234
+        TOPMARGIN, 6
+        BOTTOMMARGIN, 79
+    END
+
+    IDD_GAME_SETUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 232
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 199
+    END
+
+    IDD_OPENING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 178
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 287
+    END
+
+    IDD_KEY_SETUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 299
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 240
+    END
+
+    IDD_SETPLAYERNAME, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 184
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 50
+    END
+
+    IDD_MESSAGES, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 101
+    END
+
+    IDD_TCPIP_SETUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 259
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 238
+    END
+
+    IDD_PASSWORD, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 58
+    END
+
+    IDD_NETWORK_INFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 224
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 93
+    END
+
+    IDD_ABOUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 272
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 216
+    END
+
+    IDD_TRACKERSETUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 72
+    END
+
+    IDD_GAMEFINDER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 363
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 247
+    END
+
+    IDD_LANGUAGES, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 266
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 163
+    END
+
+    IDD_ALLIANCE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 58
+    END
+
+    IDD_COMDLG32, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 373
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 164
+    END
+
+    IDD_WINBOLONET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 264
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 111
+    END
+
+    IDD_SKINS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 286
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 147
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCELERATOR ACCELERATORS 
+BEGIN
+    "1",            ID_EDIT_TANKLABELS_NONE, VIRTKEY, CONTROL, NOINVERT
+    "2",            ID_EDIT_TANKLABELS_SHORT, VIRTKEY, CONTROL, NOINVERT
+    "3",            ID_EDIT_TANKLABELS_LONG, VIRTKEY, CONTROL, NOINVERT
+    "A",            ID_EDITMENU_AUTOMATICSCROLLING, VIRTKEY, CONTROL, 
+                                                    NOINVERT
+    "B",            ID_EDITMENU_BASELABELS, VIRTKEY, CONTROL, NOINVERT
+    "G",            ID_EDITMENU_GUNSIGHT,   VIRTKEY, CONTROL, NOINVERT
+    "H",            ID_EDITMENU_HIDEMAINVIEW, VIRTKEY, CONTROL, NOINVERT
+    "K",            ID_BOLOMENU_SETKEYS,    VIRTKEY, CONTROL, NOINVERT
+    "M",            ID_PLAYERSMENU_SENDMESSAGE, VIRTKEY, CONTROL, NOINVERT
+    "P",            ID_EDITMENU_PILLLABELS, VIRTKEY, CONTROL, NOINVERT
+    "R",            ID_BOLOMENU_REQUESTALLIENCE, VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILEMENU_SAVEMAP,    VIRTKEY, CONTROL, NOINVERT
+    VK_F1,          ID_HELPMENU_ABOUT,      VIRTKEY, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    STR_DLGOPENING_TITLE    "Network Selection"
+    STR_DLGOPENING_TEXT     "Welcome to WinBolo, the multiplayer tank game.\nPlease choose a game type from the list below:"
+    STR_DLGOPENING_OPTION1  "Practice (Single Player; No Network)"
+    STR_DLGOPENING_OPTION2  "TCP/IP"
+    STR_DLGOPENING_OPTION3  "Internet (Tracker Search)"
+    STR_DLGOPENING_SKIP     "Skip this Dialog Next Time"
+    STR_OK                  "OK"
+    STR_DLGOPENING_BUTTON2  "Quit"
+    STR_DLGLANG_TITLE       "Language Select"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGLANG_NAME_CAPTION "Name:"
+    STR_DLGLANG_NAME        "English (Default)"
+    STR_DLGLANG_AUTHOR_CAPTION "Author: "
+    STR_DLGLANG_AUTHOR      "John Morrison"
+    STR_DLGOPENING_OPTION4  "Local Network (Broadcast Search)"
+    STR_DLGOPENING_OPTION0  "Tutorial (Instruction for first-time player)"
+    STR_DLGLANG_NOTES_CAPTION "Notes: "
+    STR_DLGLANG_NOTES       "None."
+    STR_DLGLANG_DEFAULTNOTE "Note: For incomplete translations the missing items default back to English."
+    STR_DLGABOUT_TITLE      "About WinBolo"
+    STR_DLGABOUT_BLURB      "The WinBolo package may be freely distributed provided the neither the program nor any of the accompanying files are omitted or modified in any way.\n\nWinBolo is a shareware program. Shareware software is not free. It costs money, just like other software you buy, except that with shareware you get to try it out first to decide if you like it.\n\nWinBolo costs $25(US) If you decide to keep WinBolo you can pay for it via the following methods:\n\nRun the program register.exe in the WinBolo directory, it allow you to pay via cheque, money order, cash or credit card via email, fax or postal mediums.\n\nTo register via credit card online visit: http://order.kagi.com/?XYV and fill out the form.\n\nRead the text file Readme(Shareware) included in the distribution for more information."
+    STR_DLGALLIANCE_TITLE   "Alliance Request"
+    STR_DLGALLIANCE_ACCEPT  "&Accept"
+    STR_DLGALLIANCE_DECLINE "&Reject"
+    STR_DLGALLIANCE_BLURB   " requests alliance. Accept?"
+    STR_DLGGAMEFINDER_REFRESHFIRST "Try hitting refresh first."
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGGAMEFINDER_MESSAGEOFTHEDAY "Message of the Day"
+    STR_DLGGAMEFINDER_WRONGVERSION 
+                            "The game you tried to join is a different version of WinBolo. Try joining a different game"
+    STR_DLGGAMEFINDER_NOGAMESINPROGRESS "No games in progress (Start one!)"
+    STR_YES                 "Yes"
+    STR_NO                  "No"
+    STR_DLGGAMEFINDER_YESADV "Yes (Adv)"
+    STR_DLGGAMEFINDER_OPEN  "Open"
+    STR_DLGGAMEFINDER_TOURNAMENT "Tournament"
+    STR_DLGGAMEFINDER_STRICTTOURNAMENT "Strict"
+    STR_DLGGAMEINFO_TITLE   "WinBolo Game Information"
+    STR_DLGGAMEINFO_MAPNAME "Map Name: "
+    STR_DLGGAMEINFO_NUMPLAYERS "Number of Players: "
+    STR_DLGGAMEINFO_GAMETYPE "Game Type: "
+    STR_DLGGAMEINFO_HIDDENMINES "Hidden Mines: "
+    STR_DLGGAMEINFO_ALLOWCOMPTANKS "Computer Tanks Allowed: "
+    STR_DLGGAMEINFO_TIMELIMIT "Game Time Limit: "
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGGAMESETUP_BLURB  "Please select the options you want for your new game:"
+    STR_CANCEL              "Cancel"
+    STR_DLGGAMESETUP_TITLE  "Game Setup"
+    STR_DLGGAMESETUP_CHOOSEMAP "Choose map"
+    STR_DLGGAMESETUP_SELECTEDMAP "Selected Map: "
+    STR_DLGGAMESETUP_SELECTEDMAPINBUILT 
+                            "Selected Map: Everard Island (Inbuilt)"
+    STR_DLGGAMESETUP_RADIO1 "Open Game (each new tank comes pre-armed)"
+    STR_DLGGAMESETUP_RADIO2 "Tournament (free ammunition early in the game)"
+    STR_DLGGAMESETUP_RADIO3 "Strict Tournament (no free ammunition at all)"
+    STR_DLGGAMESETUP_HIDDENMINES "Allow Hidden Mines"
+    STR_DLGGAMESETUP_ALLOWCOMPTANKS "Allow Computer Tanks"
+    STR_DLGGAMESETUP_ALLOWCOMPTANKSADV "and give them an advantage"
+    STR_DLGGAMESETUP_PASSWORD "Game Password"
+    STR_DLGGAMESETUP_MINUTES "minutes"
+    STR_DLGGAMESETUP_SECONDS "seconds"
+    STR_DLGGAMESETUP_STARTDELAY "Game start delay"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGGAMESETUP_TIMELIMIT "Game time limit"
+    STR_DLGGAMESETUP_ERROROPENINGMAP "Error Opening Map."
+    STR_DLGGAMEINFO_TIMEREMAINING "About %d minute(s)"
+    STR_DLGGAMEINFO_OPEN    "Open"
+    STR_DLGGAMEINFO_TOURN   "Tournament"
+    STR_DLGGAMEINFO_STRICT  "Strict Tournament"
+    STR_DLGGAMEINFO_AIADV   "Yes (With an Advantage)"
+    STR_DLGGAMESETUP_DEFAULTNAME "Me"
+    STR_DLGKEYSETUP_TITLE   "Choose Key Settings"
+    STR_DLGKEYSETUP_BLURB   "Click on the option you wish to change then the next key pressed will be assigned to it. The key ALT, PRINT SCREEN and PAUSE can not be assigned to anything."
+    STR_DLGKEYSETUP_DRIVETANK "Drive Tank:"
+    STR_DLGKEYSETUP_TURNTANK "Rotate Tank:"
+    STR_DLGKEYSETUP_GUNRANGE "Gun Range:"
+    STR_DLGKEYSETUP_WEAPONS "Weapons:"
+    STR_DLGKEYSETUP_VIEW    "Change Views:"
+    STR_DLGKEYSETUP_SCROLL  "Scroll:"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGKEYSETUP_LEFT    "(left)"
+    STR_DLGKEYSETUP_RIGHT   "(right)"
+    STR_DLGKEYSETUP_AUTOSLOWDOWN "Auto slowdown"
+    STR_DLGKEYSETUP_AUTOGUNSIGHT "Enable Automatic show and hide of gunsight"
+    STR_DLGKEYSETUP_FASTER  "Accelerate"
+    STR_DLGKEYSETUP_SLOWER  "Decelerate"
+    STR_DLGKEYSETUP_TURNLEFT "Anti-clockwise"
+    STR_DLGKEYSETUP_TURNRIGHT "Clockwise"
+    STR_DLGKEYSETUP_INCREASE "Increase"
+    STR_DLGKEYSETUP_DECREASE "Decrease"
+    STR_DLGKEYSETUP_SHOOT   "Shoot"
+    STR_DLGKEYSETUP_LAYMINE "Lay mine"
+    STR_DLGKEYSETUP_TANKVIEW "Tank view"
+    STR_DLGKEYSETUP_PILLVIEW "Pillbox"
+    STR_DLGKEYSETUP_SCROLLUP "Up"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGKEYSETUP_SCROLLDOWN "Down"
+    STR_DLGKEYSETUP_SCROLLLEFT "Left"
+    STR_DLGKEYSETUP_SCROLLRIGHT "Right"
+    STR_DLGKEYSETUP_NEWKEYFOR "Press new key for "
+    STR_DLGKEYSETUP_FORWARD "forward"
+    STR_DLGKEYSETUP_BACKWARD "backward"
+    STR_DLGKEYSETUP_ROTATELEFT "rotate left"
+    STR_DLGKEYSETUP_ROTATERIGHT "rotate right"
+    STR_DLGKEYSETUP_INCREASERANGE "increase range"
+    STR_DLGKEYSETUP_DECREASERANGE "decrease range"
+    STR_DLGKEYSETUP_SETSHOOT "shoot"
+    STR_DLGKEYSETUP_SETLAYMINE "lay mine"
+    STR_DLGKEYSETUP_SETTANKVIEW "tank view"
+    STR_DLGKEYSETUP_SETPILLVIEW "pillbox view"
+    STR_DLGKEYSETUP_SETSCROLLUP "scroll up"
+    STR_DLGKEYSETUP_SETSCROLLDOWN "scroll down"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGKEYSETUP_SETSCROLLLEFT "scroll left"
+    STR_DLGKEYSETUP_SETSCROLLRIGHT "scroll right"
+    STR_DLGMSG_BUTTON       "&Send"
+    STR_DLGMSG_ALLPLAYERS   "All players"
+    STR_DLGMSG_ALLALLIES    "All allies"
+    STR_DLGMSG_NEARBY       "All nearby tanks"
+    STR_DLGMSG_SELECTION    "Selection on the Players menu"
+    STR_DLGMSG_SENDPLAYER   "Sending message to %d player"
+    STR_DLGMSG_SENDPLAYERS  "Sending message to %d players"
+    STR_DLGNETINFO_TITLE    "WinBolo Network Information"
+    STR_DLGNETINFO_SERVERADDRESS "Server address:"
+    STR_DLGNETINFO_THISGAMEADDRESS "This game address:"
+    STR_DLGNETINFO_SERVERPING "Server ping (ms):"
+    STR_DLGNETINFO_PACKETS  "Packets per second (per player):"
+    STR_DLGNETINFO_STATUS   "Network status:"
+    STR_DLGNETINFO_ERRORS   "Network errors:"
+END
+
+STRINGTABLE 
+BEGIN
+    NETERR_JOININIT         "There was no response from the game you tried to contact.\nThis usually means 1 of 3 things:\n1. You have the address and port fields incorrect.\n2. You are behind some kind of firewall preventing UDP access.\n3. Check that your version of WinBolo is the same as the game"
+    NETERR_GAMEFULL         "This game is currently full"
+    NETERR_SERVERCONNECT    "Failed to make a connection with the server. Try a different machine or wait a few seconds and try again."
+    NETERR_PASSWORDWRONG    "The password is incorrect"
+    NETERR_PLAYERNAMEINUSE  "Your player name is in use. Select another and try again"
+    NETERR_NONEWPLAYERS     "Sorry, this game is currently not accepting players"
+    NETERR_CONNECTNOJOIN    "You were able to connect to the game but you were not allowed to join. This probably means that your player name has been taken. Please try again with a new name"
+    NET_STATUS_JOINING      "Joining"
+    NET_STATUS_OK           "OK"
+    NET_STATUS_FAILED       "Failed"
+    NETERR_LOSTCONNECTION   "You have lost your connection to the server.\nNow dropping you to single player mode"
+    STR_DLGMSG_TITLE        "Compose Message"
+    STR_DLGOPENING_BUTTON3  "Languages"
+    STR_DLGOPENING_BUTTON4  "Help"
+    STRERR_HELPFILE         "Error opening help file."
+    STR_DLGSKIN_TITLE       "Skin Selection"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGPASSWORD_TITLE   "Password"
+    STR_DLGPASSWORD_BLURB   "This game is password protected. Enter the correct password to join:"
+    STR_DLGSETNAME_TITLE    "Enter Player Name"
+    STR_DLGSETNAME_BLURB    "Enter the new player name for your tank"
+    STR_DLGTRACKER_TITLE    "Tracker Config"
+    STR_DLGTRACKER_USETRACKER "Use Tracker"
+    STR_DLGTRACKER_TRACKERADDRESS "Tracker Address:"
+    STR_DLGTRACKER_TRACKERPORT "Tracker Port:"
+    STR_DLGSYSINFO_TITLE    "WinBolo System Information"
+    STR_DLGSYSINFO_CPUUSAGE "CPU usage:"
+    STR_DLGSYSINFO_SIMMODELING "Simulation Modelling:"
+    STR_DLGSYSINFO_COMPROCESSING "Communications processing:"
+    STR_DLGSYSINFO_GRAHPICSDISPLAY "Graphics display:"
+    STR_DLGSYSINFO_AICONTROLPROCESSING "AI tank control processing:"
+    STR_DLGSYSINFO_TOTAL    "Total:"
+    STR_DLGSYSINFO_GRAPHICSFPS "Graphics frames per second"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGTCP_TITLE        "UDP (Internet) Setup"
+    STR_DLGTCP_BLURB        "To join an internet Bolo game, you must give the name (or IP address) of a host machine running Bolo, and the UDP port number of the Bolo process on that machine."
+    STR_DLGTCP_JOIN         "&Join"
+    STR_DLGTCP_REJOIN       "Re&join"
+    STR_DLGTCP_NEW          "&New"
+    STR_DLGTCP_TRACKERSETUP "&Tracker Setup"
+    STR_DLGTCP_REMEMBER     "Remember player name"
+    STR_DLGTCP_MACHINENAME  "Machine Name (or IP adrress):"
+    STR_DLGTCP_THEREUDP     "UDP port of Bolo on the server machine:"
+    STR_DLGTCP_USUDP        "UDP port for the Bolo on this machine:"
+    STR_DLGTCP_NAME         "Your player name for the game:"
+    STR_DLGTCP_NEWBLURB     "Click ""New"" to begin a game"
+    STR_DLGTCP_JOINBLURB    "Click to ""join"" an existing game"
+    STR_DLGTCP_REJOINBLURB  "Click ""Rejoin"" to rejoin a game and reclaim your old posessions"
+    STR_ERR_DLGTCP_PORTS    "Server and own ports are the same!"
+    STR_ERR_DLGTCP_NOTRIGHT "Something isn't correct here..."
+END
+
+STRINGTABLE 
+BEGIN
+    STR_ERR_DLGTCP_SUBCLASS "Can't set the window subclass for copying!"
+    STR_DLGGAMEFINDER_JOINADDRESS "Join &By Address"
+    STR_DLGGAMEFINDER_REFRESH "&Refresh"
+    STR_DLGGAMEFINDER_PLAYERNAME "Set &Player Name"
+    STR_DLGGAMEFINDER_MOTD  "&Message of the Day"
+    STR_DLGGAMEFINDER_STATUSBLURB "Status: "
+    STR_DLGGAMEFINDER_SELECTEDGAME "Selected Game Information"
+    STR_DLGGAMEFINDER_BRAINS "Brains:"
+    STR_DLGGAMEFINDER_PASSWORD "Password:"
+    STR_DLGGAMEFINDER_PILLS "No of free Pillboxes:"
+    STR_DLGGAMEFINDER_BASES "No of free Bases:"
+    STR_DLGGAMEFINDER_HIDDENMINES "Hidden Mines:"
+    STR_DLGGAMEFINDER_NUMPLAYERS "No of Players:"
+    STR_DLGGAMEFINDER_VERSION "Version:"
+    STR_DLGGAMEFINDER_GAMETYPE "Game Type:"
+    STR_DLGGAMEFINDER_PORT  "Server Port:"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGGAMEFINDER_ADDRESS "Server Address:"
+    STR_BRAINERR_BRAINDIR   "Brains Directory does not exist.\nNot going to load brains!"
+    STR_BRAINERR_LAUNCH     "Error Launching Brain"
+    STR_BRAINERR_LAUNCHMAIN "Error Launching Brain - Brain Does not contain ""BrainMain"""
+    STR_BRAINERR_INIT       "Erorr initing brain"
+    STR_BRAINERR_EXEC       "Could not execute brain"
+    STR_DRAWERROR_CREATEOBJECT "Creating DD Object Failed"
+    STR_DRAWERROR_SETCOOPLEVEL "Creating DD co-op level Failed"
+    STR_DRAWERROR_CREATEPRIMARY "Creating DD Primary Surface Failed"
+    STR_DRAWERROR_GETPIXELFORMAT "Getting DD Pixel Format Failed"
+    STR_DRAWERROR_GETDESC   "Getting Surface Description Failed"
+    STR_DRAWERROR_TOOFEWCOLOURS 
+                            "This Version of WinBolo does not run in palette mode.\n Please change your colour depth to greater than 256 colours"
+    STR_DRAWERROR_BUFFERCREATE "Creating DD buffer Failed"
+    STR_DRAWERROR_GETDCFAILED "DD Get DC failed"
+    STR_DRAWERROR_CLIPPERFAILED "Creating DD Clipper Failed"
+    STR_DRAWERROR_BRUSH     "Error Creating Drawing Brush"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DRAWERROR_PEN       "Error Creating Drawing Pen"
+    STR_DRAW_GAMESTARTSIN   "Game Starts in "
+    STR_DRAWERROR_RELEASEDC "Error Releasing DC for drawing tank label (Thats bad)"
+    STR_DRAW_PILLBOXVIEW    "Pillbox View"
+    STR_FONTERR_NOCOURIERFONT "Cant load font Courier New"
+    STR_GAMEFRONTERR_CORRUPTPREFS 
+                            "An error occurred in reading preferences. The defaults will be used"
+    STR_GAMEFRONTERR_WINDOW "Error Creating Window"
+    STR_GAMEFRONTERR_DDRAW  "Error Setting up Direct Draw"
+    STR_GAMEFRONTERR_DSOUND "Error Setting up Direct Sound"
+    STR_GAMEFRONTERR_DINPUT "Error Setting up Direct Input"
+    STR_GAMEFRONTERR_CURSOR "Error Loading Cursor"
+    STR_GAMEFRONTERR_FONTS  "Error Loading Fonts"
+    STR_GAMEFRONT_LANFINDER_TITLE "LAN Game Finder"
+    STR_GAMEFRONT_TRACKERFINDER_TITLE "Tracker Game Finder"
+    STR_GAMEFRONTERR_JOINGAME "An error occured trying to join the game"
+    STR_GAMEFRONTERR_SPAWNSERVER 
+                            "An error occured trying to spawn the server process.\n Is the program ""WinBoloDS"" in the same directory as WinBolo?"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_GAMEFRONTERR_NETSINGLEPLAYER 
+                            "Something really bizzare happened in the networking subsystems which is strange since you selected a single player game. Lucky you..."
+    STR_GAMEFRONT_SERVERSTARTMSG 
+                            "This release of WinBolo make use of the standalone server to run network games\nThis will be changed in subsequent releases"
+    STR_GAMEFRONT_INPUTERR_CREATE 
+                            "Creation of Direct Input Keyboard Device Failed"
+    STR_GAMEFRONT_INPUTERR_DATAFORMAT 
+                            "Setting the Data Format for the Direct Input Keyboard Device Failed"
+    STR_GAMEFRONT_INPUTERR_COOPLEVEL 
+                            "Setting the Co-operative Level for the Direct Input Keyboard Device Failed"
+    STR_NETCLIENTERR_WINSOCKFAILSTARTUP "Error Starting Winsock"
+    STR_NETCLIENTERR_CREATEUDPFAIL "Error Creating UDP Socket"
+    STR_NETCLIENTERR_CREATETCPFAIL "Error Creating TCP Socket"
+    STR_NETCLIENTERR_BINDUDPFAIL 
+                            "Error Binding UDP Socket\n Some other program has this port assigned already. Try choosing another.\n\nNOTE: If you started a network game and it launched successfully then it is still running.\n You will not need to start it again"
+    STR_NETCLIENTERR_CHAINFAIL 
+                            "Error adding network Events to messaging chain"
+    STR_NETCLIENTERR_TRACKERVERSIONFAIL "Unsupported Tracker Version"
+    STR_NETCLIENTERR_TRACKERDNSFAIL 
+                            "Error finding tracker (DNS lookup failure)"
+    STR_NETCLIENTERR_TRACKERCONNECTFAIL "Error Connecting to tracker"
+    STR_NETCLIENTERR_TRACKERNOBLOCK "Error setting socket to be noblocking"
+    STR_NETCLIENT_TRACKERGETRESPONSE "Receiving game info..."
+    STR_NETCLIENT_TRACKERPROCESSRESPONSE "Processing tracker data..."
+END
+
+STRINGTABLE 
+BEGIN
+    STR_NETCLIENTERR_TRACKERNODATA "Error: Tracker sent no data"
+    STR_NETCLIENT_TRACKERCONNECT "Connecting: "
+    STR_NETCLIENT_IDLE      "Idle"
+    STR_NETCLIENTERR_BIND   "Error binding socket"
+    STR_NETCLIENTERR_BROADCAST "Error sending broadcast"
+    STR_NETCLIENT_GETRESPONSES "Receiving responses..."
+    STR_SOUNDERR_FILENOTFOUND 
+                            "Can't Load WinBolo Sounds - Continuing without Sound"
+    STR_SOUNDERR_HARDWAREINUSE 
+                            "Error Setting Up Direct Sound - Hardware is in use by another application.\nContinuing without sound."
+    STR_SOUNDERR_CREATEFAILED 
+                            "Creating DS Object Failed\nContinuing without sound."
+    STR_SOUNDERR_COOPFAILED "Creating DS Co-Op Level Failed"
+    STR_SOUNDERR_PRIMARYBUFFFAIL "Creating DS Primary Buffer Failed"
+    STR_SOUNDERR_LOADSOUNDFAILED "Loading of one or more sound files failed"
+    STR_WBERR_MUTEXCREATE   "Error Creating Mutex. (Thats bad)"
+    STR_WBERR_BRAINLISTLOAD "Error Loading Brain List"
+    STR_WBERR_KEYCLASSSETUP "Error Setting up Key Setup Class"
+    STR_WBTIMELIMIT_END     "Timelimit has expired. The Game has ended."
+END
+
+STRINGTABLE 
+BEGIN
+    STR_WBERR_SAVEMAP       "Error Saving Map (Disk full?)"
+    STR_TUTORIAL01          "Ahead of you is a short river leading inland. Hold\ndown the ""Q"" to drive your boat to the end of the\nriver.\n\nWhen you get there, keep holding ""Q"". The tank will\ndisembark from the boat and the boat will be left\nmoored at the end of the river"
+    STR_TUTORIAL02          "You are now on the grass. The tank moves quite\nquickly on grass.\n\n\nKeep pressing ""Q"" to move ahead to the forest."
+    STR_TUTORIAL03          "You are now in the forest. The tank moves more\nslowly in the forest than it does on grass.\n\n\nKeep pressing ""Q"" to move ahead to the swamp."
+    STR_TUTORIAL04          "You are now in the swamp. The tank moves very\nslowly in swamp. Fortunately there is a road ahead.\n\n\nKeep pressing ""Q"" to move ahead to the road."
+    STR_TUTORIAL05          "You are now on the road. The tank can move very\nquickly on road and if you press ""Q"" the tank will\nspeed up.\n\n\nIf you find yourself going too fast you can press ""A"""
+    STR_TUTORIAL06          "There are some buildings ahead. Buildings are solid\nobstacles that you cannot drive through, so you will\nhave to find your way through the maze to the other\nside.\n\nTo make the tank turn left press ""O""\nTo make the tank turn right press ""P"""
+    STR_TUTORIAL07          "These round objects with the red guns poking out are\nautomatic pillboxes. They will shoot at any tank\ncomes with within range.\n\n\nFortunately the buildings provide protection from the\nshots, so the pillboxes will not be able to hit you\nunless you wait so long that they manage to\ncompletely shoot their way through the buildings."
+    STR_TUTORIAL08          "Forest also provides protection from pillboxes, but in\na different way. As well as slowing down the tank a\nlot, driving through forest also limits visibility.\n\n\nWhen you are inside forest you can still clearly see\neverything outside the forest, but pillboxes (and\nother players) cannot see your tank unless you get\nvery close to them."
+    STR_TUTORIAL09          "Line up your tank with the middle of the strip of\nforest and drive due North. If you go straight\nand don't stray too close to the edges of the forest,\nthe pillboxes will not see you and they will not shoot.\n\n\nDon't drive outside the forest of you'll get blown to pieces.\n"
+    STR_TUTORIAL10          "There is one other simple way to escape pillboxes -\nspeed.\n\n\nMake sure you are correctly lined up with the centre\nof the road, and hold ""Q"" to go full speed past the\npillboxes."
+    STR_TUTORIAL11          "When they notice you they will start shooting, but if\nyou keep going straight ahead and don't lose your\nnerve you will be out of range before the shots can\nhit you.\n\n\nDon't run off the road into the marsh or you'll be a\nsitting duck targe for the pillboxes, and you don't be\nable to move quickly enough to escape."
+    STR_TUTORIAL12          "Ahead of you is a refuelling base. Refuelling bases provide\nshells for you to shoot, mines for you to lay secret traps\nwith, and they also repair your tank's armour back to full\nstrength if it has been damaged.\n\n\nStop on the refuelling base and load up your tank\nwith shells."
+    STR_TUTORIAL13          "You are on the refuelling base. Your tank will now\nload up with shells and mines, as the indicators on\nthe right will show. Ahead of you, beyond the\nbuildings, is a minefield."
+    STR_TUTORIAL14          "If you drive your tank into the minefield it will be\ndestroyed. Fortunately you can clear a minefield by\nshooting. Press the space-bar to shoot.\n\nShoot a hole through the building, and then land a\nshell in the middle of the minefield to detonate it.\nWhen you blow up the mines they will make a big\ncrater in the ground, which you can drive through,\nalthough it is as slow as driving through swamp."
+    STR_TUTORIAL15          "Ahead is another minefield. Do the same trick again:\nDrive onto the refuelling base, shoot through the\nwall, and land a shell in the middle of the minefield to\ndetonate it.\n\nThis time though, the minefield is adjacent to a large\nriver, and water will flood into the craters. You can\ndrive the tank through the water like you can through\ncraters and marsh."
+END
+
+STRINGTABLE 
+BEGIN
+    STR_TUTORIAL16          "WinBolo automatically scrolls the window to show you\nthe area around your tank but you can use the arrow keys\non the keyboard to the manually override the view WinBolo\nchooses.\n\nPress the Up-Arrow key on the keyboard now to get a\nbetter view of the river ahead of you."
+    STR_TUTORIAL17          "As well as being very slow, driving through water has\nanother disadvantage: It will also deplete your tank's\nsupplies of shells and mines.\n\n\nWhen you get to the other side your tank will still be\nin working condition, but you will have lost all\noffensive capability."
+    STR_TUTORIAL18          "This time we are going to be more subtle about\ncrossing the river. Instead of just driving through the\nwater, we are going to build a bridge.\n\n\nSelect tree farming mode by clicking on the forest\nicon (top left of the window) and click on the forest.\nYour builder will run out of the tank and harvest one\ntree for building materials."
+    STR_TUTORIAL19          "After farming some tree, select the road/bridge tool\n(the second button from the top) and click the mouse\non the river at the end of the road.\n\n\nYour builder will run out of the tank and build one\nsegment of bridge. Click again to complete the bridge\nand then drive across to the other side."
+    STR_TUTORIAL20          "This river is wider than the last, and at the centre it is\ntoo deep for you to build a bridge. If you try to just\ndrive through the tank will sink to the bottom and be\ndestroyed."
+    STR_TUTORIAL21          "To cross this river you will have to build a boat. Boats\ntake five trees, so click on the five trees to farm them.\nThen select the wall/boat tool (the third button from\nthe top) and click on the water to build a boat.\n\nIf you click on the land you will build a wall instead\nand you will have to farm some more trees to build a\nboat. Drive onto the boat and cross the river to the\nother side."
+    STR_TUTORIAL22          "There is a pillbox ahead, and some refuelling bases to\nprovide you with ammunition. Collect shells from the\nrefuelling base and attack the pillbox.\n\n\nIt will shoot back, but if you tank gets hit you can easily\nreturn to the refuelling base to get your armour repaired\nback to full strength again."
+    STR_TUTORIAL23          "With patience and caution you should be able to destroy this\npillbox. Use the skills you have learned to make it easier:\n\n\nHide in the forest so that the pillbox can't see you,\nfarm trees, build roads to make your tank move\nfaster, and build buildings to provide cover against\npillbox shots."
+    STR_TUTORIAL24          "After you manage to defeat this pillbox, your final\nchallenge of the tutorial is to take out the two\npillboxes guarding the exit, build a boat, and escape.\n\n\nTake special care to watch your tank's armour level -\nif you get your tank destroyed you'll have to start\nwith a new tank on a new boat out at sea again."
+    STR_TUTORIAL25          "Congratulations. You have completed the WinBolo\ntutorial.\n\n\n\nNow organise some friends to play with and find out\nwhat it is like to compete against intelligent human\nopponents instead of stationary unthinking targets."
+    STR_TUTORIAL_START01    "Welcome to the WinBolo tutorial. This island introduces\nthe basic principles of WinBolo and leads you through\nthem one at a time. Each new principle will be\ndescribed in a window like this one.\n\nAfter reading each message, you can proceed by\nclicking the ""OK"" button on the mouse or simply\nby pressing the <Return> key on the keyboard"
+    STR_TUTORIAL_START02    "WinBolo is a clone of the classic Macintosh network game Bolo.\nYou can find out strategy hints and other information from the official website:\n\nhttp://www.lgm.com/bolo\n\nor\n\nhttp://www.winbolo.com\n"
+    STR_TUTORIAL_START03    "One quick note about Internet play.\n\nIf you join a online game and are a lot of network errors\nthen leave the game straight away before\nyou ruin the game for the other players."
+    STR_TUTORIAL_START04    "You are in control of a tank, which is currently on a\nboat at sea. Press ""Q"" to make the tank (and boat) go\nforwards, and press ""A"" to make it slow down and\nstop.\n\nDon't tap the keys as if you are typing a letter -\npress and hold them until the tank is going at the speed\nyou want and then let go. Press ""Q"" now to make the\nboat drive forwards towards the land.\n(Press <Return> first to dismiss the window)"
+    LGM_MAN_DEAD            "You cannot build until your new man parachutes in"
+    LGM_NO_BUILD            "You cannot build that there"
+END
+
+STRINGTABLE 
+BEGIN
+    LGM_INSUFFICIENT_TREES  "You don't have the trees you require to build that"
+    LGM_NO_PILLS            "You have no pillbox to place"
+    LGM_INSUFFICIENT_MINES  "You have no mines to place"
+    LGM_BUILDTANK           "The man cannot build on a tank"
+    LGM_NO_TREE             "There is no tree to farm there"
+    LGM_PILL_NO_NEED_REPAIR "That pillbox does not need repairing"
+    LGM_PILL_NO_BUILD_ON_MINE 
+                            "The man cannot build on a mine. It would kill him."
+END
+
+STRINGTABLE 
+BEGIN
+    MESSAGE_ASSISTANT       "Online Assistant"
+    MESSAGE_NEWSWIRE        "Newswire"
+    MESSAGE_AI              "Brain"
+    MESSAGE_CHANGENAME      " has handed control over to """
+    MESSAGE_NETSERVER       "Network Server"
+    MESSAGE_THIS_COMPUTER   "This Computer"
+    MESSAGE_CAPTURE_BASE    " captured a Neutral Base"
+    MESSAGE_CAPTURE_PILL    " captured a Neutral Pillbox"
+    MESSAGE_STOLE_PILL      " just stole pillbox from "
+    MESSAGE_STOLE_BASE      " just stole base from "
+    MESSAGE_LGM_DEAD        " just lost his builder"
+    MESSAGE_SAVED_MAP       " just saved map file"
+    MESSAGE_QUIT_GAME       " has quit game"
+    MESSAGE_TIME_LIMIT_EXPIRED 
+                            "Time Limit has expired. Game is over. Go in peace"
+    MESSAGE_TANKSUNK        "Tank Sunk in Deep Sea"
+    NETERR_TRACKERDNS       "The tracker hostname lookup failed. Tracker notification disabled"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLGSKIN_DEFAULTNOTE "If not all skin items are present then the default built in skin/sounds are used."
+END
+
+#endif    // English (Australia) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

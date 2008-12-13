@@ -1,0 +1,383 @@
+WinBolo (c) 1998-2003 John Morrison
+Bolo    (c) 1987-1995 Stuart Cheshire
+
+Tip: If necessary, choose Word Wrap from the Notepad Edit menu or 
+Wrap To Window from the WordPad View/Options menu to wrap the text 
+within the document window.
+
+
+Version 1.15 (21/4/06)
+* Game logging. Includes log viewer capable of replaying log files.
+  Game servers can be set to record log files using -log parameter.
+  Log files can be uploaded to winbolo.net for players to download
+  at game end. For more information please see the log viewer manual
+  and WinBolo manual for information on parameters.
+* Fixed tanks not disappearing immediately in game clients when
+  destroyed by running into mines.
+*  Many other fixes.
+
+Version 1.14 (9/3/04)
+* Built In Server support - WinBolo can now start a server from within the
+  game client. This mean it will no longer have to run an external program
+  to run a server which was problematic under some systems.
+* Skin Support - WinBolo now allows players to customise their graphics
+  and sound. For more information about creating skins see Section 3.8 of
+  the WinBolo manual.
+* Cheat Detection. Better detection of players using cheats.
+* New server commands – Say to send a message to all players in the game
+  and info to bring up information about the game and a current player list.
+* Game lock status as well as version is now reported to WinBolo.net
+* Slight increase in tree regrowth rate.
+* Fixed lock up when pillboxes are dropped in the surrounding mine field.
+* The builder is no longer able to drop a pillbox the carried pillbox on
+  other pillboxes, bases or walls when it is shot.
+* Fixed unable to find brains and other directories when the directory
+  has windows attributes set on it.
+* Fixed builder being shot when driving into a enemy base while shooting
+  it and sending it the builder.
+* Other Fixes.
+
+Version 1.13 (9/3/03)
+* Network fixes and changes. Players who are out of sync with the server will
+  now be unable to move till they are resynced. An error message will display
+  in the main window.
+* Added –logfile dedicated server command to output to a file name rather then 
+  to the screen.
+* Added –maxplayers dedicated server command to specify the maximum number of
+  players a server will allow. Any players attempting to join a full server
+  will receive an error message.
+* Added -savemap dedicated server command to save the map in its current state.
+* Fix for man not being able to repair pills on trees.
+* Fix for man trying to farm trees on a base.
+* Fix for a local player showing up with an asterisks next to their name after
+  playing a WinBolo.net game then starting a new game after un-checking their
+  winbolo.net participation option. All other players did not see the asterisks,
+  nor did they show up on WinBolo.net as a participant.
+
+
+Version 1.12 (23/2/03)
+* Fix for locked games.
+* Fix for password protected network games.
+
+Version 1.11 (23/2/03)
+* WinBolo.net integration. WinBolo.net is a game tracking and player
+  statistics website. For more information visit: http://www.winbolo.net/
+* Linux Client redistributed.
+* New network transport layer.
+* DNS Lookups fix in client.
+* Fixes for pills/builders.
+* Tank hit boundries changed
+* Ignore Alliance Request menu option.
+* Winbolo:// URLs can be used to start WinBolo and join a game from a website.
+* Added –noinput dedicated server flag.
+* Customised sounds on Windows.
+
+Version 1.10 (21/2/02)
+* Fixed LGM issues.
+* Fixed “Invisiwall" bug.
+* Base recharge rate changed. Bases now recharge at a more bolo like rate.
+* Slightly slowed tank deceleration rate.
+* Fixed cursor getting stuck as busy cursor on some Windows 2000 systems.
+* Fixed Brains not being able to receive all messages and pill strength
+  information.
+* Player name is now pre-highlighted in change player name window.
+* Included language set which changes the lost builder message to "just lost
+  her builder"
+* Lots of fixes.
+
+Version 1.09a (1/5/01)
+* Reapplied fix for tracker game lookup crash from 1.08a
+* Fixed starting of new games from Windows client.
+* Fixed pill view crash.
+* Fixed LGM parachute bug.
+* Fixed DNS entries for players with long names not showing up in players
+  menu.
+
+Version 1.09 (29/4/01)
+* Added more anti-cheat mechanisms. Moved to more of a server
+  authoritarian network architecture.
+* Like Bolo, trying to repair a captured pilbox that has since been
+  moved and replaced by a visible mine can no longer kill a LGM. (Which
+  has become common practise now.)
+* Tweaked man death check.
+* In pill view you can now move between your pills by using the arrow keys.
+* Reset alliance requests on new game.
+* Fixed infinte trees LGM bug.
+* Tree growth rate increase.
+* Tank slowdown rate increased.
+* Fixed LGM remember next action after death.
+* Fixed xsync() lockup in LinBolo under XFree 4+
+* Fixed partial screen redraw problem under X Windows on some systems.
+* For lazy copy and pasters WinBolo now removes blanks spaces at the
+  beginning of lines when you copy and paste address:port into the TCP/IP
+  setup window.
+* WinBolo now performs reverse DNS lookups on players in network games and
+  displays their DNS name if available.
+* By popular demand Bolo like starts allocation are now implemented. WinBolo
+  trys to avoid starting you near tanks and enemy pillboxes. From the Bolo
+  Version History document: "Improved start position allocation for maps with
+  very few start squares defined, to cope better with certain "creative" map
+  designs. For example, if you have a map with only two start squares, and
+  you have a game of two teams where each team has a pillbox close to one of
+  the start squares, then each team will effectively have their own 'private'
+  start square, because with only two start squares to choose from when
+  bringing a new tank into the game, Bolo will choose the one near the
+  friendly pillbox, not the one near the hostile pillbox."
+* Fixed tank label clipping problem.
+* WinBolo now uses the TERRAIN_UNKNOWN terrain until the tank first encounters
+  the map location. This is in accordance to the Bolo brain standard.
+* Brains no longer get passed bases armour amount for enemy bases. A value of
+  0 is given in the direction field of the ObjectInfo structure. if the base
+  is non  capturable a value of 1 is passed. 
+* When using the scroll keys to scroll the window manually, this will
+  temporarily override the auto scrolling till you reach the map edge.
+  Pressing the tank view key will re-enable auto scroll.
+* Increase in pill maximum fire rate.
+* Dead pills do not get angry when allied bases around them are attacked.
+* Message scrolling speed increased.
+* Fixed passing player names to brains.
+* Reduced volume on sound effects.
+* Fixed crash on computers that have no sound cards.
+* Linux servers now unbind listening ports quicker.
+* LinBolo now allows using the return key to set a key.
+* Lots of internal changes.
+
+
+Version 1.08a (16/9/00)
+* Fixed crash in client with a large list of games.
+
+Version 1.08 (16/9/00)
+* Adding Linux port. (LinBolo)
+* Added -addr flag to dedicated servers so users can specify address
+  to use if they have more then one domain name/IP.
+* Linux server now listens to SIGINT for graceful shutdown, SIGUSR1
+  for lock game and SIGUSR2 for unlock game.
+* Tanks no longer shudder when refuelling in network games.
+* Fixed LGM repair trick.
+* Tweaking pill aiming code.
+* Fixed DC errors and crashes on NT.
+* Network updates, more validity checking. First stage of the network 
+  code rewrite. This should eventually lead to floating servers and 
+  some other neat stuff
+* Fixed long wait on joining with a taken player name taken.
+* Manual updates.
+
+Version 1.07 (31/7/00)
+Game Play:
+* Improved aiming angles. Much closer to Bolo angles for pill takes etc.
+* Lgm now enters tank at its edge rather then centre.
+* Lgm kills checked based on range from explosion rather then map square.
+* Last pill in view set to first pill in view on next pill view.
+* Pills retain their angry mode when inside a tank (and cool down at the
+  same rate as normal pills)
+* Mines that are underneath bases are removed on map load.
+
+Networking:
+* Easier to kill lgm in high lag.
+* Fixed killing lgm and dropping a pill desync problem.
+
+Interface:
+* Fixed File -> New for second network game.
+* Fixed starting server via client on Windows 2000.
+* Changed drawing main screen offsets.
+* Fixed Linux server crash.
+* Fixed a couple of graphics glitches.
+
+Version 1.06 (14/7/00)
+* Added map preview to Open Map dialog window.
+* New more sensible command line for dedicated servers. (See manual 
+  for more information)
+* Fixed players leaving and pill carrying issues
+* Fixed Alliancing issues.
+* Fixed Internet -> New crashes.
+* Window size check mark is stored correctly.
+* Fixed crash when a server has no players for over an hour.
+* Fixed DNS lookup failure on player join server crash.
+* Fixed keyboard issues on certain international keyboards.
+* Tracker lookup information carries through to join by address dialogs.
+* Network changes.
+* Closes child windows on new games.
+* Brains sent middle of pillbox and base squares, not edges.
+* Brains sent correct tank directions.
+
+
+Version 1.05 (24/6/00)
+* Linux dedicated server port.
+* Window NT4 (SP5+) support.
+* Added WinBolo Manual. PDF Viewer required. The latest version 
+  (if changed) can be found online.
+* Localisations support and translations. As part of one of my 
+  university subjects, Software Internationalisation we had to
+  internationalise something. As such WinBolo is now localised for
+  English, Swedish and Dutch. More languages to come. Thanks to
+  David Tuffley for allowing me to use WinBolo as my project.
+* WinBolo now uses proper ini files. All game keys, options and menu
+  settings are saved. You may need to reset your keys after upgrading.
+* Fixed Windows 2000 game serving issues.
+* WinBolo now centres maps on loading.
+* Improved gunsight range change responsiveness.
+* Mouse building location selection now works like Bolo mouse. It changes
+  only when you move the mouse, not when the screen moves.
+* New threads/networking code. Stability of servers significantly improved.
+* Pillboxes dropped by tanks will no longer be placed on the game edge mine
+  field. Pillboxes will also not be placed on walls or bases.
+* Fixed game synchronisation issues.
+* Drawing speedup.
+* Updated collection of maps included in the package.
+* Fixed long standing occasional crash on client shutdown.
+* Brains get past correct tankobstructed values.
+
+
+Version 1.04 (12/3/00)
+Game Play:
+* Pillboxes wait a short time before firing upon you when you enter
+  range.
+* Bases wait a short time before beginning to refuel tank.
+* Added tutorial. Presently there is no provision for adding user
+  built tutorials. This may change in future release. Contact me
+  if interested. (I've never seen a user built Bolo tutorial)
+
+Networking:
+* Added LAN Game Finder. Works via broadcast packets.
+* Added "Rejoin" functionality. Players can select rejoin and it 
+  will attempt to rejoin a game they left. All pillboxes and bases
+  that they owned and are still neutral will be reassigned to them.
+  The rejoin window is 5 minutes. You must rejoin with the same
+  player name. 
+
+Interface:
+* File -> New now works.
+* Scroll view keys speed improved.
+* Aiming is now easier and smoother.
+* Always shows closest bases statistics on grouped bases.
+* Alliance Dialog always appears on top.
+* Fixed brain direction bug. Thanks to smithel for pointing it 
+  out to me
+* Huge speedup in double size and quad size views.
+
+
+Version 1.03 (5/3/00)
+Game Play:
+* You now get kills for shooting players on boats in deep sea.
+* Slowed tank acceleration rate.
+* Base refuel tank rate increased.
+* Slight increase in builder parachute speed.
+
+Network:
+* Clients can lock games from new players joining. If every player
+  in the game unchecks the "allow new players" menu item then the
+  game is locked. Note that the server lock game function overrides
+  the client lock.
+* Added show network messages option. (On by default) It displays
+  messages sent out to all clients from the server, such as the
+  game being locked and unlocked. In future it could be used to
+  set a welcome message upon players joining the game or for 
+  display a message when the server administrator removes players etc.
+* Server sends out a message to all players when it is told to exit.
+* Fixed long player names corruption. Thanks to DeathWalker for 
+  helping track this one down.
+* Increased tracker data timeout to 10 seconds.
+* Players who connect to the server via "127.0.0.1" have their 
+  addresses changed to that of the servers.
+* Slight packet optimisation.
+
+Interface:
+* Everard Island map is now inbuilt into server and client. You
+  can set the server to use the inbuilt map rather then a map
+  by setting its map parameter to "-inbuilt"
+* Fixed alliance messages turning up twice on your own screen.
+* Added "Change Player Name" button window to game finder window.
+* Game Finder prevents you from trying to join games running a
+  different version of WinBolo then you are using.
+* Added message spam prevention. You can only send a message every
+  second.
+* Pills carried by your allies now appear as filled in circles. Not 
+  hollow circles.
+* Fixed "Join By Address" dialog lockup.
+* Fixed crash on really long paths and file names for maps.
+* Fixed crash when you leave alliances request window open for a 
+  really long time.
+
+
+Version 1.02 (27/2/00)
+Game Play:
+* Tank makes noise when it lays a mine.
+* Fixed lockup on duplicate mine build.
+* Fixed pill takes from trees.
+* Fixed tank being drawn on top of parachutes.
+* Halved builder parachute speed rate.
+* Tweaked refuelling and base replenishment rates.
+
+Networking:
+* Added dedicated server "lock" and "unlock" commands which 
+  lock and unlock the server from accepting new players.
+* Fixed invisible tank bug caused by routers and proxies 
+  dynamically changing their clients ports.
+* Fixed alliancing problems.
+* Fixed duplicate name problems on simultaneous join requests.
+* Packet Optimisations.
+
+Interface:
+* Added Internet game tracker search option. Provides a graphical
+  way to join Internet games.
+* Maps which have invalid ownership set on pills and bases are
+  set to neutral rather then hostile (but not owned by a player)
+* Fixed brain receive message crash.
+
+
+Version 1.01 (10/1/00)
+Game Play:
+* Mines now give off damage to the surrounding squares like Bolo.
+* Damaged done to the tank by a mine has been lessened.
+* Tanks hide in trees that are 2x2 like Bolo. It was 3x3 before.
+  Tanks are still visible to everything with in a 3 map square 
+  raduis of themselves
+* Amount of shells given to a new tank in a tournament game is 
+  now dependant on number of free bases in the game.
+* Bases not replenishing in single player mode.
+* Fixed enemy tanks being able to refuel on bases they don't own 
+  (by being pushed over them)
+* Slowed tree growing by a third.
+
+Networking:
+* Map downloads occur 6x faster then before
+* No longer reports negative ping times.
+* Reports corrupt packets.
+* Removed pill building sound echoes on laggy connections.
+* Servers now send out their addresses to the tracker. If the server 
+  address field of the info packet received is 0 (0.0.0.0) it is from 
+  the server, not a client so the IP that the packet arrived from can
+  be used to contact determine the server address.
+* Reduced bandwidth by about 50-60%
+* Overall game syncing and networking significantly improved.
+
+Interface:
+* Changed graphics to appear more Bolo like. Thanks to Canuck for
+  supplying and editing new tile graphics.
+* Brain menu now appears in the correct location. (No more submenus)
+  Thanks to db48 for information on how to do this.
+* 'By popular request, there is now an "Auto Slowdown" option 
+   which makes the tank automatically decelerate as soon as you 
+   release the "Go" button. Before you use this though, let me 
+   warn you: The result is that you hold the "Go" button down to 
+   go full speed, and let go to stop, making it almost impossible 
+   to drive at any speed in between.' (From Bolo Version History
+   0.97) The auto show/hide gunsights also been added. This 
+   addition however causes your preferences file to be recreated 
+   so the first time you run WinBolo 1.01 you will be informed 
+   your preferences file is corrupt and the values will be 
+   reinitiated. Sorry.
+* Send Messages window now sets the focus to the text box so you can
+  start typing straight away. It sets the focus back to the main 
+  window when closed.
+* If DirectSound start up fails then WinBolo will continue without
+  sound. (Having no sound card causes it to fail)
+* Fixed crash caused by changing the window size while the map is
+  still downloading.
+* Cursor no longer shows through window.
+* Fixed "DD GetDC Failed" bug.
+* Fixed &'s in displaying messages.
+
+
+Version 1.00 (21/12/99)
+Initial Release.
