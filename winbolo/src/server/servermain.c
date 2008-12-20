@@ -310,7 +310,9 @@ void CALLBACK serverGameTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWOR
     if (quitOnWinFlag == TRUE || autoClose == TRUE || (winbolonetIsRunning() == TRUE && serverCoreGetActualGameType() != gameOpen)) {
       BYTE key[64];
       threadsWaitForMutex();
-      isGameOver = serverCoreCheckGameWin(printGameWinners);
+      if (quitOnWinFlag == TRUE && isGameOver == FALSE){
+		isGameOver = serverCoreCheckGameWin(printGameWinners);
+	  }
       if (autoClose == TRUE && isGameOver == FALSE) {
         isGameOver = serverCoreCheckAutoClose();
       }
