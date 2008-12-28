@@ -140,6 +140,12 @@ typedef struct {
   char password[MAP_STR_SIZE]; /* Test password - Pascal string (first byte is length)  */
 } PASSWORD_PACKET;
 
+/* RSA test packet */
+typedef struct {
+  BOLOHEADER h;
+  char rsa[256]; /* Test rsa - Pascal string (first byte is length)  */
+} RSA_PACKET;
+
 /* Player Name check packet */
 typedef struct {
   BOLOHEADER h;
@@ -151,8 +157,9 @@ typedef struct {
   BOLOHEADER h;
   char playerName[PLAYER_NAME_LEN]; /* Player name */
   unsigned short port;              /* UDP Port of this player */
-  BYTE key[32];			    /* WinBolo.net key */
+  BYTE key[32];						/* WinBolo.net key */
   char password[MAP_STR_SIZE];      /* Test password - Pascal string (first byte is length)  */
+  char rsaencrypted[256];			/* rsa encrypted string */
 } PLAYERNUM_REQ_PACKET;
 
 #define BOLOPACKET_PLAYERNUMREQPOS (BOLOPACKET_REQUEST_TYPEPOS + 1)

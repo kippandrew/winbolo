@@ -39,7 +39,7 @@
 *NAME:          netPlayersCreate
 *AUTHOR:        John Morrison
 *CREATION DATE: 26/02/99
-*LAST MODIFIED: 10/12/03
+*LAST MODIFIED: 16/12/08
 *PURPOSE:
 * Creates an netPlayers struncture
 *
@@ -54,6 +54,7 @@ void netPlayersCreate(netPlayers *np) {
     (*np).inGame[count] = FALSE;
     (*np).locked[count] = FALSE ;
     (*np).passed[count] = FALSE;
+	(*np).passedrsa[count] = FALSE;
     (*np).udpp[count] = udpPacketsCreate();
     (*np).cheatCount[count] = 0;
     /* Incoming must be incrememnent */
@@ -267,6 +268,22 @@ bool netPlayersHasPassed(netPlayers *value, BYTE playerNum) {
 }
 
 /*********************************************************
+*NAME:          netPlayersHasPassedRsa
+*AUTHOR:        Min
+*CREATION DATE: 16/12/08
+*LAST MODIFIED: 16/12/08
+*PURPOSE:
+* Returns whether this socket has been past the RSA
+*
+*ARGUMENTS:
+*  value     - The netPlayers structure to check
+*  playerNum - The player number
+*********************************************************/
+bool netPlayersHasPassedRsa(netPlayers *value, BYTE playerNum) {
+  return (*value).passedrsa[playerNum];
+}
+
+/*********************************************************
 *NAME:          netPlayersDonePassword
 *AUTHOR:        John Morrison
 *CREATION DATE: 11/6/00
@@ -281,6 +298,23 @@ bool netPlayersHasPassed(netPlayers *value, BYTE playerNum) {
 *********************************************************/
 void netPlayersDonePassword(netPlayers *value, BYTE playerNum) {
   (*value).passed[playerNum] = TRUE;
+}
+
+/*********************************************************
+*NAME:          netPlayersDoneRsa
+*AUTHOR:        Min
+*CREATION DATE: 16/12/08
+*LAST MODIFIED: 16/12/08
+*PURPOSE:
+* This player has passed the Rsa check. Let them 
+* proceed
+*
+*ARGUMENTS:
+*  value     - The netPlayers structure to set
+*  playerNum - The player number to set
+*********************************************************/
+void netPlayersDoneRsa(netPlayers *value, BYTE playerNum) {
+  (*value).passedrsa[playerNum] = TRUE;
 }
 
 /*********************************************************
@@ -301,6 +335,7 @@ BYTE netPlayersRemovePlayerNum(netPlayers *value, BYTE playerNum) {
   (*value).inGame[playerNum] = FALSE;
   (*value).locked[playerNum] = FALSE ;
   (*value).passed[playerNum] = FALSE;
+  (*value).passedrsa[playerNum] = FALSE;
   udpPacketsDestroy(&((*value).udpp[playerNum]));
   (*value).udpp[playerNum] = NULL;
   return playerNum;

@@ -62,6 +62,8 @@
 #include "netpacks.h"
 #include "backend.h"
 #include "log.h"
+#include "../server/BigDigits/bigd.h"
+#include "../server/rsaalgorithm.h"
 
 #ifdef _WIN32
   #include "../gui/resource.h"
@@ -78,6 +80,8 @@
 netType networkGameType = netNone;
 /* Password in netgames */
 char netPassword[MAP_STR_SIZE];
+// randomly generated string
+char rsastring[256];
 
 netStatus netStat = netRunning; /* Network status */
 netStatus oldNetStatus = netRunning; /* Network status */
@@ -789,6 +793,7 @@ bool netJoinInit(char *ip, unsigned short port, bool usCreate, char *gamePasswor
   BOLOHEADER bh;        /* Header packet   */
   INFO_PACKET inf;      /* Info packet */
   PASSWORD_PACKET pp;   /* Password packet */
+  RSA_PACKET rsap;		/* RSA Packet */
   PLAYERNAME_PACKET pn; /* Player name packet */
   int packetLen;        /* Length of the packet */
   BYTE numTries;        /* Number of tries for reading TCP data */
@@ -890,6 +895,31 @@ bool netJoinInit(char *ip, unsigned short port, bool usCreate, char *gamePasswor
       }
 
     }
+  }
+  /* RSA Check */
+  if (returnValue == TRUE){
+	netMakePacketHeader(&(rsap.h), BOLOPACKET_RSACHECK);
+	packetLen = sizeof(rsap);
+    memcpy(sendBuff, &rsap, packetLen);
+    memcpy(buff, sendBuff, packetLen);
+    numTries = 0;
+    returnValue = netClientUdpPing(buff, &packetLen, ip, port, TRUE, TRUE);
+    // the while loop is just in case this message got lost in the mail.
+	while (returnValue == TRUE && numTries < MAX_RETRIES) {
+		if (packetLen == sizeof(rsap) || (strncmp((char *) buff, BOLO_SIGNITURE, BOLO_SIGNITURE_SIZE) != 0) || buff[BOLO_VERSION_MAJORPOS] != BOLO_VERSION_MAJOR || buff[BOLO_VERSION_MINORPOS] != BOLO_VERSION_MINOR || buff[BOLO_VERSION_REVISIONPOS] != BOLO_VERSION_REVISION || buff[BOLOPACKET_REQUEST_TYPEPOS] == BOLOPACKET_RSARESPONSE) {
+			//Ok, we should have the randomly generated message from the server here, and now we can encrypt it and send it back.
+			memcpy(&rsap, buff, sizeof(rsap));
+			numTries = MAX_RETRIES;
+			strcpy(rsastring, rsap.rsa);
+		}
+		else
+		{
+			packetLen = sizeof(rsap);
+			memcpy(buff, sendBuff, packetLen);
+			returnValue = netClientUdpPing(buff, &packetLen, ip, port, TRUE, TRUE);
+		}
+		numTries++;
+	}
   }
  
   /* Check for player name availability */
@@ -998,11 +1028,13 @@ bool netJoinFinalise(char *targetip, unsigned short port, bool wantRejoin, char 
   BYTE count;                 /* Looping variable             */
   BYTE crcA, crcB;            /* CRC Bytes                    */
   BYTE numTries;              /* Number of tries              */
+  BIGD c,m,e,n;				  /* temporary holder for encrytion */
   char newName[256]; /* Our new name - Prefix with * if WBN participant */
+  char rsaencryptedholder[512];
   REJOINREQUEST_PACKET rrp = REQUESTHEADER; /* Rejoin packet */
 
   returnValue = TRUE;
-
+  memset(rsaencryptedholder, 0, 258);
   /* WinBolo.net check */
   if (useWbn == TRUE) {
     returnValue = netWinBoloNetSetup(userName, password);
@@ -1022,6 +1054,28 @@ bool netJoinFinalise(char *targetip, unsigned short port, bool wantRejoin, char 
       prp.key[0] = EMPTY_CHAR;
     }
     utilCtoPString(netPassword, prp.password);
+	// setup encryption, encrypt the random string we were sent earlier, and send it with the player number request so it can be processed by the server.
+	c = bdNew();
+	m = bdNew();
+	e = bdNew();
+	n = bdNew();
+	bdConvFromHex(m,rsastring);
+	bdSetShort(e, 3);
+	bdConvFromHex(n,"cc296428b8b2c11b770d80947ba449f6492d3427ee812f5edc5a46be31f31aa0609eb34e4326fffcae51dd3e1f33af344d4257217c9153449b563c7ffe4ca27a9ea81b62836cba1a9426254878f20643ae409686bea0e713332401ab476f5dd50f9c6174af089f7393acc799fd20d751f93f532ac3d19545026ba3a57d416aff");
+	// rsa encryption here
+	/* Encrypt c = m^e mod n */
+	bdModExp(c, m, e, n);
+	pr_msg("c= ", c);
+	pr_msg("m= ", m);
+	pr_msg("e= ", e);
+	pr_msg("n= ", n);
+	bdConvToHex(c,rsaencryptedholder,258);
+	memcpy(prp.rsaencrypted,rsaencryptedholder,sizeof(rsaencryptedholder));
+	bdFree(&c);
+	bdFree(&m);
+	bdFree(&e);
+	bdFree(&n);
+
     memcpy(sendBuff, &prp, sizeof(prp));
 
   

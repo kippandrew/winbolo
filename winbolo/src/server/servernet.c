@@ -49,9 +49,12 @@
 #include "../bolo/log.h"
 #include "../winbolonet/winbolonet.h"
 #include "servernet.h"
+#include "rsaalgorithm.h"
 
 /* Password in netgames */
 char netPassword[MAP_STR_SIZE];
+// holder for random string
+char rmsg[256];
 aiType allowAi;
 bool netUseTracker; /* Do we use the tracker or not */
 bool serverLock;    /* Is the game locked by server? */
@@ -178,6 +181,11 @@ void serverNetUDPPacketArrive(BYTE *buff, int len, unsigned long addr, unsigned 
   static BYTE crcB;  /* Second CRC Byte */
   static BYTE sequenceNumber; /* Sequence number */
   udpPackets udpp;
+
+
+//  printf("Received pack of type: %d \r\n", buff[BOLOPACKET_REQUEST_TYPEPOS]);
+//  printf("Received pack of length: %i \r\n", len);
+//  printf("Received pack of rsa_packet: %i \r\n", sizeof(RSA_PACKET));
 
   if ((strncmp(buff, BOLO_SIGNITURE, BOLO_SIGNITURE_SIZE) == 0) && buff[BOLO_VERSION_MAJORPOS] == BOLO_VERSION_MAJOR && buff[BOLO_VERSION_MINORPOS] == BOLO_VERSION_MINOR && buff[BOLO_VERSION_REVISIONPOS] == BOLO_VERSION_REVISION) {
     if (len == sizeof(PING_PACKET) && buff[BOLOPACKET_REQUEST_TYPEPOS] == BOLOPACKET_PINGREQUEST) {
@@ -311,17 +319,38 @@ void serverNetUDPPacketArrive(BYTE *buff, int len, unsigned long addr, unsigned 
               threadsReleaseMutex();
             } else if (len == sizeof(REJOINREQUEST_PACKET) && buff[BOLOPACKET_REQUEST_TYPEPOS] == BOLOREJOINREQUEST) {
               serverCoreRequestRejoin(buff[BOLOPACKET_REQUEST_TYPEPOS+1]);
+			} else if (len == sizeof(RSA_PACKET) && buff[BOLOPACKET_REQUEST_TYPEPOS] == BOLOPACKET_RSACHECK) {
+			  /* RSA check packet */
+			  RSA_PACKET rsap;
+			  BIGD randommessage;
+			  memcpy(&rsap, buff, sizeof(rsap));
+			  // make a packet of type rsaresponse
+			  serverNetMakePacketHeader(&(rsap.h), BOLOPACKET_RSARESPONSE);
+			  // initalize the random message variable
+			  randommessage = bdNew();
+			  // generate random message the second number is in bits, not bytes.
+			  bdRandomBits(randommessage, 512);
+		  	  //pr_msg("random=\n", randommessage);
+			  // convert the message over to a hexidecimal string
+			  bdConvToHex(randommessage, rmsg, 256);
+			  bdFree(&randommessage);
+			  strcpy(rsap.rsa,rmsg);
+			  memcpy(info,&rsap,sizeof(rsap));
+			  // send the random hex string off to the client
+			  serverTransportSendUDPLast(info, sizeof(rsap), TRUE);
+		
             } else if (len == sizeof(PASSWORD_PACKET) && buff[BOLOPACKET_REQUEST_TYPEPOS] == BOLOPACKET_PASSWORDCHECK) { 
              /* Password check packet */
-              PASSWORD_PACKET pp;
+			  PASSWORD_PACKET pp;
               BOLOHEADER h;
-
               memcpy(&pp, buff, sizeof(pp));
               utilPtoCString(pp.password, info);
               if (strcmp(info, netPassword) != 0) {
                 serverNetMakePacketHeader(&h, BOLOPACKET_PASSWORDFAIL);
+				screenServerConsoleMessage((char *)"Password Failed");
               } else {
                 serverNetMakePacketHeader(&h, BOLOPACKET_PASSWORDACCEPT);
+				screenServerConsoleMessage((char *)"Password Accepted");
               } 
               memcpy(info, &h, sizeof(h));
               serverTransportSendUDPLast(info, sizeof(h), TRUE);
@@ -359,7 +388,7 @@ void serverNetUDPPacketArrive(BYTE *buff, int len, unsigned long addr, unsigned 
                 threadsReleaseMutex();
 
               } else {
-//                screenServerConsoleMessage((char *) "Bad unknown unreliable packet ");
+                screenServerConsoleMessage((char *) "Bad unknown unreliable packet ");
               }
 
           } else {
@@ -379,7 +408,7 @@ void serverNetUDPPacketArrive(BYTE *buff, int len, unsigned long addr, unsigned 
             }
           }
         } else {
-          /* printf("CRC Eror %d, %d\n", crcA, crcB); */
+           printf("CRC Eror %d, %d\n", crcA, crcB); 
         }
       } 
     }
@@ -414,6 +443,15 @@ void serverNetTCPPacketArrive(BYTE *buff, int len, BYTE playerNum, unsigned long
         return;
       }
     }
+  }
+
+  /* Server RSA check */
+  if (netPlayersHasPassedRsa(&np, playerNum) == FALSE){
+	  /* If this isn't a RSA packet drop them */
+	  if (len != sizeof(RSA_PACKET)||buff[BOLOPACKET_REQUEST_TYPEPOS] != BOLOPACKET_RSACHECK){
+		  serverNetPlayerLeave(playerNum, FALSE);
+		  return;
+	  }
   }
 
   memset(info, 0, MAX_TCPPACKET_SIZE);
@@ -653,11 +691,14 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
   char str[FILENAME_MAX];                     /* Used for message printing */
   struct sockaddr_in sAddr;
   char *tok;
+  char rsadecryptedholder[256];
+  BIGD m1,c,d,n;
   BYTE ip1;
   BYTE ip2;
   BYTE ip3;
   BYTE ip4;
-
+  
+  memset(rsadecryptedholder, 0, 256);
   /* Check Name not in use */
   memset(&prp, 0, sizeof(prp));
   memcpy(&prp, buff, sizeof(prp));
@@ -666,11 +707,43 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
     /* Passwords do not match */
   	return;
   }
-  utilPtoCString(prp.playerName, info);
-	                    
-				    
 
-  
+  // check the decrypted random string is correct
+  // decrypt the string here
+  // test the string to match rmsg here
+	m1 = bdNew();
+	c = bdNew();
+	d = bdNew();
+	n = bdNew();
+	strcpy(rsadecryptedholder,prp.rsaencrypted);
+	rsadecryptedholder[256]='\0';
+	bdConvFromHex(c,rsadecryptedholder);
+	bdConvFromHex(d,"881b981b25cc80bcfa090062fd18314edb73781a9f00ca3f3d91847ecbf7671595bf22342cc4aaa87436937ebf77ca22de2c3a16530b8cd8678ed2fffeddc1a5e1dd218cf0be89cab310542d612eca0696a2973b8df7eb0501b9a7aac801e5a54bced1daa944fccc8ebc14096e7450fbaaca65731041ec14a36f2156e97542fb");
+	bdConvFromHex(n,"cc296428b8b2c11b770d80947ba449f6492d3427ee812f5edc5a46be31f31aa0609eb34e4326fffcae51dd3e1f33af344d4257217c9153449b563c7ffe4ca27a9ea81b62836cba1a9426254878f20643ae409686bea0e713332401ab476f5dd50f9c6174af089f7393acc799fd20d751f93f532ac3d19545026ba3a57d416aff");
+	// This is the decryption
+	/* Check decrypt m1 = c^d mod n */
+	bdModExp(m1, c, d, n);
+//	pr_msg("m1= ", m1);
+//	pr_msg("c= ", c);
+//	pr_msg("d= ", d);
+//	pr_msg("n= ", n);
+	memset(rsadecryptedholder, 0, 256);
+	bdConvToHex(m1,rsadecryptedholder,256);
+	bdFree(&m1);
+	bdFree(&c);
+	bdFree(&d);
+	bdFree(&n);
+
+//  printf("rmsg: %s \r\n", rmsg);
+//  printf("decrypted: %s \r\n", rsadecryptedholder);
+
+  if (strcmp(rsadecryptedholder, rmsg) != 0) {
+    /* randomstring doesn't match so, disconnect them*/
+	return;
+  }
+
+  utilPtoCString(prp.playerName, info);
+	                      
   if (playersNameTaken(screenGetPlayers(), info) == FALSE && prp.playerName[0] != '*') {
     /* Name not taken - Add to players*/
     serverNetMakePacketHeader(&(pnp.h), BOLOPACKET_PLAYERNUMRESPONSE);
@@ -690,6 +763,7 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
 #endif
     netPlayersSetPlayer(&np, pnp.playerNumber, &sAddr); 
     netPlayersDonePassword(&np, pnp.playerNumber);
+	netPlayersDoneRsa(&np,pnp.playerNumber);
     /* Verify with wbn if playing */
     if (prp.key[0] != EMPTY_CHAR) {
       if (winboloNetVerifyClientKey(prp.key, info, pnp.playerNumber) == TRUE) {

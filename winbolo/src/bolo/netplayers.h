@@ -20,7 +20,7 @@
 *Filename:      Net Players.h
 *Author:        John Morrison
 *Creation Date: 26/02/99
-*Last Modified: 12/02/03
+*Last Modified: 16/12/08
 *Purpose:
 *  Handles keeping track of all players address 
 *  in the game. Completely rewritten on 29/8/99 for second
@@ -59,6 +59,7 @@ typedef struct { /* Obj */
   struct sockaddr_in addr[MAX_TANKS]; 	/* Last packet from address */
   bool locked[MAX_TANKS];		/* Are they locked */
   bool passed[MAX_TANKS];		/* Have they entered the password (if required by the server) */
+  bool passedrsa[MAX_TANKS];	/* Have they passed the rsa check key check? Min dec 16th 2008*/
   udpPackets udpp[MAX_TANKS];		/* udppackets ADT reference */
   time_t lastHeard[MAX_TANKS]; 		/* When we last heard from them */
   time_t lastServerTime[MAX_TANKS];
@@ -128,6 +129,20 @@ void netPlayersDestroy(netPlayers *value);
 bool netPlayersHasPassed(netPlayers *value, BYTE playerNum);
 
 /*********************************************************
+*NAME:          netPlayersHasPassedRsa
+*AUTHOR:        Min
+*CREATION DATE: 16/12/08
+*LAST MODIFIED: 16/12/08
+*PURPOSE:
+* Returns whether this socket has been past the password
+*
+*ARGUMENTS:
+*  value     - The netPlayers structure to check
+*  playerNum - The player number
+*********************************************************/
+bool netPlayersHasPassedRsa(netPlayers *value, BYTE playerNum);
+
+/*********************************************************
 *NAME:          netPlayersDonePassword
 *AUTHOR:        John Morrison
 *CREATION DATE: 11/6/00
@@ -141,6 +156,22 @@ bool netPlayersHasPassed(netPlayers *value, BYTE playerNum);
 *  playerNum - The player number to set
 *********************************************************/
 void netPlayersDonePassword(netPlayers *value, BYTE playerNum);
+
+/*********************************************************
+*NAME:          netPlayersDoneRsa
+*AUTHOR:        Min
+*CREATION DATE: 16/12/08
+*LAST MODIFIED: 16/12/08
+*PURPOSE:
+* This player has passed the password check. Let them 
+* proceed
+*
+*ARGUMENTS:
+*  value     - The netPlayers structure to set
+*  playerNum - The player number to set
+*********************************************************/
+void netPlayersDoneRsa(netPlayers *value, BYTE playerNum);
+
 
 /*********************************************************
 *NAME:          netPlayersRemovePlayerNum
