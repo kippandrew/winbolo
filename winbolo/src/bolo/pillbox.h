@@ -44,8 +44,8 @@
 /* A pillbox range is 8 map squares or 2048 world units */
 #define PILLBOX_RANGE 2048
 
-/* A pillbox fires 9 map squares */
-#define PILLBOX_FIRE_DISTANCE 9
+/* A pillbox fires 9 map squares this value is 8.5 becuase winbolo targets from the center of the pillbox*/
+#define PILLBOX_FIRE_DISTANCE 8.5
 
 /* Pillbox not found return Value */
 #define PILL_NOT_FOUND 254
