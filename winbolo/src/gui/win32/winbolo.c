@@ -176,15 +176,10 @@ time_t ticks = 0;
 int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, LPSTR szCmdLine, int nCmdShow) {
   HACCEL hAccel; /* Accelerator table */
   int timerFlush; /* Used to flush the timer */
-keyItems *keys2;
-
-keys2 = &keys;
 
 
   appInst = hInst;
   winboloQuit = FALSE;
-  keys2->kiForward = 24;
-
   
 /*time_t currTime; /* Current Time *
   time(&currTime);
