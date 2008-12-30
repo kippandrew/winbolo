@@ -148,7 +148,7 @@ bool brainsHandlerLoadBrains(HWND hWnd) {
   if (returnValue == TRUE) {
     returnValue = winUtilWBSubDirExist(brainsDir);
     if (returnValue == FALSE && brainsLoadedOnce == FALSE) {
-      MessageBox(NULL, langGetText(STR_BRAINERR_BRAINDIR), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_BRAINERR_BRAINDIR), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       brainsLoadedOnce = TRUE;
     }
   }
@@ -253,14 +253,14 @@ bool brainsHandlerStart(HWND hWnd, char *str, char *name) {
   returnValue = TRUE;
   brainsInst = LoadLibrary(str);
   if (brainsInst == NULL) {
-    MessageBox(hWnd, langGetText(STR_BRAINERR_LAUNCH), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(hWnd, langGetText(STR_BRAINERR_LAUNCH), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     returnValue = FALSE;
   }
 
   if (returnValue == TRUE) {
     brainsProc = GetProcAddress(brainsInst, BRAINMAIN_PROC);
     if (brainsProc == NULL) {
-      MessageBox(hWnd, langGetText(STR_BRAINERR_LAUNCHMAIN), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(hWnd, langGetText(STR_BRAINERR_LAUNCHMAIN), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     }
   }
@@ -282,7 +282,7 @@ bool brainsHandlerStart(HWND hWnd, char *str, char *name) {
       FreeLibrary(brainsInst);
       brainsInst = NULL;
       returnValue = FALSE;
-      MessageBox(hWnd, langGetText(STR_BRAINERR_INIT), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(hWnd, langGetText(STR_BRAINERR_INIT), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     }
   }
   clientMutexRelease();
@@ -370,7 +370,7 @@ void brainsHandlerBrainsItem(HWND hWnd, UINT id) {
         CheckMenuItem(hMenu, ID_BRAINSMENU_MANUAL, MF_CHECKED);
       }
 
-      MessageBox(hWnd, langGetText(STR_BRAINERR_EXEC), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(hWnd, langGetText(STR_BRAINERR_EXEC), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     }
   }
 }

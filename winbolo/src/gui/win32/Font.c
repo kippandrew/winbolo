@@ -66,12 +66,12 @@ bool fontSetup(HINSTANCE appInst, HWND appWnd) {
 
   if (tempDC != NULL) {
     nHeight = fontPointToHeight(height, tempDC);
-    hBoloFont = CreateFont(nHeight, 0, 0, 0, FALSE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, FONT_NAME);
+    hBoloFont = CreateFontA(nHeight, 0, 0, 0, FALSE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, FONT_NAME);
     DeleteDC(tempDC);
   }
 
   if (hBoloFont == NULL) {
-    MessageBox(appWnd, langGetText(STR_FONTERR_NOCOURIERFONT), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(appWnd, langGetText(STR_FONTERR_NOCOURIERFONT), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     returnValue = FALSE;
   }
 
@@ -79,7 +79,7 @@ bool fontSetup(HINSTANCE appInst, HWND appWnd) {
 
   if (tempDC != NULL) {
     nHeight = fontPointToHeight((zoomFactor * TINY_FONT_HEIGHT), tempDC);
-    hTinyFont = CreateFont(nHeight, 0, 0, 0, FALSE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, FONT_NAME);
+    hTinyFont = CreateFontA(nHeight, 0, 0, 0, FALSE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, FONT_NAME);
     DeleteDC(tempDC);
   }
   return returnValue;

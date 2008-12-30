@@ -129,12 +129,12 @@ void dialogMessagesSetup(HWND hWnd) {
 
 
   /* Setup Languages */
-  SetWindowText(hWnd, langGetText(STR_DLGMSG_TITLE));
-  SetDlgItemText(hWnd, IDOK, langGetText(STR_DLGMSG_BUTTON)); 
-  SetDlgItemText(hWnd, IDC_ALL_PLAYERS, langGetText(STR_DLGMSG_ALLPLAYERS));
-  SetDlgItemText(hWnd, IDC_ALL_ALLIES, langGetText(STR_DLGMSG_ALLALLIES));
-  SetDlgItemText(hWnd, IDC_ALL_NEARBY, langGetText(STR_DLGMSG_NEARBY));
-  SetDlgItemText(hWnd, IDC_ALL_SELECTION, langGetText(STR_DLGMSG_SELECTION));
+  SetWindowTextA(hWnd, langGetText(STR_DLGMSG_TITLE));
+  SetDlgItemTextA(hWnd, IDOK, langGetText(STR_DLGMSG_BUTTON)); 
+  SetDlgItemTextA(hWnd, IDC_ALL_PLAYERS, langGetText(STR_DLGMSG_ALLPLAYERS));
+  SetDlgItemTextA(hWnd, IDC_ALL_ALLIES, langGetText(STR_DLGMSG_ALLALLIES));
+  SetDlgItemTextA(hWnd, IDC_ALL_NEARBY, langGetText(STR_DLGMSG_NEARBY));
+  SetDlgItemTextA(hWnd, IDC_ALL_SELECTION, langGetText(STR_DLGMSG_SELECTION));
 
 
   winUtilCenterWindow(hWnd);
@@ -175,7 +175,7 @@ void dialogMessagesSend(HWND hWnd) {
     timerId = SetTimer(hWnd, timerId, WAIT_TIME, NULL);
     EnableWindow(GetDlgItem(hWnd, IDOK), FALSE);
     /* Select the text */
-    SendDlgItemMessage(hWnd, IDC_EDITSEND, EM_SETSEL, 0, -1);
+    SendDlgItemMessageA(hWnd, IDC_EDITSEND, EM_SETSEL, 0, -1);
   }
 }
 
@@ -212,6 +212,6 @@ void dialogMessagesChange(HWND hWnd) {
     sprintf(output, langGetText(STR_DLGMSG_SENDPLAYERS), numSend);
   }
   /* Print it */
-  SendDlgItemMessage(hWnd, IDC_NUM_PLAYERS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (output));
+  SendDlgItemMessageA(hWnd, IDC_NUM_PLAYERS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (output));
 /*  SetFocus(GetDlgItem(hWnd, IDC_EDITSEND));  */
 }

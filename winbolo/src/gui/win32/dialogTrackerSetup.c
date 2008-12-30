@@ -105,19 +105,19 @@ void dialogTrackerSetupInit(HWND hWnd) {
   bool enabled;            /* Use of tracker enabled */
   
   /* Set the language */
-  SetWindowText(hWnd, langGetText(STR_DLGTRACKER_TITLE));
-  SetDlgItemText(hWnd, IDOK, langGetText(STR_OK));
-  SetDlgItemText(hWnd, IDCANCEL, langGetText(STR_CANCEL));
-  SetDlgItemText(hWnd, IDC_USETRACKER, langGetText(STR_DLGTRACKER_USETRACKER));
-  SetDlgItemText(hWnd, IDC_TRACKERADDRESSS, langGetText(STR_DLGTRACKER_TRACKERADDRESS));
-  SetDlgItemText(hWnd, IDC_TRACKERPORTS, langGetText(STR_DLGTRACKER_TRACKERPORT));
+  SetWindowTextA(hWnd, langGetText(STR_DLGTRACKER_TITLE));
+  SetDlgItemTextA(hWnd, IDOK, langGetText(STR_OK));
+  SetDlgItemTextA(hWnd, IDCANCEL, langGetText(STR_CANCEL));
+  SetDlgItemTextA(hWnd, IDC_USETRACKER, langGetText(STR_DLGTRACKER_USETRACKER));
+  SetDlgItemTextA(hWnd, IDC_TRACKERADDRESSS, langGetText(STR_DLGTRACKER_TRACKERADDRESS));
+  SetDlgItemTextA(hWnd, IDC_TRACKERPORTS, langGetText(STR_DLGTRACKER_TRACKERPORT));
 
   gameFrontGetTrackerOptions(addr, &port, &enabled);
   /* Set the textboxes up */
 
-  SetDlgItemText(hWnd, IDC_TRACKERADDRESS, addr);
+  SetDlgItemTextA(hWnd, IDC_TRACKERADDRESS, addr);
   itoa(port, addr, BASE_10);
-  SetDlgItemText(hWnd, IDC_TRACKERPORT, addr);
+  SetDlgItemTextA(hWnd, IDC_TRACKERPORT, addr);
 
   if (enabled == TRUE) {
     dlgWnd = GetDlgItem(hWnd, IDC_TRACKERADDRESS);

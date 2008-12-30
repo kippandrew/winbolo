@@ -33,7 +33,7 @@
 #include "..\gamefront.h"
 #include "..\resource.h"
 
-#define _UNICODE
+//#define _UNICODE
 
 #define DEFAULT_ENGLISH "English (Default)"
 
@@ -88,7 +88,7 @@ BOOL CALLBACK dialogLanguagesCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, 
             /* Change it */
             dialogLanguagesSetText(hWnd);
           } else {
-            MessageBox(NULL, "Unable to load Language File", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+            MessageBoxA(NULL, "Unable to load Language File", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
           }
         }
       }
@@ -214,14 +214,14 @@ void dialogLanguagesLoadList(HWND hWnd) {
 *********************************************************/
 void dialogLanguagesSetText(HWND hWnd) {
   /* Set dialog language text */
-  SetDlgItemText(hWnd, IDOK, langGetText(STR_OK));  
-  SetDlgItemText(hWnd, IDCANCEL, langGetText(STR_CANCEL));
-  SetDlgItemText(hWnd, IDC_LANGNAMES, langGetText(STR_DLGLANG_NAME_CAPTION));
-  SetDlgItemText(hWnd, IDC_LANGNAME, langGetText(STR_DLGLANG_NAME));
-  SetDlgItemText(hWnd, IDC_AUTHORS, langGetText(STR_DLGLANG_AUTHOR_CAPTION));
-  SetDlgItemText(hWnd, IDC_AUTHOR, langGetText(STR_DLGLANG_AUTHOR));
-  SetDlgItemText(hWnd, IDC_NOTESS, langGetText(STR_DLGLANG_NOTES_CAPTION));
-  SetDlgItemText(hWnd, IDC_NOTES, langGetText(STR_DLGLANG_NOTES));
-  SetDlgItemText(hWnd, IDC_DEFAULT, langGetText(STR_DLGLANG_DEFAULTNOTE));
-  SetWindowText(hWnd, langGetText(STR_DLGLANG_TITLE));
+  SetDlgItemTextA(hWnd, IDOK, langGetText(STR_OK));  
+  SetDlgItemTextA(hWnd, IDCANCEL, langGetText(STR_CANCEL));
+  SetDlgItemTextA(hWnd, IDC_LANGNAMES, langGetText(STR_DLGLANG_NAME_CAPTION));
+  SetDlgItemTextA(hWnd, IDC_LANGNAME, langGetText(STR_DLGLANG_NAME));
+  SetDlgItemTextA(hWnd, IDC_AUTHORS, langGetText(STR_DLGLANG_AUTHOR_CAPTION));
+  SetDlgItemTextA(hWnd, IDC_AUTHOR, langGetText(STR_DLGLANG_AUTHOR));
+  SetDlgItemTextA(hWnd, IDC_NOTESS, langGetText(STR_DLGLANG_NOTES_CAPTION));
+  SetDlgItemTextA(hWnd, IDC_NOTES, langGetText(STR_DLGLANG_NOTES));
+  SetDlgItemTextA(hWnd, IDC_DEFAULT, langGetText(STR_DLGLANG_DEFAULTNOTE));
+  SetWindowTextA(hWnd, langGetText(STR_DLGLANG_TITLE));
 }

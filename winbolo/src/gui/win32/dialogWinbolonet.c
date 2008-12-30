@@ -52,8 +52,8 @@ void dialogWinbolonetSetup(HWND hWnd) {
 
   gameFrontGetPlayerName(userName);
   gameFrontGetWinbolonetSettings(password, &useWbn, &savePass);
-  SetDlgItemText(hWnd, IDC_WBNNAME, userName);
-  SetDlgItemText(hWnd, IDC_WBNPASS, password);
+  SetDlgItemTextA(hWnd, IDC_WBNNAME, userName);
+  SetDlgItemTextA(hWnd, IDC_WBNPASS, password);
 
   dlgWnd = GetDlgItem(hWnd, IDC_WBNPASS);  
   if (useWbn == TRUE) {
@@ -95,7 +95,7 @@ bool dialogWinbolonetOK(HWND hWnd) {
   GetDlgItemText(hWnd, IDC_WBNPASS, password, (sizeof(password)-1));
   if (useWbn == TRUE && strlen(password) == 0) {
     returnValue = FALSE;
-    MessageBox(NULL, "Sorry, you must enter a username and password if you wish to participate in winbolo.net", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, "Sorry, you must enter a username and password if you wish to participate in winbolo.net", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
   }
 
   if (returnValue == TRUE) {

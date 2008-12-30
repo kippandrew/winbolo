@@ -25,7 +25,6 @@
 *  Provides the front end for viewing maps
 *********************************************************/
 
-#include <crtdbg.h>
 
 #include <windows.h>
 #include <string.h>
@@ -177,26 +176,28 @@ time_t ticks = 0;
 int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, LPSTR szCmdLine, int nCmdShow) {
   HACCEL hAccel; /* Accelerator table */
   int timerFlush; /* Used to flush the timer */
+keyItems *keys2;
 
+keys2 = &keys;
 
 
   appInst = hInst;
   winboloQuit = FALSE;
-
+  keys2->kiForward = 24;
 
   
 /*time_t currTime; /* Current Time *
   time(&currTime);
   if (currTime > 943884002) {
-    MessageBox(NULL, "This beta version of WinBolo has expired. Please download a more recent version", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, "This beta version of WinBolo has expired. Please download a more recent version", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     exit(0);
   } else {
-    MessageBox(NULL, "NOTE: This beta version of WinBolo expires on the 30/11/99", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+    MessageBoxA(NULL, "NOTE: This beta version of WinBolo expires on the 30/11/99", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
   }  */
 
   hAccel = LoadAccelerators(hInst, MAKEINTRESOURCE(IDR_ACCELERATOR));
   if (clientMutexCreate() == FALSE) {
-    MessageBox(NULL, langGetText(STR_WBERR_MUTEXCREATE), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, langGetText(STR_WBERR_MUTEXCREATE), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     return 0;
   }
 
@@ -265,8 +266,8 @@ int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, LPSTR szCmdLine, int nC
 *********************************************************/
 HWND windowCreate(HINSTANCE hInst, int nCmdShow) {
   HWND returnValue; /* Value to return */
-  WNDCLASS wc;      /* Window Class to create */
-  WNDCLASS wc2;
+  WNDCLASSA wc;      /* Window Class to create */
+  WNDCLASSA wc2;
 
   /* Set up the Window Class */
   wc.hCursor        = LoadCursor(0,IDC_ARROW);//NULL;
@@ -281,8 +282,8 @@ HWND windowCreate(HINSTANCE hInst, int nCmdShow) {
   wc.cbWndExtra     = 0;
   wc.hbrBackground  = 0;
 
-  if (RegisterClass(&wc)) {
-    returnValue = CreateWindow(
+  if (RegisterClassA(&wc)) {
+    returnValue = CreateWindowA(
      WIND_CLASSNAME,                 /* Class name */
      WIND_TITLE,                     /* Caption */ 
     (WS_OVERLAPPED + WS_CAPTION + WS_SYSMENU + WS_MINIMIZEBOX), /* Style */
@@ -299,8 +300,10 @@ HWND windowCreate(HINSTANCE hInst, int nCmdShow) {
   appWnd = returnValue;
   if (appWnd != NULL) {
     if (brainsHandlerLoadBrains(appWnd) == FALSE) {
-      MessageBox(NULL, langGetText(STR_WBERR_BRAINLISTLOAD), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_WBERR_BRAINLISTLOAD), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     }
+  } else {
+	SetWindowTextA(appWnd, "WinBolo");
   }
 
   wc2.hCursor        = LoadCursor(0,IDC_ARROW);
@@ -317,8 +320,8 @@ HWND windowCreate(HINSTANCE hInst, int nCmdShow) {
   
   /* Setup the Get Key window */
   
-  if ((RegisterClass(&wc2)) == 0) {
-    MessageBox(NULL, langGetText(STR_WBERR_KEYCLASSSETUP), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+  if ((RegisterClassA(&wc2)) == 0) {
+    MessageBoxA(NULL, langGetText(STR_WBERR_KEYCLASSSETUP), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
   }
   return returnValue;
 }
@@ -811,7 +814,7 @@ void CALLBACK windowGameTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWOR
     inBrain = FALSE;
     clientMutexRelease();
   } else if (used == TRUE) {
-//    MessageBox(NULL, "e", "b", MB_OK);
+//    MessageBoxA(NULL, "e", "b", MB_OK);
   }
 
   if (t2 >= 19) {
@@ -1870,7 +1873,7 @@ BYTE windowGetZoomFactor() {
 void frontEndGameOver(void) {
   KillTimer(appWnd, timerFrameID);
   KillTimer(appWnd, timerGameID);
-  MessageBox(NULL, langGetText(STR_WBTIMELIMIT_END), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+  MessageBoxA(NULL, langGetText(STR_WBTIMELIMIT_END), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
   PostQuitMessage(0);
 }
 
@@ -2134,68 +2137,68 @@ void frontEndClearPlayer(playerNumbers value) {
   switch (value) {
   case player01:
     inf.dwTypeData = (char *) STR_01;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_01, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_01, FALSE, &inf);
     break;
   case player02:
     inf.dwTypeData = (char *) STR_02;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_02, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_02, FALSE, &inf);
     break;
   case player03:
     inf.dwTypeData = (char *) STR_03;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_03, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_03, FALSE, &inf);
     break;
   case player04:
     inf.dwTypeData = (char *) STR_04;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_04, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_04, FALSE, &inf);
     break;
   case player05:
     inf.dwTypeData = (char *) STR_05;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_05, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_05, FALSE, &inf);
     break;
   case player06:
     inf.dwTypeData = (char *) STR_06;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_06, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_06, FALSE, &inf);
     break;
   case player07:
     inf.dwTypeData = (char *) STR_07;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_07, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_07, FALSE, &inf);
     break;
   case player08:
     inf.dwTypeData = (char *) STR_08;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_08, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_08, FALSE, &inf);
     break;
   case player09:
     inf.dwTypeData = (char *) STR_09;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_09, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_09, FALSE, &inf);
     break;
   case player10:
     inf.dwTypeData = (char *) STR_10;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_10, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_10, FALSE, &inf);
     break;
   case player11:
     inf.dwTypeData = (char *) STR_10;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_11, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_11, FALSE, &inf);
     break;
   case player12:
     inf.dwTypeData = (char *) STR_12;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_12, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_12, FALSE, &inf);
     break;
   case player13:
     inf.dwTypeData = (char *) STR_13;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_13, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_13, FALSE, &inf);
     break;
   case player14:
     inf.dwTypeData = (char *) STR_14;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_14, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_14, FALSE, &inf);
     break;
   case player15:
     inf.dwTypeData = (char *) STR_15;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_15, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_15, FALSE, &inf);
     break;
   default:
     /* case player16: */
     inf.dwTypeData = (char *) STR_16;
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_16, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_16, FALSE, &inf);
     break;
   }
 }
@@ -2228,54 +2231,54 @@ void frontEndSetPlayer(playerNumbers value, char *str) {
 
   switch (value) {
   case player01:  
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_01, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_01, FALSE, &inf);
     break;
   case player02:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_02, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_02, FALSE, &inf);
     break;
   case player03:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_03, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_03, FALSE, &inf);
     break;
   case player04:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_04, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_04, FALSE, &inf);
     break;
   case player05:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_05, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_05, FALSE, &inf);
     break;
   case player06:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_06, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_06, FALSE, &inf);
     break;
   case player07:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_07, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_07, FALSE, &inf);
     break;
   case player08:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_08, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_08, FALSE, &inf);
     break;
   case player09:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_09, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_09, FALSE, &inf);
     break;
   case player10:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_10, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_10, FALSE, &inf);
     break;
   case player11:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_11, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_11, FALSE, &inf);
     break;
   case player12:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_12, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_12, FALSE, &inf);
     break;
   case player13:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_13, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_13, FALSE, &inf);
     break;
   case player14:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_14, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_14, FALSE, &inf);
     break;
   case player15:
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_15, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_15, FALSE, &inf);
     break;
   case player16:
   default:
     /* case player16: */
-    SetMenuItemInfo(hMenu, ID_PLAYERSMENU_16, FALSE, &inf);
+    SetMenuItemInfoA(hMenu, ID_PLAYERSMENU_16, FALSE, &inf);
     break;
   }
 }
@@ -2402,7 +2405,7 @@ void windowSaveMap() {
   if (dlgOK == TRUE) {
     saveOK = screenSaveMap(fileName);
     if (saveOK == FALSE) {
-      MessageBox(appWnd, langGetText(STR_WBERR_SAVEMAP), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+      MessageBoxA(appWnd, langGetText(STR_WBERR_SAVEMAP), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
     }
   }
 }
@@ -2721,7 +2724,7 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 208) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL01), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL01), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );
         returnValue = TRUE;
         upTo++;
         clientMutexWaitFor();
@@ -2734,7 +2737,7 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 197) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL02), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL02), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND );        
         returnValue = TRUE;
         upTo++;
         clientMutexWaitFor();
@@ -2747,7 +2750,7 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 192) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL03), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL03), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND );        
         returnValue = TRUE;
         upTo++;
         clientMutexWaitFor();
@@ -2760,7 +2763,7 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 186) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL04), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL04), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         clientMutexWaitFor();
@@ -2773,7 +2776,7 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 181) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL05), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL05), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         clientMutexWaitFor();
@@ -2786,7 +2789,7 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 175) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL06), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL06), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         clientMutexWaitFor();
@@ -2799,7 +2802,7 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 166) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL07), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL07), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         clientMutexWaitFor();
@@ -2812,8 +2815,8 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 159) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL08), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL09), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL08), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL09), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         upTo++;
@@ -2825,7 +2828,7 @@ bool frontEndTutorial(BYTE pos) {
       break;
     case 8:
       if (pos == 1) {
-//        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL09), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+//        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL09), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
       }
@@ -2834,8 +2837,8 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 142) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL10), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL11), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL10), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL11), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         upTo++;
@@ -2847,7 +2850,7 @@ bool frontEndTutorial(BYTE pos) {
       break;
     case 10:
       if (pos == 1) {
-//        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL11), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+//        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL11), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
       }
@@ -2856,7 +2859,7 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 122) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL12), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL12), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         clientMutexWaitFor();
@@ -2869,8 +2872,8 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 120) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL13), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL14), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL13), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL14), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         upTo++;
@@ -2882,7 +2885,7 @@ bool frontEndTutorial(BYTE pos) {
       break;
     case 13:
       if (pos == 1) {
-//        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL14), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+//        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL14), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
       }
@@ -2891,7 +2894,7 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 110) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL15), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL15), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         clientMutexWaitFor();
@@ -2904,7 +2907,7 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 103) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL16), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL16), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         clientMutexWaitFor();
@@ -2917,7 +2920,7 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 98) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL17), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL17), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         clientMutexWaitFor();
@@ -2930,8 +2933,8 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 84) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL18), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL19), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL18), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL19), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         upTo++;
@@ -2943,7 +2946,7 @@ bool frontEndTutorial(BYTE pos) {
       break;
     case 18:
       if (pos == 1) {
-//        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL19), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+//        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL19), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
       }
@@ -2952,8 +2955,8 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 66) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL20), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL21), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL20), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL21), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         upTo++;
@@ -2965,7 +2968,7 @@ bool frontEndTutorial(BYTE pos) {
       break;
     case 20:
       if (pos == 1) {
-//        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL21), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+//        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL21), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
       }
@@ -2974,9 +2977,9 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 47) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL22), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL23), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL24), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL22), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL23), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL24), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         upTo++;
@@ -2989,14 +2992,14 @@ bool frontEndTutorial(BYTE pos) {
       break;
     case 22:
       if (pos == 1) {
-//        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL23), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+//        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL23), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
       }
       break;
     case 23:
       if (pos == 1) {
-//        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL24), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+//        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL24), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
       }
@@ -3005,7 +3008,7 @@ bool frontEndTutorial(BYTE pos) {
       if (pos == 21) {
         doingTutorial = TRUE;
         clientMutexRelease();
-        MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL25), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
+        MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL25), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND | MB_APPLMODAL );        
         returnValue = TRUE;
         upTo++;
         timeKillEvent(timerGameID);
@@ -3032,10 +3035,10 @@ void windowStartTutorial() {
   windowAutomaticScrolling(appWnd);
   windowShowGunsight(appWnd);
 
-  MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL_START01), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND);
-  MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL_START02), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND);
-  MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL_START03), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND);
-  MessageBox(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL_START04), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND);
+  MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL_START01), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND);
+  MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL_START02), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND);
+  MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL_START03), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND);
+  MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL_START04), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND);
   doingTutorial = FALSE;
   oldTick = timeGetTime();
   ttick = oldTick;
@@ -3102,7 +3105,7 @@ void windowReCreate() {
   if (appWnd != NULL) {
     brainsHandlerLoadBrains(appWnd);
   } else {
-    MessageBox(NULL, "Bad", "very", MB_OK);
+    MessageBoxA(NULL, "Bad", "very", MB_OK);
   }
 }
 

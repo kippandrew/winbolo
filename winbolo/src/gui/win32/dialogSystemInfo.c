@@ -83,14 +83,14 @@ BOOL CALLBACK dialogSysInfoCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, LP
 *********************************************************/
 void dialogSysInfoSetup(HWND hWnd) {
   /* Set language */
-  SetWindowText(hWnd, langGetText(STR_DLGSYSINFO_TITLE));
-  SetDlgItemText(hWnd, IDC_CPUUSAGES, langGetText(STR_DLGSYSINFO_CPUUSAGE));
-  SetDlgItemText(hWnd, IDC_SIMMODELS, langGetText(STR_DLGSYSINFO_SIMMODELING));
-  SetDlgItemText(hWnd, IDC_COMPROCESSS, langGetText(STR_DLGSYSINFO_COMPROCESSING));
-  SetDlgItemText(hWnd, IDC_GRAPHICSDISPLAYS, langGetText(STR_DLGSYSINFO_GRAHPICSDISPLAY));
-  SetDlgItemText(hWnd, IDC_AITANKS, langGetText(STR_DLGSYSINFO_AICONTROLPROCESSING));
-  SetDlgItemText(hWnd, IDC_TOTALS, langGetText(STR_DLGSYSINFO_TOTAL));
-  SetDlgItemText(hWnd, IDC_FPSS, langGetText(STR_DLGSYSINFO_GRAPHICSFPS));
+  SetWindowTextA(hWnd, langGetText(STR_DLGSYSINFO_TITLE));
+  SetDlgItemTextA(hWnd, IDC_CPUUSAGES, langGetText(STR_DLGSYSINFO_CPUUSAGE));
+  SetDlgItemTextA(hWnd, IDC_SIMMODELS, langGetText(STR_DLGSYSINFO_SIMMODELING));
+  SetDlgItemTextA(hWnd, IDC_COMPROCESSS, langGetText(STR_DLGSYSINFO_COMPROCESSING));
+  SetDlgItemTextA(hWnd, IDC_GRAPHICSDISPLAYS, langGetText(STR_DLGSYSINFO_GRAHPICSDISPLAY));
+  SetDlgItemTextA(hWnd, IDC_AITANKS, langGetText(STR_DLGSYSINFO_AICONTROLPROCESSING));
+  SetDlgItemTextA(hWnd, IDC_TOTALS, langGetText(STR_DLGSYSINFO_TOTAL));
+  SetDlgItemTextA(hWnd, IDC_FPSS, langGetText(STR_DLGSYSINFO_GRAPHICSFPS));
 
   timerSystemInfo = SetTimer(hWnd, timerSystemInfo, MILLISECONDS, NULL);
   dialogSysInfoUpdate(hWnd);
@@ -119,38 +119,38 @@ void dialogSysInfoUpdate(HWND hWnd) {
   str[0] = '\0';
   value = drawGetFrameRate();
   sprintf(str, "%d", value);
-  SendDlgItemMessage(hWnd, IDC_FRAME_RATE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+  SendDlgItemMessageA(hWnd, IDC_FRAME_RATE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
   
   /* Graphics */
   value = windowGetDrawTime();
   str[0] = '\0';
   graphics = (float) ((value/SECOND) *100.0);
   sprintf(str, "%.2f %%", graphics);
-  SendDlgItemMessage(hWnd, IDC_GRAPHICS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+  SendDlgItemMessageA(hWnd, IDC_GRAPHICS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
   
   /* Sim */
   value = windowGetSimTime();
   str[0] = '\0';
   sim = (float) ((value/SECOND)*100.0);
   sprintf(str, "%.2f %%", sim);
-  SendDlgItemMessage(hWnd, IDC_SIM, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+  SendDlgItemMessageA(hWnd, IDC_SIM, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
 
   /* Net */
   value = windowGetNetTime();
   str[0] = '\0';
   net = (float) ((value/SECOND)*100.0);
   sprintf(str, "%.2f %%", net);
-  SendDlgItemMessage(hWnd, IDC_COMMUNICATION, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+  SendDlgItemMessageA(hWnd, IDC_COMMUNICATION, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
 
   /* AI */
   value = windowGetAiTime();
   str[0] = '\0';
   net = (float) ((value/SECOND)*100.0);
   sprintf(str, "%.2f %%", net);
-  SendDlgItemMessage(hWnd, IDC_AI, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+  SendDlgItemMessageA(hWnd, IDC_AI, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
 
   /* Total */
   sim += graphics + net;
   sprintf(str, "%.2f %%", sim);
-  SendDlgItemMessage(hWnd, IDC_TOTAL, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+  SendDlgItemMessageA(hWnd, IDC_TOTAL, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
 }

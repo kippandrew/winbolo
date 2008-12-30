@@ -52,9 +52,9 @@ BOOL CALLBACK dialogPasswordCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, L
   switch ( uMsg ) {
   case WM_INITDIALOG:
     /* Set languages */
-    SetWindowText(hWnd, langGetText(STR_DLGPASSWORD_TITLE));
-    SetDlgItemText(hWnd, IDC_BLURB, langGetText(STR_DLGPASSWORD_BLURB));
-    SetDlgItemText(hWnd, IDOK, langGetText(STR_OK));
+    SetWindowTextA(hWnd, langGetText(STR_DLGPASSWORD_TITLE));
+    SetDlgItemTextA(hWnd, IDC_BLURB, langGetText(STR_DLGPASSWORD_BLURB));
+    SetDlgItemTextA(hWnd, IDOK, langGetText(STR_OK));
     SetFocus(GetDlgItem(hWnd, IDC_PASSWORD));
     break;
   case WM_COMMAND:

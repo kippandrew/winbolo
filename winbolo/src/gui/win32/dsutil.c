@@ -148,7 +148,7 @@ BOOL DSGetWaveResource(HMODULE hModule, LPCTSTR lpName,
     HGLOBAL hResData;
     void *pvRes;
 
-    hResInfo = FindResource(hModule, lpName, c_szWAV);
+    hResInfo = FindResourceA(hModule, lpName, c_szWAV);
     hResData = LoadResource(hModule, hResInfo);
     pvRes = LockResource(hResData);
     if ((hResInfo != NULL) && (hResData != NULL) && (pvRes != NULL) && DSParseWaveResource(pvRes, ppWaveHeader, ppbWaveData, pcbWaveSize))

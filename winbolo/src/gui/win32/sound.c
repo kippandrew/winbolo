@@ -98,7 +98,7 @@ bool soundSetup(HINSTANCE appInst, HWND appWnd) {
   isPlayable = TRUE;
   boloSounds = LoadLibrary(BOLO_SOUNDS_DLL);
   if (boloSounds == NULL) {
-    MessageBox(NULL, langGetText(STR_SOUNDERR_FILENOTFOUND), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+    MessageBoxA(NULL, langGetText(STR_SOUNDERR_FILENOTFOUND), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
     windowDisableSound();
     isPlayable = FALSE;
   }
@@ -106,7 +106,7 @@ bool soundSetup(HINSTANCE appInst, HWND appWnd) {
   if (boloSounds != NULL) {
     res = DirectSoundCreate(NULL, &lpDS,NULL);
     if (res == DSERR_ALLOCATED) {
-      MessageBox(NULL, langGetText(STR_SOUNDERR_HARDWAREINUSE), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_SOUNDERR_HARDWAREINUSE), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       FreeLibrary(boloSounds);
       boloSounds = NULL;
       windowDisableSound();
@@ -115,14 +115,14 @@ bool soundSetup(HINSTANCE appInst, HWND appWnd) {
       dsLoadOK = FALSE;
       returnValue = FALSE;
       isPlayable = FALSE;
-      MessageBox(NULL, langGetText(STR_SOUNDERR_CREATEFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_SOUNDERR_CREATEFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     } 
   }
   /* Set Co-op level */
   if (returnValue == TRUE && boloSounds != NULL) {
     res = lpDS->lpVtbl->SetCooperativeLevel(lpDS, appWnd, DSSCL_NORMAL);
     if (FAILED(res)) {
-      MessageBox(NULL, langGetText(STR_SOUNDERR_COOPFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_SOUNDERR_COOPFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     }
   }
@@ -136,7 +136,7 @@ bool soundSetup(HINSTANCE appInst, HWND appWnd) {
     desc.lpwfxFormat = NULL;
     res = lpDS->lpVtbl->CreateSoundBuffer(lpDS, &desc, &lpDSPrimary, NULL);
     if (FAILED(res)) {
-      MessageBox(NULL, langGetText(STR_SOUNDERR_PRIMARYBUFFFAIL), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_SOUNDERR_PRIMARYBUFFFAIL), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     } else {
       /* Set the format. Don't care if it fails because then it uses the default anyway */
@@ -181,7 +181,7 @@ bool soundSetup(HINSTANCE appInst, HWND appWnd) {
     
     if (lpDSBigExplosionFar == NULL || lpDSBigExplosionNear == NULL || lpDSBubbles == NULL || lpDSFarmingTreeFar == NULL || lpDSFarmingTreeNear == NULL || lpDSHitTankFar == NULL || lpDSHitTankNear == NULL || lpDSHitTankSelf == NULL || lpDSManBuildingFar == NULL || lpDSManBuildingNear == NULL || lpDSManDyingFar == NULL || lpDSManDyingNear == NULL || lpDSMineExplosionFar == NULL || lpDSMineExplosionNear == NULL || lpDSShootFar == NULL || lpDSShootNear == NULL || lpDSShootSelf == NULL || lpDSShotBuildingFar == NULL || lpDSShotBuildingNear == NULL || lpDSShotTreeFar == NULL || lpDSShotTreeNear == NULL || lpDSTankSinkingFar == NULL || lpDSManLayingMineNear == NULL || lpDSTankSinkingNear == NULL) {
       returnValue = FALSE;
-      MessageBox(NULL, langGetText(STR_SOUNDERR_LOADSOUNDFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_SOUNDERR_LOADSOUNDFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     }
 
   }

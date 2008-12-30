@@ -67,7 +67,7 @@ BOOL CALLBACK dialogSetNameCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, LP
     return FALSE;
     break;
   case WM_SHOWWINDOW:
-    SendDlgItemMessage(hWnd, IDC_EDITNAME, EM_SETSEL, 0, -1);
+    SendDlgItemMessageA(hWnd, IDC_EDITNAME, EM_SETSEL, 0, -1);
     SetFocus(GetDlgItem(hWnd, IDC_EDITNAME));
     break;
   case WM_CLOSE:
@@ -95,9 +95,9 @@ void dialogSetNameInit(HWND hWnd) {
   char playerName[FILENAME_MAX]; /* Player Name */
 
   /* Set language */
-  SetWindowText(hWnd, langGetText(STR_DLGSETNAME_TITLE));
-  SetDlgItemText(hWnd, IDC_BLURB, langGetText(STR_DLGSETNAME_BLURB));
-  SetDlgItemText(hWnd, IDOK, langGetText(STR_OK));
+  SetWindowTextA(hWnd, langGetText(STR_DLGSETNAME_TITLE));
+  SetDlgItemTextA(hWnd, IDC_BLURB, langGetText(STR_DLGSETNAME_BLURB));
+  SetDlgItemTextA(hWnd, IDOK, langGetText(STR_OK));
 
   /* Get the name */
   playerName[0] = '\0';
@@ -106,7 +106,7 @@ void dialogSetNameInit(HWND hWnd) {
   } else {
     gameFrontGetPlayerName(playerName);
   }
-  SendDlgItemMessage(hWnd, IDC_EDITNAME, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (playerName));
+  SendDlgItemMessageA(hWnd, IDC_EDITNAME, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (playerName));
   /* Center the window */
   winUtilCenterWindow(hWnd);
 }
@@ -141,9 +141,9 @@ void dialogSetNameDone(HWND hWnd) {
   newName[PLAYER_NAME_LAST-1] = '\0';
   utilStripName(newName);
   if (newName[0] == EMPTY_CHAR) {
-    MessageBox(hWnd, "Sorry, you can not leave this blank", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+    MessageBoxA(hWnd, "Sorry, you can not leave this blank", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
   } else if (newName[0] == '*') {
-    MessageBox(hWnd, "Sorry, names can not begin with a '*'", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+    MessageBoxA(hWnd, "Sorry, names can not begin with a '*'", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
   } else if (strcmp(oldName, newName) == 0) {
     /* Names are the same */
     closeDialog = TRUE;
@@ -153,7 +153,7 @@ void dialogSetNameDone(HWND hWnd) {
       if (changeOK == FALSE) {
         if (strcmp(oldName, newName) != 0) {
           /* Someone else in the game must have our name already - Can't change */
-          MessageBox(hWnd, langGetText(NETERR_PLAYERNAMEINUSE), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+          MessageBoxA(hWnd, langGetText(NETERR_PLAYERNAMEINUSE), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
         }
       } else {
         closeDialog = TRUE;

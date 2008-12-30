@@ -79,9 +79,9 @@ void dialogAboutInit(HWND hWnd) {
   char *text;
 
   text = langGetText(STR_OK);
-  SetDlgItemText(hWnd, IDOK, text);
+  SetDlgItemTextA(hWnd, IDOK, text);
   text = langGetText(STR_DLGABOUT_BLURB);
-  SetDlgItemText(hWnd, IDC_BLURB, text);
+  SetDlgItemTextA(hWnd, IDC_BLURB, text);
   text = langGetText(STR_DLGABOUT_TITLE);
-  SetWindowText(hWnd, text);
+  SetWindowTextA(hWnd, text);
 }

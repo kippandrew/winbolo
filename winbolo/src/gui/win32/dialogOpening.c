@@ -64,7 +64,7 @@ BOOL CALLBACK dialogOpeningCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LPA
       winUtilOpenHelpFile(windowGetInstance(), hWnd);
       break;
     case IDC_WBNSETUP:
-      DialogBox(windowGetInstance(), MAKEINTRESOURCE(IDD_WINBOLONET), hWnd, dialogWinbolonetCallback);
+      DialogBoxA(windowGetInstance(), MAKEINTRESOURCE(IDD_WINBOLONET), hWnd, dialogWinbolonetCallback);
       break;
     case IDC_LANG:
       gameFrontSetDlgState(openLang);
@@ -127,29 +127,29 @@ void dialogOpeningSetup(HWND hWnd) {
 
   /* Setup language */
   text = langGetText(STR_DLGOPENING_TEXT);
-  SetDlgItemText(hWnd, IDC_BLURB, text);
+  SetDlgItemTextA(hWnd, IDC_BLURB, text);
   text = langGetText(STR_DLGOPENING_OPTION0);
-  SetDlgItemText(hWnd, IDC_GAMETYPE00, text);
+  SetDlgItemTextA(hWnd, IDC_GAMETYPE00, text);
   text = langGetText(STR_DLGOPENING_OPTION1);
-  SetDlgItemText(hWnd, IDC_GAMETYPE01, text);
+  SetDlgItemTextA(hWnd, IDC_GAMETYPE01, text);
   text = langGetText(STR_DLGOPENING_OPTION2);
-  SetDlgItemText(hWnd, IDC_GAMETYPE02, text);
+  SetDlgItemTextA(hWnd, IDC_GAMETYPE02, text);
   text = langGetText(STR_DLGOPENING_OPTION3);
-  SetDlgItemText(hWnd, IDC_GAMETYPE4, text);
+  SetDlgItemTextA(hWnd, IDC_GAMETYPE4, text);
   text = langGetText(STR_DLGOPENING_OPTION4);
-  SetDlgItemText(hWnd, IDC_GAMETYPE3, text);
+  SetDlgItemTextA(hWnd, IDC_GAMETYPE3, text);
   text = langGetText(STR_DLGOPENING_SKIP);
-  SetDlgItemText(hWnd, IDC_SKIP_DIALOG, text);
+  SetDlgItemTextA(hWnd, IDC_SKIP_DIALOG, text);
   text = langGetText(STR_DLGOPENING_TITLE);
-  SetWindowText(hWnd, text);
+  SetWindowTextA(hWnd, text);
   text = langGetText(STR_DLGOPENING_BUTTON2);
-  SetDlgItemText(hWnd, IDCANCEL, text);
+  SetDlgItemTextA(hWnd, IDCANCEL, text);
   text = langGetText(STR_DLGOPENING_BUTTON3);
-  SetDlgItemText(hWnd, IDC_LANG, text);
+  SetDlgItemTextA(hWnd, IDC_LANG, text);
   text = langGetText(STR_DLGOPENING_BUTTON4);
-  SetDlgItemText(hWnd, IDC_OPENINGHELP, text);
+  SetDlgItemTextA(hWnd, IDC_OPENINGHELP, text);
   text = langGetText(STR_OK);
-  SetDlgItemText(hWnd, IDOK, text);
+  SetDlgItemTextA(hWnd, IDOK, text);
   gameFrontSetDlgState(openSetup);
   CheckDlgButton(hWnd, IDC_GAMETYPE01, BST_CHECKED);
 }

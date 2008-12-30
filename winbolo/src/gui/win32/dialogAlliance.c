@@ -94,11 +94,11 @@ void dialogAllianceInit(HWND hWnd) {
 
   allianceReqPlayerNum = 0;
   text = langGetText(STR_DLGALLIANCE_ACCEPT);
-  SetDlgItemText(hWnd, IDOK, text);
+  SetDlgItemTextA(hWnd, IDOK, text);
   text = langGetText(STR_DLGALLIANCE_DECLINE);
-  SetDlgItemText(hWnd, IDCANCEL, text);
+  SetDlgItemTextA(hWnd, IDCANCEL, text);
   text = langGetText(STR_DLGALLIANCE_TITLE);
-  SetWindowText(hWnd, text);
+  SetWindowTextA(hWnd, text);
 }
 
 /*********************************************************
@@ -127,7 +127,7 @@ void dialogAllianceSetName(HWND hWnd, HWND hParentWnd, char *playerName, BYTE pl
   text = langGetText(STR_DLGALLIANCE_BLURB);
   strcpy(output, playerName); 
   strcat(output, text);
-  SetDlgItemText(hWnd, IDC_LABEL, output);
+  SetDlgItemTextA(hWnd, IDC_LABEL, output);
  
   /* Position the window */
   zoomFactor = windowGetZoomFactor();

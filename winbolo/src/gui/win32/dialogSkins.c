@@ -78,7 +78,7 @@ BOOL CALLBACK dialogSkinsCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, LPAR
             /* Change it */
             dialogSkinsSetText(hWnd);
           } else {
-            MessageBox(NULL, "Unable to load Skin File", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+            MessageBoxA(NULL, "Unable to load Skin File", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
           }
         }
       }
@@ -211,26 +211,26 @@ void dialogSkinsSetText(HWND hWnd) {
   char skinsFile[MAX_PATH]; /* Used to load the skins ini file */
   
   /* Set dialog language text */
-  SetDlgItemText(hWnd, IDOK, langGetText(STR_OK));  
-  SetDlgItemText(hWnd, IDCANCEL, langGetText(STR_CANCEL));
-  SetDlgItemText(hWnd, IDC_SKINNAMES, langGetText(STR_DLGLANG_NAME_CAPTION));
-  SetDlgItemText(hWnd, IDC_SKINNOTESS, langGetText(STR_DLGLANG_NOTES_CAPTION));
-  SetDlgItemText(hWnd, IDC_SKINAUTHORS, langGetText(STR_DLGLANG_AUTHOR_CAPTION));
+  SetDlgItemTextA(hWnd, IDOK, langGetText(STR_OK));  
+  SetDlgItemTextA(hWnd, IDCANCEL, langGetText(STR_CANCEL));
+  SetDlgItemTextA(hWnd, IDC_SKINNAMES, langGetText(STR_DLGLANG_NAME_CAPTION));
+  SetDlgItemTextA(hWnd, IDC_SKINNOTESS, langGetText(STR_DLGLANG_NOTES_CAPTION));
+  SetDlgItemTextA(hWnd, IDC_SKINAUTHORS, langGetText(STR_DLGLANG_AUTHOR_CAPTION));
   
   if (skinsIsLoaded() == TRUE) {
     skinsGetSkinDirectory(skinsFile);
     strcat(skinsFile, "skin.ini");
     GetPrivateProfileString("Skin", "Name", "N/A", buff, FILENAME_MAX, skinsFile);
-    SetDlgItemText(hWnd, IDC_SKINNAME, buff);
+    SetDlgItemTextA(hWnd, IDC_SKINNAME, buff);
     GetPrivateProfileString("Skin", "Author", "N/A", buff, FILENAME_MAX, skinsFile);
-    SetDlgItemText(hWnd, IDC_SKINAUTHOR, buff);
+    SetDlgItemTextA(hWnd, IDC_SKINAUTHOR, buff);
     GetPrivateProfileString("Skin", "Notes", "N/A", buff, FILENAME_MAX, skinsFile);
-    SetDlgItemText(hWnd, IDC_SKINNOTES, buff);
+    SetDlgItemTextA(hWnd, IDC_SKINNOTES, buff);
   } else {
-    SetDlgItemText(hWnd, IDC_SKINNAME, langGetText(STR_DLGLANG_NAME));
-    SetDlgItemText(hWnd, IDC_SKINAUTHOR, langGetText(STR_DLGLANG_AUTHOR));
-    SetDlgItemText(hWnd, IDC_SKINNOTES, langGetText(STR_DLGLANG_NOTES));
+    SetDlgItemTextA(hWnd, IDC_SKINNAME, langGetText(STR_DLGLANG_NAME));
+    SetDlgItemTextA(hWnd, IDC_SKINAUTHOR, langGetText(STR_DLGLANG_AUTHOR));
+    SetDlgItemTextA(hWnd, IDC_SKINNOTES, langGetText(STR_DLGLANG_NOTES));
   }
-  SetDlgItemText(hWnd, IDC_SKINDEFAULT, langGetText(STR_DLGSKIN_DEFAULTNOTE));
-  SetWindowText(hWnd, langGetText(STR_DLGSKIN_TITLE));
+  SetDlgItemTextA(hWnd, IDC_SKINDEFAULT, langGetText(STR_DLGSKIN_DEFAULTNOTE));
+  SetWindowTextA(hWnd, langGetText(STR_DLGSKIN_TITLE));
 }

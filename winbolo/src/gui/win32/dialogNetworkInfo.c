@@ -88,16 +88,16 @@ BOOL CALLBACK dialogNetInfoCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, LP
 void dialogNetInfoSetup(HWND hWnd) {
   char str[FILENAME_MAX]; /* Our address as a string */
   /* Setup languages */
-  SetWindowText(hWnd, langGetText(STR_DLGNETINFO_TITLE));
-  SetDlgItemText(hWnd, IDC_SERVERS, langGetText(STR_DLGNETINFO_SERVERADDRESS));
-  SetDlgItemText(hWnd, IDC_THISADDRESSS, langGetText(STR_DLGNETINFO_THISGAMEADDRESS));
-  SetDlgItemText(hWnd, IDC_SERVERPINGS, langGetText(STR_DLGNETINFO_SERVERPING));
-  SetDlgItemText(hWnd, IDC_PPSPLS, langGetText(STR_DLGNETINFO_PACKETS));
-  SetDlgItemText(hWnd, IDC_NETSTATUSS, langGetText(STR_DLGNETINFO_STATUS));
-  SetDlgItemText(hWnd, IDC_NETERRORSS, langGetText(STR_DLGNETINFO_ERRORS));
+  SetWindowTextA(hWnd, langGetText(STR_DLGNETINFO_TITLE));
+  SetDlgItemTextA(hWnd, IDC_SERVERS, langGetText(STR_DLGNETINFO_SERVERADDRESS));
+  SetDlgItemTextA(hWnd, IDC_THISADDRESSS, langGetText(STR_DLGNETINFO_THISGAMEADDRESS));
+  SetDlgItemTextA(hWnd, IDC_SERVERPINGS, langGetText(STR_DLGNETINFO_SERVERPING));
+  SetDlgItemTextA(hWnd, IDC_PPSPLS, langGetText(STR_DLGNETINFO_PACKETS));
+  SetDlgItemTextA(hWnd, IDC_NETSTATUSS, langGetText(STR_DLGNETINFO_STATUS));
+  SetDlgItemTextA(hWnd, IDC_NETERRORSS, langGetText(STR_DLGNETINFO_ERRORS));
 
   netGetOurAddressStr(str);
-  SendDlgItemMessage(hWnd, IDC_THISADDRESS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+  SendDlgItemMessageA(hWnd, IDC_THISADDRESS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
   timerNetInfo = SetTimer(hWnd, timerNetInfo, SECOND, NULL);
   dialogNetInfoUpdate(hWnd);
 }
@@ -121,15 +121,15 @@ void dialogNetInfoUpdate(HWND hWnd) {
 
   /* Get addresses */
   netGetServerAddressStr(str);
-  SendDlgItemMessage(hWnd, IDC_SERVER, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+  SendDlgItemMessageA(hWnd, IDC_SERVER, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
   /* Get data */
   netGetStats(str, &ping, &ppsec, &numErrors);
   /* Print data items */
-  SendDlgItemMessage(hWnd, IDC_NETSTATUS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+  SendDlgItemMessageA(hWnd, IDC_NETSTATUS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
   sprintf(str, "%i", ping);
-  SendDlgItemMessage(hWnd, IDC_PING, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+  SendDlgItemMessageA(hWnd, IDC_PING, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
   sprintf(str, "%i", ppsec);
-  SendDlgItemMessage(hWnd, IDC_PACKETSPERSECOND, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+  SendDlgItemMessageA(hWnd, IDC_PACKETSPERSECOND, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
   sprintf(str, "%i", numErrors);
-  SendDlgItemMessage(hWnd, IDC_NETERRORS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+  SendDlgItemMessageA(hWnd, IDC_NETERRORS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
 }

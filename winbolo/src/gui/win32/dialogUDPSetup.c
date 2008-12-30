@@ -88,12 +88,12 @@ BOOL CALLBACK dialogUdpSetupCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LP
       }
 
       if (bad == TRUE || udp == myUdp) {
-        MessageBox(NULL, langGetText(STR_ERR_DLGTCP_PORTS), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+        MessageBoxA(NULL, langGetText(STR_ERR_DLGTCP_PORTS), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
       } else if (dialogUdpSetupDone(hWnd, FALSE) == TRUE) {
         gameFrontSetDlgState(openUdpSetup);
         EndDialog(hWnd,TRUE);
       } else {
-        MessageBox(hWnd, langGetText(STR_ERR_DLGTCP_NOTRIGHT), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+        MessageBoxA(hWnd, langGetText(STR_ERR_DLGTCP_NOTRIGHT), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
       }
       }
       break;
@@ -103,7 +103,7 @@ BOOL CALLBACK dialogUdpSetupCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LP
         gameFrontSetDlgState(openUdpJoin);
         EndDialog(hWnd,TRUE);
       } else {
-        MessageBox(hWnd, langGetText(STR_ERR_DLGTCP_NOTRIGHT), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+        MessageBoxA(hWnd, langGetText(STR_ERR_DLGTCP_NOTRIGHT), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
       }
       break;
     case ID_REJOIN:
@@ -113,7 +113,7 @@ BOOL CALLBACK dialogUdpSetupCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LP
         gameFrontSetDlgState(openUdpJoin);
         EndDialog(hWnd,TRUE);
       } else {
-        MessageBox(hWnd, langGetText(STR_ERR_DLGTCP_NOTRIGHT), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+        MessageBoxA(hWnd, langGetText(STR_ERR_DLGTCP_NOTRIGHT), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
       }
     default:
       break;
@@ -171,7 +171,7 @@ BOOL CALLBACK dialogUdpSetupIpCallback(HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
           count++;
         }
         str[count2] = '\0';
-        SetDlgItemText(dlgWnd, IDC_EDITIP, str);
+        SetDlgItemTextA(dlgWnd, IDC_EDITIP, str);
         /* Get the port */
         count++;
         count2 = 0;
@@ -184,7 +184,7 @@ BOOL CALLBACK dialogUdpSetupIpCallback(HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
             count++;
           }
           str[count2] = '\0';
-          SetDlgItemText(dlgWnd, IDC_UDP, str);
+          SetDlgItemTextA(dlgWnd, IDC_UDP, str);
         }
         GlobalUnlock(dataPtr);
         CloseClipboard();
@@ -217,31 +217,31 @@ void dialogUdpSetupInit(HWND hWnd) {
   char str[FILENAME_MAX];  /* Used to hold str of UDP */
 
   /* Set language */
-  SetWindowText(hWnd, langGetText(STR_DLGTCP_TITLE));
-  SetDlgItemText(hWnd, IDC_BLURB, langGetText(STR_DLGTCP_BLURB));
-  SetDlgItemText(hWnd, IDCANCEL, langGetText(STR_CANCEL));
-  SetDlgItemText(hWnd, IDC_TRACKER, langGetText(STR_DLGTCP_TRACKERSETUP));
-  SetDlgItemText(hWnd, ID_JOIN, langGetText(STR_DLGTCP_JOIN));
-  SetDlgItemText(hWnd, IDC_NEW, langGetText(STR_DLGTCP_NEW));
-  SetDlgItemText(hWnd, IDC_CHECK_REMEMBER, langGetText(STR_DLGTCP_REMEMBER));
-  SetDlgItemText(hWnd, IDC_ADDRESSS, langGetText(STR_DLGTCP_MACHINENAME));
-  SetDlgItemText(hWnd, IDC_THEREUDPS, langGetText(STR_DLGTCP_THEREUDP));
-  SetDlgItemText(hWnd, IDC_OURUDPS, langGetText(STR_DLGTCP_USUDP));
-  SetDlgItemText(hWnd, IDC_PLAYERNAMES, langGetText(STR_DLGTCP_NAME));
-  SetDlgItemText(hWnd, IDC_NEWS, langGetText(STR_DLGTCP_NEWBLURB));
-  SetDlgItemText(hWnd, IDC_JOINS, langGetText(STR_DLGTCP_JOINBLURB));
-  SetDlgItemText(hWnd, IDC_REJOINS, langGetText(STR_DLGTCP_REJOINBLURB));
-  SetDlgItemText(hWnd, ID_REJOIN, langGetText(STR_DLGTCP_REJOIN));
+  SetWindowTextA(hWnd, langGetText(STR_DLGTCP_TITLE));
+  SetDlgItemTextA(hWnd, IDC_BLURB, langGetText(STR_DLGTCP_BLURB));
+  SetDlgItemTextA(hWnd, IDCANCEL, langGetText(STR_CANCEL));
+  SetDlgItemTextA(hWnd, IDC_TRACKER, langGetText(STR_DLGTCP_TRACKERSETUP));
+  SetDlgItemTextA(hWnd, ID_JOIN, langGetText(STR_DLGTCP_JOIN));
+  SetDlgItemTextA(hWnd, IDC_NEW, langGetText(STR_DLGTCP_NEW));
+  SetDlgItemTextA(hWnd, IDC_CHECK_REMEMBER, langGetText(STR_DLGTCP_REMEMBER));
+  SetDlgItemTextA(hWnd, IDC_ADDRESSS, langGetText(STR_DLGTCP_MACHINENAME));
+  SetDlgItemTextA(hWnd, IDC_THEREUDPS, langGetText(STR_DLGTCP_THEREUDP));
+  SetDlgItemTextA(hWnd, IDC_OURUDPS, langGetText(STR_DLGTCP_USUDP));
+  SetDlgItemTextA(hWnd, IDC_PLAYERNAMES, langGetText(STR_DLGTCP_NAME));
+  SetDlgItemTextA(hWnd, IDC_NEWS, langGetText(STR_DLGTCP_NEWBLURB));
+  SetDlgItemTextA(hWnd, IDC_JOINS, langGetText(STR_DLGTCP_JOINBLURB));
+  SetDlgItemTextA(hWnd, IDC_REJOINS, langGetText(STR_DLGTCP_REJOINBLURB));
+  SetDlgItemTextA(hWnd, ID_REJOIN, langGetText(STR_DLGTCP_REJOIN));
   
   gameFrontGetUdpOptions(pn, add, &targetUdp, &myUdp);
   
   /* Set the textboxes up */
   itoa(targetUdp, str, BASE_10);
-  SetDlgItemText(hWnd, IDC_UDP, str);
+  SetDlgItemTextA(hWnd, IDC_UDP, str);
   itoa(myUdp, str, BASE_10);
-  SetDlgItemText(hWnd, IDC_MYUDP, str);
-  SetDlgItemText(hWnd, IDC_PLAYERNAME, pn);
-  SetDlgItemText(hWnd, IDC_EDITIP, add);
+  SetDlgItemTextA(hWnd, IDC_MYUDP, str);
+  SetDlgItemTextA(hWnd, IDC_PLAYERNAME, pn);
+  SetDlgItemTextA(hWnd, IDC_EDITIP, add);
 
   if (gameFrontGetRemeber() == TRUE) {
     CheckDlgButton(hWnd, IDC_CHECK_REMEMBER, BST_CHECKED);
@@ -251,7 +251,7 @@ void dialogUdpSetupInit(HWND hWnd) {
   dlgElemWnd = GetDlgItem(hWnd, IDC_EDITIP);
   oldWndProc = (FARPROC) SetWindowLong(dlgElemWnd, GWL_WNDPROC, (DWORD)dialogUdpSetupIpCallback);
   if (oldWndProc == 0) {
-    MessageBox(hWnd, langGetText(STR_ERR_DLGTCP_SUBCLASS), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(hWnd, langGetText(STR_ERR_DLGTCP_SUBCLASS), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
   }
 }
 
@@ -284,7 +284,7 @@ bool dialogUdpSetupDone(HWND hWnd, bool isJoin) {
   if (strlen(pn) == 0) {
     returnValue = FALSE;
   } else if (pn[0] == '*') {
-    MessageBox(hWnd, "Sorry, names can not begin with a '*'", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+    MessageBoxA(hWnd, "Sorry, names can not begin with a '*'", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
 	returnValue = FALSE;
   }
 

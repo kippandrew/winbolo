@@ -127,14 +127,14 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
   res = DirectDrawCreate(NULL, &lpDD, NULL);
   if (FAILED(res)) {
     returnValue = FALSE;
-    MessageBox(NULL, langGetText(STR_DRAWERROR_CREATEOBJECT), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, langGetText(STR_DRAWERROR_CREATEOBJECT), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
   }
   
   /* Set the co-op level */
   if (returnValue == TRUE) {
     res = lpDD->lpVtbl->SetCooperativeLevel(lpDD,NULL,DDSCL_NORMAL);
     if (FAILED(res)) {
-      MessageBox(NULL, langGetText(STR_DRAWERROR_SETCOOPLEVEL), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_DRAWERROR_SETCOOPLEVEL), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     }
   }
@@ -147,7 +147,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     primDesc.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
     res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSPrimary, NULL);
     if (FAILED(res)) {
-      MessageBox(NULL, langGetText(STR_DRAWERROR_CREATEPRIMARY), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_DRAWERROR_CREATEPRIMARY), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     }
   }
@@ -156,7 +156,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
   ddpf.dwSize = sizeof(ddpf);
   res = lpDDSPrimary->lpVtbl->GetPixelFormat(lpDDSPrimary, &ddpf);
   if (FAILED(res)) {
-    MessageBox(NULL, langGetText(STR_DRAWERROR_GETPIXELFORMAT), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, langGetText(STR_DRAWERROR_GETPIXELFORMAT), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     returnValue = FALSE;
   }
 
@@ -165,12 +165,12 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
   ddsd.dwSize = sizeof( ddsd );
   if (FAILED(lpDDSPrimary->lpVtbl->GetSurfaceDesc(lpDDSPrimary, &ddsd))) {
     returnValue = FALSE;
-    MessageBox(NULL, langGetText(STR_DRAWERROR_GETDESC), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, langGetText(STR_DRAWERROR_GETDESC), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
   }
   
   if (( ddsd.ddpfPixelFormat.dwRGBBitCount < 16 )) { /* FIXME: Was also (ddsd.ddpfPixelFormat.dwFlags != DDPF_RGB) || but taken out as it stops matrox G4's from working in 32bit colour mode */
     returnValue = FALSE;
-    MessageBox(NULL, langGetText(STR_DRAWERROR_TOOFEWCOLOURS), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+    MessageBoxA(NULL, langGetText(STR_DRAWERROR_TOOFEWCOLOURS), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
   }
 
   /* End Palette Checking Stuff */
@@ -187,7 +187,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     primDesc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
     res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSBackBuffer, NULL);
     if (FAILED(res)) {
-      MessageBox(NULL, langGetText(STR_DRAWERROR_BUFFERCREATE), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_DRAWERROR_BUFFERCREATE), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     }
   }
@@ -205,7 +205,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     primDesc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
     res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSTiles, NULL);
     if (FAILED(res)) {
-      MessageBox(NULL, "Creating DD Tile buffer and copying resource into it Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "Creating DD Tile buffer and copying resource into it Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     } else {
       /* Copy the bitmap into it */
@@ -243,7 +243,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
         lpDDSTiles->lpVtbl->Restore(lpDDSTiles);
         res = lpDDSTiles->lpVtbl->GetDC(lpDDSTiles,&hDDSTilesDC);
         if (res != DD_OK) {
-          MessageBox(NULL, langGetText(STR_DRAWERROR_GETDCFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+          MessageBoxA(NULL, langGetText(STR_DRAWERROR_GETDCFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
         }
         if (usingDoubleSkin == FALSE) {
           StretchBlt(hDDSTilesDC, 0, 0, zoomFactor * TILE_FILE_X, zoomFactor * TILE_FILE_Y, hTilesDC, 0, 0, TILE_FILE_X, TILE_FILE_Y, SRCCOPY);
@@ -254,7 +254,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
         DeleteDC(hTilesDC);
         DeleteObject(hTiles);
       } else {
-        MessageBox(NULL, "Creating DD Tile buffer and copying resource into it Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+        MessageBoxA(NULL, "Creating DD Tile buffer and copying resource into it Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
         returnValue = FALSE;
       }
     }
@@ -272,7 +272,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSTankLabels, NULL);
     if (FAILED(res)) {
       returnValue = FALSE;
-      MessageBox(NULL, "Creating DD Tank Label Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "Creating DD Tank Label Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     }
   }
 
@@ -292,16 +292,16 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     }
     res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSMessages, NULL);
     if (res == DDERR_OUTOFMEMORY ) {
-      MessageBox(NULL, "Creating No Mem", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "Creating No Mem", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     } else if (res ==DDERR_OUTOFVIDEOMEMORY) {
-      MessageBox(NULL, "Creating No Vide Mem", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "Creating No Vide Mem", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     } else if (res == DDERR_INVALIDPARAMS ) {
-      MessageBox(NULL, "Bad Parms", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "Bad Parms", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     } else if (FAILED(res)) {
-      MessageBox(NULL, "Creating DD Messages Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "Creating DD Messages Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     } else {
       /* Fill the surface black */
@@ -324,7 +324,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     primDesc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
     res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSManStatus, NULL);
     if (FAILED(res)) {
-      MessageBox(NULL, "Creating DD LGM Status Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "Creating DD LGM Status Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     } else {
       /* Fill the surface black */
@@ -347,7 +347,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     primDesc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
     res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSBasesStatus, NULL);
     if (FAILED(res)) {
-      MessageBox(NULL, "Creating DD Bases Status Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "Creating DD Bases Status Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     } else {
       /* Fill the surface black */
@@ -379,7 +379,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     primDesc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
     res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSPillsStatus, NULL);
     if (FAILED(res)) {
-      MessageBox(NULL, "Creating DD Tanks Status Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "Creating DD Tanks Status Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     } else {
       /* Fill the surface black */
@@ -412,7 +412,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     primDesc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
     res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSTankStatus, NULL);
     if (FAILED(res)) {
-      MessageBox(NULL, "Creating DD Pills Status Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "Creating DD Pills Status Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     } else {
       /* Fill the surface black */
@@ -438,7 +438,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
   if (returnValue == TRUE) {
     res = lpDD->lpVtbl->CreateClipper(lpDD, 0, &lpDDClipper, 0);
     if (FAILED(res)) {
-      MessageBox(NULL, langGetText(STR_DRAWERROR_CLIPPERFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_DRAWERROR_CLIPPERFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     }
   }
@@ -447,7 +447,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
   if (returnValue == TRUE) {
     res = lpDDClipper->lpVtbl->SetHWnd(lpDDClipper, 0, appWnd);
     if (FAILED(res)) {
-      MessageBox(NULL, langGetText(STR_DRAWERROR_CLIPPERFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_DRAWERROR_CLIPPERFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     }
   }
@@ -456,7 +456,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
   if (returnValue == TRUE) {
     res = lpDDSPrimary->lpVtbl->SetClipper(lpDDSPrimary, lpDDClipper);
     if (FAILED(res)) {
-      MessageBox(NULL, "Associating DD Clipper with surface Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "Associating DD Clipper with surface Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
       lpDDClipper = NULL;
     }
@@ -475,7 +475,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
 
   hManBrush = CreateBrushIndirect(&lb);
   if (hManBrush == NULL) {
-    MessageBox(NULL, langGetText(STR_DRAWERROR_BRUSH), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, langGetText(STR_DRAWERROR_BRUSH), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     returnValue = FALSE;
   }
   lb.lbStyle = BS_HOLLOW;
@@ -484,14 +484,14 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
 
   hNarrowBrush = CreateBrushIndirect(&lb);
   if (hManBrush == NULL) {
-    MessageBox(NULL, langGetText(STR_DRAWERROR_BRUSH), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, langGetText(STR_DRAWERROR_BRUSH), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     returnValue = FALSE;
   }
 
 
   hManPen = CreatePen(PS_SOLID, 0, 0x00FFFFFF);
   if (hManPen == NULL) {
-    MessageBox(NULL, langGetText(STR_DRAWERROR_PEN), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, langGetText(STR_DRAWERROR_PEN), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     returnValue = FALSE;
   }
 
@@ -600,10 +600,10 @@ void drawNetFailed() {
     SetTextColor(hDC, RGB(255, 255, 255));
     text = "Network Failed - Resyncing";
     textLen = strlen(text);
-    DrawText(hDC, text, textLen, &textRect, (DT_LEFT | DT_NOCLIP | DT_CALCRECT | DT_NOPREFIX | DT_SINGLELINE));
-    DrawText(hDC, text, textLen, &textRect, (DT_LEFT | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE));
+    DrawTextA(hDC, text, textLen, &textRect, (DT_LEFT | DT_NOCLIP | DT_CALCRECT | DT_NOPREFIX | DT_SINGLELINE));
+    DrawTextA(hDC, text, textLen, &textRect, (DT_LEFT | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE));
     if (FAILED(lpDDSTankLabels->lpVtbl->ReleaseDC(lpDDSTankLabels, hDC))) {
-      MessageBox(NULL, "This should never happen - Error Releasing DC for drawing Pillbox view", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "This should never happen - Error Releasing DC for drawing Pillbox view", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     }
     x = zoomFactor * 3 * TILE_SIZE_X;
     y = zoomFactor * 8 * TILE_SIZE_Y;
@@ -722,7 +722,7 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
         output.right = zoomFactor * output.left + zoomFactor * TILE_SIZE_X;
         output.top = (zoomFactor * y * TILE_SIZE_Y);
         output.bottom = output.top + zoomFactor * TILE_SIZE_Y;
-        DrawText(hDC, str, strlen(str), &output, (DT_TOP | DT_NOCLIP));
+        DrawTextA(hDC, str, strlen(str), &output, (DT_TOP | DT_NOCLIP));
         lpDDSBackBuffer->lpVtbl->ReleaseDC(lpDDSBackBuffer, hDC);
       } 
     }
@@ -737,7 +737,7 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
         output.right = output.left + zoomFactor * TILE_SIZE_X;
         output.top = (zoomFactor * y * TILE_SIZE_Y);
         output.bottom = output.top + zoomFactor * TILE_SIZE_Y;
-        DrawText(hDC, str, strlen(str), &output, (DT_TOP | DT_NOCLIP));
+        DrawTextA(hDC, str, strlen(str), &output, (DT_TOP | DT_NOCLIP));
         lpDDSBackBuffer->lpVtbl->ReleaseDC(lpDDSBackBuffer, hDC);
       } 
     }
@@ -1335,7 +1335,7 @@ void drawStatusBase(BYTE baseNum, baseAlliance ba, bool labels) {
       fontSelectTiny(hDC);
       SetBkColor(hDC, RGB(0,0,0));
       SetTextColor(hDC, RGB(255,255,255));
-      DrawText(hDC, str, strlen(str), &dest, (DT_TOP | DT_NOCLIP));
+      DrawTextA(hDC, str, strlen(str), &dest, (DT_TOP | DT_NOCLIP));
       lpDDSBasesStatus->lpVtbl->ReleaseDC(lpDDSBasesStatus, hDC);
     } 
   }
@@ -1497,7 +1497,7 @@ void drawStatusPillbox(BYTE pillNum, pillAlliance pb, bool labels) {
       fontSelectTiny(hDC);
       SetBkColor(hDC, RGB(0,0,0));
       SetTextColor(hDC, RGB(255,255,255));
-      DrawText(hDC, str, strlen(str), &dest, (DT_TOP | DT_NOCLIP));
+      DrawTextA(hDC, str, strlen(str), &dest, (DT_TOP | DT_NOCLIP));
       lpDDSPillsStatus->lpVtbl->ReleaseDC(lpDDSPillsStatus, hDC);
     } 
   }
@@ -1912,12 +1912,12 @@ void drawMessages(int xValue, int yValue, char *top, char *bottom) {
     fontSelect(hDC);
     SetBkColor(hDC, RGB(0,0,0));
     SetTextColor(hDC, RGB(255,255,255));
-    DrawText(hDC, top, strlen(top), &dest, (DT_TOP | DT_RIGHT | DT_NOCLIP | DT_NOPREFIX));
+    DrawTextA(hDC, top, strlen(top), &dest, (DT_TOP | DT_RIGHT | DT_NOCLIP | DT_NOPREFIX));
     dest.top = (zf * MESSAGE_TEXT_HEIGHT);
     dest.bottom = (zf * MESSAGE_HEIGHT);
     dest.left = 0;
     dest.right = (zf * MESSAGE_WIDTH);
-    DrawText(hDC, bottom, strlen(bottom), &dest, (DT_BOTTOM | DT_RIGHT | DT_NOCLIP | DT_NOPREFIX));
+    DrawTextA(hDC, bottom, strlen(bottom), &dest, (DT_BOTTOM | DT_RIGHT | DT_NOCLIP | DT_NOPREFIX));
     lpDDSMessages->lpVtbl->ReleaseDC(lpDDSMessages, hDC);
 
     /* Blt the messages buffer to the primary window */
@@ -2423,8 +2423,8 @@ void drawKillsDeaths(int xValue, int yValue, int kills, int deaths) {
     fontSelect(hDC);
     SetBkColor(hDC, RGB(0,0,0));
     SetTextColor(hDC, RGB(255,255,255));
-    DrawText(hDC, str, strlen(str), &textRect, (DT_CALCRECT | DT_TOP | DT_NOCLIP));
-    DrawText(hDC, str, strlen(str), &textRect, (DT_TOP | DT_NOCLIP));
+    DrawTextA(hDC, str, strlen(str), &textRect, (DT_CALCRECT | DT_TOP | DT_NOCLIP));
+    DrawTextA(hDC, str, strlen(str), &textRect, (DT_TOP | DT_NOCLIP));
     lpDDSTankLabels->lpVtbl->ReleaseDC(lpDDSTankLabels, hDC);
     dest.top = yValue + (zf * STATUS_KILLS_TOP);
     dest.bottom = dest.top + textRect.bottom;
@@ -2444,8 +2444,8 @@ void drawKillsDeaths(int xValue, int yValue, int kills, int deaths) {
     fontSelect(hDC);
     SetBkColor(hDC, RGB(0,0,0));
     SetTextColor(hDC, RGB(255,255,255));
-    DrawText(hDC, str, strlen(str), &textRect, (DT_CALCRECT | DT_TOP | DT_NOCLIP));
-    DrawText(hDC, str, strlen(str), &textRect, (DT_TOP | DT_NOCLIP));
+    DrawTextA(hDC, str, strlen(str), &textRect, (DT_CALCRECT | DT_TOP | DT_NOCLIP));
+    DrawTextA(hDC, str, strlen(str), &textRect, (DT_TOP | DT_NOCLIP));
     lpDDSTankLabels->lpVtbl->ReleaseDC(lpDDSTankLabels, hDC);
     dest.top = yValue + (zf * STATUS_DEATHS_TOP);
     dest.bottom = dest.top + textRect.bottom;
@@ -2981,7 +2981,7 @@ void drawStartDelay(RECT *rcWindow, long srtDelay) {
     fontSelect(hDC);
     SetBkColor(hDC, RGB(0,0,0));
     SetTextColor(hDC, RGB(255,255,255));
-    DrawText(hDC, str, strlen(str), &src, (DT_CENTER | DT_VCENTER | DT_NOCLIP));
+    DrawTextA(hDC, str, strlen(str), &src, (DT_CENTER | DT_VCENTER | DT_NOCLIP));
     lpDDSBackBuffer->lpVtbl->ReleaseDC(lpDDSBackBuffer, hDC);
   }
 
@@ -3005,15 +3005,15 @@ void drawTankLabelsCalcSize(char *str, BYTE playerNum, BYTE zf) {
   drawPlayerLens[playerNum][2] = drawPlayerLens[playerNum][0];
 
   if (SUCCEEDED(lpDDSTankLabels->lpVtbl->GetDC(lpDDSTankLabels, &hDC))) {
-    DrawText(hDC, str, drawPlayerLens[playerNum][0], &textRect, (DT_LEFT | DT_NOCLIP | DT_CALCRECT | DT_NOPREFIX | DT_SINGLELINE));
+    DrawTextA(hDC, str, drawPlayerLens[playerNum][0], &textRect, (DT_LEFT | DT_NOCLIP | DT_CALCRECT | DT_NOPREFIX | DT_SINGLELINE));
     while (textRect.right > maxWidth && drawPlayerLens[playerNum][0] > 0) {
       textRect.right = 0;
       str[drawPlayerLens[playerNum][0]-1] = '\0';
       drawPlayerLens[playerNum][0] -= 1;
-      DrawText(hDC, str, drawPlayerLens[playerNum][0], &textRect, (DT_LEFT | DT_NOCLIP | DT_CALCRECT | DT_NOPREFIX | DT_SINGLELINE));
+      DrawTextA(hDC, str, drawPlayerLens[playerNum][0], &textRect, (DT_LEFT | DT_NOCLIP | DT_CALCRECT | DT_NOPREFIX | DT_SINGLELINE));
     }
     if (FAILED(lpDDSTankLabels->lpVtbl->ReleaseDC(lpDDSTankLabels, hDC))) {
-      MessageBox(NULL, langGetText(STR_DRAWERROR_RELEASEDC), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_DRAWERROR_RELEASEDC), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     }
     drawPlayerLens[playerNum][1] = zf;
   }
@@ -3063,10 +3063,10 @@ void drawTankLabel(char *str, BYTE playerNum, int mx, int my, BYTE px, BYTE py) 
       SetBkColor(hDC, RGB(0,255,0));
       SetTextColor(hDC, RGB(255, 255, 255));
 
-      DrawText(hDC, str, drawPlayerLens[playerNum][0], &textRect, (DT_LEFT | DT_NOCLIP | DT_CALCRECT | DT_NOPREFIX | DT_SINGLELINE));    
-      DrawText(hDC, str, drawPlayerLens[playerNum][0], &textRect, (DT_LEFT | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE));
+      DrawTextA(hDC, str, drawPlayerLens[playerNum][0], &textRect, (DT_LEFT | DT_NOCLIP | DT_CALCRECT | DT_NOPREFIX | DT_SINGLELINE));    
+      DrawTextA(hDC, str, drawPlayerLens[playerNum][0], &textRect, (DT_LEFT | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE));
       if (FAILED(lpDDSTankLabels->lpVtbl->ReleaseDC(lpDDSTankLabels, hDC))) {
-        MessageBox(NULL, langGetText(STR_DRAWERROR_RELEASEDC), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+        MessageBoxA(NULL, langGetText(STR_DRAWERROR_RELEASEDC), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       }
       x = (mx+1) * zf * TILE_SIZE_X + zf * (px+1);
       y = my * zf * TILE_SIZE_Y + zf * py;
@@ -3117,10 +3117,10 @@ void drawPillInView() {
     SetTextColor(hDC, RGB(255, 255, 255));
     text = langGetText(STR_DRAW_PILLBOXVIEW);
     textLen = strlen(text);
-    DrawText(hDC, text, textLen, &textRect, (DT_LEFT | DT_NOCLIP | DT_CALCRECT | DT_NOPREFIX | DT_SINGLELINE));
-    DrawText(hDC, text, textLen, &textRect, (DT_LEFT | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE));
+    DrawTextA(hDC, text, textLen, &textRect, (DT_LEFT | DT_NOCLIP | DT_CALCRECT | DT_NOPREFIX | DT_SINGLELINE));
+    DrawTextA(hDC, text, textLen, &textRect, (DT_LEFT | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE));
     if (FAILED(lpDDSTankLabels->lpVtbl->ReleaseDC(lpDDSTankLabels, hDC))) {
-      MessageBox(NULL, "This should never happen - Error Releasing DC for drawing Pillbox view", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, "This should never happen - Error Releasing DC for drawing Pillbox view", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     }
     x = zoomFactor * TILE_SIZE_X;
     y = zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y;
@@ -3193,7 +3193,7 @@ void drawRestore(void) {
       lpDDSTiles->lpVtbl->Restore(lpDDSTiles);
       res = lpDDSTiles->lpVtbl->GetDC(lpDDSTiles,&hDDSTilesDC);
       if (res != DD_OK) {
-        MessageBox(NULL, langGetText(STR_DRAWERROR_GETDCFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+        MessageBoxA(NULL, langGetText(STR_DRAWERROR_GETDCFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       }
       if (usingDoubleSkin == TRUE) {
         BitBlt(hDDSTilesDC, 0, 0, 2 * TILE_FILE_X, 2 * TILE_FILE_Y, hTilesDC, 0, 0, SRCCOPY);

@@ -90,7 +90,7 @@ bool netClientCreate(unsigned short port) {
   /* Startup Winsock */
   ret = WSAStartup(MAKEWORD(2,0), &wsaData);
   if (ret != 0) {
-    MessageBox(NULL, langGetText(STR_NETCLIENTERR_WINSOCKFAILSTARTUP), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, langGetText(STR_NETCLIENTERR_WINSOCKFAILSTARTUP), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     returnValue = FALSE;
   }
   /* Create socket */
@@ -98,7 +98,7 @@ bool netClientCreate(unsigned short port) {
     myUdpSock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
     if (myUdpSock == INVALID_SOCKET) {
       returnValue = FALSE;
-      MessageBox(NULL, langGetText(STR_NETCLIENTERR_CREATEUDPFAIL), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_NETCLIENTERR_CREATEUDPFAIL), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     } 
   }
 
@@ -114,7 +114,7 @@ bool netClientCreate(unsigned short port) {
     ret = bind(myUdpSock, (struct sockaddr *)&addr, sizeof(addr));
     if (ret != 0) {
       returnValue = FALSE;
-      MessageBox(NULL, langGetText(STR_NETCLIENTERR_BINDUDPFAIL), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+      MessageBoxA(NULL, langGetText(STR_NETCLIENTERR_BINDUDPFAIL), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
     } else {
       /* Get what port we were assigned */
       if (getsockname(myUdpSock, (struct sockaddr*) &name, &nameLen) == 0) {
@@ -377,7 +377,7 @@ bool netClientUdpPingServer(BYTE *buff, int *len, bool wantCrc, bool addNonRelia
     *len = recvfrom(myUdpSock, (char *) buff, MAX_UDPPACKET_SIZE, 0, (struct sockaddr *)&from, &fromlen);
 /*      if (*len == SOCKET_ERROR) {
       if (WSAGetLastError() != WSAEWOULDBLOCK ) { - Do we want to bail out? No
-        MessageBox(NULL, "b", "bad socket error not WSAEWOULDBLOCK", MB_OK); (/
+        MessageBoxA(NULL, "b", "bad socket error not WSAEWOULDBLOCK", MB_OK); (/
       } 
    } */
     timeOut = timeGetTime() - tick;
@@ -451,7 +451,7 @@ bool netClientUdpPing(BYTE *buff, int *len, char *dest, unsigned short port, boo
 /*      if (*len == SOCKET_ERROR) {
         if (WSAGetLastError() != WSAEWOULDBLOCK ) {
  Do we want to bail out? I don't think so
-          MessageBox(NULL, "b", "bad", MB_OK); (/
+          MessageBoxA(NULL, "b", "bad", MB_OK); (/
         } 
      } */
       memcpy(&addrLast, &(from.sin_addr), sizeof(from.sin_addr));
@@ -545,7 +545,7 @@ bool netClientSetUseEvents(void) {
 /*  ret = WSAAsyncSelect( mySock, windowWnd(), WSA_READ, FD_READ); */
   if (ret < 0) {
     returnValue = FALSE;
-    MessageBox(NULL, langGetText(STR_NETCLIENTERR_CHAINFAIL), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+    MessageBoxA(NULL, langGetText(STR_NETCLIENTERR_CHAINFAIL), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
   }
   return returnValue;
 }
@@ -896,7 +896,7 @@ void gameFinderProcess(HWND hWnd, currentGames *cg, char *buff, int len, char *m
       gameFinderProcessV1(cg, ptr, 20000, motd);
       break;
     default:
-      MessageBox(hWnd, langGetText(STR_NETCLIENTERR_TRACKERVERSIONFAIL), DIALOG_BOX_TITLE, MB_OK);
+      MessageBoxA(hWnd, langGetText(STR_NETCLIENTERR_TRACKERVERSIONFAIL), DIALOG_BOX_TITLE, MB_OK);
   }
 }
 
@@ -976,12 +976,12 @@ bool netClientFindTrackedGames(HWND hWnd, currentGames *cg, char *trackerAddress
   strcpy((char *) buff, langGetText(STR_NETCLIENT_TRACKERCONNECT));
   sprintf(strBuff, "%s:%d", trackerAddress, port);
   strcat((char *) buff, strBuff);
-  SetDlgItemText(hWnd, IDC_STATUS, (LPCTSTR) buff); 
+  SetDlgItemTextA(hWnd, IDC_STATUS, (LPCTSTR) buff); 
 
   /* Startup Winsock */
   ret = WSAStartup(MAKEWORD(2,0), &wsaData);
   if (ret != 0) {
-    SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_WINSOCKFAILSTARTUP)); 
+    SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_WINSOCKFAILSTARTUP)); 
     returnValue = FALSE;
   }
 
@@ -990,7 +990,7 @@ bool netClientFindTrackedGames(HWND hWnd, currentGames *cg, char *trackerAddress
     sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (sock == INVALID_SOCKET) {
       returnValue = FALSE;
-      SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_CREATETCPFAIL)); 
+      SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_CREATETCPFAIL)); 
     }
   }
 
@@ -1003,7 +1003,7 @@ bool netClientFindTrackedGames(HWND hWnd, currentGames *cg, char *trackerAddress
       phe = gethostbyname(trackerAddress);
       if (phe == 0) {
         returnValue = FALSE;
-        SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_TRACKERDNSFAIL)); 
+        SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_TRACKERDNSFAIL)); 
       } else {
         con.sin_addr.s_addr = *((u_long*)phe->h_addr_list[0]);
       }
@@ -1016,7 +1016,7 @@ bool netClientFindTrackedGames(HWND hWnd, currentGames *cg, char *trackerAddress
   if (returnValue == TRUE) {
     ret = connect(sock, (struct sockaddr *) &con, sizeof(con));
     if (ret == SOCKET_ERROR) {
-      SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_TRACKERCONNECTFAIL)); 
+      SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_TRACKERCONNECTFAIL)); 
       returnValue = FALSE;
     }
   }
@@ -1025,14 +1025,14 @@ bool netClientFindTrackedGames(HWND hWnd, currentGames *cg, char *trackerAddress
   if (returnValue == TRUE) {
     ret = ioctlsocket(sock, (long) FIONBIO, &noBlock);
     if (ret == SOCKET_ERROR) {
-      SetDlgItemText(hWnd, IDC_STATUS, "Error setting socket to non blocking mode."); 
+      SetDlgItemTextA(hWnd, IDC_STATUS, "Error setting socket to non blocking mode."); 
       returnValue = FALSE;
     }
   }
 
 
   if (returnValue == TRUE) {
-    SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENT_TRACKERGETRESPONSE));
+    SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENT_TRACKERGETRESPONSE));
     len = 0;
     ptr = buff;
     new_bytes_read = recv(sock, (char *) (ptr+len), (int) ((int) ((1024 * 1024))-len), 0);
@@ -1060,10 +1060,10 @@ bool netClientFindTrackedGames(HWND hWnd, currentGames *cg, char *trackerAddress
     } */
     /* Process it */
     if (len == 0) {
-      SetDlgItemText(hWnd, IDC_STATUS, (LPCTSTR) langGetText(STR_NETCLIENTERR_TRACKERNODATA));
+      SetDlgItemTextA(hWnd, IDC_STATUS, (LPCTSTR) langGetText(STR_NETCLIENTERR_TRACKERNODATA));
       returnValue = FALSE;
     } else {
-      SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENT_TRACKERPROCESSRESPONSE));
+      SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENT_TRACKERPROCESSRESPONSE));
       gameFinderProcess(hWnd, cg, (char *) buff, len, motd);
     }
   }
@@ -1119,7 +1119,7 @@ bool netClientFindBroadcastGames(HWND hWnd, currentGames *cg) {
   /* Startup Winsock */
   ret = WSAStartup(MAKEWORD(2,0), &wsaData);
   if (ret != 0) {
-    SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_WINSOCKFAILSTARTUP)); 
+    SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_WINSOCKFAILSTARTUP)); 
     returnValue = FALSE;
   }
 
@@ -1129,7 +1129,7 @@ bool netClientFindBroadcastGames(HWND hWnd, currentGames *cg) {
     sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
     if (sock == INVALID_SOCKET) {
       returnValue = FALSE;
-      SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_CREATEUDPFAIL)); 
+      SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_CREATEUDPFAIL)); 
     }
   }
 
@@ -1141,7 +1141,7 @@ bool netClientFindBroadcastGames(HWND hWnd, currentGames *cg) {
     ret = bind(sock, (struct sockaddr *)&addr, sizeof(addr));
     if (ret != 0) {
       returnValue = FALSE;
-      MessageBox(NULL, langGetText(STR_NETCLIENTERR_BINDUDPFAIL), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+      MessageBoxA(NULL, langGetText(STR_NETCLIENTERR_BINDUDPFAIL), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
     }
   }
 
@@ -1151,7 +1151,7 @@ bool netClientFindBroadcastGames(HWND hWnd, currentGames *cg) {
     ret = ioctlsocket(sock, (long) FIONBIO, &noBlock);
     if (ret == SOCKET_ERROR) {
       returnValue = FALSE;
-      SetDlgItemText(hWnd, IDC_STATUS, "Error setting socket options"); 
+      SetDlgItemTextA(hWnd, IDC_STATUS, "Error setting socket options"); 
     }
   }
   /* Broadcast socket option */
@@ -1161,7 +1161,7 @@ bool netClientFindBroadcastGames(HWND hWnd, currentGames *cg) {
     ret = setsockopt(sock, SOL_SOCKET, SO_BROADCAST, c ,sizeof(c));
     if (ret != 0) {
       returnValue = FALSE;
-      SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_TRACKERNOBLOCK)); 
+      SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_TRACKERNOBLOCK)); 
     }
   }
 
@@ -1173,7 +1173,7 @@ bool netClientFindBroadcastGames(HWND hWnd, currentGames *cg) {
     con.sin_addr.s_addr = INADDR_BROADCAST;
     ret = sendto(sock, buff, BOLOPACKET_REQUEST_SIZE, 0, (struct sockaddr *)&con, sizeof(con));
     if (ret == SOCKET_ERROR) {
-      SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_BROADCAST)); 
+      SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENTERR_BROADCAST)); 
       returnValue = FALSE;
     }
   }
@@ -1181,7 +1181,7 @@ bool netClientFindBroadcastGames(HWND hWnd, currentGames *cg) {
   Sleep(50);
   if (returnValue == TRUE) {
     /* Get responses */
-    SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENT_GETRESPONSES));
+    SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENT_GETRESPONSES));
     szlast = sizeof(last);
     len = recvfrom(sock, (char *) (ptr+len), (int) ((int) (sizeof(buff))-len), (int)(0), (struct sockaddr *) &last, &szlast);
     timeOut = 0;

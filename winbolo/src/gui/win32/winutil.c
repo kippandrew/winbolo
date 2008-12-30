@@ -611,10 +611,10 @@ void winUtilOpenHelpFile(HINSTANCE appInst, HWND hWnd) {
     strcat(file, path);
     strcat(file, "/Manual.pdf");
     if ((int) ShellExecute(NULL, "open", file, NULL, NULL, SW_SHOW) <= 32) {
-      MessageBox(hWnd, langGetText(STRERR_HELPFILE), DIALOG_BOX_TITLE, MB_ICONINFORMATION); 
+      MessageBoxA(hWnd, langGetText(STRERR_HELPFILE), DIALOG_BOX_TITLE, MB_ICONINFORMATION); 
     }
   } else {
     /* Error */
-    MessageBox(hWnd, langGetText(STRERR_HELPFILE), DIALOG_BOX_TITLE, MB_ICONINFORMATION); 
+    MessageBoxA(hWnd, langGetText(STRERR_HELPFILE), DIALOG_BOX_TITLE, MB_ICONINFORMATION); 
   }
 }

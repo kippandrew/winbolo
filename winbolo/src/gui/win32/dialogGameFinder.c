@@ -121,7 +121,7 @@ BOOL CALLBACK dialogGameFinderCallback( HWND hWnd, unsigned uMsg, WPARAM wParam,
       DialogBox(windowGetInstance(), MAKEINTRESOURCE(IDD_SETPLAYERNAME), hWnd, dialogSetNameCallback);
       break;
     case IDC_MESSAGE:
-      MessageBox(hWnd, motd, langGetText(STR_DLGGAMEFINDER_MESSAGEOFTHEDAY), MB_OK);
+      MessageBoxA(hWnd, motd, langGetText(STR_DLGGAMEFINDER_MESSAGEOFTHEDAY), MB_OK);
       break;
     case IDC_REFRESH:
       dialogGameFinderRefresh(hWnd);
@@ -195,32 +195,32 @@ void dialogGameFinderInit(HWND hWnd) {
   /* Set the title */
   SendMessage(hWnd, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) dialogTitle);
   /* Buttons and frame names */
-  SetDlgItemText(hWnd, IDC_FRAME, langGetText(STR_DLGGAMEFINDER_SELECTEDGAME)); 
-  SetDlgItemText(hWnd, IDC_MESSAGE, langGetText(STR_DLGGAMEFINDER_MESSAGEOFTHEDAY)); 
-  SetDlgItemText(hWnd, IDC_TRACKER, langGetText(STR_DLGTCP_TRACKERSETUP)); 
-  SetDlgItemText(hWnd, IDC_NEW, langGetText(STR_DLGTCP_NEW)); 
-  SetDlgItemText(hWnd, IDC_JOINADDRESS, langGetText(STR_DLGGAMEFINDER_JOINADDRESS)); 
-  SetDlgItemText(hWnd, IDC_REFRESH, langGetText(STR_DLGGAMEFINDER_REFRESH)); 
-  SetDlgItemText(hWnd, ID_JOIN, langGetText(STR_DLGTCP_JOIN)); 
-  SetDlgItemText(hWnd, IDC_REJOIN, langGetText(STR_DLGTCP_REJOIN)); 
-  SetDlgItemText(hWnd, IDCANCEL, langGetText(STR_CANCEL)); 
-  SetDlgItemText(hWnd, IDC_SETPLAYERNAME, langGetText(STR_DLGGAMEFINDER_PLAYERNAME)); 
+  SetDlgItemTextA(hWnd, IDC_FRAME, langGetText(STR_DLGGAMEFINDER_SELECTEDGAME)); 
+  SetDlgItemTextA(hWnd, IDC_MESSAGE, langGetText(STR_DLGGAMEFINDER_MESSAGEOFTHEDAY)); 
+  SetDlgItemTextA(hWnd, IDC_TRACKER, langGetText(STR_DLGTCP_TRACKERSETUP)); 
+  SetDlgItemTextA(hWnd, IDC_NEW, langGetText(STR_DLGTCP_NEW)); 
+  SetDlgItemTextA(hWnd, IDC_JOINADDRESS, langGetText(STR_DLGGAMEFINDER_JOINADDRESS)); 
+  SetDlgItemTextA(hWnd, IDC_REFRESH, langGetText(STR_DLGGAMEFINDER_REFRESH)); 
+  SetDlgItemTextA(hWnd, ID_JOIN, langGetText(STR_DLGTCP_JOIN)); 
+  SetDlgItemTextA(hWnd, IDC_REJOIN, langGetText(STR_DLGTCP_REJOIN)); 
+  SetDlgItemTextA(hWnd, IDCANCEL, langGetText(STR_CANCEL)); 
+  SetDlgItemTextA(hWnd, IDC_SETPLAYERNAME, langGetText(STR_DLGGAMEFINDER_PLAYERNAME)); 
 
   /* Static text fields */
-  SetDlgItemText(hWnd, IDC_SADRESS, langGetText(STR_DLGGAMEFINDER_ADDRESS)); 
-  SetDlgItemText(hWnd, IDC_SPORT, langGetText(STR_DLGGAMEFINDER_PORT)); 
-  SetDlgItemText(hWnd, IDC_VERSIONS, langGetText(STR_DLGGAMEFINDER_VERSION)); 
-  SetDlgItemText(hWnd, IDC_MAPNAMES, langGetText(STR_DLGGAMEINFO_MAPNAME)); 
-  SetDlgItemText(hWnd, IDC_NOPLAYERSS, langGetText(STR_DLGGAMEINFO_NUMPLAYERS)); 
-  SetDlgItemText(hWnd, IDC_GAMETYPES, langGetText(STR_DLGGAMEINFO_GAMETYPE)); 
-  SetDlgItemText(hWnd, IDCANCEL, langGetText(STR_CANCEL)); 
-  SetDlgItemText(hWnd, IDC_FREEPILLSS, langGetText(STR_DLGGAMEFINDER_PILLS)); 
-  SetDlgItemText(hWnd, IDC_FREEBASESS, langGetText(STR_DLGGAMEFINDER_BASES)); 
-  SetDlgItemText(hWnd, IDC_HIDMINES, langGetText(STR_DLGGAMEFINDER_HIDDENMINES)); 
-  SetDlgItemText(hWnd, IDC_PASSS, langGetText(STR_DLGGAMEFINDER_PASSWORD)); 
-  SetDlgItemText(hWnd, IDC_BRAINSS, langGetText(STR_DLGGAMEFINDER_BRAINS));  
-  SetDlgItemText(hWnd, IDC_STATUSS, langGetText(STR_DLGGAMEFINDER_STATUSBLURB));  
-  SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENT_IDLE));  
+  SetDlgItemTextA(hWnd, IDC_SADRESS, langGetText(STR_DLGGAMEFINDER_ADDRESS)); 
+  SetDlgItemTextA(hWnd, IDC_SPORT, langGetText(STR_DLGGAMEFINDER_PORT)); 
+  SetDlgItemTextA(hWnd, IDC_VERSIONS, langGetText(STR_DLGGAMEFINDER_VERSION)); 
+  SetDlgItemTextA(hWnd, IDC_MAPNAMES, langGetText(STR_DLGGAMEINFO_MAPNAME)); 
+  SetDlgItemTextA(hWnd, IDC_NOPLAYERSS, langGetText(STR_DLGGAMEINFO_NUMPLAYERS)); 
+  SetDlgItemTextA(hWnd, IDC_GAMETYPES, langGetText(STR_DLGGAMEINFO_GAMETYPE)); 
+  SetDlgItemTextA(hWnd, IDCANCEL, langGetText(STR_CANCEL)); 
+  SetDlgItemTextA(hWnd, IDC_FREEPILLSS, langGetText(STR_DLGGAMEFINDER_PILLS)); 
+  SetDlgItemTextA(hWnd, IDC_FREEBASESS, langGetText(STR_DLGGAMEFINDER_BASES)); 
+  SetDlgItemTextA(hWnd, IDC_HIDMINES, langGetText(STR_DLGGAMEFINDER_HIDDENMINES)); 
+  SetDlgItemTextA(hWnd, IDC_PASSS, langGetText(STR_DLGGAMEFINDER_PASSWORD)); 
+  SetDlgItemTextA(hWnd, IDC_BRAINSS, langGetText(STR_DLGGAMEFINDER_BRAINS));  
+  SetDlgItemTextA(hWnd, IDC_STATUSS, langGetText(STR_DLGGAMEFINDER_STATUSBLURB));  
+  SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENT_IDLE));  
 }
 
 /*********************************************************
@@ -249,17 +249,17 @@ void dialogGameFinderClear(HWND hWnd) {
   }
 
   /* Clear the information about the selected game */
-  SetDlgItemText(hWnd, IDC_SERVERADDRESS, EMPTY_STRING);
-  SetDlgItemText(hWnd, IDC_PORT, EMPTY_STRING);
-  SetDlgItemText(hWnd, IDC_VERSION, EMPTY_STRING);
-  SetDlgItemText(hWnd, IDC_MAPNAME, EMPTY_STRING);
-  SetDlgItemText(hWnd, IDC_NOPLAYERS, EMPTY_STRING);
-  SetDlgItemText(hWnd, IDC_FREEBASES, EMPTY_STRING);
-  SetDlgItemText(hWnd, IDC_FREEPILLS, EMPTY_STRING);
-  SetDlgItemText(hWnd, IDC_MINES, EMPTY_STRING);
-  SetDlgItemText(hWnd, IDC_GAMETYPE, EMPTY_STRING);
-  SetDlgItemText(hWnd, IDC_PASSWORD, EMPTY_STRING);
-  SetDlgItemText(hWnd, IDC_BRAINS, EMPTY_STRING);
+  SetDlgItemTextA(hWnd, IDC_SERVERADDRESS, EMPTY_STRING);
+  SetDlgItemTextA(hWnd, IDC_PORT, EMPTY_STRING);
+  SetDlgItemTextA(hWnd, IDC_VERSION, EMPTY_STRING);
+  SetDlgItemTextA(hWnd, IDC_MAPNAME, EMPTY_STRING);
+  SetDlgItemTextA(hWnd, IDC_NOPLAYERS, EMPTY_STRING);
+  SetDlgItemTextA(hWnd, IDC_FREEBASES, EMPTY_STRING);
+  SetDlgItemTextA(hWnd, IDC_FREEPILLS, EMPTY_STRING);
+  SetDlgItemTextA(hWnd, IDC_MINES, EMPTY_STRING);
+  SetDlgItemTextA(hWnd, IDC_GAMETYPE, EMPTY_STRING);
+  SetDlgItemTextA(hWnd, IDC_PASSWORD, EMPTY_STRING);
+  SetDlgItemTextA(hWnd, IDC_BRAINS, EMPTY_STRING);
 }
 
 /*********************************************************
@@ -286,7 +286,7 @@ bool dialogGameFinderJoin(HWND hWnd) {
   /* Check version */
   GetDlgItemText(hWnd, IDC_VERSION, address, (sizeof(address)));
   if (strncmp(address, STRVER,4) != 0) {
-    MessageBox(hWnd, langGetText(STR_DLGGAMEFINDER_WRONGVERSION),DIALOG_BOX_TITLE, MB_ICONINFORMATION); 
+    MessageBoxA(hWnd, langGetText(STR_DLGGAMEFINDER_WRONGVERSION),DIALOG_BOX_TITLE, MB_ICONINFORMATION); 
     returnValue = FALSE;
   } else {
     GetDlgItemText(hWnd, IDC_PORT, address, (sizeof(address)));
@@ -353,7 +353,7 @@ void dialogGameFinderBuildList(HWND hWnd) {
     }
   } else {
     /* Display no games found message */
-    SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_DLGGAMEFINDER_NOGAMESINPROGRESS));
+    SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_DLGGAMEFINDER_NOGAMESINPROGRESS));
   }
 }
 
@@ -382,7 +382,7 @@ void dialogGameFinderSearch(HWND hWnd) {
   }
 
   if (ret == TRUE) {
-    SetDlgItemText(hWnd, IDC_STATUS, langGetText(STR_NETCLIENT_IDLE));
+    SetDlgItemTextA(hWnd, IDC_STATUS, langGetText(STR_NETCLIENT_IDLE));
     dialogGameFinderBuildList(hWnd);
   }
 }
@@ -414,50 +414,50 @@ void dialogGameFinderSetItem(HWND hWnd, int itemNum) {
 
   itemNum++;
   currentGamesGetItem(&cg, itemNum, address, &port, mapName, str, &numPlayers, &numBases, &numPills, &mines, &game, &ai, &password);
-  SetDlgItemText(hWnd, IDC_SERVERADDRESS, address);
-  SetDlgItemText(hWnd, IDC_MAPNAME, mapName);
-  SetDlgItemText(hWnd, IDC_VERSION, str);
+  SetDlgItemTextA(hWnd, IDC_SERVERADDRESS, address);
+  SetDlgItemTextA(hWnd, IDC_MAPNAME, mapName);
+  SetDlgItemTextA(hWnd, IDC_VERSION, str);
 
   sprintf(str, "%d", port);
-  SetDlgItemText(hWnd, IDC_PORT, str);
+  SetDlgItemTextA(hWnd, IDC_PORT, str);
   sprintf(str, "%d", numPlayers);
-  SetDlgItemText(hWnd, IDC_NOPLAYERS, str);
+  SetDlgItemTextA(hWnd, IDC_NOPLAYERS, str);
   sprintf(str, "%d", numBases);
-  SetDlgItemText(hWnd, IDC_FREEBASES, str);
+  SetDlgItemTextA(hWnd, IDC_FREEBASES, str);
   sprintf(str, "%d", numPills);
-  SetDlgItemText(hWnd, IDC_FREEPILLS, str);
+  SetDlgItemTextA(hWnd, IDC_FREEPILLS, str);
   if (mines == TRUE) {
-    SetDlgItemText(hWnd, IDC_MINES, langGetText(STR_YES));
+    SetDlgItemTextA(hWnd, IDC_MINES, langGetText(STR_YES));
   } else {
-    SetDlgItemText(hWnd, IDC_MINES, langGetText(STR_NO));
+    SetDlgItemTextA(hWnd, IDC_MINES, langGetText(STR_NO));
   }
   if (password == TRUE) {
-    SetDlgItemText(hWnd, IDC_PASSWORD, langGetText(STR_YES));
+    SetDlgItemTextA(hWnd, IDC_PASSWORD, langGetText(STR_YES));
   } else {
-    SetDlgItemText(hWnd, IDC_PASSWORD, langGetText(STR_NO));
+    SetDlgItemTextA(hWnd, IDC_PASSWORD, langGetText(STR_NO));
   }
   switch (ai) {
   case aiNone:
-    SetDlgItemText(hWnd, IDC_BRAINS, langGetText(STR_NO));
+    SetDlgItemTextA(hWnd, IDC_BRAINS, langGetText(STR_NO));
     break;
   case aiYes:
-    SetDlgItemText(hWnd, IDC_BRAINS, langGetText(STR_YES));
+    SetDlgItemTextA(hWnd, IDC_BRAINS, langGetText(STR_YES));
     break;
   case aiYesAdvantage:
   default:
-    SetDlgItemText(hWnd, IDC_BRAINS, langGetText(STR_DLGGAMEFINDER_YESADV));
+    SetDlgItemTextA(hWnd, IDC_BRAINS, langGetText(STR_DLGGAMEFINDER_YESADV));
     break;
   }
   switch (game) {
   case gameOpen:
-    SetDlgItemText(hWnd, IDC_GAMETYPE, langGetText(STR_DLGGAMEFINDER_OPEN));
+    SetDlgItemTextA(hWnd, IDC_GAMETYPE, langGetText(STR_DLGGAMEFINDER_OPEN));
     break;
   case gameTournament:
-    SetDlgItemText(hWnd, IDC_GAMETYPE, langGetText(STR_DLGGAMEFINDER_TOURNAMENT));
+    SetDlgItemTextA(hWnd, IDC_GAMETYPE, langGetText(STR_DLGGAMEFINDER_TOURNAMENT));
     break;
   case gameStrictTournament:
   default:
-    SetDlgItemText(hWnd, IDC_GAMETYPE, langGetText(STR_DLGGAMEFINDER_STRICTTOURNAMENT));
+    SetDlgItemTextA(hWnd, IDC_GAMETYPE, langGetText(STR_DLGGAMEFINDER_STRICTTOURNAMENT));
     break;
   }
 }

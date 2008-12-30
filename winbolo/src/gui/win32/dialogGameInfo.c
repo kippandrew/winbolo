@@ -96,74 +96,74 @@ void dialogGameInfoSetup(HWND hWnd) {
 
   /* Set up languages */
   text = langGetText(STR_DLGGAMEINFO_TITLE);
-  SetWindowText(hWnd, text);
+  SetWindowTextA(hWnd, text);
   text = langGetText(STR_DLGGAMEINFO_MAPNAME);
-  SetDlgItemText(hWnd, IDC_MAPS, text);
+  SetDlgItemTextA(hWnd, IDC_MAPS, text);
   text = langGetText(STR_DLGGAMEINFO_NUMPLAYERS);
-  SetDlgItemText(hWnd, IDC_PLAYERSS, text);
+  SetDlgItemTextA(hWnd, IDC_PLAYERSS, text);
   text = langGetText(STR_DLGGAMEINFO_GAMETYPE);
-  SetDlgItemText(hWnd, IDC_GAMETS, text);
+  SetDlgItemTextA(hWnd, IDC_GAMETS, text);
   text = langGetText(STR_DLGGAMEINFO_HIDDENMINES);
-  SetDlgItemText(hWnd, IDC_HIDMINESS, text);
+  SetDlgItemTextA(hWnd, IDC_HIDMINESS, text);
 
   text = langGetText(STR_DLGGAMEINFO_ALLOWCOMPTANKS);
-  SetDlgItemText(hWnd, IDC_COMPTANKSS, text);
+  SetDlgItemTextA(hWnd, IDC_COMPTANKSS, text);
   text = langGetText(STR_DLGGAMEINFO_TIMELIMIT);
-  SetDlgItemText(hWnd, IDC_GAMETIMES, text);
+  SetDlgItemTextA(hWnd, IDC_GAMETIMES, text);
 
   /* Write the map name */
   mapName[0] = '\0';
   timerGameInfo = SetTimer(hWnd, timerGameInfo, MILLISECONDS, NULL);
   screenGetMapName(mapName);
-  SendDlgItemMessage(hWnd, IDC_MAP_NAME, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (mapName));
+  SendDlgItemMessageA(hWnd, IDC_MAP_NAME, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (mapName));
   
   /* Number of players */
   dlgGameInfoNumPlayers = screenGetNumPlayers();
   mapName[0] = '\0';
   sprintf(mapName, "%d", dlgGameInfoNumPlayers);
-  SendDlgItemMessage(hWnd, IDC_NUM_PLAYERS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (mapName));
+  SendDlgItemMessageA(hWnd, IDC_NUM_PLAYERS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (mapName));
   
   /* Game type */
   t = screenGetGameType();
   switch (*t) {
   case gameOpen:
-    SendDlgItemMessage(hWnd, IDC_GAME_TYPE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_DLGGAMEINFO_OPEN));
+    SendDlgItemMessageA(hWnd, IDC_GAME_TYPE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_DLGGAMEINFO_OPEN));
     break;
   case gameTournament:
-    SendDlgItemMessage(hWnd, IDC_GAME_TYPE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_DLGGAMEINFO_TOURN));
+    SendDlgItemMessageA(hWnd, IDC_GAME_TYPE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_DLGGAMEINFO_TOURN));
     break;
   default:
     /* gameStrictTournament */
-    SendDlgItemMessage(hWnd, IDC_GAME_TYPE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_DLGGAMEINFO_STRICT));
+    SendDlgItemMessageA(hWnd, IDC_GAME_TYPE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_DLGGAMEINFO_STRICT));
     break;
   }
 
   /* Hidden Mines */
   bTemp = screenGetAllowHiddenMines();
   if (bTemp == TRUE) {
-    SendDlgItemMessage(hWnd, IDC_HIDDEN_MINES, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_YES));
+    SendDlgItemMessageA(hWnd, IDC_HIDDEN_MINES, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_YES));
   } else {
-    SendDlgItemMessage(hWnd, IDC_HIDDEN_MINES, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_NO));
+    SendDlgItemMessageA(hWnd, IDC_HIDDEN_MINES, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_NO));
   }
 
   /* Computer players */
   temp = screenGetAiType();
   switch (temp) {
   case aiNone:
-    SendDlgItemMessage(hWnd, IDC_COMPUTER_TANKS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_NO));
+    SendDlgItemMessageA(hWnd, IDC_COMPUTER_TANKS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_NO));
     break;
   case aiYes:
-    SendDlgItemMessage(hWnd, IDC_COMPUTER_TANKS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_YES));
+    SendDlgItemMessageA(hWnd, IDC_COMPUTER_TANKS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_YES));
     break;
   default:
     /* aiYesAdvantage */
-    SendDlgItemMessage(hWnd, IDC_COMPUTER_TANKS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_DLGGAMEINFO_AIADV));
+    SendDlgItemMessageA(hWnd, IDC_COMPUTER_TANKS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_DLGGAMEINFO_AIADV));
     break;
   }
 
   dlgGameInfoTimeRemain = screenGetGameTimeLeft();
   if (dlgGameInfoTimeRemain == UNLIMITED_GAME_TIME) {
-    SendDlgItemMessage(hWnd, IDC_GAME_TIMELIMIT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_NO));
+    SendDlgItemMessageA(hWnd, IDC_GAME_TIMELIMIT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_NO));
   }
   dialogGameInfoUpdate(hWnd);
 }
@@ -188,7 +188,7 @@ void dialogGameInfoUpdate(HWND hWnd) {
   if (newPlayers != dlgGameInfoNumPlayers) {
     dlgGameInfoNumPlayers = newPlayers;
     sprintf(str, "%d", dlgGameInfoNumPlayers);
-    SendDlgItemMessage(hWnd, IDC_NUM_PLAYERS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
+    SendDlgItemMessageA(hWnd, IDC_NUM_PLAYERS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (str));
   }
     if (dlgGameInfoTimeRemain != UNLIMITED_GAME_TIME) {
       dlgGameInfoTimeRemain = screenGetGameTimeLeft();
@@ -196,6 +196,6 @@ void dialogGameInfoUpdate(HWND hWnd) {
       dlgGameInfoTimeRemain /= GAME_NUMGAMETICKS_SEC;
       dlgGameInfoTimeRemain++;
       sprintf(str, langGetText(STR_DLGGAMEINFO_TIMEREMAINING), dlgGameInfoTimeRemain );
-      SendDlgItemMessage(hWnd, IDC_GAME_TIMELIMIT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+      SendDlgItemMessageA(hWnd, IDC_GAME_TIMELIMIT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     }
 }

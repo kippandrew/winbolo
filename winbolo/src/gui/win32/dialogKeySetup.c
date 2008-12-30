@@ -179,34 +179,34 @@ void dialogKeySetupInit(HWND hWnd) {
 
 
   /* Setup languages */
-  SetWindowText(hWnd, langGetText(STR_DLGKEYSETUP_TITLE));
-  SetDlgItemText(hWnd, IDC_BLURB, langGetText(STR_DLGKEYSETUP_BLURB));
-  SetDlgItemText(hWnd, IDC_CACCEL, langGetText(STR_DLGKEYSETUP_FASTER));
-  SetDlgItemText(hWnd, IDC_DECEL, langGetText(STR_DLGKEYSETUP_SLOWER));
-  SetDlgItemText(hWnd, IDC_CLEFT, langGetText(STR_DLGKEYSETUP_TURNLEFT));
-  SetDlgItemText(hWnd, IDC_CRIGHT, langGetText(STR_DLGKEYSETUP_TURNRIGHT));
-  SetDlgItemText(hWnd, IDC_CINCREASE, langGetText(STR_DLGKEYSETUP_INCREASE));
-  SetDlgItemText(hWnd, IDC_CDECREASE, langGetText(STR_DLGKEYSETUP_DECREASE));
-  SetDlgItemText(hWnd, IDC_CSHOOT, langGetText(STR_DLGKEYSETUP_SHOOT));
-  SetDlgItemText(hWnd, IDC_CLAYMINE, langGetText(STR_DLGKEYSETUP_LAYMINE));
-  SetDlgItemText(hWnd, IDC_CTANKVIEW, langGetText(STR_DLGKEYSETUP_TANKVIEW));
-  SetDlgItemText(hWnd, IDC_CPILLVIEW, langGetText(STR_DLGKEYSETUP_PILLVIEW));
-  SetDlgItemText(hWnd, IDC_CSCROLLUP, langGetText(STR_DLGKEYSETUP_SCROLLUP));
-  SetDlgItemText(hWnd, IDC_CSCROLLDOWN, langGetText(STR_DLGKEYSETUP_SCROLLDOWN));
-  SetDlgItemText(hWnd, IDC_CSCROLLLEFT, langGetText(STR_DLGKEYSETUP_SCROLLLEFT));
-  SetDlgItemText(hWnd, IDC_CSCROLLRIGHT, langGetText(STR_DLGKEYSETUP_SCROLLRIGHT));
-  SetDlgItemText(hWnd, IDC_LEFTS, langGetText(STR_DLGKEYSETUP_LEFT));
-  SetDlgItemText(hWnd, IDC_RIGHTS, langGetText(STR_DLGKEYSETUP_RIGHT));
-  SetDlgItemText(hWnd, IDC_AUTOSLOWDOWN, langGetText(STR_DLGKEYSETUP_AUTOSLOWDOWN));
-  SetDlgItemText(hWnd, IDC_AUTOGUNSIGHT, langGetText(STR_DLGKEYSETUP_AUTOGUNSIGHT));
-  SetDlgItemText(hWnd, IDC_DRIVES, langGetText(STR_DLGKEYSETUP_DRIVETANK));
-  SetDlgItemText(hWnd, IDC_ROTATES, langGetText(STR_DLGKEYSETUP_TURNTANK));
-  SetDlgItemText(hWnd, IDC_GUNRANGES, langGetText(STR_DLGKEYSETUP_GUNRANGE));
-  SetDlgItemText(hWnd, IDC_WEAPONS, langGetText(STR_DLGKEYSETUP_WEAPONS));
-  SetDlgItemText(hWnd, IDC_VIEWS, langGetText(STR_DLGKEYSETUP_VIEW));
-  SetDlgItemText(hWnd, IDC_SCROLLS, langGetText(STR_DLGKEYSETUP_SCROLL));
-  SetDlgItemText(hWnd, IDOK, langGetText(STR_OK));
-  SetDlgItemText(hWnd, IDCANCEL, langGetText(STR_CANCEL));
+  SetWindowTextA(hWnd, langGetText(STR_DLGKEYSETUP_TITLE));
+  SetDlgItemTextA(hWnd, IDC_BLURB, langGetText(STR_DLGKEYSETUP_BLURB));
+  SetDlgItemTextA(hWnd, IDC_CACCEL, langGetText(STR_DLGKEYSETUP_FASTER));
+  SetDlgItemTextA(hWnd, IDC_DECEL, langGetText(STR_DLGKEYSETUP_SLOWER));
+  SetDlgItemTextA(hWnd, IDC_CLEFT, langGetText(STR_DLGKEYSETUP_TURNLEFT));
+  SetDlgItemTextA(hWnd, IDC_CRIGHT, langGetText(STR_DLGKEYSETUP_TURNRIGHT));
+  SetDlgItemTextA(hWnd, IDC_CINCREASE, langGetText(STR_DLGKEYSETUP_INCREASE));
+  SetDlgItemTextA(hWnd, IDC_CDECREASE, langGetText(STR_DLGKEYSETUP_DECREASE));
+  SetDlgItemTextA(hWnd, IDC_CSHOOT, langGetText(STR_DLGKEYSETUP_SHOOT));
+  SetDlgItemTextA(hWnd, IDC_CLAYMINE, langGetText(STR_DLGKEYSETUP_LAYMINE));
+  SetDlgItemTextA(hWnd, IDC_CTANKVIEW, langGetText(STR_DLGKEYSETUP_TANKVIEW));
+  SetDlgItemTextA(hWnd, IDC_CPILLVIEW, langGetText(STR_DLGKEYSETUP_PILLVIEW));
+  SetDlgItemTextA(hWnd, IDC_CSCROLLUP, langGetText(STR_DLGKEYSETUP_SCROLLUP));
+  SetDlgItemTextA(hWnd, IDC_CSCROLLDOWN, langGetText(STR_DLGKEYSETUP_SCROLLDOWN));
+  SetDlgItemTextA(hWnd, IDC_CSCROLLLEFT, langGetText(STR_DLGKEYSETUP_SCROLLLEFT));
+  SetDlgItemTextA(hWnd, IDC_CSCROLLRIGHT, langGetText(STR_DLGKEYSETUP_SCROLLRIGHT));
+  SetDlgItemTextA(hWnd, IDC_LEFTS, langGetText(STR_DLGKEYSETUP_LEFT));
+  SetDlgItemTextA(hWnd, IDC_RIGHTS, langGetText(STR_DLGKEYSETUP_RIGHT));
+  SetDlgItemTextA(hWnd, IDC_AUTOSLOWDOWN, langGetText(STR_DLGKEYSETUP_AUTOSLOWDOWN));
+  SetDlgItemTextA(hWnd, IDC_AUTOGUNSIGHT, langGetText(STR_DLGKEYSETUP_AUTOGUNSIGHT));
+  SetDlgItemTextA(hWnd, IDC_DRIVES, langGetText(STR_DLGKEYSETUP_DRIVETANK));
+  SetDlgItemTextA(hWnd, IDC_ROTATES, langGetText(STR_DLGKEYSETUP_TURNTANK));
+  SetDlgItemTextA(hWnd, IDC_GUNRANGES, langGetText(STR_DLGKEYSETUP_GUNRANGE));
+  SetDlgItemTextA(hWnd, IDC_WEAPONS, langGetText(STR_DLGKEYSETUP_WEAPONS));
+  SetDlgItemTextA(hWnd, IDC_VIEWS, langGetText(STR_DLGKEYSETUP_VIEW));
+  SetDlgItemTextA(hWnd, IDC_SCROLLS, langGetText(STR_DLGKEYSETUP_SCROLL));
+  SetDlgItemTextA(hWnd, IDOK, langGetText(STR_OK));
+  SetDlgItemTextA(hWnd, IDCANCEL, langGetText(STR_CANCEL));
 
 
 
@@ -270,46 +270,46 @@ void dialogKeySetupInit(HWND hWnd) {
 void dialogKeySetupDisplayString(HWND hWnd, nextKey value, char *str) {
   switch (value) {
   case nkForward:
-    SendDlgItemMessage(hWnd, IDC_ACCEL, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_ACCEL, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkBackward:
-    SendDlgItemMessage(hWnd, IDC_DECEL, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_DECEL, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkTurnLeft:
-    SendDlgItemMessage(hWnd, IDC_LEFT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_LEFT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkTurnRight:
-    SendDlgItemMessage(hWnd, IDC_RIGHT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_RIGHT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkIncrease:
-    SendDlgItemMessage(hWnd, IDC_INCREASE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_INCREASE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkDecrease:
-    SendDlgItemMessage(hWnd, IDC_DECREASE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_DECREASE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkShoot:
-    SendDlgItemMessage(hWnd, IDC_SHOOT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_SHOOT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkLayMine:
-    SendDlgItemMessage(hWnd, IDC_LAYMINE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_LAYMINE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkTankView:
-    SendDlgItemMessage(hWnd, IDC_TANKVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_TANKVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkPillView:
-    SendDlgItemMessage(hWnd, IDC_PILLVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_PILLVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkUp:
-    SendDlgItemMessage(hWnd, IDC_SCROLLUP, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_SCROLLUP, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkDown:
-    SendDlgItemMessage(hWnd, IDC_SCROLLDOWN, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_SCROLLDOWN, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkLeft:
-    SendDlgItemMessage(hWnd, IDC_SCROLLLEFT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_SCROLLLEFT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkRight:
-    SendDlgItemMessage(hWnd, IDC_SCROLLRIGHT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_SCROLLRIGHT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   default:
     break;
@@ -482,7 +482,7 @@ void dialogKeySetupClick(HWND hWnd, nextKey newKey) {
 
 
   if (nk != nkNone) {
-    hGetKeyWnd = CreateWindow(
+    hGetKeyWnd = CreateWindowA(
        WIND_KEYCLASSNAME,                 /* Class name */
        strWndTitle,                     /* Caption */ 
       (WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU), /* Style */
@@ -521,85 +521,85 @@ void dialogKeySetupProcess(HWND hWnd, int keyCode) {
   case nkForward:
     keySetupKeys.kiForward = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiForward, str);
-    SendDlgItemMessage(hWnd, IDC_ACCEL, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_ACCEL, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CACCEL, BST_UNCHECKED);
     break;
   case nkBackward:
     keySetupKeys.kiBackward = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiBackward, str);
-    SendDlgItemMessage(hWnd, IDC_DECEL, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_DECEL, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CDECEL, BST_UNCHECKED);
     break;
   case nkTurnLeft:
     keySetupKeys.kiLeft = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiLeft, str);
-    SendDlgItemMessage(hWnd, IDC_LEFT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_LEFT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CLEFT, BST_UNCHECKED);
     break;
   case nkTurnRight:
     keySetupKeys.kiRight = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiRight, str);
-    SendDlgItemMessage(hWnd, IDC_RIGHT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_RIGHT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CRIGHT, BST_UNCHECKED);
     break;
   case nkIncrease:
     keySetupKeys.kiGunIncrease = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiGunIncrease, str);
-    SendDlgItemMessage(hWnd, IDC_INCREASE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_INCREASE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CINCREASE, BST_UNCHECKED);
     break;
   case nkDecrease:
     keySetupKeys.kiGunDecrease = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiGunDecrease, str);
-    SendDlgItemMessage(hWnd, IDC_DECREASE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_DECREASE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CDECREASE, BST_UNCHECKED);
     break;
   case nkShoot:
     keySetupKeys.kiShoot = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiShoot, str);
-    SendDlgItemMessage(hWnd, IDC_SHOOT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_SHOOT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CSHOOT, BST_UNCHECKED);
     break;
   case nkLayMine:
     keySetupKeys.kiLayMine = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiLayMine, str);
-    SendDlgItemMessage(hWnd, IDC_LAYMINE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_LAYMINE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CLAYMINE, BST_UNCHECKED);
     break;
   case nkTankView:
     keySetupKeys.kiTankView = keyCode;
     winUtilVirtKeyToString(keySetupKeys.kiTankView, str);
-    SendDlgItemMessage(hWnd, IDC_TANKVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_TANKVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CTANKVIEW, BST_UNCHECKED);
     break;
   case nkPillView:
     keySetupKeys.kiPillView = keyCode;
     winUtilVirtKeyToString(keySetupKeys.kiPillView, str);
-    SendDlgItemMessage(hWnd, IDC_PILLVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_PILLVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CPILLVIEW, BST_UNCHECKED);
     break;
   case nkUp:
     keySetupKeys.kiScrollUp = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiScrollUp, str);
-    SendDlgItemMessage(hWnd, IDC_SCROLLUP, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_SCROLLUP, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CSCROLLUP, BST_UNCHECKED);
     break;
   case nkDown:
     keySetupKeys.kiScrollDown = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiScrollDown, str);
-    SendDlgItemMessage(hWnd, IDC_SCROLLDOWN, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_SCROLLDOWN, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CSCROLLDOWN, BST_UNCHECKED);
     break;
   case nkLeft:
     keySetupKeys.kiScrollLeft = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiScrollLeft, str);
-    SendDlgItemMessage(hWnd, IDC_SCROLLLEFT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_SCROLLLEFT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CSCROLLLEFT, BST_UNCHECKED);
     break;
   case nkRight:
     keySetupKeys.kiScrollRight = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiScrollRight, str);
-    SendDlgItemMessage(hWnd, IDC_SCROLLRIGHT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    SendDlgItemMessageA(hWnd, IDC_SCROLLRIGHT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CSCROLLRIGHT, BST_UNCHECKED);
     break;
   case nkNone:

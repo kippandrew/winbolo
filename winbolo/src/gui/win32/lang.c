@@ -28,7 +28,6 @@
 #include "../lang.h"
 #include "../resource.h"
 
-#define _UNICODE
 HINSTANCE hLang;
 HMENU hLangMenu;
 
@@ -95,9 +94,9 @@ HMENU langGetMenu() {
     hLangMenu = NULL;
   }
 
-  hLangMenu = LoadMenu(hLang, MAKEINTRESOURCE(IDR_MENU1));
+  hLangMenu = LoadMenuA(hLang, MAKEINTRESOURCE(IDR_MENU1));
   if (hLangMenu == NULL) {
-    hLangMenu = LoadMenu(NULL, MAKEINTRESOURCE(IDR_MENU1));
+    hLangMenu = LoadMenuA(NULL, MAKEINTRESOURCE(IDR_MENU1));
   }
   return hLangMenu;
 }
@@ -166,9 +165,10 @@ void langGetFileName(char *fileName) {
 char* langGetText(langid id) {
   int ret; /* Function returnValue */
 
-  ret = LoadString(hLang, id, langBuff, sizeof(langBuff));
+  ret = sizeof(langBuff);
+  ret = LoadStringA(hLang, id, langBuff, sizeof(langBuff));
   if (ret == 0) {
-    LoadString(NULL, id, langBuff, sizeof(langBuff));
+    LoadStringA(NULL, id, langBuff, sizeof(langBuff));
   }
   return langBuff;
 }
@@ -187,9 +187,9 @@ char* langGetText(langid id) {
 char* langGetText2(langid id) {
   int ret; /* Function returnValue */
 
-  ret = LoadString(hLang, id, langBuff2, sizeof(langBuff2));
+  ret = LoadStringA(hLang, id, langBuff2, sizeof(langBuff2));
   if (ret == 0) {
-    LoadString(NULL, id, langBuff2, sizeof(langBuff2));
+    LoadStringA(NULL, id, langBuff2, sizeof(langBuff2));
   }
   return langBuff2;
 }

@@ -65,13 +65,13 @@ bool inputSetup(HINSTANCE appInst, HWND appWnd) {
   scrollKeyCount = 0;
 
   if (FAILED(DirectInputCreate(appInst, DIRECTINPUT_VERSION, &lpDI, NULL))) {
-    MessageBox(NULL, langGetText(STR_GAMEFRONT_INPUTERR_CREATE), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, langGetText(STR_GAMEFRONT_INPUTERR_CREATE), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     returnValue = FALSE;
   }
   /* Create the Keyboard Device */
   if (returnValue == TRUE) {
     if (FAILED(lpDI->lpVtbl->CreateDevice(lpDI, &GUID_SysKeyboard, &lpDIDKeyboard, NULL))) {
-      MessageBox(NULL, langGetText(STR_GAMEFRONT_INPUTERR_CREATE), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_GAMEFRONT_INPUTERR_CREATE), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     }
   }
@@ -80,7 +80,7 @@ bool inputSetup(HINSTANCE appInst, HWND appWnd) {
   /* Set the Data Format for the Keyboard */
   if (returnValue == TRUE) {
     if (FAILED(lpDIDKeyboard->lpVtbl->SetDataFormat(lpDIDKeyboard, &c_dfDIKeyboard))) {
-      MessageBox(NULL, langGetText(STR_GAMEFRONT_INPUTERR_DATAFORMAT), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_GAMEFRONT_INPUTERR_DATAFORMAT), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     }
   }
@@ -88,7 +88,7 @@ bool inputSetup(HINSTANCE appInst, HWND appWnd) {
   /* Set the Data Format for the Keyboard */
   if (returnValue == TRUE) {
     if (FAILED(lpDIDKeyboard->lpVtbl->SetCooperativeLevel(lpDIDKeyboard, appWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND))) {
-      MessageBox(NULL, langGetText(STR_GAMEFRONT_INPUTERR_COOPLEVEL), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      MessageBoxA(NULL, langGetText(STR_GAMEFRONT_INPUTERR_COOPLEVEL), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
       returnValue = FALSE;
     }
   }

@@ -178,7 +178,7 @@ BOOL CALLBACK dialogGameFinderOpeningProc(HWND hDlg, UINT uMsg, WPARAM wParam, L
  
 	switch (uMsg)	{
     case WM_PAINT:
-			if (CommDlg_OpenSave_GetFilePath(GetParent(hDlg), szFile, sizeof(szFile)) <= sizeof(szFile)) {
+			if (CommDlg_OpenSave_GetFilePathA(GetParent(hDlg), szFile, sizeof(szFile)) <= sizeof(szFile)) {
         hWnd = GetDlgItem(hDlg, IDC_MAP);
         if (hWnd != NULL) {
           hDC = GetDC(hWnd);
@@ -239,7 +239,7 @@ void dialogGameSetupChooseMap(HWND hWnd) {
   ofn.Flags   = OFN_FILEMUSTEXIST | OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_SHOWHELP | OFN_EXPLORER | OFN_ENABLEHOOK | OFN_ENABLETEMPLATE;
 
   
-  openOK = GetOpenFileName( &ofn ); /* Do the dialog box */
+  openOK = GetOpenFileNameA( &ofn ); /* Do the dialog box */
   if (openOK == TRUE) {
     dialogGameSetupMapCheck(hWnd, fileName);
   }
@@ -272,15 +272,15 @@ void dialogGameSetupMapCheck(HWND hWnd, char *fileName) {
 
   openOK = screenLoadMap(fileName, gameOpen, FALSE, 0, UNLIMITED_GAME_TIME, langGetText(STR_DLGGAMESETUP_DEFAULTNAME), TRUE);
   if (openOK == FALSE) {
-    MessageBox(NULL, langGetText(STR_DLGGAMESETUP_ERROROPENINGMAP), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
-    SendDlgItemMessage(hWnd, IDC_SELECTEDMAP, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_DLGGAMESETUP_SELECTEDMAPINBUILT));
+    MessageBoxA(NULL, langGetText(STR_DLGGAMESETUP_ERROROPENINGMAP), DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+    SendDlgItemMessageA(hWnd, IDC_SELECTEDMAP, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) langGetText(STR_DLGGAMESETUP_SELECTEDMAPINBUILT));
     gameFrontSetFileName("");
   } else {
     screenGetMapName(mapName);
     strcpy(output, langGetText(STR_DLGGAMESETUP_SELECTEDMAP));
     strcat(output, mapName);
     gameFrontSetFileName(fileName);
-    SendDlgItemMessage(hWnd, IDC_SELECTEDMAP, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (output));
+    SendDlgItemMessageA(hWnd, IDC_SELECTEDMAP, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (output));
   }
 }
 
@@ -311,39 +311,39 @@ void dialogGameSetupInit(HWND hWnd) {
   mapPreviewSetup();
 
   text = langGetText(STR_DLGGAMESETUP_TITLE);
-  SetWindowText(hWnd, text);
+  SetWindowTextA(hWnd, text);
   text = langGetText(STR_DLGGAMESETUP_BLURB);
-  SetDlgItemText(hWnd, IDC_BLURB, text);
-  SetDlgItemText(hWnd, IDC_SELECTEDMAP, langGetText(STR_DLGGAMESETUP_SELECTEDMAPINBUILT));
+  SetDlgItemTextA(hWnd, IDC_BLURB, text);
+  SetDlgItemTextA(hWnd, IDC_SELECTEDMAP, langGetText(STR_DLGGAMESETUP_SELECTEDMAPINBUILT));
   text = langGetText(STR_DLGGAMESETUP_CHOOSEMAP);
-  SetDlgItemText(hWnd, IDC_CHOOSE_MAP, text);
+  SetDlgItemTextA(hWnd, IDC_CHOOSE_MAP, text);
   text = langGetText(STR_DLGGAMESETUP_RADIO1);
-  SetDlgItemText(hWnd, IDC_RADIO1, text);
+  SetDlgItemTextA(hWnd, IDC_RADIO1, text);
   text = langGetText(STR_DLGGAMESETUP_RADIO2);
-  SetDlgItemText(hWnd, IDC_RADIO2, text);
+  SetDlgItemTextA(hWnd, IDC_RADIO2, text);
   text = langGetText(STR_DLGGAMESETUP_RADIO3);
-  SetDlgItemText(hWnd, IDC_RADIO3, text);
+  SetDlgItemTextA(hWnd, IDC_RADIO3, text);
   text = langGetText(STR_DLGGAMESETUP_HIDDENMINES);
-  SetDlgItemText(hWnd, IDC_HIDDEN_MINES, text);
+  SetDlgItemTextA(hWnd, IDC_HIDDEN_MINES, text);
   text = langGetText(STR_DLGGAMESETUP_ALLOWCOMPTANKS);
-  SetDlgItemText(hWnd, IDC_ALLOWCOMP1, text);
+  SetDlgItemTextA(hWnd, IDC_ALLOWCOMP1, text);
   text = langGetText(STR_DLGGAMESETUP_ALLOWCOMPTANKSADV);
-  SetDlgItemText(hWnd, IDC_ALLOWCOMP2, text);
+  SetDlgItemTextA(hWnd, IDC_ALLOWCOMP2, text);
 
   text = langGetText(STR_DLGGAMESETUP_PASSWORD);
-  SetDlgItemText(hWnd, IDC_CHECKPASS, text);
+  SetDlgItemTextA(hWnd, IDC_CHECKPASS, text);
   text = langGetText(STR_DLGGAMESETUP_STARTDELAY);
-  SetDlgItemText(hWnd, IDC_GAMESTART, text);
+  SetDlgItemTextA(hWnd, IDC_GAMESTART, text);
   text = langGetText(STR_DLGGAMESETUP_TIMELIMIT);
-  SetDlgItemText(hWnd, IDC_CHECKTIME_LIMIT, text);
+  SetDlgItemTextA(hWnd, IDC_CHECKTIME_LIMIT, text);
   text = langGetText(STR_DLGGAMESETUP_SECONDS);
-  SetDlgItemText(hWnd, IDC_SECONDS, text);
+  SetDlgItemTextA(hWnd, IDC_SECONDS, text);
   text = langGetText(STR_DLGGAMESETUP_MINUTES);
-  SetDlgItemText(hWnd, IDC_MINUTES, text);
+  SetDlgItemTextA(hWnd, IDC_MINUTES, text);
   text = langGetText(STR_OK);
-  SetDlgItemText(hWnd, IDC_OK, text);
+  SetDlgItemTextA(hWnd, IDC_OK, text);
   text = langGetText(STR_CANCEL);
-  SetDlgItemText(hWnd, IDCANCEL, text);
+  SetDlgItemTextA(hWnd, IDCANCEL, text);
 
 
   gameFrontGetGameOptions(password, &gt, &hm, &ai, &sd, &tlimit);
@@ -351,7 +351,7 @@ void dialogGameSetupInit(HWND hWnd) {
   dlgWnd = GetDlgItem(hWnd, IDC_EDITPASS);
   if (password[0] != '\0') {
     CheckDlgButton(hWnd, IDC_CHECKPASS, BST_CHECKED);
-    SetDlgItemText(hWnd, IDC_EDITPASS, password);
+    SetDlgItemTextA(hWnd, IDC_EDITPASS, password);
     EnableWindow(dlgWnd, TRUE);
   }
 
@@ -393,7 +393,7 @@ void dialogGameSetupInit(HWND hWnd) {
     tlimit /= GAME_NUMGAMETICKS_SEC;
     tlimit /= NUM_SECONDS;
     ltoa(tlimit, password, 10);
-    SetDlgItemText(hWnd, IDC_EDITTIMELIMIT, password);
+    SetDlgItemTextA(hWnd, IDC_EDITTIMELIMIT, password);
   }
   if (sd > 0) {
     CheckDlgButton(hWnd, IDC_GAMESTART, BST_CHECKED);
@@ -401,7 +401,7 @@ void dialogGameSetupInit(HWND hWnd) {
     EnableWindow(dlgWnd, TRUE);
     sd /= GAME_NUMGAMETICKS_SEC;
     ltoa(sd, password, 10);
-    SetDlgItemText(hWnd, IDC_EDITSTART, password);
+    SetDlgItemTextA(hWnd, IDC_EDITSTART, password);
   }
 
 
