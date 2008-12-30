@@ -293,10 +293,10 @@ bool mapRead(char *fileName, map *value, pillboxes *pb, bases *bs, starts *ss);
 *NAME:          mapGetPos
 *AUTHOR:        John Morrison
 *CREATION DATE: 28/10/98
-*LAST MODIFIED: 28/10/98
+*LAST MODIFIED: 30/12/2008
 *PURPOSE:
 * Returns The value of a square in a map. Return 
-* DEEP_SEA if value out of range
+* RIVER if value out of range
 *
 *ARGUMENTS:
 *  value  - Pointer to the map data structure

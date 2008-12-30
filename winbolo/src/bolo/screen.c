@@ -444,10 +444,10 @@ void screenUpdate(updateType value) {
 *NAME:          screenGetPos
 *AUTHOR:        John Morrison
 *CREATION DATE: 28/10/98
-*LAST MODIFIED: 28/10/98
+*LAST MODIFIED: 30/12/2008
 *PURPOSE:
 *  Gets the value of a square in the structure
-*  Return DEEP_SEA if out of range
+*  Return RIVER if out of range
 *
 *ARGUMENTS:
 *  value  - Pointer to the screen structure
@@ -455,7 +455,7 @@ void screenUpdate(updateType value) {
 *  yValue - The Y co-ordinate
 *********************************************************/
 BYTE screenGetPos(screen *value,BYTE xValue, BYTE yValue) {
-  BYTE returnValue = DEEP_SEA; /* Value to return */
+  BYTE returnValue = RIVER; /* Value to return */
 
   if (xValue < MAIN_BACK_BUFFER_SIZE_X && yValue < MAIN_BACK_BUFFER_SIZE_Y) {
     returnValue = (*value)->screenItem[xValue][yValue];

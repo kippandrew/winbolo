@@ -322,7 +322,7 @@ void screenUpdate(updateType value);
 *LAST MODIFIED: 28/10/98
 *PURPOSE:
 *  Gets the value of a square in the structure
-*  Return DEEP_SEA if out of range
+*  Return RIVER if out of range
 *
 *ARGUMENTS:
 *  value  - Pointer to the screen structure
