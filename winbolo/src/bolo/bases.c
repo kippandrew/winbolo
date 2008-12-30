@@ -232,7 +232,7 @@ baseAlliance basesGetAlliancePos(bases *value, BYTE xValue, BYTE yValue) {
   done = FALSE;
   while (done == FALSE && count < ((*value)->numBases)) {
     if (((*value)->item[count].x) == xValue && ((*value)->item[count].y) == yValue) {
-     if ((*value)->item[count].armour == 0) {
+     if ((*value)->item[count].armour <= MIN_ARMOUR_CAPTURE) {
         returnValue = baseDead;
       } else if ((*value)->item[count].owner == NEUTRAL) {
         returnValue = baseNeutral;
@@ -272,7 +272,7 @@ baseAlliance basesGetStatusNum(bases *value, BYTE baseNum) {
   baseNum--;
   returnValue = baseNeutral;
   if (baseNum <= ((*value)->numBases)) {
-    if ((*value)->item[baseNum].armour == 0) {
+    if ((*value)->item[baseNum].armour <= MIN_ARMOUR_CAPTURE) {
       returnValue = baseDead;
     } else if ((*value)->item[baseNum].owner == NEUTRAL) {
       returnValue = baseNeutral;
@@ -807,7 +807,7 @@ void basesDamagePos(bases *value, BYTE xValue, BYTE yValue) {
       if ((*value)->item[count].armour > BASE_FULL_ARMOUR) {
         (*value)->item[count].armour = 0;
       }
-      if ((*value)->item[count].armour == 0) {
+      if ((*value)->item[count].armour <= BASE_DISPLAY_X) {
         if (threadsGetContext() == FALSE) {
           frontEndStatusBase((BYTE) (count+1), baseDead);
         }
@@ -844,7 +844,7 @@ bool basesCanHit(bases *value, BYTE xValue, BYTE yValue, BYTE hitBy) {
     done = FALSE;
     while (done == FALSE && count < ((*value)->numBases)) {
       if (((*value)->item[count].x) == xValue && ((*value)->item[count].y) == yValue) {
-        if ((playersIsAllie(screenGetPlayers(), ((*value)->item[count].owner), hitBy) == FALSE) && (*value)->item[count].owner != NEUTRAL && (*value)->item[count].armour > 0) {
+        if ((playersIsAllie(screenGetPlayers(), ((*value)->item[count].owner), hitBy) == FALSE) && (*value)->item[count].owner != NEUTRAL && (*value)->item[count].armour > BASE_MIN_CAN_HIT) {
           returnValue = TRUE;
         }
         done = TRUE;
@@ -856,6 +856,43 @@ bool basesCanHit(bases *value, BYTE xValue, BYTE yValue, BYTE hitBy) {
   return returnValue;
 }
 
+/*********************************************************
+*NAME:          basesCanDrive
+*AUTHOR:        Minhiriath
+*CREATION DATE: 29/12/2008
+*LAST MODIFIED: 29/12/2008
+*PURPOSE:
+*  Returns whether the bases at the particular location
+*  can be driven over by an object owned by the player lgm, or tank.
+*
+*ARGUMENTS:
+*  value  - Pointer to the bases structure
+*  xValue - X Location
+*  yValue - Y Location
+*  hitBy  - Person who fired the shell
+*********************************************************/
+bool basesCanDrive(bases *value, BYTE xValue, BYTE yValue, BYTE hitBy) {
+  bool returnValue;         /* Value to return */
+  bool done;                /* Finished looping */
+  BYTE count;               /* Looping Variable */
+
+  returnValue = FALSE;
+  if (hitBy != NEUTRAL) {
+    count = 0;
+    done = FALSE;
+    while (done == FALSE && count < ((*value)->numBases)) {
+      if (((*value)->item[count].x) == xValue && ((*value)->item[count].y) == yValue) {
+        if ((playersIsAllie(screenGetPlayers(), ((*value)->item[count].owner), hitBy) == FALSE) && (*value)->item[count].owner != NEUTRAL && (*value)->item[count].armour > MIN_ARMOUR_CAPTURE) {
+          returnValue = TRUE;
+        }
+        done = TRUE;
+      }
+      count++;
+    }
+  }
+
+  return returnValue;
+}
 /*********************************************************
 *NAME:          basesGetBaseOwner
 *AUTHOR:        John Morrison

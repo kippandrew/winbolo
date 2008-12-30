@@ -43,12 +43,19 @@
 
 #define BASE_NOT_FOUND 254
 
-/* A base is dead if it has 0 armour */
-#define BASE_DEAD 0
+/* A base is dead if it has 9 armour */
+#define BASE_DEAD 9
+
+/* Base will soak shots until it has this much armor */
+#define BASE_MIN_CAN_HIT 4
+
+/* This is the units at which winbolo will display */
+#define BASE_DISPLAY_X 4
 
 /* Minium amount of stocks a base can have of each item */
 #define BASE_MIN_SHELLS 0
-#define BASE_MIN_ARMOUR 3
+/* Base will keep 10 units (2 armor) for itself to defend itself against attack */
+#define BASE_MIN_ARMOUR 10
 #define BASE_MIN_MINES 0
 
 /* The amount given to a tank each time */
@@ -61,7 +68,7 @@
 #define BASE_REFUEL_MINES 10 /* 30 */
 
 /* Minimum armour required for a capture */
-#define MIN_ARMOUR_CAPTURE 1
+#define MIN_ARMOUR_CAPTURE 9
 
 /* Range something has to be in to be shown on the display */
 /* 7 map squares or 1792 WORLD units */
@@ -405,6 +412,23 @@ void basesDamagePos(bases *value, BYTE xValue, BYTE yValue);
 *  hitBy  - Person who fired the shell
 *********************************************************/
 bool basesCanHit(bases *value, BYTE xValue, BYTE yValue, BYTE hitBy);
+
+/*********************************************************
+*NAME:          basesCanDrive
+*AUTHOR:        Minhiriath
+*CREATION DATE: 29/12/2008
+*LAST MODIFIED: 29/12/2008
+*PURPOSE:
+*  Returns whether the bases at the particular location
+*  can be driven over by an object owned by the player lgm, or tank.
+*
+*ARGUMENTS:
+*  value  - Pointer to the bases structure
+*  xValue - X Location
+*  yValue - Y Location
+*  hitBy  - Person who fired the shell
+*********************************************************/
+bool basesCanDrive(bases *value, BYTE xValue, BYTE yValue, BYTE hitBy);
 
 /*********************************************************
 *NAME:          basesGetBaseOwner
