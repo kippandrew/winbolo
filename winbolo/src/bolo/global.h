@@ -17,8 +17,6 @@
 
 #ifndef GLOBAL_H  /* Double inclusion protection */
 #define GLOBAL_H
-#define _UNICODE
-#define UNICODE
 
 /* Standard Includes */
 #include <stdio.h>
