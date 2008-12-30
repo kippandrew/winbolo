@@ -857,7 +857,7 @@ bool basesCanHit(bases *value, BYTE xValue, BYTE yValue, BYTE hitBy) {
 }
 
 /*********************************************************
-*NAME:          basesCanDrive
+*NAME:          basesCantDrive
 *AUTHOR:        Minhiriath
 *CREATION DATE: 29/12/2008
 *LAST MODIFIED: 29/12/2008
@@ -871,7 +871,7 @@ bool basesCanHit(bases *value, BYTE xValue, BYTE yValue, BYTE hitBy) {
 *  yValue - Y Location
 *  hitBy  - Person who fired the shell
 *********************************************************/
-bool basesCanDrive(bases *value, BYTE xValue, BYTE yValue, BYTE hitBy) {
+bool basesCantDrive(bases *value, BYTE xValue, BYTE yValue, BYTE hitBy) {
   bool returnValue;         /* Value to return */
   bool done;                /* Finished looping */
   BYTE count;               /* Looping Variable */

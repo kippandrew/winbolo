@@ -531,7 +531,7 @@ BYTE mapGetSpeed(map *value, pillboxes *pb, bases *bs, BYTE xValue, BYTE yValue,
     }
   } else if ((basesExistPos(bs,xValue,yValue)) == TRUE) {
     /* Check for owned base */
-    if (basesCanDrive(bs, xValue, yValue, playerNum) == FALSE) {
+    if (basesCantDrive(bs, xValue, yValue, playerNum) == FALSE) {
       returnValue = MAP_MANSPEED_TREFBASE;
     } else {
       returnValue = 0;
@@ -622,7 +622,7 @@ BYTE mapGetManSpeed(map *value, pillboxes *pb, bases *bs, BYTE xValue, BYTE yVal
     }
   } else if ((basesExistPos(bs,xValue,yValue)) == TRUE) {
     /* Check for owned base */
-    if (basesCanDrive(bs, xValue, yValue, playerNum) == FALSE) {
+    if (basesCantDrive(bs, xValue, yValue, playerNum) == FALSE) {
       returnValue = MAP_MANSPEED_TREFBASE;
     } else {
       returnValue = 0;
@@ -706,7 +706,7 @@ TURNTYPE mapGetTurnRate(map *value, pillboxes *pb, bases *bs, BYTE xValue, BYTE 
     }
   } else if ((basesExistPos(bs,xValue,yValue)) == TRUE) {
     /* Check for owned base */
-    if (basesCanDrive(bs, xValue, yValue, playerNum) == FALSE) {
+    if (basesCantDrive(bs, xValue, yValue, playerNum) == FALSE) {
       returnValue = MAP_TURN_TREFBASE;
     } else {
       returnValue = 0;
