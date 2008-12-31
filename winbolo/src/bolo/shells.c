@@ -640,11 +640,18 @@ bool shellsCalcCollision(map *mp, pillboxes *pb, tank *tk, bases *bs, WORLD *xVa
         }
         break;
       case RUBBLE:
-        newTerrain = rubbleAddItem(screenGetRubble(), mapX, mapY);
-        mapSetPos(mp, mapX, mapY, newTerrain, FALSE, FALSE);
-        if (newTerrain == RIVER) {
-          floodAddItem(screenGetFloodFill(), mapX, mapY);
-        }
+        if (isMine == TRUE) {
+          mapSetPos(mp, mapX, mapY, RUBBLE+MINE_SUBTRACT, FALSE, FALSE);
+          if (isServer == TRUE) {
+            netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), mapX, mapY);
+          }
+        } else {
+			newTerrain = rubbleAddItem(screenGetRubble(), mapX, mapY);
+			mapSetPos(mp, mapX, mapY, newTerrain, FALSE, FALSE);
+			if (newTerrain == RIVER) {
+			  floodAddItem(screenGetFloodFill(), mapX, mapY);
+			}
+		}
         break;
       case ROAD:
         if (isMine == TRUE) {
