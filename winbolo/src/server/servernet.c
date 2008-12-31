@@ -691,14 +691,14 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
   char str[FILENAME_MAX];                     /* Used for message printing */
   struct sockaddr_in sAddr;
   char *tok;
-  char rsadecryptedholder[256];
+  char rsadecryptedholder[512];
   BIGD m1,c,d,n;
   BYTE ip1;
   BYTE ip2;
   BYTE ip3;
   BYTE ip4;
   
-  memset(rsadecryptedholder, 0, 256);
+  memset(rsadecryptedholder, 0, 512);
   /* Check Name not in use */
   memset(&prp, 0, sizeof(prp));
   memcpy(&prp, buff, sizeof(prp));
