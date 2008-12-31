@@ -169,7 +169,7 @@ void efree(Generic object);
 /* Angular Meausrement stuff */
 #define BRADIANS_MAX 256.0
 #define DEGREES_MAX 360.0
-#define RADIAN_MAX (2.0 * 3.14)
+#define RADIANS_MAX (2.0 * 3.14)
 #define BRADIANS_NORTH 0
 #define BRADIANS_EAST 64
 #define BRADIANS_SOUTH 128
@@ -188,6 +188,13 @@ void efree(Generic object);
 #define BRADIANS_NNWEST 240
 /* The gap between north to north north east to north east etc is 16 Bradians */
 #define BRADIANS_GAP 16
+
+/* Maths */
+#define RADIAN_TO_DEGREE_FACTOR 57.295780
+#define DEGREE_TO_RADIAN_FACTOR 0.017453
+#define BRADIAN_TO_RADIAN_FACTOR 0.024544
+#define RADIAN_TO_BRADIAN_FACTOR 40.743665
+
 
 /* Max Tanks in the game */
 #define MAX_TANKS 16

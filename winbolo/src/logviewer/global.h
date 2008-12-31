@@ -162,7 +162,7 @@ void efree(Generic object);
 /* Angular Meausrement stuff */
 #define BRADIANS_MAX 256.0
 #define DEGREES_MAX 360.0
-#define RADIAN_MAX (2.0 * 3.14)
+#define RADIANS_MAX (2.0 * 3.14)
 #define BRADIANS_NORTH 0
 #define BRADIANS_EAST 64
 #define BRADIANS_SOUTH 128

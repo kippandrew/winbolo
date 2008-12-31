@@ -2659,7 +2659,7 @@ void drawSetManStatus(int xValue, int yValue, bool isDead, TURNTYPE angle) {
     /* Convert bradians to degrees */
     dbAngle = (DEGREES_MAX / BRADIANS_MAX) * angle;
     /* Convert degrees to radians */
-    dbAngle = (dbAngle / DEGREES_MAX) * RADIAN_MAX;      
+    dbAngle = (dbAngle / DEGREES_MAX) * RADIANS_MAX;      
 
 
     addX = (zoomFactor * MAN_STATUS_CENTER_X);
@@ -2675,7 +2675,7 @@ void drawSetManStatus(int xValue, int yValue, bool isDead, TURNTYPE angle) {
     /* Convert bradians to degrees */
     dbAngle = (DEGREES_MAX / BRADIANS_MAX) * angle;
     /* Convert degrees to radians */
-    dbAngle = (dbAngle / DEGREES_MAX) * RADIAN_MAX;      
+    dbAngle = (dbAngle / DEGREES_MAX) * RADIANS_MAX;      
 
 
     addX = (zoomFactor * MAN_STATUS_CENTER_X);
@@ -2690,7 +2690,7 @@ void drawSetManStatus(int xValue, int yValue, bool isDead, TURNTYPE angle) {
     /* Convert bradians to degrees */
     dbAngle = (DEGREES_MAX / BRADIANS_MAX) * angle;
     /* Convert degrees to radians */
-    dbAngle = (dbAngle / DEGREES_MAX) * RADIAN_MAX;      
+    dbAngle = (dbAngle / DEGREES_MAX) * RADIANS_MAX;      
 
 
     addX = (zoomFactor * MAN_STATUS_CENTER_X);
@@ -2705,7 +2705,7 @@ void drawSetManStatus(int xValue, int yValue, bool isDead, TURNTYPE angle) {
     /* Convert bradians to degrees */
     dbAngle = (DEGREES_MAX / BRADIANS_MAX) * angle;
     /* Convert degrees to radians */
-    dbAngle = (dbAngle / DEGREES_MAX) * RADIAN_MAX;      
+    dbAngle = (dbAngle / DEGREES_MAX) * RADIANS_MAX;      
 
     addX = (zoomFactor * MAN_STATUS_CENTER_X);
     addY = (zoomFactor * MAN_STATUS_CENTER_Y);

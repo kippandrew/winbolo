@@ -61,7 +61,7 @@ void utilCalcDistance(int *xAmount, int *yAmount, TURNTYPE angle, int speed) {
   /* Convert bradians to degrees */
   dbAngle = (DEGREES_MAX / BRADIANS_MAX) * angle;
   /* Convert degrees to radians */
-  dbAngle = (dbAngle / DEGREES_MAX) * RADIAN_MAX;
+  dbAngle = (dbAngle / DEGREES_MAX) * RADIANS_MAX;
   /* Perform calculation */
   *xAmount = (int) (speed * cos(dbAngle));
   *yAmount = (int) (speed * sin(dbAngle));
@@ -233,7 +233,7 @@ TURNTYPE utilCalcAngle(WORLD object1X, WORLD object1Y, WORLD object2X, WORLD obj
   }
  
   angle = atan((gapX/gapY));
-  angle = (angle / RADIAN_MAX) * DEGREES_MAX;
+  angle = (angle / RADIANS_MAX) * DEGREES_MAX;
   
   returnValue = (TURNTYPE) ((BRADIANS_MAX/ DEGREES_MAX) * angle);
   
