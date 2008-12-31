@@ -17,21 +17,38 @@
 # Makefile for LinBolo Server
 # Author: John Morrison 
 
+# Edited by Kruz for Minhiriath
+# Date: 31-12-2008
+
+########## VARIABLES ##########
+# Executables
 CC = gcc
-CCC = checkergcc
+REM = rm
+
+# Flags for gcc and rm
+REMFLAGS = -f
+SDLFLAGS = `sdl-config --libs`
 CFLAGS = -g `sdl-config --cflags`
-#CFLAGS = -O3 -s -ffast-math -fomit-frame-pointer `sdl-config --cflags`
-#CFLAGS = -g
+BDFLAGS = -std=c99 -pedantic -Wall -Wpointer-arith -Wstrict-prototypes -O2
+
+# directories
 BOLODIR = ../bolo/
 GUIDIR = ../gui/
 WBNETDIR = ../winbolonet/
 GUIDIRLINUX = ../gui/linux/
 SERVERDIR = ./
 COMPRESSDIR = ../lzw/
-SERVERNAME = linbolods
 ZLIBDIR = ../zlib/
+BDDIR = BigDigits/
 
-all: linbolods
+# added for BigDigits
+BDINCLUDES = bigd.h bigdigits.h bigdtypes.h bigdRand.h bigdigitsRand.h
+
+# Output Executable
+SERVERNAME = linbolods
+
+########## OUTPUT ##########
+all: $(SERVERNAME)
 
 b: global.o bases.o util.o crc.o pillbox.o lgm.o shells.o tank.o \
 	allience.o bolo_map.o building.o explosions.o floodfill.o \
@@ -49,9 +66,11 @@ server: servercore.o servermessages.o serverfrontend.o servermain.o \
 zlib: 	adler32.o compress.o crc32.o deflate.o gzio.o \
 	inffast.o inflate.o inftrees.o trees.o ioapi.o uncompr.o \
 	unzip.o zip.o zutil.o 
+
+bigdigits: bigd.o bigdigits.o bigdigitsRand.o bigdRand.o
 	
-linbolods: zlib b server
-	${CC} `sdl-config --libs` -o ${SERVERNAME} \
+$(SERVERNAME): zlib b server bigdigits
+	$(CC) $(SDLFLAGS) -o $(SERVERNAME) \
 	global.o bases.o util.o crc.o pillbox.o lgm.o shells.o tank.o \
 	allience.o bolo_map.o building.o explosions.o floodfill.o \
 	gametype.o grass.o labels.o mines.o minesexp.o  netmt.o netplayers.o \
@@ -62,56 +81,83 @@ linbolods: zlib b server
 	winbolonet.o http.o screenbullet.o preferences.o winbolonetthread.o \
 	backend.o adler32.o compress.o crc32.o deflate.o gzio.o  \
 	inffast.o inflate.o inftrees.o trees.o ioapi.o uncompr.o \
-	unzip.o zip.o zutil.o
-		
-clean: 
-	rm *.o
-	rm linbolods
-		
+	unzip.o zip.o zutil.o bigd.o bigdigits.o bigdigitsRand.o bigdRand.o
 
-#zlib
+tidy: 
+	$(REM) $(REMFLAGS) *.o
+
+clean: tidy 
+	$(REM) $(REMFLAGS) $(SERVERNAME)
+
+########## OBJECTS ##########
+
+# bigdigits
+bigd.o: $(BDDIR)bigd.h
+	$(CC) $(BDFLAGS) -c $(BDDIR)bigd.c
+
+bigdigits.o: $(BDDIR)bigdigits.h
+	$(CC) $(BDFLAGS) -c $(BDDIR)bigdigits.c
+
+bigdigitsRand.o: $(BDDIR)bigdigitsRand.h
+	$(CC) $(BDFLAGS) -c $(BDDIR)bigdigitsRand.c
+
+bigdRand.o: $(BDDIR)bigdRand.h
+	$(CC) $(BDFLAGS) -c $(BDDIR)bigdRand.c
+
+# zlib
 adler32.o: ${ZLIBDIR}adler32.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}adler32.c
+
 compress.o: ${ZLIBDIR}compress.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}compress.c
+
 crc32.o: ${ZLIBDIR}crc32.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}crc32.c
+
 deflate.o: ${ZLIBDIR}deflate.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}deflate.c
+
 gzio.o: ${ZLIBDIR}gzio.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}gzio.c
+
 infback.o: ${ZLIBDIR}infback.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}infback.c
 
 inffast.o: ${ZLIBDIR}inffast.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}inffast.c
+
 inflate.o: ${ZLIBDIR}inflate.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}inflate.c
+
 inftrees.o: ${ZLIBDIR}inftrees.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}inftrees.c
+
 trees.o: ${ZLIBDIR}trees.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}trees.c
+
 ioapi.o: ${ZLIBDIR}ioapi.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}ioapi.c
+
 uncompr.o: ${ZLIBDIR}uncompr.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}uncompr.c
+
 unzip.o: ${ZLIBDIR}unzip.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}unzip.c
+
 zip.o: ${ZLIBDIR}zip.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}zip.c
+
 zutil.o: ${ZLIBDIR}zutil.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}zutil.c
 
-
 # gui lang
-
 lang.o: ${GUIDIRLINUX}lang.c ${GUIDIR}lang.h
 	${CC} ${CFLAGS} -c ${GUIDIRLINUX}lang.c
 
 preferences.o: ${GUIDIRLINUX}preferences.c ${GUIDIRLINUX}preferences.h
 	${CC} ${CFLAGS} -c ${GUIDIRLINUX}preferences.c
 
-#winbolonet
+# winbolonet
 winbolonet.o: ${WBNETDIR}winbolonet.c ${WBNETDIR}winbolonet.h
 	${CC} ${CFLAGS} -c ${WBNETDIR}winbolonet.c
 
@@ -124,26 +170,25 @@ winbolonetevents.o: ${WBNETDIR}winbolonetevents.c ${WBNETDIR}winbolonetevents.h
 http.o: ${WBNETDIR}http.c ${WBNETDIR}http.h
 	${CC} ${CFLAGS} -c ${WBNETDIR}http.c
 
-
-#Bolo
+# Bolo
 global.o: ${BOLODIR}global.c ${BOLODIR}global.h
 	${CC} ${CFLAGS} -c ${BOLODIR}global.c
 
 backend.o: ${BOLODIR}backend.c 
 	${CC} ${CFLAGS} -c ${BOLODIR}backend.c
 
-util.o:	${BOLODIR}util.c ${BOLODIR}util.h
+util.o: ${BOLODIR}util.c ${BOLODIR}util.h
 	${CC} ${CFLAGS} -c ${BOLODIR}util.c
+
 crc.o: ${BOLODIR}crc.c ${BOLODIR}crc.h
 	${CC} ${CFLAGS} -c ${BOLODIR}crc.c
 
 screenbullet.o: ${BOLODIR}screenbullet.c ${BOLODIR}screenbullet.h
 	${CC} ${CFLAGS} -c ${BOLODIR}screenbullet.c
 
-
 playersrejoin.o: ${BOLODIR}playersrejoin.c ${BOLODIR}playersrejoin.h
 	${CC} ${CFLAGS} -c ${BOLODIR}playersrejoin.c
-	
+
 bases.o: ${BOLODIR}bases.h ${BOLODIR}bases.c
 	${CC} ${CFLAGS} -c ${BOLODIR}bases.c
 
@@ -191,7 +236,7 @@ labels.o: ${BOLODIR}labels.c ${BOLODIR}labels.h
 
 messages.o: ${BOLODIR}messages.c ${BOLODIR}messages.h
 	${CC} ${CFLAGS} -c ${BOLODIR}messages.c
-	
+
 mines.o: ${BOLODIR}mines.c ${BOLODIR}mines.h
 	${CC} ${CFLAGS} -c ${BOLODIR}mines.c
 
@@ -200,28 +245,28 @@ minesexp.o: ${BOLODIR}minesexp.c ${BOLODIR}minesexp.h
 
 netmt.o: ${BOLODIR}netmt.c ${BOLODIR}netmt.h
 	${CC} ${CFLAGS} -c ${BOLODIR}netmt.c
-	
+
 netplayers.o: ${BOLODIR}netplayers.c ${BOLODIR}netplayers.h
 	${CC} ${CFLAGS} -c ${BOLODIR}netplayers.c
-	
+
 netpnb.o: ${BOLODIR}netpnb.c ${BOLODIR}netpnb.h
 	${CC} ${CFLAGS} -c ${BOLODIR}netpnb.c
-	
-network.o: ${BOLODIR}network.c ${BOLODIR}network.h
+
+network.o: ${BOLODIR}network.c ${BOLODIR}network.h ${SERVERDIR}rsaalgorithm.h
 	${CC} ${CFLAGS} -c ${BOLODIR}network.c
 
 players.o: ${BOLODIR}players.c ${BOLODIR}players.h
 	${CC} ${CFLAGS} -c ${BOLODIR}players.c
-	
+
 rubble.o: ${BOLODIR}rubble.c ${BOLODIR}rubble.h
 	${CC} ${CFLAGS} -c ${BOLODIR}rubble.c
-	
+
 screenbrainmap.o: ${BOLODIR}screenbrainmap.c ${BOLODIR}screenbrainmap.h
 	${CC} ${CFLAGS} -c ${BOLODIR}screenbrainmap.c
-	
+
 screencalc.o: ${BOLODIR}screencalc.c ${BOLODIR}screencalc.h
 	${CC} ${CFLAGS} -c ${BOLODIR}screencalc.c
-	
+
 screenlgm.o: ${BOLODIR}screenlgm.c ${BOLODIR}screenlgm.h
 	${CC} ${CFLAGS} -c ${BOLODIR}screenlgm.c
 
@@ -233,7 +278,7 @@ screen.o: ${BOLODIR}screen.c ${BOLODIR}screen.h
 
 scroll.o: ${BOLODIR}scroll.c ${BOLODIR}scroll.h
 	${CC} ${CFLAGS} -c ${BOLODIR}scroll.c
-	
+
 sounddist.o: ${BOLODIR}sounddist.c ${BOLODIR}sounddist.h
 	${CC} ${CFLAGS} -c ${BOLODIR}sounddist.c
 
@@ -255,27 +300,25 @@ dcodlzw.o: ${COMPRESSDIR}dcodlzw.c
 ecodlzw.o: ${COMPRESSDIR}ecodlzw.c
 	${CC} ${CFLAGS} -c ${COMPRESSDIR}ecodlzw.c
 
-
-
-#
-# Server components 
-#
+# Server 
 servercore.o: ${SERVERDIR}servercore.c ${SERVERDIR}servercore.h
 	${CC} ${CFLAGS} -c ${SERVERDIR}servercore.c
+
 servermessages.o: ${SERVERDIR}servermessages.c ${BOLODIR}messages.h
 	 ${CC} ${CFLAGS} -c ${SERVERDIR}servermessages.c
+
 serverfrontend.o: ${SERVERDIR}serverfrontend.c 
 	${CC} ${CFLAGS} -c ${SERVERDIR}serverfrontend.c
-	 
+
 servermain.o: ${SERVERDIR}servermain.c
 	${CC} ${CFLAGS} -c ${SERVERDIR}servermain.c
 
-servernet.o: ${SERVERDIR}servernet.c ${SERVERDIR}servernet.h
+servernet.o: ${SERVERDIR}servernet.c ${SERVERDIR}servernet.h ${SERVERDIR}rsaalgorithm.h
 	${CC}  ${CFLAGS} -c ${SERVERDIR}servernet.c
 
 servertransport.o: ${SERVERDIR}servertransport.c ${SERVERDIR}servertransport.h
 	${CC}  ${CFLAGS} -c ${SERVERDIR}servertransport.c
-	
+
 threads.o: ${SERVERDIR}threads.c ${SERVERDIR}threads.h
 	${CC}  ${CFLAGS} -c ${SERVERDIR}threads.c
 
