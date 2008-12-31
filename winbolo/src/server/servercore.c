@@ -898,10 +898,17 @@ int serverCoreMakePosPackets(BYTE *buff, BYTE noPlayer, bool sendStale) {
 
   while (count < MAX_TANKS) {
     if (playersPosData[count].len != -1) {
+      /* Is the player's LGM out of their tank? */
       lgmInView = lgmIsOut(&lgman[count]);
       if (lgmInView == TRUE) {
-//        serverCoreTankInView(noPlayer, lgmGetMX(&lgman[count]), lgmGetMY(&lgman[count]), TRUE, lgmGetFrame(&lgman[count]));
-        lgmInView = serverCoreTankInView(noPlayer, (BYTE) (lgmGetWX(&lgman[count]) >> M_W_SHIFT_SIZE), (BYTE) (lgmGetWY(&lgman[count])  >> M_W_SHIFT_SIZE));
+		/* LGM is parachuting in */
+		if (lgmGetFrame(&lgman[count]) == LGM_HELICOPTER_FRAME) {
+          lgmInView = TRUE;
+		}
+		else {
+		  /* Is the LGM within view of their tank or any friendly pillbox? */
+          lgmInView = serverCoreTankInView(noPlayer, (BYTE) (lgmGetWX(&lgman[count]) >> M_W_SHIFT_SIZE), (BYTE) (lgmGetWY(&lgman[count])  >> M_W_SHIFT_SIZE));
+		}
       }
       tankInView = FALSE;
       if (noPlayer != count) {
