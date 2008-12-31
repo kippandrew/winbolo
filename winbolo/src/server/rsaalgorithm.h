@@ -38,8 +38,8 @@
 #include <string.h>
 #include <time.h>
 #include <assert.h>
-#include "BigDigits\bigd.h"
-#include "BigDigits\bigdRand.h"
+#include "BigDigits/bigd.h"
+#include "BigDigits/bigdRand.h"
 
 static void pr_msg(const char *msg, BIGD b)
 /* Display a message followed by a BIGD value */
