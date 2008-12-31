@@ -55,7 +55,7 @@
 /* Size of the back buffer */
 #define MAIN_BACK_BUFFER_SIZE_X (MAIN_SCREEN_SIZE_X + 2)
 #define MAIN_BACK_BUFFER_SIZE_Y (MAIN_SCREEN_SIZE_Y + 2)
-/* The game timer is 20 milliseconds between events */
+/* The game timer is 20 milliseconds between events the game_tick_length is half this, this is to give more resolution for tank movement and aiming*/
 #define GAME_TICK_LENGTH 10 /* 20 */
 #define GAME_NUMTOTALTICKS_SEC (1000 / GAME_TICK_LENGTH);
 #define GAME_NUMGAMETICKS_SEC (1000 / 20);
