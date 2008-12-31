@@ -490,7 +490,7 @@ bool mapRead(char *fileName, map *value, pillboxes *pb, bases *bs, starts *ss) {
 *  yValue - The y co-ordinate 
 *********************************************************/
 BYTE mapGetPos(map *value, BYTE xValue, BYTE yValue) {
-  BYTE returnValue = RIVER; /* Value to return */
+  BYTE returnValue = DEEP_SEA; /* Value to return */
 
   if (xValue > MAP_MINE_EDGE_LEFT && xValue < MAP_MINE_EDGE_RIGHT && yValue > MAP_MINE_EDGE_TOP && yValue < MAP_MINE_EDGE_BOTTOM) {
     returnValue = (*value)->mapItem[xValue][yValue];
