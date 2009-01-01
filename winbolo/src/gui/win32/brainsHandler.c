@@ -87,7 +87,7 @@ bool brainsHandlerLoadBrainMenuItems(HMENU brainsList) {
     if (fd.dwFileAttributes != FILE_ATTRIBUTE_DIRECTORY) {
       /* Not a directory */
       fd.cFileName[strlen(fd.cFileName)-4] = '\0';
-      AppendMenu(brainsList, MF_STRING, (unsigned int) (brainsNum+BRAINS_RESOURCE_OFFSET), fd.cFileName);
+      AppendMenuA(brainsList, MF_STRING, (unsigned int) (brainsNum+BRAINS_RESOURCE_OFFSET), fd.cFileName);
       brainsNum++;
     }
     ret = FindNextFile(findHandle, &fd);
@@ -96,7 +96,7 @@ bool brainsHandlerLoadBrainMenuItems(HMENU brainsList) {
       if (fd.dwFileAttributes != FILE_ATTRIBUTE_DIRECTORY) {
         /* Not a directory */
         fd.cFileName[strlen(fd.cFileName)-4] = '\0';
-        AppendMenu(brainsList, MF_STRING, (unsigned int) (brainsNum+BRAINS_RESOURCE_OFFSET), fd.cFileName);
+        AppendMenuA(brainsList, MF_STRING, (unsigned int) (brainsNum+BRAINS_RESOURCE_OFFSET), fd.cFileName);
         brainsNum++;
       }
       ret = FindNextFile(findHandle, &fd);
