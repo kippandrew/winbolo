@@ -827,7 +827,7 @@ void gameFinderProcessV1(currentGames *cg, char *buff, int len, char *motd) {
       ptr += gameFinderReplace(ptr, 20000);
       ptr++;
       ptr++;
-      gameFinderGetParamFromLine(ptr, param, (char *) "PILLBOXES");
+      gameFinderGetParamFromLine(ptr, param, (char *) "PILLS");
       pillsNum = (BYTE) atoi(param);
       ptr += gameFinderReplace(ptr, 20000);
       ptr++;
