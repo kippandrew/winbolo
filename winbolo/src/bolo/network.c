@@ -1065,8 +1065,8 @@ bool netJoinFinalise(char *targetip, unsigned short port, bool wantRejoin, char 
 	e = bdNew();
 	n = bdNew();
 	bdConvFromHex(m,rsastring);
-	bdSetShort(e, 3);
-	bdConvFromHex(n,"cc296428b8b2c11b770d80947ba449f6492d3427ee812f5edc5a46be31f31aa0609eb34e4326fffcae51dd3e1f33af344d4257217c9153449b563c7ffe4ca27a9ea81b62836cba1a9426254878f20643ae409686bea0e713332401ab476f5dd50f9c6174af089f7393acc799fd20d751f93f532ac3d19545026ba3a57d416aff");
+	bdSetShort(e, 00000003);
+	bdConvFromHex(n,"b0c9dd3085dc9a0a4183957d1d25d59edbe9c72930962a171c17e5456959b154edd51289425136e53c925ed73d55163a575774151e2eb7f740830ca93f3da7b19e30514b1ee09246d7bf56c1a8e2e9c5c7c197c60849e5f7ce3a9691b6d17c825741341904b316a98bd8d160f939300ee0c4042d5428f22de095f606f120e1d7");
 	// rsa encryption here
 	/* Encrypt c = m^e mod n */
 	bdModExp(c, m, e, n);
