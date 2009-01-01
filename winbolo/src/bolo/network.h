@@ -51,9 +51,9 @@
 
 /* The network type of game being played */
 typedef enum {
-  netNone, /* Game hasn't Started */
-  netSingle,
-  netUdp
+  netNone,   /* Game hasn't Started */
+  netSingle, /* Single-player (non-networked) game */
+  netUdp     /* Networked game */
 } netType;
 
 

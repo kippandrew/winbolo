@@ -192,7 +192,7 @@ int netMNTMake(netMntContext *nmtc, BYTE *buff) {
 *CREATION DATE: 11/11/99
 *LAST MODIFIED: 05/04/02
 *PURPOSE:
-* Extracts a netMNT item as a server. Returns wether this
+* Extracts a netMNT item as a server. Returns whether this
 * is an allowable operation (cheat checking)
 *
 *ARGUMENTS:

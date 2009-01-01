@@ -1644,21 +1644,22 @@ bool pillsIsCapturable(pillboxes *value, BYTE xValue, BYTE yValue);
 *********************************************************/
 void tankCheckPillCapture(tank *value, pillboxes *pb) {
   WORLD conv;     /* Used for conversion */
-  BYTE bmx;       /* Current Position of Tank */
-  BYTE bmy;
+  BYTE bmx;       /* Current MAP x-coord of tank */
+  BYTE bmy;       /* Current MAP y-coord of tank */
   BYTE pillNum;   /* The pill number */
   tankCarryPb q;  /* Temp pointer for adding PBs to tank */
 
+  /* Tank is alive and we are either in a server context or a non-network game */
   if ((*value)->armour <= TANK_FULL_ARMOUR && (threadsGetContext() == TRUE || netGetType() == netSingle)) {
-    /* We are alive */
-    conv = (*value)->x;
+
+	conv = (*value)->x;
     conv >>= TANK_SHIFT_MAPSIZE;
     bmx = (BYTE) conv;
     conv = (*value)->y;
     conv >>= TANK_SHIFT_MAPSIZE;
     bmy = (BYTE) conv;
 
-    if (bmx != 0 && bmy != 0 && pillsIsCapturable(pb, bmx,bmy) == TRUE) { // && threadsGetContext() == FALSE) {
+    if (bmx != 0 && bmy != 0 && pillsIsCapturable(pb, bmx,bmy) == TRUE) {
       pillNum = pillsGetPillNum(pb, bmx, bmy, TRUE, FALSE);
       while (pillNum != PILL_NOT_FOUND) {
         netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0);

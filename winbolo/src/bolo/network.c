@@ -231,9 +231,14 @@ bool netSetup(netType value, unsigned short myPort, char *targetIp, unsigned sho
 *
 *********************************************************/
 void netDestroy(void) {
+  bool windowDestroyed = FALSE; /* Variable to see if the window has been closed properly */
+  WPARAM wParam = MAKEWPARAM(IDCANCEL,IDCANCEL); /* Create a WPARAM variable that will tell the window to close */
+  LPARAM lParam = MAKELPARAM(0,0); /* Create a WPARAM variable that will tell the window to close */
   if (dlgAllianceWnd != NULL) {
 #ifdef _WIN32
-    DestroyWindow(dlgAllianceWnd);
+	/* Should return nonzero if successful.  Was not working so let's just close it instead. */
+    /* windowDestroyed = DestroyWindow(dlgAllianceWnd); */
+	windowDestroyed = dialogAllianceCallback(dlgAllianceWnd, WM_COMMAND, wParam, lParam);
 #else 
     gtk_widget_destroy(dlgAllianceWnd);
 #endif
