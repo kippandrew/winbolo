@@ -1,0 +1,7 @@
+src/bolo/network.c line 1063 bdSetShort(e,putevaluehere);
+src/bolo/network.c line 1064 bdConvFromHex(n,"put generated n value here without spaces");
+
+src/server/servernet.c line 721	bdConvFromHex(d,"put generated d value here without spaces");
+src/server/servernet.c line 722 bdConvFromHex(n,"put generated n value here without spaces");
+
+generate some values using the exe file, remove the spaces, and paste them into these locations in the source files, the line numbers may change as we add/remove code, but you can search for the name of the functions.
