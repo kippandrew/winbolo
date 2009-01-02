@@ -1392,4 +1392,8 @@ bool screenGetInStartFind();
 
 bool backendGetContext();
 
+void init_winbolotimer(void);
+DWORD winbolotimer(void);
+void end_winbolotimer(void);
+
 #endif /* _BACKEND_H */

@@ -190,6 +190,8 @@ int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, LPSTR szCmdLine, int nC
     MessageBoxA(NULL, "NOTE: This beta version of WinBolo expires on the 30/11/99", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
   }  */
 
+  init_winbolotimer();
+
   hAccel = LoadAccelerators(hInst, MAKEINTRESOURCE(IDR_ACCELERATOR));
   if (clientMutexCreate() == FALSE) {
     MessageBoxA(NULL, langGetText(STR_WBERR_MUTEXCREATE), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
@@ -213,7 +215,7 @@ int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, LPSTR szCmdLine, int nC
       soundISASoundCard(isISASoundCard);
     }
     Sleep(500);
-    oldTick = timeGetTime();
+    oldTick = winbolotimer();
     oldFrameTick = oldTick;
     timerGameID = timeSetEvent(GAME_TICK_LENGTH, 10000, windowGameTimer, 0, TIME_PERIODIC);
     timerFrameID = timeSetEvent(frameRateTime, 10000, windowFrameRateTimer, 0, TIME_PERIODIC);
@@ -237,7 +239,7 @@ int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, LPSTR szCmdLine, int nC
     }
   }
 
-
+  end_winbolotimer();
   clientMutexDestroy();
 
 /*  dbg = _CrtDumpMemoryLeaks() ;
@@ -749,7 +751,7 @@ void CALLBACK windowGameTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWOR
 
 
 
-  ttick = timeGetTime();
+  ttick = winbolotimer();
   /* Update the game objects if required */
   if ((ttick - oldTick) > GAME_TICK_LENGTH) {
     /* Get the keyboard state */
@@ -790,7 +792,7 @@ void CALLBACK windowGameTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWOR
       }
     }
   } 
-  dwSysGame += (timeGetTime() - ttick);
+  dwSysGame += (winbolotimer() - ttick);
 
   if (used == TRUE) {
     netMakeDataPosPacket();
@@ -802,9 +804,9 @@ void CALLBACK windowGameTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWOR
     clientMutexWaitFor();
     inBrain = TRUE;
     clientMutexRelease();
-    ttick = timeGetTime();
+    ttick = winbolotimer();
     brainHandlerRun(appWnd);
-    dwSysBrain += timeGetTime() - ttick;
+    dwSysBrain += winbolotimer() - ttick;
     clientMutexWaitFor();
     inBrain = FALSE;
     clientMutexRelease();
@@ -829,13 +831,13 @@ void CALLBACK windowGameTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWOR
     trackerTime = 0;
   }
 
-  ttick = timeGetTime();
+  ttick = winbolotimer();
   if (GetClientRect(appWnd, &rcWindow )) {
     if (ClientToScreen(appWnd, ( LPPOINT )&rcWindow )) {
       cursorMove(appInst, appWnd, rcWindow);
     }
   }
-  dwSysFrame += (timeGetTime() - ttick);
+  dwSysFrame += (winbolotimer() - ttick);
 }
 
 
@@ -854,16 +856,16 @@ void CALLBACK windowFrameRateTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1,
   DWORD tick;
 
   if (hideMainView == FALSE) {
-    tick = timeGetTime();
+    tick = winbolotimer();
     if ( (int) (tick - oldFrameTick) >= frameRateTime) {
       clientMutexWaitFor();
       if (finishedLoop == FALSE) {
         screenUpdate(redraw);
         clientMutexRelease();
       }
-      oldFrameTick = timeGetTime();
+      oldFrameTick = winbolotimer();
     }
-    dwSysFrame += (timeGetTime() - tick);
+    dwSysFrame += (winbolotimer() - tick);
   }
 }
 
@@ -1026,11 +1028,11 @@ void windowMouseClick(int xWin, int yWin, int xPos, int yPos) {
     } 
 
     if (newSelect != NO_SELECT && newSelect != BsCurrent) {
-      tick = timeGetTime();
+      tick = winbolotimer();
       drawSelectIndentsOff(BsCurrent, xWin, yWin);
       drawSelectIndentsOn(newSelect, xWin, yWin);
       BsCurrent = newSelect;
-      dwSysFrame += (timeGetTime() - tick);
+      dwSysFrame += (winbolotimer() - tick);
     }
   }
 }
@@ -1131,14 +1133,14 @@ void frontEndUpdateTankStatusBars(BYTE shells, BYTE mines, BYTE armour, BYTE tre
   RECT rcWindow;
   DWORD tick;
   
-  tick = timeGetTime();
+  tick = winbolotimer();
   // get the client (drawing) rectangle.
   if (GetClientRect( appWnd, &rcWindow )) {
     if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
       drawStatusTankBars(rcWindow.left, rcWindow.top, shells, mines, armour, trees);
     }
   }
-  dwSysFrame += (timeGetTime() - tick);
+  dwSysFrame += (winbolotimer() - tick);
 }
 
 /*********************************************************
@@ -1227,14 +1229,14 @@ void frontEndStatusPillbox(BYTE pillNum, pillAlliance pb) {
   DWORD tick;
   RECT rcWindow;
 
-  tick = timeGetTime();
+  tick = winbolotimer();
   drawStatusPillbox(pillNum, pb, showPillLabels);
   if (GetClientRect( appWnd, &rcWindow )) {
     if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
       drawCopyPillsStatus(rcWindow.left, rcWindow.top);
     }
   }
-  dwSysFrame += (timeGetTime() - tick);
+  dwSysFrame += (winbolotimer() - tick);
 }
 
 /*********************************************************
@@ -1253,14 +1255,14 @@ void frontEndStatusTank(BYTE tankNum, tankAlliance ts) {
   DWORD tick;
   RECT rcWindow;
 
-  tick = timeGetTime();
+  tick = winbolotimer();
   drawStatusTank(tankNum, ts);
   if (GetClientRect( appWnd, &rcWindow )) {
     if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
       drawCopyTanksStatus(rcWindow.left, rcWindow.top);
     }
   }
-  dwSysFrame += (timeGetTime() - tick);
+  dwSysFrame += (winbolotimer() - tick);
 }
 
 /*********************************************************
@@ -1280,13 +1282,13 @@ void frontEndMessages(char *top, char *bottom) {
   RECT rcWindow;
 
   if (drawBusy == FALSE) {
-    tick = timeGetTime();
+    tick = winbolotimer();
     if (GetClientRect( appWnd, &rcWindow )) {
       if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
         drawMessages(rcWindow.left, rcWindow.top, top, bottom);
       }
     }
-    dwSysFrame += (timeGetTime() - tick);
+    dwSysFrame += (winbolotimer() - tick);
   }
 }
 
@@ -1307,13 +1309,13 @@ void frontEndKillsDeaths(int kills, int deaths) {
   RECT rcWindow;
 
   if (drawBusy == FALSE) {
-    tick = timeGetTime();
+    tick = winbolotimer();
     if (GetClientRect( appWnd, &rcWindow )) {
       if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
         drawKillsDeaths(rcWindow.left, rcWindow.top, kills, deaths);
       }
     }
-    dwSysFrame += (timeGetTime() - tick);
+    dwSysFrame += (winbolotimer() - tick);
   }
 }
 
@@ -1521,7 +1523,7 @@ void windowShowPillLabels(HWND hWnd) {
     CheckMenuItem(hMenu, ID_EDITMENU_PILLLABELS, MF_CHECKED);
   }
 
-  tick = timeGetTime();
+  tick = winbolotimer();
   drawSetPillsStatusClear();
   total = screenNumPills();
   for (count=1;count<=total;count++) {
@@ -1535,7 +1537,7 @@ void windowShowPillLabels(HWND hWnd) {
       drawCopyPillsStatus(rcWindow.left, rcWindow.top);
     }
   }
-  dwSysFrame += (timeGetTime() - tick);
+  dwSysFrame += (winbolotimer() - tick);
 }
 
 /*********************************************************
@@ -1566,7 +1568,7 @@ void windowShowBaseLabels(HWND hWnd) {
     CheckMenuItem(hMenu, ID_EDITMENU_BASELABELS, MF_CHECKED);
   }
   
-  tick = timeGetTime();
+  tick = winbolotimer();
   drawSetBasesStatusClear();
   total = screenNumBases();
   for (count=1;count<=total;count++) {
@@ -1579,7 +1581,7 @@ void windowShowBaseLabels(HWND hWnd) {
       drawCopyBasesStatus(rcWindow.left, rcWindow.top);
     }
   }
-  dwSysFrame += (timeGetTime() - tick);
+  dwSysFrame += (winbolotimer() - tick);
 
 }
 
@@ -1624,14 +1626,14 @@ void frontEndStatusBase(BYTE baseNum, baseAlliance bs) {
   DWORD tick;
   RECT rcWindow;
 
-  tick = timeGetTime();
+  tick = winbolotimer();
   drawStatusBase(baseNum, bs, showBaseLabels);
   if (GetClientRect( appWnd, &rcWindow ) != 0) {
     if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
       drawCopyBasesStatus(rcWindow.left, rcWindow.top);
     }
   }
-  dwSysFrame += (timeGetTime() - tick);
+  dwSysFrame += (winbolotimer() - tick);
 }
 
 /*********************************************************
@@ -1654,13 +1656,13 @@ void frontEndUpdateBaseStatusBars(BYTE shells, BYTE mines, BYTE armour) {
   DWORD tick;
   RECT rcWindow;
 
-  tick = timeGetTime();
+  tick = winbolotimer();
   if (GetClientRect( appWnd, &rcWindow )) {
     if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
       drawStatusBaseBars(rcWindow.left, rcWindow.top, shells, mines, armour, FALSE);
     }
   }
-  dwSysFrame += (timeGetTime() - tick);
+  dwSysFrame += (winbolotimer() - tick);
 }
 
 
@@ -1680,7 +1682,7 @@ void frontEndManStatus(bool isDead, TURNTYPE angle) {
   DWORD tick;
   RECT rcWindow;
 
-  tick = timeGetTime();
+  tick = winbolotimer();
   if (GetClientRect( appWnd, &rcWindow )) {
     if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
       clientMutexWaitFor();
@@ -1689,7 +1691,7 @@ void frontEndManStatus(bool isDead, TURNTYPE angle) {
       clientMutexRelease();
     }
   }
-  dwSysFrame += (timeGetTime() - tick);
+  dwSysFrame += (winbolotimer() - tick);
 }
 
 /*********************************************************
@@ -1709,13 +1711,13 @@ void frontEndDrawDownload(bool justBlack) {
   RECT rcWindow;
 
   if (hideMainView == FALSE && drawBusy == FALSE) {
-    tick = timeGetTime();
+    tick = winbolotimer();
     if (GetClientRect( appWnd, &rcWindow )) {
       if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
         drawDownloadScreen(&rcWindow, justBlack);
       }
     }
-    dwSysFrame += (timeGetTime() - tick);
+    dwSysFrame += (winbolotimer() - tick);
   }
 }
 
@@ -1734,7 +1736,7 @@ void frontEndManClear(void) {
   DWORD tick;
   RECT rcWindow;
 
-  tick = timeGetTime();
+  tick = winbolotimer();
   if (GetClientRect( appWnd, &rcWindow )) {
     if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
       clientMutexWaitFor();
@@ -1743,7 +1745,7 @@ void frontEndManClear(void) {
       clientMutexRelease();
     }
   }
-  dwSysFrame += (timeGetTime() - tick);
+  dwSysFrame += (winbolotimer() - tick);
 }
 
 /*********************************************************
@@ -1811,7 +1813,7 @@ void windowZoomChange(BYTE amount) {
     clientMutexRelease();
     drawBusy = FALSE;
 
-    tick = timeGetTime();
+    tick = winbolotimer();
     if (GetClientRect( appWnd, &rcWindow )) {
       if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
         clientMutexWaitFor();
@@ -1820,7 +1822,7 @@ void windowZoomChange(BYTE amount) {
       }
     }
     
-    dwSysFrame += (timeGetTime() - tick);
+    dwSysFrame += (winbolotimer() - tick);
   }
 }
 
@@ -2634,13 +2636,13 @@ void windowHideMainView(HWND hWnd) {
     CheckMenuItem(hMenu, ID_EDITMENU_HIDEMAINVIEW, MF_CHECKED);
     hideMainView = TRUE;
     /* Clear the window */
-    tick = timeGetTime();
+    tick = winbolotimer();
     if (GetClientRect( appWnd, &rcWindow )) {
       if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
         drawMainScreenBlack(&rcWindow);
       }
     }
-    dwSysFrame += (timeGetTime() - tick);
+    dwSysFrame += (winbolotimer() - tick);
   }
 }
 
@@ -2724,7 +2726,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2737,7 +2739,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2750,7 +2752,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2763,7 +2765,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2776,7 +2778,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2789,7 +2791,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2802,7 +2804,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2817,7 +2819,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2839,7 +2841,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2859,7 +2861,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2874,7 +2876,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2894,7 +2896,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2907,7 +2909,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2920,7 +2922,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2935,7 +2937,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2957,7 +2959,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -2981,7 +2983,7 @@ bool frontEndTutorial(BYTE pos) {
         upTo++;
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -3010,7 +3012,7 @@ bool frontEndTutorial(BYTE pos) {
 
         clientMutexWaitFor();
         doingTutorial = FALSE;
-        oldTick = timeGetTime();
+        oldTick = winbolotimer();
         ttick = oldTick;
       }
       break;
@@ -3035,7 +3037,7 @@ void windowStartTutorial() {
   MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL_START03), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND);
   MessageBoxA(appWnd, (LPCTSTR) langGetText(STR_TUTORIAL_START04), DIALOG_BOX_TITLE, MB_ICONINFORMATION | MB_SETFOREGROUND);
   doingTutorial = FALSE;
-  oldTick = timeGetTime();
+  oldTick = winbolotimer();
   ttick = oldTick;
 }
 

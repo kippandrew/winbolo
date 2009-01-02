@@ -50,7 +50,7 @@ bool clientMutexCreate(void) {
   bool returnValue; /* Value to return */
 
   returnValue = TRUE;
-  sprintf(name, "%s%d", DIALOG_BOX_TITLE, GetTickCount());
+  sprintf(name, "%s%d", DIALOG_BOX_TITLE, winbolotimer());
   hClientMutexHandle = CreateMutex(NULL, FALSE, name);
   if (hClientMutexHandle == NULL) {
     DWORD d = GetLastError();

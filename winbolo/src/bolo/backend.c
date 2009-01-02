@@ -25,8 +25,16 @@
 #include "messages.h"
 #include "backend.h"
 
-bool threadsGetContext();
+#ifdef _WIN32
+	
+#else
+#include <sys/time.h>
+#include <sys/types.h>
 
+static struct timeval start_time;
+#endif
+
+bool threadsGetContext();
 
 /*********************************************************
 *NAME:          screenGetNumNeutralBases
@@ -630,3 +638,45 @@ gameType *screenGetGameType() {
 bool backendGetContext() {
   return threadsGetContext();
 }
+
+
+/*********************************************************
+*NAME:          Timer Functions
+*AUTHOR:        Minhiriath	
+*CREATION DATE: 1/1/2009
+*LAST MODIFIED: 1/1/2009
+*PURPOSE:
+*  Deals with all timer functions in winbolo client and server.
+*
+*ARGUMENTS:
+*
+*********************************************************/
+void init_winbolotimer(void){
+#ifdef _WIN32
+	timeBeginPeriod(1);
+#else
+	// inset linux stuff here
+    gettimeofday(&start_time, NULL);
+#endif
+}
+
+DWORD winbolotimer(void) {
+#ifdef _WIN32
+	return timeGetTime();
+#else
+	// insert linux stuff here
+	// return SDL_GetTicks();
+	struct timeval t;
+	gettimeofday(&t, NULL);
+	return (Uint32) ((t.tv_sec - start_time.tv_sec) * 1000000 + (t.tv_usec - start_time.tv_usec))/1000;
+#endif
+}
+
+void end_winbolotimer(void){
+#ifdef _WIN32
+	timeEndPeriod(1);
+#else
+	// insert linux stuff here
+#endif	
+}
+

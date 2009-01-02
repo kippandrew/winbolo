@@ -286,13 +286,13 @@ void CALLBACK serverGameTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWOR
   static int trackerTime = 5500;   /* When we should update the tracker */
   static int wbnTime = 0;
 
-  tick = GetTickCount();
+  tick = winbolotimer();
 #else
   Uint32 serverGameTimer (Uint32 interval) {
   DWORD tick;     /* Number of ticks passed */
   static int wbnTime = 0;
   static int trackerTime = 5500;   /* When we should update the tracker */
-  tick = SDL_GetTicks();
+  tick = winbolotimer();
 #endif
 
   if ((tick - oldTick) > SERVER_TICK_LENGTH) {
@@ -644,7 +644,7 @@ int main(int argc, char **argv[]) {
 
 
   alarmRaised = alarmNone;
-
+  init_winbolotimer();
 #ifndef _WIN32 
   /* Set up signal handler */
   signal(SIGINT, catch_alarm);
@@ -772,10 +772,10 @@ return 0;
   } 
   screenServerConsoleMessage("Type \"help\" for help, \"quit\" to exit.");
 #ifdef _WIN32
-  oldTick = GetTickCount();
+  oldTick = winbolotimer();
   serverTimerGameID = timeSetEvent(SERVER_TICK_LENGTH, 10, serverGameTimer, 0, TIME_PERIODIC);
 #else
-  oldTick = SDL_GetTicks();
+  oldTick = winbolotimer();
   serverTimerGameID = SDL_SetTimer(SERVER_TICK_LENGTH, (SDL_TimerCallback) serverGameTimer);
 
 #endif
@@ -806,7 +806,7 @@ return 0;
     httpSendLogFile(fileName, key, FALSE);
     httpDestroy();
   }
-
+  end_winbolotimer();
   serverCoreDestroy();
 #ifdef _WIN32
   WSACleanup();
