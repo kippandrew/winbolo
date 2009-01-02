@@ -778,6 +778,7 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
     netPlayersSetPlayer(&np, pnp.playerNumber, &sAddr); 
     netPlayersDonePassword(&np, pnp.playerNumber);
 	netPlayersDoneRsa(&np,pnp.playerNumber);
+	basesUpdateTimer(pnp.playerNumber);
     /* Verify with wbn if playing */
     if (prp.key[0] != EMPTY_CHAR) {
       if (winboloNetVerifyClientKey(prp.key, info, pnp.playerNumber) == TRUE) {
@@ -879,6 +880,7 @@ void serverNetPlayerLeave(BYTE playerNum, bool graceful) {
   PLAYERLEAVE_PACKET plp; /* Packet send to all players saying who left */
 
   /* Remove it */
+  basesRemoveTimer(playerNum);
   playerNum = netPlayersRemovePlayerNum(&np, playerNum);
   if (playerNum != NEUTRAL) {
     threadsWaitForMutex();

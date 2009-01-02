@@ -1100,6 +1100,7 @@ bool netJoinFinalise(char *targetip, unsigned short port, bool wantRejoin, char 
           }
           strcat(newName, name);
           playersSetSelf(screenGetPlayers(), buff[BOLOPACKET_PLAYERNUMPOS], newName);
+		  basesUpdateTimer(buff[BOLOPACKET_PLAYERNUMPOS]);
           lowPlayers = buff[BOLOPACKET_PLAYERNUMPOSLOW];
           maxPlayers = buff[BOLOPACKET_PLAYERNUMPOSMAX];
           numTries = MAX_RETRIES;

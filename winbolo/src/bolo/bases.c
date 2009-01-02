@@ -41,6 +41,16 @@
 #include "../winbolonet/winbolonet.h"
 #include "bases.h"
 
+int baseTimer[MAX_TANKS];
+
+void basesUpdateTimer(int playerNumber){
+	baseTimer[playerNumber]=BASE_TICKS_BETWEEN_REFUEL;
+}
+
+
+void basesRemoveTimer(int playerNumber){
+	baseTimer[playerNumber]=30000; // the 30000 is a arbitrary large number
+}
 /*********************************************************
 *NAME:         basesCreate 
 *AUTHOR:        John Morrison
@@ -63,6 +73,13 @@ void basesCreate(bases *value) {
   for (count=0;count<MAX_BASES;count++) {
     (*value)->item[count].baseTime = 0;
     (*value)->item[count].justStopped = TRUE;
+  }
+  for (count=0;count<MAX_TANKS;count++){
+	  baseTimer[count]=30000;
+  }
+  if(netGetType() == netSingle)
+  {
+	baseTimer[0]=BASE_TICKS_BETWEEN_REFUEL;
   }
 }
 
@@ -309,15 +326,18 @@ void basesUpdate(bases *value, tank *tnk) {
   BYTE baseNum;            /* The base number if the tank is on a base */
   BYTE tankArmour;         /* Amount of health the tank has */
   BYTE count;              /* Looping Variable */
+  int secondCounter;       /* another looping variable */
   bool isServer;           /* Are we the server */
   double numPlayers;         /* Number of players */
   double maxTime;
 
   count = 0;
-
+  secondCounter = 0;
+  
   isServer = threadsGetContext();
   numPlayers = playersGetNumPlayers(screenGetPlayers());
-  maxTime = (800.0 / numPlayers);
+  /* Old Algorithm */
+/*  maxTime = (800.0 / numPlayers);
   while (count < (*value)->numBases) {
     (*value)->item[count].baseTime++;
     if ((*value)->item[count].baseTime >= maxTime) {
@@ -330,6 +350,40 @@ void basesUpdate(bases *value, tank *tnk) {
       (*value)->item[count].refuelTime--;
     }
     count++;
+  }
+  */
+
+  while (secondCounter < MAX_TANKS)
+  {
+	  if(baseTimer[secondCounter] != 30000)
+	  {
+		  baseTimer[secondCounter]--;
+		  if(baseTimer[secondCounter]<=0)
+		  {
+			if (isServer == TRUE || netGetType() == netSingle) 
+			{
+				while (count < (*value)->numBases) 
+				{
+					basesUpdateStock(value, (BYTE) (count+1));
+					count++;
+				}
+			}
+			baseTimer[secondCounter]=BASE_TICKS_BETWEEN_REFUEL;
+			printf("ticks refuel %d \r\n",winboloTimer());
+		  }
+	  }
+	
+	secondCounter++;
+  }
+
+  count = 0;
+
+  while (count < (*value)->numBases) 
+  {
+	  if ((*value)->item[count].refuelTime > 0) {
+	      (*value)->item[count].refuelTime--;
+	  }
+	  count++;
   }
 
   if (isServer == FALSE) {
