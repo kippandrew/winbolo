@@ -52,6 +52,7 @@ BYTE allianceReqPlayerNum;
 *  lParam - More Message parameters
 *********************************************************/
 BOOL CALLBACK dialogAllianceCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, LPARAM lParam ) {
+  bool windowDestroyed = FALSE;
   switch ( uMsg ) {
   case WM_INITDIALOG:
     dialogAllianceInit(hWnd);
@@ -73,6 +74,9 @@ BOOL CALLBACK dialogAllianceCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, L
     ShowWindow(hWnd, FALSE);
     break;
   case WM_DESTROY:
+	windowDestroyed = ShowWindow(hWnd, FALSE);
+	windowDestroyed = CloseWindow(hWnd);
+	windowDestroyed = DestroyWindow(hWnd);
     break;
   }
   return FALSE;
@@ -102,7 +106,7 @@ void dialogAllianceInit(HWND hWnd) {
 }
 
 /*********************************************************
-*NAME:          dialogAllianceInit
+*NAME:          dialogAllianceSetName
 *AUTHOR:        John Morrison
 *CREATION DATE: 11/6/00
 *LAST MODIFIED: 11/6/00
