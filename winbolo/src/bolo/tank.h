@@ -51,12 +51,41 @@
 /* There are 16 tank frames (or viewing angles the tank can take */
 #define TANK_FRAMES 16
 
+/*
+Wharf-Rat explains Acceleration ¶
+
+<wharf-rat> every other tick
+<wharf-rat> the speed is either incremented or decremented by one
+<wharf-rat> min of zero, max terrain dependent
+<Min210> so in one second, its reduced or increased 25 times
+<wharf-rat> yeah
+<Min210> how did you find that out?
+<wharf-rat> the problem is, i'm not sure what the speed units are
+<wharf-rat> don't ask how, heh
+<Min210> oh, those are world-coordinates
+<Min210> speeds are given in world coord's per tick
+<wharf-rat> max is 64?
+* Min210 looks
+<Min210> the doc's say the max is 16
+<wharf-rat> oh, the units might be world * 4 then
+<Min210> The speed of a bullet is 32 World units per tick. The top speed of a tank on a boat is 16 World units per tick.
+<Min210> the max you found was 64?
+<wharf-rat> yes
+<Min210> ok
+<Min210> I'll keep that in mind
+<wharf-rat> so its really 0.25 worlds every other tick
+
+we can get away with no using every other tick becuase we're not using a max of 64, so, this code below seems to work.
+I made autoslowdown and keyslowdown the same, becuase they should be the same, the rest seems to behave similiarly to macbolo 
+based on my testing.
+*/
 /* The acceleration and deceleration rates of the tank */
-#define TANK_ACCELERATE_RATE 0.5 
-#define TANK_TERRAIN_DECEL_RATE 0.2
-#define TANK_DECELERATE_RATE 0
+#define TANK_ACCELERATE_RATE 0.25 
+#define TANK_TERRAIN_DECEL_RATE 0.25
 /* The slow down button pressed rate */
-#define TANK_SLOWKEY_RATE 0.35
+#define TANK_SLOWKEY_RATE 0.25
+/* Autoslowdown deceleration cosntant */
+#define TANK_AUTOSLOW_SPEED ((float) (0.25))
 
 /* The four points of the compass in terms of tank BRadians */
 #define TANK_NORTH 0
@@ -100,13 +129,8 @@
 #define TANK_MOVE_BOAT_SUB 64
 #define TANK_MOVE_LAND_SUB 128 /* 96 */
 
-
 /* Speed we exit the boat at */
 #define BOAT_EXIT_SPEED 16
-
-/* Autoslowdown deceleration cosntant */
-#define TANK_AUTOSLOW_SPEED ((float) (0.2))
-
 
 /* Minimum distance for seeing tank in trees = 3 map squares or 768 world co-ords */
 #define MIN_TREEHIDE_DIST 768
