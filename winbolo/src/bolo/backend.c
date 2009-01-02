@@ -651,7 +651,7 @@ bool backendGetContext() {
 *ARGUMENTS:
 *
 *********************************************************/
-void init_winbolotimer(void){
+void initWinboloTimer(void){
 #ifdef _WIN32
 	timeBeginPeriod(1);
 #else
@@ -660,7 +660,7 @@ void init_winbolotimer(void){
 #endif
 }
 
-DWORD winbolotimer(void) {
+DWORD winboloTimer(void) {
 #ifdef _WIN32
 	return timeGetTime();
 #else
@@ -672,7 +672,7 @@ DWORD winbolotimer(void) {
 #endif
 }
 
-void end_winbolotimer(void){
+void endWinboloTimer(void){
 #ifdef _WIN32
 	timeEndPeriod(1);
 #else

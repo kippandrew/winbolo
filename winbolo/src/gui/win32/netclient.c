@@ -370,7 +370,7 @@ bool netClientUdpPingServer(BYTE *buff, int *len, bool wantCrc, bool addNonRelia
   }
 
   timeOut = 0;
-  tick = winbolotimer();
+  tick = winboloTimer();
   sendto(myUdpSock, (char *) buff, *len, 0, (struct sockaddr *)&addrServer, sizeof(addrServer));
   *len = 0;
   while (*len <= 0 && timeOut <= TIME_OUT) {
@@ -380,7 +380,7 @@ bool netClientUdpPingServer(BYTE *buff, int *len, bool wantCrc, bool addNonRelia
         MessageBoxA(NULL, "b", "bad socket error not WSAEWOULDBLOCK", MB_OK); (/
       } 
    } */
-    timeOut = winbolotimer() - tick;
+    timeOut = winboloTimer() - tick;
   }
 
   if (*len <= 0) {
@@ -443,7 +443,7 @@ bool netClientUdpPing(BYTE *buff, int *len, char *dest, unsigned short port, boo
     }
 
     timeOut = 0;
-    tick = winbolotimer();
+    tick = winboloTimer();
     sendto(myUdpSock, (char *) buff, *len, 0, (struct sockaddr *)&addr, sizeof(addr));
     *len = 0;
     while (*len <= 0 && timeOut <= TIME_OUT) {
@@ -456,7 +456,7 @@ bool netClientUdpPing(BYTE *buff, int *len, char *dest, unsigned short port, boo
      } */
       memcpy(&addrLast, &(from.sin_addr), sizeof(from.sin_addr));
       lastPort = from.sin_port;
-      timeOut = winbolotimer() - tick;
+      timeOut = winboloTimer() - tick;
     }
 
     if (*len <= 0) {
@@ -1036,7 +1036,7 @@ bool netClientFindTrackedGames(HWND hWnd, currentGames *cg, char *trackerAddress
     len = 0;
     ptr = buff;
     new_bytes_read = recv(sock, (char *) (ptr+len), (int) ((int) ((1024 * 1024))-len), 0);
-    tick = winbolotimer();
+    tick = winboloTimer();
     timeOut = 0;
     done = FALSE;
     while (timeOut <= 10000 && done == FALSE) {
@@ -1049,7 +1049,7 @@ bool netClientFindTrackedGames(HWND hWnd, currentGames *cg, char *trackerAddress
       } else if (new_bytes_read == 0) {
         done = TRUE;
       }
-      timeOut = winbolotimer() - tick;
+      timeOut = winboloTimer() - tick;
       new_bytes_read = recv(sock, (char *) (ptr+len), (int) ((int) ((1024 * 1024))-len), (int) 0);
     } 
 
@@ -1185,7 +1185,7 @@ bool netClientFindBroadcastGames(HWND hWnd, currentGames *cg) {
     szlast = sizeof(last);
     len = recvfrom(sock, (char *) (ptr+len), (int) ((int) (sizeof(buff))-len), (int)(0), (struct sockaddr *) &last, &szlast);
     timeOut = 0;
-    tick = winbolotimer();
+    tick = winboloTimer();
 
     while (timeOut <= 10000) { //TIME_OUT
       if (len == (int) sizeof(INFO_PACKET)) {
@@ -1195,7 +1195,7 @@ bool netClientFindBroadcastGames(HWND hWnd, currentGames *cg) {
         }
       }
       Sleep(50);
-      timeOut = winbolotimer() - tick;
+      timeOut = winboloTimer() - tick;
       fromlen = sizeof(from); 
       len = recvfrom(sock, buff, MAX_UDPPACKET_SIZE, 0, (struct sockaddr *)&from, &fromlen);
     }

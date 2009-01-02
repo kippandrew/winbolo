@@ -293,12 +293,12 @@ void netUdpPacketArrive(BYTE *buff, int len, unsigned short port) {
   DWORD tick;     /* Number of ticks passed */
 
   
-  tick = winbolotimer();
+  tick = winboloTimer();
   
   if ((strncmp((char *) buff, BOLO_SIGNITURE, BOLO_SIGNITURE_SIZE) != 0) || buff[BOLO_VERSION_MAJORPOS] != BOLO_VERSION_MAJOR || buff[BOLO_VERSION_MINORPOS] != BOLO_VERSION_MINOR || buff[BOLO_VERSION_REVISIONPOS] != BOLO_VERSION_REVISION) {
     /* error */
     netNumErrors++;
-    dwSysNet += winbolotimer() - tick;
+    dwSysNet += winboloTimer() - tick;
     return;
   }
 
@@ -311,8 +311,8 @@ void netUdpPacketArrive(BYTE *buff, int len, unsigned short port) {
     netLastHeard = time(NULL);
     pp = (PING_PACKET *) buff;
     if (pp->from == playersGetSelf(screenGetPlayers())) {
-      if ((long) (winbolotimer() - tknTime) >= 0) {
-        netRingDelay = (int) (winbolotimer() - tknTime);
+      if ((long) (winboloTimer() - tknTime) >= 0) {
+        netRingDelay = (int) (winboloTimer() - tknTime);
       }
 	    /* Recovery Checks */
       pos = 1 + udpPacketsGetOutSequenceNumber(&udpp);
@@ -475,7 +475,7 @@ void netUdpPacketArrive(BYTE *buff, int len, unsigned short port) {
       }
     }
   }
-  dwSysNet += winbolotimer() - tick;
+  dwSysNet += winboloTimer() - tick;
 }
 
 /*********************************************************
@@ -1248,7 +1248,7 @@ void netMakeTokenPacket(void) {
   bool shouldSend;                           /* Should this packet be sent */
   DWORD tick;     /* Number of ticks passed */
   
-  tick = winbolotimer();
+  tick = winboloTimer();
   if (inNetShutdown == TRUE) {
     return;
   }
@@ -1340,7 +1340,7 @@ void netMakeTokenPacket(void) {
     /* Update the screen */
     screenNetToken();
   }
-  dwSysNet += winbolotimer() - tick;
+  dwSysNet += winboloTimer() - tick;
 }
 
 /*********************************************************
@@ -1572,7 +1572,7 @@ void netSecond(void) {
   if (count == 2 && networkGameType == netUdp) {
     count = 0;
     netMakePingRespsonse(&pp);
-    tknTime = winbolotimer();
+    tknTime = winboloTimer();
     netClientSendUdpServer((char *) &pp, sizeof(pp));
     netPacketsPerSecond++;
   }
@@ -1679,7 +1679,7 @@ void netMakeDataPosPacket(void) {
 
   time_t t;
 
-  tick = winbolotimer();
+  tick = winboloTimer();
   if (inNetShutdown == TRUE) {
     return;
   }
@@ -1742,7 +1742,7 @@ This doesn't matter
     }
   }
   
-  dwSysNet += winbolotimer() - tick;
+  dwSysNet += winboloTimer() - tick;
 }
 
 /*********************************************************

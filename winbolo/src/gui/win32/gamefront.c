@@ -1133,7 +1133,7 @@ void CALLBACK serverGameTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWOR
     return;
   }
 
-  serverTick = winbolotimer();
+  serverTick = winboloTimer();
   if ((serverTick - serverOldTick) > SERVER_TICK_LENGTH) {
     /* Get the keyboard state */
     while ((serverTick - serverOldTick) > SERVER_TICK_LENGTH) {
@@ -1275,7 +1275,7 @@ bool gameFrontSetupServer() {
   
   if (returnValue == TRUE) {
     isServer = TRUE;
-    serverOldTick = winbolotimer();
+    serverOldTick = winboloTimer();
     serverTimerGameID = timeSetEvent(SERVER_TICK_LENGTH, 10000, serverGameTimer, 0, TIME_PERIODIC);
   }
  

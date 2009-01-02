@@ -46,6 +46,7 @@
 #include "netmt.h"
 
 /* Defines */
+typedef unsigned long DWORD;
 
 /* Defines the screen sizes */
 #define MAIN_SCREEN_SIZE_X 15 /*16 is bolo window size  times 16 pixels */
@@ -1392,8 +1393,8 @@ bool screenGetInStartFind();
 
 bool backendGetContext();
 
-void init_winbolotimer(void);
-DWORD winbolotimer(void);
-void end_winbolotimer(void);
+void initWinboloTimer(void);
+DWORD winboloTimer(void);
+void endWinboloTimer(void);
 
 #endif /* _BACKEND_H */

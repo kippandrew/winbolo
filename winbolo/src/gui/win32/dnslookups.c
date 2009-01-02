@@ -62,7 +62,7 @@ bool dnsLookupsCreate(void) {
   dnsShouldRun = TRUE;
   dnsFinished = FALSE;
     
-  sprintf(name, "%s%d", "DNSLOOKUPS", winbolotimer());
+  sprintf(name, "%s%d", "DNSLOOKUPS", winboloTimer());
   hDnsMutexHandle = CreateMutex(NULL, FALSE, name);
   if (hDnsMutexHandle == NULL) {
     returnValue = FALSE;

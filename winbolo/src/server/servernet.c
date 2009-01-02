@@ -181,10 +181,12 @@ void serverNetUDPPacketArrive(BYTE *buff, int len, unsigned long addr, unsigned 
   static BYTE crcB;  /* Second CRC Byte */
   static BYTE sequenceNumber; /* Sequence number */
   udpPackets udpp;
+#ifdef _WIN32 // this stuff kills linbolods on compile it will need to be debuged on linux
   char *ip; /* Variable 'addr' in character form */
   struct in_addr ip_in_addr; /* Address in octet format */
   char serverConsoleMessage[255]; /* Store the message to be put to the console */
-
+#else
+#endif
 
 
 //  printf("Received pack of type: %d \r\n", buff[BOLOPACKET_REQUEST_TYPEPOS]);
@@ -237,11 +239,15 @@ void serverNetUDPPacketArrive(BYTE *buff, int len, unsigned long addr, unsigned 
     } else if (len == BOLOPACKET_REQUEST_SIZE && buff[BOLOPACKET_REQUEST_TYPEPOS] == BOLOPACKET_INFOREQUEST) {
      /* Make info response packet */
       INFO_PACKET h;
+#ifdef _WIN32 // this stuff kills linbolods on compile it will need to be debuged on linux
       ip_in_addr.S_un.S_addr = addr;
 	  ip = inet_ntoa(ip_in_addr);
 	  strcpy(serverConsoleMessage,(char *)"Info packet request from ");
 	  strcat(serverConsoleMessage, ip);
       screenServerConsoleMessage(serverConsoleMessage);
+#else
+	  screenServerConsoleMessage((char *)"Info packet request!"); 
+#endif
       memset(&h, 0, sizeof(h));
       serverNetMakeInfoRespsonse(&h);
       memcpy(info, &h, sizeof(h));

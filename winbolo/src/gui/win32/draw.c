@@ -818,12 +818,12 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
 
   /* Frame rate counting stuff */
   g_dwFrameCount++;
-  time = winbolotimer() - g_dwFrameTime;
+  time = winboloTimer() - g_dwFrameTime;
   if( time > 1000) {
       g_dwFrameTotal = g_dwFrameCount;
       sprintf(str, "%d", g_dwFrameTotal);
 /*      DDTextOut( lpDDSPrimary,str, RGB(0,0,0), RGB(255,255,0), rcWindow->left + (zoomFactor * 375), rcWindow->top + (zoomFactor * 50) ); */
-      g_dwFrameTime = winbolotimer();
+      g_dwFrameTime = winboloTimer();
       g_dwFrameCount = 0;
   }
 }
