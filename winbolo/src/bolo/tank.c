@@ -254,8 +254,8 @@ void tankUpdate(tank *value, map *mp, bases *bs, pillboxes *pb, shells *shs, sta
       tankDropPills(value, mp, pb, bs);
       (*value)->armour = TANK_FULL_ARMOUR+1;
       tankRegisterChangeByte(value, CRC_ARMOUR_OFFSET, (*value)->armour);
-      (*value)->deathWait = 100;
-      tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, 100);
+      (*value)->deathWait = 255;
+      tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, 255);
 //    }
   } else if ((*value)->onBoat == TRUE) {
     /* Tank Movement on Boat */
