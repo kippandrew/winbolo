@@ -369,7 +369,7 @@ void basesUpdate(bases *value, tank *tnk) {
 				}
 			}
 			baseTimer[secondCounter]=BASE_TICKS_BETWEEN_REFUEL;
-			printf("ticks refuel %d \r\n",winboloTimer());
+			//printf("ticks refuel %d \r\n",winboloTimer());
 		  }
 	  }
 	
