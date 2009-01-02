@@ -668,7 +668,7 @@ DWORD winboloTimer(void) {
 	// return SDL_GetTicks();
 	struct timeval t;
 	gettimeofday(&t, NULL);
-	return (Uint32) ((t.tv_sec - start_time.tv_sec) * 1000000 + (t.tv_usec - start_time.tv_usec))/1000;
+	return (DWORD) ((t.tv_sec - start_time.tv_sec) * 1000000 + (t.tv_usec - start_time.tv_usec))/1000;
 #endif
 }
 

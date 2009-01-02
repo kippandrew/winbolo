@@ -190,7 +190,7 @@ int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, LPSTR szCmdLine, int nC
     MessageBoxA(NULL, "NOTE: This beta version of WinBolo expires on the 30/11/99", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
   }  */
 
-  initwinboloTimer();
+  initWinboloTimer();
 
   hAccel = LoadAccelerators(hInst, MAKEINTRESOURCE(IDR_ACCELERATOR));
   if (clientMutexCreate() == FALSE) {
@@ -239,7 +239,7 @@ int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, LPSTR szCmdLine, int nC
     }
   }
 
-  endwinboloTimer();
+  endWinboloTimer();
   clientMutexDestroy();
 
 /*  dbg = _CrtDumpMemoryLeaks() ;
