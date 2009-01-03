@@ -2081,7 +2081,7 @@ void netSend(BYTE *buff, int len) {
 *********************************************************/
 void netSendQuitMessage() {
   if (netStat != netJoining) {
-    BYTE h[sizeof(BOLOHEADER) + BOLO_PACKET_CRC_SIZE];
+    BYTE h[sizeof(BOLOHEADER) + BOLO_PACKET_CRC_SIZE + 1];
     netMakePacketHeader((BOLOHEADER *) &h, BOLOPACKET_PACKETQUIT);
     netSend(h, sizeof(BOLOHEADER));
   }
