@@ -104,7 +104,7 @@ void dialogNetInfoSetup(HWND hWnd) {
   /* We are in a client and playing a networked game.. */
   if (threadsGetContext() == FALSE && netGetType() != netSingle)
   {
-	  dnsLookupsGetClientIP(addr,(int)playersGetSelf(screenGetPlayers()), (int)playersGetNumPlayers(screenGetPlayers()));
+	  playersGetPlayerLocation(screenGetPlayers(),playersGetSelf(screenGetPlayers()),addr);
 	  netGetOurAddressStr(str);
 	  strcat(addr,strchr(str,':'));
 	  SendDlgItemMessageA(hWnd, IDC_THISADDRESS, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) (addr));

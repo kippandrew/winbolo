@@ -275,7 +275,13 @@ void playersSetPlayersMenu(players *plrs) {
 void playersSetPlayer(players *plrs, BYTE playerNum, char *playerName, char *location, BYTE mx, BYTE my, BYTE px, BYTE py, BYTE frame, bool onBoat, BYTE numAllies, BYTE *allies) {
   BYTE count; /* Looping variable */
   char str[512]; /* The player name */
+  int iMyPlayerNum;
+  int iPlayerNum;
 
+  iMyPlayerNum = (int)(*plrs)->myPlayerNum;
+  iPlayerNum = (int)playerNum;
+
+  /* This code block is only executed for clients besides your own in the player list */
   if ((*plrs)->item[playerNum].inUse == FALSE) {
     (*plrs)->item[playerNum].inUse = TRUE;
     strcpy((*plrs)->item[playerNum].playerName, playerName);
@@ -294,7 +300,12 @@ void playersSetPlayer(players *plrs, BYTE playerNum, char *playerName, char *loc
       count++;
     }
   }
-
+  /* Processing our client, we want to store it's IP so that it can be snagged for the network info */
+  else if (iMyPlayerNum == iPlayerNum)
+  {
+	  strcpy((*plrs)->item[playerNum].location, location);
+  }
+  
   /* Update front end if we are in a running game (ie not in the joining phase) */
   if (netGetStatus() != netFailed) {
     strcpy(str, (*plrs)->item[playerNum].playerName);
@@ -460,7 +471,7 @@ void playersGetPlayerName(players *plrs, BYTE playerNum, char *dest) {
 }
 
 /*********************************************************
-*NAME:          playersGetPlayerName
+*NAME:          playersGetPlayerLocation
 *AUTHOR:        John Morrison
 *CREATION DATE: 18/2/99
 *LAST MODIFIED: 18/2/99
