@@ -137,41 +137,50 @@ SOCKET utilMakeBoundSocket(bool tcp, bool listening, bool blocking, unsigned sho
 *********************************************************/
 bool utilReverseLookup(struct in_addr *pack, char *dest) {
   HOSTENT *hent;
+  HOSTENT *lookupIP;
   
   dest[0] = 0;
-  if (strcmp(inet_ntoa(*pack), "207.88.53.107") == 0) {
-		strcpy(dest, "paniq.winbolo.us");
-  return 1;
-  }
 
-  fprintf(stderr, "\t\tREVDNS: lookup on %s:\n", inet_ntoa(*pack));
+  fprintf(stderr, "\t\tREVDNS: Hostname lookup on %s:\n", inet_ntoa(*pack));
   hent = gethostbyaddr( (char *) &((*pack).s_addr) , sizeof((*pack).s_addr), AF_INET);
   fprintf(stderr, "\t\tREVDNS: DONE\n");
 
+  /*
+   * TODO: instead of hard-coding these, setup an input file to read in.
+   * We were able to find the hostname using the IP
+   */
   if (hent != NULL) {
-	  strcpy(dest, hent->h_name);
-	  if (strcmp("fuckbigpond.com", dest) == 0) {
-		  strcpy(dest, "west.winbolo.com");
-	  } else if (strcmp("ool-4351bf05.dyn.optonline.net", dest) == 0) {
-		  strcpy(dest, "sheeps.winbolo.us");
-	  } else if (strcmp("CPE0002446032e4-CM000039fbb861.cpe.net.cable.rogers.com", dest) == 0) {
-		  strcpy(dest, "winbolo.dhs.org");
-	  } else if (strcmp("pool-141-154-115-77.bos.east.verizon.net", dest) == 0) {
-		  strcpy(dest, "bluebot.winbolo.us");
-	 } else if (strcmp("dsl092-218-111.sfo2.dsl.speakeasy.net", dest) == 0) {
-		 strcpy(dest, "renbot.winbolo.us");
-	 } else if (strcmp("12.39.4.70", dest) == 0) {
-		 strcpy(dest, "pawnyBot.winbolo.us");
+        /* Copy the hostname, aka, "toolbar.google.com" over to dest */
+	strcpy(dest, hent->h_name);
+        /* Use the hostname to lookup information about the host */
+	lookupIP = gethostbyname(dest);
+	/* We were unable to get an IP from the hostname lookup, so let's store the IP in dest */
+	if (lookupIP == NULL) {
+		strcpy(dest,inet_ntoa(*pack));
 	}
-
-	  fprintf(stderr, "\t\tREVDNS: resolved to %s\n", dest);
-
-	  return 1;
+	
+	/* Check for alias' that we wish to display instead of actual DNS/IPs */
+	if (strcmp("fuckbigpond.com", dest) == 0) {
+		strcpy(dest, "west.winbolo.com");
+	} else if (strcmp("ool-4351bf05.dyn.optonline.net", dest) == 0) {
+		strcpy(dest, "sheeps.winbolo.us");
+	} else if (strcmp("CPE0002446032e4-CM000039fbb861.cpe.net.cable.rogers.com", dest) == 0) {
+		strcpy(dest, "winbolo.dhs.org");
+	} else if (strcmp("pool-141-154-115-77.bos.east.verizon.net", dest) == 0) {
+		strcpy(dest, "bluebot.winbolo.us");
+	} else if (strcmp("dsl092-218-111.sfo2.dsl.speakeasy.net", dest) == 0) {
+		strcpy(dest, "renbot.winbolo.us");
+	} else if (strcmp("12.39.4.70", dest) == 0) {
+		strcpy(dest, "pawnyBot.winbolo.us");
+	} else if (strcmp("207.88.53.107",dest) == 0) {
+		strcpy(dest, "paniq.winbolo.us");
+	}
+	fprintf(stderr, "\t\tREVDNS: Hostname resolved to %s\n", dest);
+	return 1;
   } else {
-	  strcpy(dest, inet_ntoa(*pack));
-	    fprintf(stderr, "\t\tREVDNS: resolved to %s\n", dest);
-
-	  return 0;
+	strcpy(dest, inet_ntoa(*pack));
+	fprintf(stderr, "\t\tREVDNS: Unable to resolve %s\n", dest);
+	return 0;
   }
 }
 
