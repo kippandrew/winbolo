@@ -156,7 +156,9 @@ struct tankObj {
   bool justFired;         /* Did the tank just fire */
   BYTE tankHitCount;  /* Number of times a tank has been hit to determine if they are cheating */
   int crc; /* CRC used to detect memory cheats */
-  tankCarryPb carryPills; /* The Pillboxes being carried */  
+  tankCarryPb carryPills; /* The Pillboxes being carried */
+  BYTE tankSlideTimer; /* This will be used to determine how long the tank should slide when hit */
+  TURNTYPE tankSlideAngle; /* This holds the angle that the shell was travelling so we know in which direction to push the tank */
 };
 
 #pragma pack(pop, enter_tank_obj,1)

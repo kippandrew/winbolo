@@ -34,6 +34,7 @@
 #include "bolo_map.h"
 #include "bases.h"
 #include "util.h"
+#include "mathWinbolo.h"
 
 /*********************************************************
 *NAME:          utilCalcDistance
@@ -65,6 +66,42 @@ void utilCalcDistance(int *xAmount, int *yAmount, TURNTYPE angle, int speed) {
   /* Perform calculation */
   *xAmount = (int) (speed * cos(dbAngle));
   *yAmount = (int) (speed * sin(dbAngle));
+}
+
+
+/*********************************************************
+*NAME:          utilCalcTankSlide
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 2009-01-04
+*LAST MODIFIED: 2009-01-04
+*PURPOSE:
+*  Calculates the X and Y distance a tank should move 
+*  after being hit by a shell.  We do not decrement the 
+*  tank slide timer here as that is handled by code in the
+*  tankUpdate() method.
+*
+*ARGUMENTS:
+*  tankSlideTimer - The number of ticks left to slide
+*  angle - The angle at which the shell was travelling
+*  xAmount - The amount to add in the X direction
+*  yAmount - The amount to add in the Y direction
+*  speed   - The speed of the tank
+*********************************************************/
+void utilCalcTankSlide(BYTE tankSlideTimer, TURNTYPE angle, int *xAmount, int *yAmount, int speed)
+{
+	float angleRad;
+	float ratio;
+
+	angleRad = mathConvertBradianToRadian(angle);
+
+	/* This ratio is not right as it is but it sure is fun to play with */
+	ratio = (float)tankSlideTimer / (float)speed;
+
+	/* Calculate the change in both x and y directions */
+	*xAmount = (int)(ratio * cos(angleRad));
+	*yAmount = (int)(ratio * sin(angleRad)) * -1;
+
+	return;
 }
 
 

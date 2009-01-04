@@ -106,6 +106,8 @@ void tankCreate(tank *value, starts *sts) {
   (*value)->autoHideGunsight = FALSE;
   (*value)->justFired = FALSE;
   (*value)->tankHitCount = 0;
+  (*value)->tankSlideTimer = 0;
+  (*value)->tankSlideAngle = 0;
 
   /* Get the start position */
   screenSetInStartFind(TRUE);
@@ -235,6 +237,7 @@ void tankUpdate(tank *value, map *mp, bases *bs, pillboxes *pb, shells *shs, sta
 
 
   if ((*value)->deathWait > 0) {
+	/* Tank is still waiting to respawn */
     (*value)->deathWait--;
     tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, (*value)->deathWait);
     if ((*value)->deathWait == 0) {
@@ -242,12 +245,13 @@ void tankUpdate(tank *value, map *mp, bases *bs, pillboxes *pb, shells *shs, sta
       tankRegisterChangeByte(value, CRC_NEWTANK_OFFSET, TRUE);
     }
   } else if ((*value)->armour > TANK_FULL_ARMOUR) {
+	/* Tank just took enough damage to die */
     if (screenGetInStartFind() == FALSE) {
       tankDeath(value, sts);
     }
   } else if ((*value)->onBoat == FALSE && (mapGetPos(mp,bmx, bmy)) == DEEP_SEA && threadsGetContext() == FALSE) {
     /* Check for death by drowning */
-//    if (threadsGetContext() == FALSE) {
+/*    if (threadsGetContext() == FALSE) { */
       soundDist(tankSinkNear, bmx, bmy);
       messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(MESSAGE_TANKSUNK));
       netMNTAdd(screenGetNetMnt(), NMNT_KILLME, 0, screenGetTankPlayer(value), 0xFF, 0xFF);
@@ -256,15 +260,20 @@ void tankUpdate(tank *value, map *mp, bases *bs, pillboxes *pb, shells *shs, sta
       tankRegisterChangeByte(value, CRC_ARMOUR_OFFSET, (*value)->armour);
       (*value)->deathWait = 255;
       tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, 255);
-//    }
+/*    } */
   } else if ((*value)->onBoat == TRUE) {
     /* Tank Movement on Boat */
+	  if ((*value)->tankSlideTimer > 0) { /* Do we really need this for tank movement on a boat?  Does a tank slide in river? */
+		(*value)->tankSlideTimer--;
+	}
     (*value)->newTank = FALSE;
     tankRegisterChangeByte(value, CRC_NEWTANK_OFFSET, FALSE);
-
     tankMoveOnBoat(value, mp, pb, bs, bmx, bmy, tb, inBrain);
   } else {
     /* Tank Movement on Land */
+	if ((*value)->tankSlideTimer > 0) {
+		(*value)->tankSlideTimer--;
+	}
     (*value)->newTank = FALSE;
     tankRegisterChangeByte(value, CRC_NEWTANK_OFFSET, FALSE);
     tankMoveOnLand(value, mp, pb, bs, bmx, bmy, tb, inBrain);
@@ -876,7 +885,12 @@ tankHit tankIsTankHit(tank *value, map *mp, pillboxes *pb, bases *bs, WORLD x, W
   }
 
   returnValue = TH_MISSED;
-  
+
+  /*
+   * TODO: here is where we would call a collision-detection function.  For now, we check to see
+   * if the shell is within 128 WORLD coordinates of a tank's WORLD coordinates.  Since a tank's
+   * WORLD coordinates are from the center, we assume that the tank is basically a circle.
+   */
   if (abs((*value)->x - x) < 128 && abs((*value)->y - y) < 128  && (*value)->armour <= TANK_FULL_ARMOUR) {
     returnValue = TH_HIT;
     needSend = TRUE;
@@ -891,6 +905,11 @@ tankHit tankIsTankHit(tank *value, map *mp, pillboxes *pb, bases *bs, WORLD x, W
       tankRegisterChangeFloat(value, CRC_SPEED_OFFSET, 0);
       screenReCalc();
     }
+	/* 
+	 * Tank was at zero armor before it was hit with a shell.  When we decrement the armor counter, it
+	 * "wraps" around and becomes larger than what a tank is supposed to have.  This signals that the 
+	 * tank should die.
+	 */
     if ((*value)->armour > TANK_FULL_ARMOUR) {
       if (((*value)->shells + (*value)->mines) > TANK_BIG_EXPLOSION_THRESHOLD) {
         returnValue = TH_KILL_BIG;
@@ -900,10 +919,18 @@ tankHit tankIsTankHit(tank *value, map *mp, pillboxes *pb, bases *bs, WORLD x, W
       (*value)->deathWait = 255;
       tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, 255);
       
-//      netSendNow = TRUE;
+/*      netSendNow = TRUE; */
       tankDropPills(value, mp, pb, bs);
-    } else { /* if ((*value)->armour <= TANK_FULL_ARMOUR)  */
-      utilCalcDistance(&newX, &newY, angle, MAP_SQUARE_MIDDLE);
+    }
+	/* Tank was hit and survived */
+	else { /* if ((*value)->armour <= TANK_FULL_ARMOUR)  */
+
+	  (*value)->tankSlideTimer = 2000; /* TODO: make this a non-magical number, aka, #define */
+      (*value)->tankSlideAngle = angle;
+
+/*      utilCalcDistance(&newX, &newY, angle, MAP_SQUARE_MIDDLE); */
+	  utilCalcTankSlide((*value)->tankSlideTimer, angle, &newX, &newY, MAP_SQUARE_MIDDLE);
+
       /* Check for Colisions */
       conv = (*value)->x;  
       conv >>= TANK_SHIFT_MAPSIZE;
@@ -950,6 +977,7 @@ tankHit tankIsTankHit(tank *value, map *mp, pillboxes *pb, bases *bs, WORLD x, W
   }
   return returnValue;
 }
+
 
 /*********************************************************
 *NAME:          tankInWater
@@ -1394,7 +1422,14 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
       tankRegisterChangeFloat(value, CRC_SPEED_OFFSET, (*value)->speed);
     }
     ang = utilGet16Dir((*value)->angle);
-    utilCalcDistance(&xAmount, &yAmount, (TURNTYPE) ang, (int) (*value)->speed);    
+    
+	/* Was the tank hit by a shell recently? */
+	if ((*value)->tankSlideTimer > 0) {
+		utilCalcTankSlide((*value)->tankSlideTimer, (*value)->tankSlideAngle, &xAmount, &yAmount, (int)(*value)->speed);
+	} else {
+		utilCalcDistance(&xAmount, &yAmount, (TURNTYPE) ang, (int) (*value)->speed);
+	}
+
     /* Check to make sure updating isn't going to run into something. If not update co-ordinates */
     newmx = (WORLD) ((*value)->x + xAmount);
     newmy = (WORLD) ((*value)->y + yAmount);
@@ -1431,10 +1466,12 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
       slowDown = TRUE; 
       (*value)->obstructed = TRUE;
       tankRegisterChangeByte(value, CRC_OBSTRUCTED_OFFSET, TRUE);
-/*      (*value)->speed-= TANK_WALL_SLOW_DOWN;
+/*
+      (*value)->speed -= TANK_WALL_SLOW_DOWN;
       if ((*value)->speed < 0) {
         (*value)->speed = 0;
-      }  */
+      }
+*/
     }
     if ((mapGetSpeed(mp,pb,bs,newbmx,bmy,(*value)->onBoat, screenGetTankPlayer(value))) > 0) {
       (*value)->x = (WORLD) ((*value)->x + xAmount);

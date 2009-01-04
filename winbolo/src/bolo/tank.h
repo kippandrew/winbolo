@@ -52,7 +52,7 @@
 #define TANK_FRAMES 16
 
 /*
-Wharf-Rat explains Acceleration ¶
+Wharf-Rat explains Acceleration
 
 <wharf-rat> every other tick
 <wharf-rat> the speed is either incremented or decremented by one

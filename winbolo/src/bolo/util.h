@@ -74,6 +74,28 @@
 *********************************************************/
 void utilCalcDistance(int *xAmount, int *yAmount, TURNTYPE angle, int speed);
 
+
+/*********************************************************
+*NAME:          utilCalcTankSlide
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 2009-01-04
+*LAST MODIFIED: 2009-01-04
+*PURPOSE:
+*  Calculates the X and Y distance a tank should move 
+*  after being hit by a shell.  We do not decrement the 
+*  tank slide timer here as that is handled by code in the
+*  tankUpdate() method.
+*
+*ARGUMENTS:
+*  tankSlideTimer - The number of ticks left to slide
+*  angle - The angle at which the shell was travelling
+*  xAmount - The amount to add in the X direction
+*  yAmount - The amount to add in the Y direction
+*  speed   - The speed of the tank
+*********************************************************/
+void utilCalcTankSlide(BYTE tankSlideTimer, TURNTYPE angle, int *xAmount, int *yAmount, int speed);
+
+
 /*********************************************************
 *NAME:          utilGetDir
 *AUTHOR:        John Morrison
