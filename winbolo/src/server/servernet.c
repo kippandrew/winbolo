@@ -705,14 +705,14 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
   char str[FILENAME_MAX];                     /* Used for message printing */
   struct sockaddr_in sAddr;
   char *tok;
-  char rsadecryptedholder[512];
+  char rsadecryptedholder[RSA_DATA_SIZE];
   BIGD m1,c,d,n;
   BYTE ip1;
   BYTE ip2;
   BYTE ip3;
   BYTE ip4;
   
-  memset(rsadecryptedholder, 0, 512);
+  memset(rsadecryptedholder, 0, RSA_DATA_SIZE);
   /* Check Name not in use */
   memset(&prp, 0, sizeof(prp));
   memcpy(&prp, buff, sizeof(prp));
@@ -741,7 +741,7 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
 //	pr_msg("c= ", c);
 //	pr_msg("d= ", d);
 //	pr_msg("n= ", n);
-	memset(rsadecryptedholder, 0, 256);
+	memset(rsadecryptedholder, 0, RSA_DATA_SIZE);
 	bdConvToHex(m1,rsadecryptedholder,256);
 	bdFree(&m1);
 	bdFree(&c);

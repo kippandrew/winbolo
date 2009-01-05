@@ -1034,11 +1034,11 @@ bool netJoinFinalise(char *targetip, unsigned short port, bool wantRejoin, char 
   BYTE numTries;              /* Number of tries              */
   BIGD c,m,e,n;				  /* temporary holder for encrytion */
   char newName[256]; /* Our new name - Prefix with * if WBN participant */
-  char rsaencryptedholder[512];
+  char rsaencryptedholder[RSA_DATA_SIZE];
   REJOINREQUEST_PACKET rrp = REQUESTHEADER; /* Rejoin packet */
 
   returnValue = TRUE;
-  memset(rsaencryptedholder, 0, 258);
+  memset(rsaencryptedholder, 0, RSA_DATA_SIZE);
   /* WinBolo.net check */
   if (useWbn == TRUE) {
     returnValue = netWinBoloNetSetup(userName, password);

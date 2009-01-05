@@ -29,6 +29,7 @@
 #define NETWORK_H
 
 #include "global.h"
+#include "../server/rsaalgorithm.h"
 #ifdef _WIN32
 #include <winsock.h>
 
@@ -159,7 +160,7 @@ typedef struct {
   unsigned short port;              /* UDP Port of this player */
   BYTE key[32];						/* WinBolo.net key */
   char password[MAP_STR_SIZE];      /* Test password - Pascal string (first byte is length)  */
-  char rsaencrypted[256];			/* rsa encrypted string */
+  char rsaencrypted[RSA_DATA_SIZE];			/* rsa encrypted string */
 } PLAYERNUM_REQ_PACKET;
 
 #define BOLOPACKET_PLAYERNUMREQPOS (BOLOPACKET_REQUEST_TYPEPOS + 1)

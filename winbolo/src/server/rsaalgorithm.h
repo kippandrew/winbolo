@@ -14,6 +14,10 @@
  * GNU General Public License for more details.
  */
 
+#ifndef RSAALGORITHM_H
+#define RSAALGORITHM_H
+
+#define RSA_DATA_SIZE 256
 
 /*********************************************************
 *Name:          rsa algorithm
@@ -47,3 +51,5 @@ static void pr_msg(const char *msg, BIGD b)
 	printf("%s", msg);
 	bdPrint(b, BD_PRINT_NL);
 }
+
+#endif /* RSAALGORITHM_H */
