@@ -194,39 +194,3 @@ int dnsLookupsRun(void) {
   ExitThread(0);
   return 0;
 }
-
-
-/*********************************************************
-*NAME:          dnsLookupsGetClientIP
-*AUTHOR:        Chris Lesnieski
-*CREATION DATE: 2009-01-01
-*LAST MODIFIED: 2009-01-01
-*PURPOSE:
-*  Returns the DNS entry for the player requested.  Be sure to
-*  only call this after joining a game as it relies on the dnsLookupsRun()
-*  method to be run first.
-*
-*ARGUMENTS:
-*  addr - this will hold the address octet
-*  playerNum - this is the client's player number, used to match it in the list
-*  totalPlayers - total number of players in the game
-*********************************************************/
-void dnsLookupsGetClientIP(char addr[], int playerNum, int totalPlayers)
-{
-	/* Subtract one from total players as the player list has an index starting at zero */
-	int i = totalPlayers - 1;
-	dnsList q;
-	q = dnsProcessing;
-
-	/* Find the right client in the dnsList */
-	while (NonEmpty(dnsProcessing) && i != playerNum)
-	{
-		q = q->next;
-		i--;
-	}
-
-	strcpy(addr,q->ip);
-	q = NULL;
-	Dispose(q);
-	return;
-}
