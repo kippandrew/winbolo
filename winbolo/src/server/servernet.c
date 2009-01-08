@@ -346,7 +346,7 @@ void serverNetUDPPacketArrive(BYTE *buff, int len, unsigned long addr, unsigned 
 			  bdRandomBits(randommessage, 512);
 		  	  //pr_msg("random=\n", randommessage);
 			  // convert the message over to a hexidecimal string
-			  bdConvToHex(randommessage, rmsg, 256);
+			  bdConvToHex(randommessage, rmsg, 128);
 			  bdFree(&randommessage);
 			  strcpy(rsap.rsa,rmsg);
 			  memcpy(info,&rsap,sizeof(rsap));
@@ -730,24 +730,27 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
 	d = bdNew();
 	n = bdNew();
 	strcpy(rsadecryptedholder,prp.rsaencrypted);
-	rsadecryptedholder[256]='\0';
+//	printf("rsaencrypted: %s \r\n", rsadecryptedholder);
+//	rsadecryptedholder[256]='\0';
 	bdConvFromHex(c,rsadecryptedholder);
 	bdConvFromHex(d,"75dbe8cb03e866b1810263a8be193914929bda1b75b97164bd6543839b9120e34938b7062c362498d30c3f3a28e36426e4e4f80e141f254f80575dc62a291a754d5112ee6c043d83cfe291370a3c630ad65f7c1c619eb09198883c32d32ae2e8b658a21909f20fd61ff29c65797d0ad752eaf4102ebac63ed56c8c50bd98a9ab");
 	bdConvFromHex(n,"b0c9dd3085dc9a0a4183957d1d25d59edbe9c72930962a171c17e5456959b154edd51289425136e53c925ed73d55163a575774151e2eb7f740830ca93f3da7b19e30514b1ee09246d7bf56c1a8e2e9c5c7c197c60849e5f7ce3a9691b6d17c825741341904b316a98bd8d160f939300ee0c4042d5428f22de095f606f120e1d7");
 	// This is the decryption
 	/* Check decrypt m1 = c^d mod n */
 	bdModExp(m1, c, d, n);
+//	below is commented out debugging code stuff for the rsa code.
 //	pr_msg("m1= ", m1);
 //	pr_msg("c= ", c);
 //	pr_msg("d= ", d);
 //	pr_msg("n= ", n);
 	memset(rsadecryptedholder, 0, RSA_DATA_SIZE);
-	bdConvToHex(m1,rsadecryptedholder,256);
+	bdConvToHex(m1,rsadecryptedholder,RSA_DATA_SIZE);
 	bdFree(&m1);
 	bdFree(&c);
 	bdFree(&d);
 	bdFree(&n);
 
+//	below is commented out debugging code stuff for the rsa code.
 //  printf("rmsg: %s \r\n", rmsg);
 //  printf("decrypted: %s \r\n", rsadecryptedholder);
 

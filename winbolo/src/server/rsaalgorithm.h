@@ -17,7 +17,7 @@
 #ifndef RSAALGORITHM_H
 #define RSAALGORITHM_H
 
-#define RSA_DATA_SIZE 256
+#define RSA_DATA_SIZE 257
 
 /*********************************************************
 *Name:          rsa algorithm

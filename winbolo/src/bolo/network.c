@@ -80,7 +80,7 @@ netType networkGameType = netNone;
 /* Password in netgames */
 char netPassword[MAP_STR_SIZE];
 // randomly generated string
-char rsastring[256];
+char rsastring[128];
 
 netStatus netStat = netRunning; /* Network status */
 netStatus oldNetStatus = netRunning; /* Network status */
@@ -1073,7 +1073,7 @@ bool netJoinFinalise(char *targetip, unsigned short port, bool wantRejoin, char 
 	pr_msg("m= ", m);
 	pr_msg("e= ", e);
 	pr_msg("n= ", n);
-	bdConvToHex(c,rsaencryptedholder,258);
+	bdConvToHex(c,rsaencryptedholder,RSA_DATA_SIZE);
 	memcpy(prp.rsaencrypted,rsaencryptedholder,sizeof(rsaencryptedholder));
 	bdFree(&c);
 	bdFree(&m);
