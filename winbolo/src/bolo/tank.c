@@ -928,8 +928,8 @@ tankHit tankIsTankHit(tank *value, map *mp, pillboxes *pb, bases *bs, WORLD x, W
 	  (*value)->tankSlideTimer = 2000; /* TODO: make this a non-magical number, aka, #define */
       (*value)->tankSlideAngle = angle;
 
-/*      utilCalcDistance(&newX, &newY, angle, MAP_SQUARE_MIDDLE); */
-	  utilCalcTankSlide((*value)->tankSlideTimer, angle, &newX, &newY, MAP_SQUARE_MIDDLE);
+      utilCalcDistance(&newX, &newY, angle, MAP_SQUARE_MIDDLE); 
+/*	  utilCalcTankSlide((*value)->tankSlideTimer, angle, &newX, &newY, MAP_SQUARE_MIDDLE); */
 
       /* Check for Colisions */
       conv = (*value)->x;  
@@ -1424,11 +1424,11 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
     ang = utilGet16Dir((*value)->angle);
     
 	/* Was the tank hit by a shell recently? */
-	if ((*value)->tankSlideTimer > 0) {
+/*	if ((*value)->tankSlideTimer > 0) {
 		utilCalcTankSlide((*value)->tankSlideTimer, (*value)->tankSlideAngle, &xAmount, &yAmount, (int)(*value)->speed);
-	} else {
+	} else { */
 		utilCalcDistance(&xAmount, &yAmount, (TURNTYPE) ang, (int) (*value)->speed);
-	}
+/*	} */
 
     /* Check to make sure updating isn't going to run into something. If not update co-ordinates */
     newmx = (WORLD) ((*value)->x + xAmount);
