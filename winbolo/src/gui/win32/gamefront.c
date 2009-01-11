@@ -1219,6 +1219,9 @@ void gameFrontShutdownServer() {
 *********************************************************/
 bool gameFrontSetupServer() {
   bool returnValue;           /* Value to return */
+  char tempPath[MAX_PATH]; /* Temp Path for writing out map from resource to read back in */
+  char tempFile[MAX_PATH]; /* Temp filename for reading file */
+  FILE *fp; /* File pointer used to write data out */
  
   returnValue = TRUE;
   isServer = FALSE;
@@ -1241,9 +1244,15 @@ bool gameFrontSetupServer() {
       hGlobal = LoadResource(NULL, res);
       if (hGlobal != NULL) {
         buff = LockResource(hGlobal);
-        if (buff != NULL) {
-          serverCoreCreateCompressed(buff, 5097, "Everard Island", gametype, hiddenMines, startDelay, timeLen);
-        }
+		if (buff != NULL) {
+	        GetTempPathA(MAX_PATH, tempPath);
+	        sprintf(tempFile, "%sEverard Island.map", tempPath);
+	        fp = fopen(tempFile, "wb");
+	        fwrite(buff, 1954, 1, fp);
+	        fclose(fp);
+			returnValue = serverCoreCreate(tempFile, gametype, hiddenMines, startDelay, timeLen);
+		    DeleteFile(tempFile);
+		}
       }
     }
   }
