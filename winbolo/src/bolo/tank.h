@@ -51,6 +51,10 @@
 /* There are 16 tank frames (or viewing angles the tank can take */
 #define TANK_FRAMES 16
 
+/* how many world coordinates to move per tank slide update */
+#define TANK_SLIDE 16 
+/* the number of times to update the tank slide, this is in world coordinates, the actual number is this +1 becuase it activates tank slide once right away */
+#define TANK_SLIDE_TICKS 7
 /*
 Wharf-Rat explains Acceleration
 

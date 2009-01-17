@@ -39,8 +39,8 @@
 #define SwampHeadLength(list) ((list)->life);
 #define SwampTail(list) ((list)->next);
 
-/* How manu shots it takes to destroy a peice of grass */
-#define SWAMP_LIFE 4
+/* How many shots it takes to destroy a peice of grass this is set to 3 becuase for some reason that makes winbolo kill a swamp in 4 shots. 4 shots is what its supposed to be */
+#define SWAMP_LIFE 3
 
 /* Shells die when there length equals */
 #define SWAMP_DEATH 0

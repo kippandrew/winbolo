@@ -263,17 +263,11 @@ void tankUpdate(tank *value, map *mp, bases *bs, pillboxes *pb, shells *shs, sta
 /*    } */
   } else if ((*value)->onBoat == TRUE) {
     /* Tank Movement on Boat */
-	  if ((*value)->tankSlideTimer > 0) { /* Do we really need this for tank movement on a boat?  Does a tank slide in river? */
-		(*value)->tankSlideTimer--;
-	}
     (*value)->newTank = FALSE;
     tankRegisterChangeByte(value, CRC_NEWTANK_OFFSET, FALSE);
     tankMoveOnBoat(value, mp, pb, bs, bmx, bmy, tb, inBrain);
   } else {
     /* Tank Movement on Land */
-	if ((*value)->tankSlideTimer > 0) {
-		(*value)->tankSlideTimer--;
-	}
     (*value)->newTank = FALSE;
     tankRegisterChangeByte(value, CRC_NEWTANK_OFFSET, FALSE);
     tankMoveOnLand(value, mp, pb, bs, bmx, bmy, tb, inBrain);
@@ -925,10 +919,10 @@ tankHit tankIsTankHit(tank *value, map *mp, pillboxes *pb, bases *bs, WORLD x, W
 	/* Tank was hit and survived */
 	else { /* if ((*value)->armour <= TANK_FULL_ARMOUR)  */
 
-	  (*value)->tankSlideTimer = 2000; /* TODO: make this a non-magical number, aka, #define */
+	  (*value)->tankSlideTimer = TANK_SLIDE_TICKS; /* TODO: make this a non-magical number, aka, #define */
       (*value)->tankSlideAngle = angle;
 
-      utilCalcDistance(&newX, &newY, angle, MAP_SQUARE_MIDDLE); 
+      utilCalcDistance(&newX, &newY, angle, 16); //MAP_SQUARE_MIDDLE
 /*	  utilCalcTankSlide((*value)->tankSlideTimer, angle, &newX, &newY, MAP_SQUARE_MIDDLE); */
 
       /* Check for Colisions */
@@ -1390,6 +1384,9 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
   WORLD newmy;
   int xAmount;   /* The distance to add or subtract to th location */
   int yAmount;   /* depending on the speed of the tank */
+  int xslideAmount;
+  int yslideAmount;
+  WORLD conv;
   BYTE ang;
   BYTE newbmx;
   BYTE newbmy;
@@ -1397,6 +1394,9 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
   bool slowDown; /* Only if we can't move in either direction we should slow down */
   bool isServer;
 
+  xslideAmount = 0;
+  yslideAmount = 0;
+  
   isServer = threadsGetContext();
 
   /* Check terrain is clear */
@@ -1423,16 +1423,11 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
     }
     ang = utilGet16Dir((*value)->angle);
     
-	/* Was the tank hit by a shell recently? */
-/*	if ((*value)->tankSlideTimer > 0) {
-		utilCalcTankSlide((*value)->tankSlideTimer, (*value)->tankSlideAngle, &xAmount, &yAmount, (int)(*value)->speed);
-	} else { */
-		utilCalcDistance(&xAmount, &yAmount, (TURNTYPE) ang, (int) (*value)->speed);
-/*	} */
+	utilCalcDistance(&xAmount, &yAmount, (TURNTYPE) ang, (int) (*value)->speed);
 
     /* Check to make sure updating isn't going to run into something. If not update co-ordinates */
-    newmx = (WORLD) ((*value)->x + xAmount);
-    newmy = (WORLD) ((*value)->y + yAmount);
+    newmx = (WORLD) ((*value)->x + xAmount + xslideAmount);
+    newmy = (WORLD) ((*value)->y + yAmount + yslideAmount);
 
     if (yAmount > 0) {
       newmy += TANK_MOVE_LAND_SUB+32;
@@ -1525,7 +1520,44 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
     }
   }
 
+  /* Was the tank hit by a shell recently? */
+  if ((*value)->tankSlideTimer > 0) {
+	//utilCalcTankSlide((*value)->tankSlideTimer, (*value)->tankSlideAngle, &xAmount, &yAmount, (int)(*value)->speed);
+	utilCalcDistance(&xslideAmount, &yslideAmount, (TURNTYPE)(*value)->tankSlideAngle, TANK_SLIDE);
+//	(*value)->x = (WORLD) ((*value)->x + xslideAmount);
+//	(*value)->y = (WORLD) ((*value)->y + yslideAmount);
+	(*value)->tankSlideTimer--;
+      /* Check for Colisions */
+      conv = (*value)->x;  
+      conv >>= TANK_SHIFT_MAPSIZE;
+      bmx = (BYTE) conv;
+      conv = (*value)->y;
+      conv >>= TANK_SHIFT_MAPSIZE;
+      bmy = (BYTE) conv;
+
+      newmx = (WORLD) ((*value)->x + xslideAmount);
+      newmy = (WORLD) ((*value)->y + yslideAmount);
+
+
+      newmx >>= TANK_SHIFT_MAPSIZE;
+      newmy >>= TANK_SHIFT_MAPSIZE;
+      newbmx = (BYTE) newmx;
+      newbmy = (BYTE) newmy;
+
+      if ((mapGetSpeed(mp,pb,bs,bmx,newbmy,(*value)->onBoat, screenGetTankPlayer(value))) > 0) {
+        (*value)->y = (WORLD) ((*value)->y + yslideAmount);
+        tankRegisterChangeWorld(value, CRC_WORLDY_OFFSET, (*value)->y);
+        bmy = newbmy;
+      }
+      if ((mapGetSpeed(mp,pb,bs,newbmx,bmy,(*value)->onBoat, screenGetTankPlayer(value))) > 0) {
+        (*value)->x = (WORLD) ((*value)->x + xslideAmount);
+        tankRegisterChangeWorld(value, CRC_WORLDX_OFFSET, (*value)->x);
+        bmx = newbmx;
+      }
+      /* Check for scroll of screen */
+      screenTankScroll();
   
+  }
   /* Check for tank in water */
   if (((mapGetPos(mp, bmx, bmy)) == RIVER) && (*value)->speed <= MAP_SPEED_TRIVER && (*value)->onBoat == FALSE) {
     if (basesExistPos(bs, bmx, bmy) == FALSE) {
