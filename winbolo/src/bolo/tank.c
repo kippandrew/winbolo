@@ -922,7 +922,7 @@ tankHit tankIsTankHit(tank *value, map *mp, pillboxes *pb, bases *bs, WORLD x, W
 	  (*value)->tankSlideTimer = TANK_SLIDE_TICKS; /* TODO: make this a non-magical number, aka, #define */
       (*value)->tankSlideAngle = angle;
 
-      utilCalcDistance(&newX, &newY, angle, 16); //MAP_SQUARE_MIDDLE
+      utilCalcDistance(&newX, &newY, angle, TANK_SLIDE); //MAP_SQUARE_MIDDLE
 /*	  utilCalcTankSlide((*value)->tankSlideTimer, angle, &newX, &newY, MAP_SQUARE_MIDDLE); */
 
       /* Check for Colisions */
