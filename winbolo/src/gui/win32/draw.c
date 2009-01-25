@@ -637,8 +637,9 @@ void drawNetFailed() {
 *  useCursor      - True if to draw the cursor
 *  cursorLeft     - Cursor left position
 *  cursorTop      - Cursor Top position
+*  tank           - Pointer to the player's tank structure
 *********************************************************/
-void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, screenGunsight *gs, screenBullets *sBullets, screenLgm *lgms, RECT *rcWindow, bool showPillLabels, bool showBaseLabels, long srtDelay, bool isPillView, int edgeX, int edgeY, bool useCursor, BYTE cursorLeft, BYTE cursorTop) {
+void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, screenGunsight *gs, screenBullets *sBullets, screenLgm *lgms, RECT *rcWindow, bool showPillLabels, bool showBaseLabels, long srtDelay, bool isPillView, int edgeX, int edgeY, bool useCursor, BYTE cursorLeft, BYTE cursorTop, tank *tank) {
   RECT output;     /* Output Rectangle */
   bool done;       /* Finished Looping */
   int count;       /* Looping Variable */
@@ -654,6 +655,8 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
   bool isBase;     /* Is the square a base */
   BYTE labelNum;   /* Returns the label number */
   HDC hDC;         /* Temp DC of the surface */
+  static int STATIC_OFFSET = 0; /* There is a row of static squares in tiles.bmp that we'll cycle through */
+  static int STATIC_COUNT = 0;  /* We want to change the static square that is displayed every N ticks */
 
   if (lpDDSPrimary->lpVtbl->IsLost(lpDDSPrimary) == DDERR_SURFACELOST) {
     drawRestore();
@@ -661,10 +664,53 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
   if (lpDDSBackBuffer->lpVtbl->IsLost(lpDDSBackBuffer) == DDERR_SURFACELOST) {
     lpDDSBackBuffer->lpVtbl->Restore(lpDDSBackBuffer);
   }
+
+  /* Waiting for game to start. Draw coutdown */
   if (srtDelay > 0) { 
-    /* Waiting for game to start. Draw coutdown */
+  
     drawStartDelay(rcWindow, srtDelay);
-  } else {
+  }
+
+  /* Tank died and is waiting to respawn, throw some static on the screen */
+  else if (((*tank)->deathWait < STATIC_ON_TICKS && (*tank)->deathWait > 0) || ((*tank)->newTank && (*tank)->deathWait == 0))
+  {
+	for (x = 1; x < 16; x++)
+	{
+		for (y = 1; y < 16; y++)
+		{
+			zoomFactor = windowGetZoomFactor();
+			output.left = zoomFactor * (STATIC_X + STATIC_OFFSET);
+			output.top = zoomFactor * STATIC_Y;
+			output.right = zoomFactor * (STATIC_X + STATIC_OFFSET) + zoomFactor * TILE_SIZE_X;
+			output.bottom = zoomFactor * STATIC_Y + zoomFactor * TILE_SIZE_Y;
+			lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, (zoomFactor * y * TILE_SIZE_X), (zoomFactor * x * TILE_SIZE_Y), lpDDSTiles ,&output, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY);
+		}
+	}
+	if (STATIC_COUNT % STATIC_CHANGE_TICKS == 0)
+	{
+		STATIC_OFFSET += TILE_SIZE_X;
+		if (STATIC_OFFSET >= TILE_FILE_X)
+		{
+			STATIC_OFFSET = 0;
+		}
+		STATIC_COUNT = 0;
+	}
+
+	STATIC_COUNT++;
+	
+	/* Copy the back buffer to the window */
+	output.left = (zoomFactor * TILE_SIZE_X) + edgeX;
+	output.top = (zoomFactor * TILE_SIZE_Y) + edgeY;
+	output.right = (zoomFactor * MAIN_SCREEN_SIZE_X * TILE_SIZE_X) + (zoomFactor * TILE_SIZE_X) + edgeX;
+	output.bottom = (zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y) + (zoomFactor * TILE_SIZE_Y) + edgeY;
+	rcWindow->left = rcWindow->left + (zoomFactor * MAIN_OFFSET_X);
+	rcWindow->top = rcWindow->top + (zoomFactor * MAIN_OFFSET_Y);
+	rcWindow->right = rcWindow->left + (MAIN_SCREEN_SIZE_X * (zoomFactor * TILE_SIZE_X));
+	rcWindow->bottom = rcWindow->top + (zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y);
+	lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, rcWindow, lpDDSBackBuffer, &output, DDBLT_WAIT, NULL);
+  }
+
+  else {
   
   count = 0;
   x = 0;
@@ -672,6 +718,8 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
   done = FALSE;
   zoomFactor = windowGetZoomFactor();
   str[0] = '\0';
+
+  
 
   while (done == FALSE) {
     pos = screenGetPos(value,x,y);
@@ -693,7 +741,7 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
     }
 
     /* Drawing */
-    
+
     /* Draw the map block */
     output.left = outputX;
     output.right = outputX + zoomFactor * TILE_SIZE_X;
@@ -710,7 +758,8 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
       lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, (zoomFactor * x * TILE_SIZE_X) , (zoomFactor * y * TILE_SIZE_Y), lpDDSTiles ,&output, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY);
     }
 
-    /* Draw the pillNumber or base Number if required */
+	
+	/* Draw the pillNumber or base Number if required */
     if (isPill == TRUE && showPillLabels == TRUE) {
       labelNum = screenPillNumPos(x, y);
       sprintf(str, "%d", (labelNum-1));
@@ -796,6 +845,7 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
     /* we are in pillbox view - Write text here */
     drawPillInView();
   }
+
 
   if (netGetStatus() == netFailed) {
     drawNetFailed();
@@ -3354,6 +3404,8 @@ void drawMainScreenBlack(RECT *rcWindow) {
   rcWindow->bottom = rcWindow->top + (zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y); 
   lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, rcWindow, lpDDSBackBuffer, &output, DDBLT_WAIT, NULL);
 }
+
+
 
 /*********************************************************
 *NAME:          drawSetupArrays

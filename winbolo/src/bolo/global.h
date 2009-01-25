@@ -169,7 +169,7 @@ void efree(Generic object);
 /* Angular Meausrement stuff */
 #define BRADIANS_MAX 256.0
 #define DEGREES_MAX 360.0
-#define RADIANS_MAX (2.0 * 3.14)
+#define RADIANS_MAX (2.0 * 3.14159)
 #define BRADIANS_NORTH 0
 #define BRADIANS_EAST 64
 #define BRADIANS_SOUTH 128
@@ -190,11 +190,10 @@ void efree(Generic object);
 #define BRADIANS_GAP 16
 
 /* Maths */
-#define RADIAN_TO_DEGREE_FACTOR 57.295780
-#define DEGREE_TO_RADIAN_FACTOR 0.017453
+#define RADIAN_TO_DEGREE_FACTOR 57.2957795
+#define DEGREE_TO_RADIAN_FACTOR 0.0174532925
 #define BRADIAN_TO_RADIAN_FACTOR 0.024544
 #define RADIAN_TO_BRADIAN_FACTOR 40.743665
-
 
 /* Max Tanks in the game */
 #define MAX_TANKS 16
@@ -202,8 +201,7 @@ void efree(Generic object);
 /* Largest Value that will fill the WORLD data type */
 #define WORLD_MAX 65535
 
-/* Middle of a map square */
-/* in world units */
+/* Middle of a map square in world units */
 #define MAP_SQUARE_MIDDLE 128
 /* Was 128 */
 /* In pixels */
@@ -216,6 +214,9 @@ void efree(Generic object);
 #define PLAYER_NAME_LEN 33
 #define PLAYER_NAME_LAST 32 
 
+/* These are for the static view when a tank dies */
+#define STATIC_ON_TICKS 200
+#define STATIC_CHANGE_TICKS 10
 
 /* 0xFF is neutral */
 #define NEUTRAL 0xFF

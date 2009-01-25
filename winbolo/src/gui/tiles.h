@@ -31,7 +31,7 @@
 /* The name of the map tileset file (Now points to a resource) */
 #define TILE_FILE IDB_TILES
 #define TILE_FILE_X 496
-#define TILE_FILE_Y 160
+#define TILE_FILE_Y 176
 
 #define TILE_SIZE_X 16
 #define TILE_SIZE_Y 16
@@ -168,7 +168,9 @@
 #define BOAT7_X (17 * TILE_SIZE_X)
 #define BOAT7_Y (6 * TILE_SIZE_Y)
 
-
+/* Static position */
+#define STATIC_X (0 * TILE_SIZE_X)
+#define STATIC_Y (10 * TILE_SIZE_Y)
 
 /* Mine posistion */
 #define MINE_X (19 * TILE_SIZE_X)

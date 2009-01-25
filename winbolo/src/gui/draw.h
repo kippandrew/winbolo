@@ -102,8 +102,9 @@ void drawCleanup(void);
 *  useCursor      - True if to draw the cursor
 *  cursorLeft     - Cursor left position
 *  cursorTop      - Cursor Top position
+*  tank           - Pointer to the player's tank structure
 *********************************************************/
-void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, screenGunsight *gs, screenBullets *sBullets, screenLgm *lgms, RECT *rcWindow, bool showPillLabels, bool showBaseLabels, long srtDelay, bool isPillView, int edgeX, int edgeY, bool useCursor, BYTE cursorLeft, BYTE cursorTop);
+void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, screenGunsight *gs, screenBullets *sBullets, screenLgm *lgms, RECT *rcWindow, bool showPillLabels, bool showBaseLabels, long srtDelay, bool isPillView, int edgeX, int edgeY, bool useCursor, BYTE cursorLeft, BYTE cursorTop, tank *tank);
 
 /*********************************************************
 *NAME:          drawGetFrameRate

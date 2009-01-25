@@ -125,10 +125,11 @@ void frontEndPlaySound(sndEffects value) {
 *  srtDelay   - Start delay. If this is greater then 0
 *               Then the delay screen should be drawn
 *  isPillView - TRUE if we are in pillbox view
+*  tank       - Pointer to player's tank structure
 *  edgeX      - X Offset for smooth scrolling
 *  edgeY      - Y Offset for smooth scrolling
 *********************************************************/
-void frontEndDrawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, screenGunsight *gs, screenBullets *sBullet, screenLgm *lgms, long srtDelay, bool isPillView, int edgeX, int edgeY) {
+void frontEndDrawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, screenGunsight *gs, screenBullets *sBullet, screenLgm *lgms, long srtDelay, bool isPillView, tank *tank, int edgeX, int edgeY) {
   return;
 }
 
