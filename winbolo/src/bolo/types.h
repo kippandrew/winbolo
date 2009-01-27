@@ -130,7 +130,7 @@ typedef struct tankObj *tank;
 #define CRC_JUSTFIRED_OFFSET (CRC_AUTOHIDE_OFFSET+1)
 #define CRC_TANK_SIZE (CRC_JUSTFIRED_OFFSET+1)
 
-#pragma pack(push, enter_tank_obj,1)
+#pragma pack(push, 1)
 
 struct tankObj {
   WORLD x;            /* World Co-ordinates */
@@ -161,7 +161,7 @@ struct tankObj {
   TURNTYPE tankSlideAngle; /* This holds the angle that the shell was travelling so we know in which direction to push the tank */
 };
 
-#pragma pack(pop, enter_tank_obj,1)
+#pragma pack(pop)
 
 /* Defines */
 #define MAX_STARTS 16

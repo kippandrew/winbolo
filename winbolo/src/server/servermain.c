@@ -308,7 +308,6 @@ void CALLBACK serverGameTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWOR
       oldTick += SERVER_TICK_LENGTH;
     }
     if (quitOnWinFlag == TRUE || autoClose == TRUE || (winbolonetIsRunning() == TRUE && serverCoreGetActualGameType() != gameOpen)) {
-      BYTE key[64];
       threadsWaitForMutex();
       if (quitOnWinFlag == TRUE && isGameOver == FALSE){
 		isGameOver = serverCoreCheckGameWin(printGameWinners);
@@ -416,7 +415,7 @@ void processTrackerArg(char *argItem, char *trackerAddr, unsigned short *tracker
 
 #define ARG_NOT_FOUND -1 
 
-int findArg(int numArgs, char **argv[], const char *argname) {
+int findArg(int numArgs, char **argv, const char *argname) {
   int returnValue; /* Value to return */
   char temp[255];
   int count;
@@ -441,7 +440,7 @@ int findArg(int numArgs, char **argv[], const char *argname) {
 }
 
 
-bool argExist(int numArgs, char **argv[], char *argname) {
+bool argExist(int numArgs, char **argv, char *argname) {
   bool returnValue; /* Value to return */
   char temp[255];
   int count;
@@ -485,7 +484,7 @@ void makeLogFileName(char *fileName) {
   }
 }
 
-bool processArgs(int numArgs, char **argv[], char *mapName, unsigned short *port, gameType *game, bool *hiddenMines, aiType *ai, int *srtDelay, long *gmeLen, char *trackerAddr, unsigned short *trackerPort, bool *trackerUse, char *password) {
+bool processArgs(int numArgs, char **argv, char *mapName, unsigned short *port, gameType *game, bool *hiddenMines, aiType *ai, int *srtDelay, long *gmeLen, char *trackerAddr, unsigned short *trackerPort, bool *trackerUse, char *password) {
   bool returnValue; /* Value to return */
   int argNum;
   char temp[255];
@@ -619,7 +618,7 @@ bool processArgs(int numArgs, char **argv[], char *mapName, unsigned short *port
 
 #include <time.h>
 
-int main(int argc, char **argv[]) {
+int main(int argc, char **argv) {
   gameType game;
   unsigned short port;
   bool hiddenMines;

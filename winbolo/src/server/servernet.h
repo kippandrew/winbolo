@@ -45,7 +45,7 @@
 
 /* Typdefs */
 
-#pragma pack(push, enter_servernet_obj,1)
+#pragma pack(push, 1)
 
 
 #ifndef _PACKETS_DEFINED
@@ -974,7 +974,7 @@ bool serverNetGetIsLocked();
 *********************************************************/
 void serverNetGetUs(BYTE *buff, unsigned short *port);
 
-#pragma pack(pop, enter_servernet_obj,1)
+#pragma pack(pop)
 
 #endif /* _NETSERVER_H */
 

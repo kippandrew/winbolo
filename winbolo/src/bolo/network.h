@@ -43,7 +43,7 @@
 /* Defines */
 
 /* Typdefs */
-#pragma pack(push, enter_network_obj,1)
+#pragma pack(push, 1)
 
 
 #ifndef _PACKETS_DEFINED
@@ -868,6 +868,6 @@ void netSend(BYTE *buff, int len);
 *********************************************************/
 void netSendQuitMessage();
 
-#pragma pack(pop, enter_network_obj,1)
+#pragma pack(pop)
 
 #endif /* NETWORK_H */

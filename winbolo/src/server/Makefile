@@ -57,7 +57,8 @@ b: global.o bases.o util.o crc.o pillbox.o lgm.o shells.o tank.o \
 	screenbrainmap.o screenbullet.o screencalc.o screenlgm.o \
 	screentank.o scroll.o sounddist.o starts.o swamp.o \
 	tankexp.o treegrow.o dcodlzw.o ecodlzw.o playersrejoin.o \
-	lang.o winbolonetevents.o winbolonetthread.o backend.o
+	lang.o winbolonetevents.o winbolonetthread.o backend.o \
+	mathWinbolo.o
 
 server: servercore.o servermessages.o serverfrontend.o servermain.o \
 	servernet.o servertransport.o threads.o log.o udppackets.o \
@@ -81,7 +82,8 @@ $(SERVERNAME): zlib b server bigdigits
 	winbolonet.o http.o screenbullet.o preferences.o winbolonetthread.o \
 	backend.o adler32.o compress.o crc32.o deflate.o gzio.o  \
 	inffast.o inflate.o inftrees.o trees.o ioapi.o uncompr.o \
-	unzip.o zip.o zutil.o bigd.o bigdigits.o bigdigitsRand.o bigdRand.o
+	unzip.o zip.o zutil.o bigd.o bigdigits.o bigdigitsRand.o bigdRand.o \
+	mathWinbolo.o
 
 tidy: 
 	$(REM) $(REMFLAGS) *.o
@@ -233,6 +235,9 @@ grass.o: ${BOLODIR}grass.c ${BOLODIR}grass.h
 
 labels.o: ${BOLODIR}labels.c ${BOLODIR}labels.h
 	${CC} ${CFLAGS} -c ${BOLODIR}labels.c
+
+mathWinbolo.o: ${BOLODIR}mathWinbolo.c ${BOLODIR}mathWinbolo.h
+	${CC} ${CFLAGS} -c ${BOLODIR}mathWinbolo.c
 
 messages.o: ${BOLODIR}messages.c ${BOLODIR}messages.h
 	${CC} ${CFLAGS} -c ${BOLODIR}messages.c

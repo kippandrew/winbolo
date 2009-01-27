@@ -423,7 +423,7 @@ bool httpSendLogFile2(char *fileName, BYTE *key, bool wantFeedback, long fileLen
   sprintf(contentLength, "--%s\r\nContent-Disposition: form-data; name=\"logfile\"; filename=\"log.dat\"\r\nContent-Type: application/octet-stream\r\n\r\n", boundry); 
   length = strlen(contentLength) + fileLength + strlen(boundry) + 7;
 
-  sprintf(header, "%s%s HTTP/1.0\r\nContent-Type: multipart/form-data; boundary=%s\r\nContent-Length: %d\r\n%s", HTTP_POST_HEADER, sKey, boundry, length, hostString);  
+  sprintf(header, "%s%s HTTP/1.0\r\nContent-Type: multipart/form-data; boundary=%s\r\nContent-Length: %ld\r\n%s", HTTP_POST_HEADER, sKey, boundry, length, hostString);  
   sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
   returnValue = TRUE;
   if (sock <= 0) {
