@@ -49,7 +49,7 @@ function prepareName($name, $makeUrl) {
                 return "Non Winbolo.net participant";
         }
 	if ($makeUrl == true) {
-        	return "<a href=\"playerinfo.php?name=" . urlencode($name) . "\"> " . $name . "</A>";
+        	return "<a href=\"playerinfo.php?name=" . urlencode($name) . "\"> " . $name . "</a>";
 	} else {
 		return $name;
 	}
