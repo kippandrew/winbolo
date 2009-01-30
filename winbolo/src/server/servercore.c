@@ -106,6 +106,8 @@ time_t sTimeStart;
 /* Are we running? */
 bool serverCoreGameRunning = FALSE;
 
+void serverMessagesSetLogFile(char *logFile);
+
 /*********************************************************
 *NAME:          serverCoreCreate
 *AUTHOR:        John Morrison

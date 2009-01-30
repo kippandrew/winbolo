@@ -69,7 +69,7 @@ BOOL CALLBACK dialogUdpSetupCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LP
       EndDialog(hWnd,TRUE);
       break;
     case IDC_TRACKER:
-      DialogBox(windowGetInstance(), MAKEINTRESOURCE(IDD_TRACKERSETUP), hWnd, dialogTrackerSetupCallback);
+      DialogBox(windowGetInstance(), MAKEINTRESOURCE(IDD_TRACKERSETUP), hWnd, (DLGPROC) dialogTrackerSetupCallback);
       break;
     case ID_NEW:
       {   char str[FILENAME_MAX];   /* Temp string for conversions */
@@ -156,7 +156,7 @@ BOOL CALLBACK dialogUdpSetupIpCallback(HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
       if (OpenClipboard(hWnd)) {
         cbHandle = GetClipboardData(CF_TEXT);
         dataPtr = GlobalLock(cbHandle);
-        max = strlen(dataPtr);
+        max = (int) strlen(dataPtr);
         count = 0;
         
         /* Strip white space */
@@ -194,7 +194,7 @@ BOOL CALLBACK dialogUdpSetupIpCallback(HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
     return 0;
     break;
   }
-  return CallWindowProc((WNDPROC)oldWndProc, hWnd, uMsg, wParam, lParam);
+  return (BOOL) CallWindowProc((WNDPROC)oldWndProc, hWnd, uMsg, wParam, lParam);
 }
 
 /*********************************************************
@@ -236,9 +236,9 @@ void dialogUdpSetupInit(HWND hWnd) {
   gameFrontGetUdpOptions(pn, add, &targetUdp, &myUdp);
   
   /* Set the textboxes up */
-  itoa(targetUdp, str, BASE_10);
+  _itoa(targetUdp, str, BASE_10);
   SetDlgItemTextA(hWnd, IDC_UDP, str);
-  itoa(myUdp, str, BASE_10);
+  _itoa(myUdp, str, BASE_10);
   SetDlgItemTextA(hWnd, IDC_MYUDP, str);
   SetDlgItemTextA(hWnd, IDC_PLAYERNAME, pn);
   SetDlgItemTextA(hWnd, IDC_EDITIP, add);

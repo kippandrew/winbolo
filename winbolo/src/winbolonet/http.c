@@ -246,7 +246,7 @@ int httpSendData(SOCKET sock, BYTE *message, int len) {
   if (buff != NULL) {
     encodeLen = httpEncodeData(message, len, buff, (len * 3));
     if (encodeLen != -1) {
-      returnValue = (int) send(sock, HTTP_SEND_HEADER, strlen(HTTP_SEND_HEADER), 0);
+      returnValue = (int) send(sock, HTTP_SEND_HEADER, (int) strlen(HTTP_SEND_HEADER), 0);
       if (returnValue > 0) {
         returnValue = send(sock, buff, encodeLen, 0);
 //DEBUG
@@ -308,7 +308,7 @@ int httpRecvData(SOCKET sock, BYTE *buff, int maxSize) {
     }
     if (found == TRUE) {
       ptr += 4; /* Skip over \r\n\r\n */
-      returnValue = size - (ptr - buff);
+      returnValue = (int) (size - (ptr - buff));
       memcpy(buff, ptr, returnValue);
     } else {
       returnValue = -1;
@@ -421,7 +421,7 @@ bool httpSendLogFile2(char *fileName, BYTE *key, bool wantFeedback, long fileLen
   }
 
   sprintf(contentLength, "--%s\r\nContent-Disposition: form-data; name=\"logfile\"; filename=\"log.dat\"\r\nContent-Type: application/octet-stream\r\n\r\n", boundry); 
-  length = ((long) strlen(contentLength)) + fileLength + strlen(boundry) + 7;
+  length = (long) ((long) strlen(contentLength)) + fileLength + (long) strlen(boundry) + 7;
 
   sprintf(header, "%s%s HTTP/1.0\r\nContent-Type: multipart/form-data; boundary=%s\r\nContent-Length: %ld\r\n%s", HTTP_POST_HEADER, sKey, boundry, length, hostString);  
   sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);

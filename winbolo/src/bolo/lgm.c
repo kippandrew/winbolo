@@ -52,6 +52,7 @@
 #include "log.h"
 #include "util.h"
 #include "../winbolonet/winbolonet.h"
+#include "../server/servernet.h"
 #include "lgm.h"
 
 /* Prototypes */

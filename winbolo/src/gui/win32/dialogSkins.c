@@ -67,8 +67,8 @@ BOOL CALLBACK dialogSkinsCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, LPAR
         char skinName[FILENAME_MAX];
         int nItem, itemNum;
         hList = GetDlgItem(hWnd, IDC_SKINLIST); 
-        nItem = SendMessage(hList, LB_GETCURSEL, 0, 0); 
-        itemNum = SendMessage(hList, LB_GETITEMDATA, nItem, 0); 
+        nItem = (int) SendMessage(hList, LB_GETCURSEL, 0, 0); 
+        itemNum = (int) SendMessage(hList, LB_GETITEMDATA, nItem, 0); 
         SendMessage(hList, LB_GETTEXT, nItem, (LPARAM) (LPCTSTR) skinName); 
         if (strcmp(skinName, DEFAULT_NO_SKIN) == 0) {
           skinsLoadSkin("");

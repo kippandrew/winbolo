@@ -974,6 +974,22 @@ bool serverNetGetIsLocked();
 *********************************************************/
 void serverNetGetUs(BYTE *buff, unsigned short *port);
 
+/*********************************************************
+*NAME:          serverNetSendManReturnMessge
+*AUTHOR:        John Morrison
+*CREATION DATE: 2/12/00
+*LAST MODIFIED: 2/12/00
+*PURPOSE:
+* Sends the man has return packet to playerNum
+*
+*ARGUMENTS:
+*  playerNum - Player number to send to.
+*  numTrees  - Amount of trees lgm is carrying
+*  numMines  - Amount of mines the lgm is carrying
+*  pillNum   - Pillbox being carries
+*********************************************************/
+void serverNetSendManReturnMessge(BYTE playerNum, BYTE numTrees, BYTE numMines, BYTE pillNum);
+
 #pragma pack(pop)
 
 #endif /* _NETSERVER_H */

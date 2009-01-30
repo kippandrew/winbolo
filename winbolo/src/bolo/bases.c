@@ -329,7 +329,6 @@ void basesUpdate(bases *value, tank *tnk) {
   int secondCounter;       /* another looping variable */
   bool isServer;           /* Are we the server */
   double numPlayers;         /* Number of players */
-  double maxTime;
 
   count = 0;
   secondCounter = 0;
@@ -337,7 +336,7 @@ void basesUpdate(bases *value, tank *tnk) {
   isServer = threadsGetContext();
   numPlayers = playersGetNumPlayers(screenGetPlayers());
   /* Old Algorithm */
-/*  maxTime = (800.0 / numPlayers);
+/*  maxTime = (800.0 / numPlayers); // maxTime was defined as a double
   while (count < (*value)->numBases) {
     (*value)->item[count].baseTime++;
     if ((*value)->item[count].baseTime >= maxTime) {

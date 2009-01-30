@@ -92,7 +92,7 @@ void dialogSysInfoSetup(HWND hWnd) {
   SetDlgItemTextA(hWnd, IDC_TOTALS, langGetText(STR_DLGSYSINFO_TOTAL));
   SetDlgItemTextA(hWnd, IDC_FPSS, langGetText(STR_DLGSYSINFO_GRAPHICSFPS));
 
-  timerSystemInfo = SetTimer(hWnd, timerSystemInfo, MILLISECONDS, NULL);
+  timerSystemInfo = (unsigned int) SetTimer(hWnd, timerSystemInfo, MILLISECONDS, NULL);
   dialogSysInfoUpdate(hWnd);
 }
 
