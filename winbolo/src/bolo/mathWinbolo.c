@@ -49,7 +49,7 @@
  */
 float mathConvertRadianToDegree(float rad)
 {
-	return rad * RADIAN_TO_DEGREE_FACTOR;
+	return (float) (rad * RADIAN_TO_DEGREE_FACTOR);
 }
 
 /*
@@ -57,7 +57,7 @@ float mathConvertRadianToDegree(float rad)
 float mathConvertDegreeToRadian(float deg)
 {
 	float a;
-	a = deg * DEGREE_TO_RADIAN_FACTOR;
+	a = (float) (deg * DEGREE_TO_RADIAN_FACTOR);
 	return a;
 }
 
@@ -71,7 +71,7 @@ int mathConvertBradianToDegree(float brad)
 	float a;
 	a = mathConvertBradianToRadian(brad);
 	a = mathConvertRadianToDegree(a);
-	return a;
+	return (int) a;
 }
 
 
@@ -100,16 +100,16 @@ float mathConvertBradianToRadian(float brad)
 
 	/* This will arrange it so that the growth from 0 -> 256 is
 	 * counter-clockwise just like radians. */
-	brad = BRADIANS_MAX - brad;
+	brad = (float) (BRADIANS_MAX - brad);
 
 	/* This will give us a radian */
-	brad *= BRADIAN_TO_RADIAN_FACTOR;
+	brad *= (float) (BRADIAN_TO_RADIAN_FACTOR);
 
-	brad -= (RADIANS_MAX / 2);
+	brad -= (float) (RADIANS_MAX / 2);
 
 	if (brad < 0)
 	{
-		brad += RADIANS_MAX;
+		brad += (float) RADIANS_MAX;
 	}
 
 	return brad;
@@ -121,10 +121,10 @@ float mathConvertBradianToRadian(float brad)
 float mathConvertRadianToBradian(float rad)
 {
 	/* Multiply the radian so that it is now in bradian units */
-	rad *= RADIAN_TO_BRADIAN_FACTOR;
+	rad *= (float) RADIAN_TO_BRADIAN_FACTOR;
 
 	/* Arrange the bradian back to it's post-right hand shift */
-	rad = BRADIANS_MAX - rad;
+	rad = (float) (BRADIANS_MAX - rad);
 
 	/* Subtract the rotation so that the origin is due north again */
 
@@ -144,7 +144,7 @@ float mathConvertRadianToBradian(float rad)
 SPEEDTYPE mathComponentXSpeed(SPEEDTYPE speed, TURNTYPE angle)
 {
 	float rad = mathConvertBradianToRadian(angle);
-	return floor((cos(rad) * speed) + 0.5);
+	return (SPEEDTYPE) floor((cos(rad) * speed) + 0.5);
 }
 
 
@@ -155,9 +155,9 @@ SPEEDTYPE mathComponentXSpeed(SPEEDTYPE speed, TURNTYPE angle)
  */
 SPEEDTYPE mathComponentYSpeed(SPEEDTYPE speed, TURNTYPE angle)
 {
-	float a = mathConvertBradianToDegree(angle);
+	float a = (float) mathConvertBradianToDegree(angle);
 	float rad = mathConvertDegreeToRadian(a);
-	return floor((sin(rad) * speed) + 0.5) * -1;
+	return (float) (floor((sin(rad) * speed) + 0.5) * -1);
 }
 
 
@@ -184,7 +184,7 @@ SPEEDTYPE mathCollisionPostComponentSpeed(int massA, SPEEDTYPE speedA, int massB
 int mathAngleTravelUsingComponents(float speedX, float speedY)
 {
 	float a;
-
+ 
 	/* Tank is not moving horizontally */
 	if (speedX == 0)
 	{
@@ -226,24 +226,24 @@ int mathAngleTravelUsingComponents(float speedX, float speedY)
 		/* Tank is moving NW */
 		if ((speedX < 0) && (speedY < 0))
 		{
-			a = 180 + mathConvertRadianToDegree(atan((speedY * -1)/speedX));
+			a = 180 + mathConvertRadianToDegree((float) atan((speedY * -1)/speedX));
 		}
 		/* Tank is moving SW */
 		else if ((speedX < 0) && (speedY > 0))
 		{
-			a = 180 + mathConvertRadianToDegree(atan((speedY * -1)/speedX));
+			a = (float) (180 + (float) (mathConvertRadianToDegree((float) atan((speedY * -1)/speedX))));
 		}
 		/* Tank is moving SE */
 		else if ((speedX > 0) && (speedY > 0))
 		{
-			a = mathConvertRadianToDegree(atan((speedY * -1)/speedX));
+			a = mathConvertRadianToDegree((float) atan((speedY * -1)/speedX));
 		}
 		/* Tank is moving NE */
 		else if ((speedX > 0) && (speedY < 0))
 		{
-			a = mathConvertRadianToDegree(atan((speedY * -1)/speedX));
+			a = mathConvertRadianToDegree((float) atan((speedY * -1)/speedX));
 		}
-		return a;
+		return (int) a;
 	}
 
 	/* Should never get to this point.. */
@@ -294,7 +294,7 @@ void mathUpdateVectorBody(struct vectorBody *vB, SPEEDTYPE speed, WORLD currentX
 	}
 	else
 	{
-		(*vB).angle = (TURNTYPE)mathConvertDegreeToBradian(mathAngleTravelUsingComponents(currentX-prevX, currentY-prevY));
+		(*vB).angle = (TURNTYPE)mathConvertDegreeToBradian((float) mathAngleTravelUsingComponents((float) currentX-prevX, (float) currentY-prevY));
 		(*vB).speedX = mathComponentXSpeed(actualTankSpeed, (*vB).angle);
 		(*vB).speedY = mathComponentYSpeed(actualTankSpeed, (*vB).angle);
 	}
@@ -305,5 +305,5 @@ void mathUpdateVectorBody(struct vectorBody *vB, SPEEDTYPE speed, WORLD currentX
  */
 float mathGetDistanceBetweenTwoPoints(WORLD x1, WORLD y1, WORLD x2, WORLD y2)
 {
-	return sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
+	return (float) sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
 }
