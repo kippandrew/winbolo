@@ -632,6 +632,7 @@ void netTcpPacketArrive(BYTE *buff, int len) {
 *********************************************************/
 void netMakeInfoRespsonse(INFO_PACKET *buff) {
   char dummy[MAP_STR_SIZE]; /* Used to get the map name before conversion to pascal string */
+  gameType *gt;
 
   /* Make header */
   netMakePacketHeader(&(buff->h), BOLOPACKET_INFORESPONSE);
@@ -643,7 +644,8 @@ void netMakeInfoRespsonse(INFO_PACKET *buff) {
   utilCtoPString(dummy, buff->mapname);
   
   /* Make game variables */
-  buff->gametype = screenGetGameType();
+  gt = screenGetGameType();
+  buff->gametype = *gt;
   if (screenGetAllowHiddenMines() == TRUE) {
     buff->allow_mines = HIDDEN_MINES;
   } else {
@@ -1337,7 +1339,7 @@ void netMakeTokenPacket(void) {
   if (shouldSend == TRUE) {
     netSend(info, packetLen);
     /* Make the token time */
-    time((time_t *) &tknTime);
+    time(&tknTime);
     /* Update the screen */
     screenNetToken();
   }
@@ -1676,10 +1678,8 @@ void netMakeDataPosPacket(void) {
   BYTE crcA, crcB;                        /* CRC Bytes */
   DWORD tick;     /* Number of ticks passed */
   BYTE posLen;
-  
-
   time_t t;
-
+ 
   tick = winboloTimer();
   if (inNetShutdown == TRUE) {
     return;
