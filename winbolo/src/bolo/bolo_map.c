@@ -1723,7 +1723,7 @@ int mapMakeNetRun(map *value, BYTE *buff, BYTE yPos) {
   BYTE *arrayPtr;
   BYTE xPos;
 
-  memset(array, sizeof(array), 0);
+  memset(array, 0, sizeof(array));
   count = 0;
   arrayPtr = array;
   /* Prepare it */

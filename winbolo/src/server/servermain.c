@@ -124,7 +124,7 @@ void saveMap(char *line) {
   ptr += 7;
 
   /* Strip newline */
-  len =strlen(line);
+  len = (int) strlen(line);
   if (line[len-1] == '\n') {
     line[len-1] = '\0';
   }
@@ -135,7 +135,7 @@ void saveMap(char *line) {
   if (*ptr == EMPTY_CHAR) {
     fprintf(stderr, "Sorry, you must enter a filename for this command\n");
   } else {
-    len = strlen(ptr);
+    len = (int) strlen(ptr);
     if (len < 4) {
       strcat(ptr, ".map");
     } else if (strcmp(ptr+len-4, ".map") != 0) {
@@ -308,6 +308,7 @@ void CALLBACK serverGameTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWOR
       oldTick += SERVER_TICK_LENGTH;
     }
     if (quitOnWinFlag == TRUE || autoClose == TRUE || (winbolonetIsRunning() == TRUE && serverCoreGetActualGameType() != gameOpen)) {
+		BYTE key[64];
       threadsWaitForMutex();
       if (quitOnWinFlag == TRUE && isGameOver == FALSE){
 		isGameOver = serverCoreCheckGameWin(printGameWinners);
@@ -474,7 +475,7 @@ void makeLogFileName(char *fileName) {
   tmt = localtime(&t);
   
   sprintf(fileName, "%04d%02d%02dt%02d%02d%02d_%s", (1900 + tmt->tm_year), (1 + tmt->tm_mon), tmt->tm_mday, tmt->tm_hour, tmt->tm_min, tmt->tm_sec, mapName);
-  len = strlen(fileName);
+  len = (int) strlen(fileName);
   /* Replace spaces with underscores */
   while (count < len){
     if (fileName[count] == ' ') {
