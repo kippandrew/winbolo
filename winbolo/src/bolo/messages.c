@@ -383,8 +383,8 @@ void messageAddItem(char *top, char *bottom) {
   q = prev;
 
   /* Get the longest of the two strings */
-  lenTop = strlen(top);
-  lenBottom = strlen(bottom);
+  lenTop = (int) strlen(top);
+  lenBottom = (int) strlen(bottom);
   if (lenTop > lenBottom) {
     longest = lenTop;
   } else {

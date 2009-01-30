@@ -184,7 +184,7 @@ int dnsLookupsRun(void) {
       q = dnsProcessing;
       netClientGetAddress(q->ip, dest);
       func = q->func;
-      func(q->ip, dest);
+      netProcessedDnsLookup(q->ip, dest);
       dnsProcessing = q->next;
       Dispose(q);
     }

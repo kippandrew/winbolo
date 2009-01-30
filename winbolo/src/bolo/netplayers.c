@@ -475,9 +475,9 @@ bool netPlayersCheck(netPlayers *value, BYTE playerNum, time_t t, time_t ourTime
   int diff;
 
   if ((*value).inUse[playerNum] == TRUE) {
-    ourDiff = ourTime - (*value).lastServerTime[playerNum];
+    ourDiff = (int) ((ourTime) - (*value).lastServerTime[playerNum]);
     (*value).lastServerTime[playerNum] = ourTime;
-    clientDiff = t - (*value).lastClientTime[playerNum];
+    clientDiff = (int) (t - (*value).lastClientTime[playerNum]);
     (*value).lastClientTime[playerNum] = t;
     diff = ourDiff - clientDiff;
     

@@ -203,7 +203,7 @@ int makedir (newdir)
 {
   char *buffer ;
   char *p;
-  int  len = strlen(newdir);  
+  int  len = (int) strlen(newdir);  
 
   if (len <= 0) 
     return 0;

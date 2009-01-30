@@ -1523,7 +1523,7 @@ void serverNetSendServerMessageAllPlayers(char *msg) {
 
 
   /* Remove a newline if present at the end of the string */
-  len = strlen(msg);
+  len = (int) strlen(msg);
   if (msg[len-1] == '\n') {
     msg[len-1] = EMPTY_CHAR;
   }

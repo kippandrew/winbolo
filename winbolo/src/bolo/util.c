@@ -585,7 +585,7 @@ void utilStripName(char *name) {
   char *ptr;
   int len;
 
-  len = strlen(name);
+  len = (int) strlen(name);
   /* Strip charectors at the end */
   if (len > 2) {
     ptr = name + strlen(name) - 1;

@@ -208,7 +208,7 @@ void startsGetStart(starts *value, BYTE *x, BYTE *y, TURNTYPE *dir, BYTE playerN
   if ((*value)->numStarts ==0) {
     return;
   }
-  srand(time(NULL));
+  srand((unsigned int) time(NULL));
   srand((unsigned int) (rand() * time(NULL)));
   found = FALSE;
   count = 0;
@@ -260,7 +260,7 @@ void startsGetRandStart(starts *value, BYTE *x, BYTE *y, TURNTYPE *dir) {
   WORLD testY;
   int dummy1;   /* Dummy variable for function parameters */
   int dummy2;
-  srand(time(NULL));
+  srand((unsigned int) time(NULL));
   srand((unsigned int) (rand() * time(NULL)));
   rnd = rand();
 

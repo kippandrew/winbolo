@@ -2224,7 +2224,7 @@ void frontEndSetPlayer(playerNumbers value, char *str) {
   inf.fState = MFS_ENABLED;
   inf.fMask = (MIIM_STATE | MIIM_TYPE);
   inf.fType = MFT_STRING;
-  inf.cch = strlen(str);
+  inf.cch = (UINT) strlen(str);
   inf.dwTypeData = str;
 
   switch (value) {

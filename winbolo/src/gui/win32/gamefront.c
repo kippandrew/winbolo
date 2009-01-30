@@ -187,7 +187,7 @@ HWND gameFrontStart(HINSTANCE hInst, char *cmdLine, int nCmdShow, keyItems *keys
 
 
   /* Process the command line argument - Remove "" from around it */
-  length = strlen(cmdLine);
+  length = (int) strlen(cmdLine);
   if (length > 0 ) {
     if (cmdLine[0] == '\"') {
       cmdLine[length-1] = '\0';
@@ -1533,22 +1533,22 @@ void gameFrontSetRegistryKeys() {
   /* Top Key */
   if (RegCreateKeyEx(HKEY_CLASSES_ROOT, "winbolo", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, &dw) == ERROR_SUCCESS) {
     strcpy(str, "URL:WinBolo Protocol");
-    RegSetValueEx(hKey, NULL, 0, REG_SZ, str, strlen(str));
+    RegSetValueEx(hKey, NULL, 0, REG_SZ, str, (DWORD) strlen(str));
     str[0] = EMPTY_CHAR;
-    RegSetValueEx(hKey, "URL Protocol", 0, REG_SZ, str, strlen(str));
+    RegSetValueEx(hKey, "URL Protocol", 0, REG_SZ, str, (DWORD) strlen(str));
     RegCloseKey(hKey);
   }
 
   /* Default Icon Subkey */
   if (RegCreateKeyEx(HKEY_CLASSES_ROOT, "winbolo\\DefaultIcon", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, &dw) == ERROR_SUCCESS) {
-    RegSetValue(hKey, NULL, REG_SZ, fileName, strlen(fileName));
+    RegSetValue(hKey, NULL, REG_SZ, fileName, (DWORD) strlen(fileName));
     RegCloseKey(hKey);
   }
 
  if (RegCreateKeyEx(HKEY_CLASSES_ROOT, "winbolo\\shell\\open\\command", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, &dw) == ERROR_SUCCESS) {
     strcpy(str, fileName);
     strcat(str, " %1");
-    RegSetValue(hKey, NULL, REG_SZ, str, strlen(str));
+    RegSetValue(hKey, NULL, REG_SZ, str, (DWORD) strlen(str));
     RegCloseKey(hKey);
   }
 }

@@ -560,7 +560,7 @@ bool winUtilWBSubDirExist(char *subDirName) {
   returnValue = TRUE;
   /* Get the current directory */
   GetModuleFileName(windowGetInstance(), fileName, FILENAME_MAX);
-  count = strlen(fileName);
+  count = (unsigned int) strlen(fileName);
   while (fileName[count] != SLASH_CHAR) {
     count--;
   }

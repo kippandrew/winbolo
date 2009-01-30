@@ -599,7 +599,7 @@ void drawNetFailed() {
     SetBkColor(hDC, RGB(0,255,0));
     SetTextColor(hDC, RGB(255, 255, 255));
     text = "Network Failed - Resyncing";
-    textLen = strlen(text);
+    textLen = (int) strlen(text);
     DrawTextA(hDC, text, textLen, &textRect, (DT_LEFT | DT_NOCLIP | DT_CALCRECT | DT_NOPREFIX | DT_SINGLELINE));
     DrawTextA(hDC, text, textLen, &textRect, (DT_LEFT | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE));
     if (FAILED(lpDDSTankLabels->lpVtbl->ReleaseDC(lpDDSTankLabels, hDC))) {
@@ -771,7 +771,7 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
         output.right = zoomFactor * output.left + zoomFactor * TILE_SIZE_X;
         output.top = (zoomFactor * y * TILE_SIZE_Y);
         output.bottom = output.top + zoomFactor * TILE_SIZE_Y;
-        DrawTextA(hDC, str, strlen(str), &output, (DT_TOP | DT_NOCLIP));
+        DrawTextA(hDC, str, (int) strlen(str), &output, (DT_TOP | DT_NOCLIP));
         lpDDSBackBuffer->lpVtbl->ReleaseDC(lpDDSBackBuffer, hDC);
       } 
     }
@@ -786,7 +786,7 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
         output.right = output.left + zoomFactor * TILE_SIZE_X;
         output.top = (zoomFactor * y * TILE_SIZE_Y);
         output.bottom = output.top + zoomFactor * TILE_SIZE_Y;
-        DrawTextA(hDC, str, strlen(str), &output, (DT_TOP | DT_NOCLIP));
+        DrawTextA(hDC, str, (int) strlen(str), &output, (DT_TOP | DT_NOCLIP));
         lpDDSBackBuffer->lpVtbl->ReleaseDC(lpDDSBackBuffer, hDC);
       } 
     }
@@ -1385,7 +1385,7 @@ void drawStatusBase(BYTE baseNum, baseAlliance ba, bool labels) {
       fontSelectTiny(hDC);
       SetBkColor(hDC, RGB(0,0,0));
       SetTextColor(hDC, RGB(255,255,255));
-      DrawTextA(hDC, str, strlen(str), &dest, (DT_TOP | DT_NOCLIP));
+      DrawTextA(hDC, str, (int) strlen(str), &dest, (DT_TOP | DT_NOCLIP));
       lpDDSBasesStatus->lpVtbl->ReleaseDC(lpDDSBasesStatus, hDC);
     } 
   }
@@ -1547,7 +1547,7 @@ void drawStatusPillbox(BYTE pillNum, pillAlliance pb, bool labels) {
       fontSelectTiny(hDC);
       SetBkColor(hDC, RGB(0,0,0));
       SetTextColor(hDC, RGB(255,255,255));
-      DrawTextA(hDC, str, strlen(str), &dest, (DT_TOP | DT_NOCLIP));
+      DrawTextA(hDC, str, (int) strlen(str), &dest, (DT_TOP | DT_NOCLIP));
       lpDDSPillsStatus->lpVtbl->ReleaseDC(lpDDSPillsStatus, hDC);
     } 
   }
@@ -1962,12 +1962,12 @@ void drawMessages(int xValue, int yValue, char *top, char *bottom) {
     fontSelect(hDC);
     SetBkColor(hDC, RGB(0,0,0));
     SetTextColor(hDC, RGB(255,255,255));
-    DrawTextA(hDC, top, strlen(top), &dest, (DT_TOP | DT_RIGHT | DT_NOCLIP | DT_NOPREFIX));
+    DrawTextA(hDC, top, (int) strlen(top), &dest, (DT_TOP | DT_RIGHT | DT_NOCLIP | DT_NOPREFIX));
     dest.top = (zf * MESSAGE_TEXT_HEIGHT);
     dest.bottom = (zf * MESSAGE_HEIGHT);
     dest.left = 0;
     dest.right = (zf * MESSAGE_WIDTH);
-    DrawTextA(hDC, bottom, strlen(bottom), &dest, (DT_BOTTOM | DT_RIGHT | DT_NOCLIP | DT_NOPREFIX));
+    DrawTextA(hDC, bottom, (int) strlen(bottom), &dest, (DT_BOTTOM | DT_RIGHT | DT_NOCLIP | DT_NOPREFIX));
     lpDDSMessages->lpVtbl->ReleaseDC(lpDDSMessages, hDC);
 
     /* Blt the messages buffer to the primary window */
@@ -2473,8 +2473,8 @@ void drawKillsDeaths(int xValue, int yValue, int kills, int deaths) {
     fontSelect(hDC);
     SetBkColor(hDC, RGB(0,0,0));
     SetTextColor(hDC, RGB(255,255,255));
-    DrawTextA(hDC, str, strlen(str), &textRect, (DT_CALCRECT | DT_TOP | DT_NOCLIP));
-    DrawTextA(hDC, str, strlen(str), &textRect, (DT_TOP | DT_NOCLIP));
+    DrawTextA(hDC, str, (int) strlen(str), &textRect, (DT_CALCRECT | DT_TOP | DT_NOCLIP));
+    DrawTextA(hDC, str, (int) strlen(str), &textRect, (DT_TOP | DT_NOCLIP));
     lpDDSTankLabels->lpVtbl->ReleaseDC(lpDDSTankLabels, hDC);
     dest.top = yValue + (zf * STATUS_KILLS_TOP);
     dest.bottom = dest.top + textRect.bottom;
@@ -2494,8 +2494,8 @@ void drawKillsDeaths(int xValue, int yValue, int kills, int deaths) {
     fontSelect(hDC);
     SetBkColor(hDC, RGB(0,0,0));
     SetTextColor(hDC, RGB(255,255,255));
-    DrawTextA(hDC, str, strlen(str), &textRect, (DT_CALCRECT | DT_TOP | DT_NOCLIP));
-    DrawTextA(hDC, str, strlen(str), &textRect, (DT_TOP | DT_NOCLIP));
+    DrawTextA(hDC, str, (int) strlen(str), &textRect, (DT_CALCRECT | DT_TOP | DT_NOCLIP));
+    DrawTextA(hDC, str, (int) strlen(str), &textRect, (DT_TOP | DT_NOCLIP));
     lpDDSTankLabels->lpVtbl->ReleaseDC(lpDDSTankLabels, hDC);
     dest.top = yValue + (zf * STATUS_DEATHS_TOP);
     dest.bottom = dest.top + textRect.bottom;
@@ -3031,7 +3031,7 @@ void drawStartDelay(RECT *rcWindow, long srtDelay) {
     fontSelect(hDC);
     SetBkColor(hDC, RGB(0,0,0));
     SetTextColor(hDC, RGB(255,255,255));
-    DrawTextA(hDC, str, strlen(str), &src, (DT_CENTER | DT_VCENTER | DT_NOCLIP));
+    DrawTextA(hDC, str, (int) strlen(str), &src, (DT_CENTER | DT_VCENTER | DT_NOCLIP));
     lpDDSBackBuffer->lpVtbl->ReleaseDC(lpDDSBackBuffer, hDC);
   }
 
@@ -3051,7 +3051,7 @@ void drawTankLabelsCalcSize(char *str, BYTE playerNum, BYTE zf) {
   RECT textRect;  /* Defines the text rectangle */
 
   maxWidth = zf * MAIN_BACK_BUFFER_SIZE_X * TILE_SIZE_X;
-  drawPlayerLens[playerNum][0] = strlen(str);
+  drawPlayerLens[playerNum][0] = (int) strlen(str);
   drawPlayerLens[playerNum][2] = drawPlayerLens[playerNum][0];
 
   if (SUCCEEDED(lpDDSTankLabels->lpVtbl->GetDC(lpDDSTankLabels, &hDC))) {
@@ -3099,7 +3099,7 @@ void drawTankLabel(char *str, BYTE playerNum, int mx, int my, BYTE px, BYTE py) 
   textRect.right = zf * MAIN_BACK_BUFFER_SIZE_X * TILE_SIZE_X;
   textRect.top = 0;
   textRect.bottom = zf * TANK_LABEL_HEIGHT;
-  len = strlen(str);
+  len = (int) strlen(str);
   
   if (len > 0) {
     if (len != drawPlayerLens[playerNum][2] || zf != drawPlayerLens[playerNum][1]) {
@@ -3166,7 +3166,7 @@ void drawPillInView() {
     SetBkColor(hDC, RGB(0,255,0));
     SetTextColor(hDC, RGB(255, 255, 255));
     text = langGetText(STR_DRAW_PILLBOXVIEW);
-    textLen = strlen(text);
+    textLen = (int) strlen(text);
     DrawTextA(hDC, text, textLen, &textRect, (DT_LEFT | DT_NOCLIP | DT_CALCRECT | DT_NOPREFIX | DT_SINGLELINE));
     DrawTextA(hDC, text, textLen, &textRect, (DT_LEFT | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE));
     if (FAILED(lpDDSTankLabels->lpVtbl->ReleaseDC(lpDDSTankLabels, hDC))) {

@@ -706,7 +706,7 @@ bool logStart(char *fileName, map *mp, bases *bs, pillboxes *pb, starts *ss, pla
     returnValue = FALSE;
   } else {
     strcpy(data, LOG_HEADER);
-    ret = zipWriteInFileInZip(logFile, data, strlen(data));
+    ret = zipWriteInFileInZip(logFile, data, (unsigned int) strlen(data));
     if (ret != Z_OK) {
       returnValue = FALSE;
     }
@@ -725,7 +725,7 @@ bool logStart(char *fileName, map *mp, bases *bs, pillboxes *pb, starts *ss, pla
   /* Write Map Name */
   if (returnValue == TRUE) {
     serverCoreGetMapName(data+1);
-    data[0] = strlen(data+1);
+    data[0] = (BYTE) strlen(data+1);
     ret = zipWriteInFileInZip(logFile, data, data[0]+1);
     if (ret != Z_OK) {
       returnValue = FALSE;

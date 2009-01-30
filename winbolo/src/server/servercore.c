@@ -405,7 +405,7 @@ void serverCoreGameTick() {
 *
 *********************************************************/
 long serverCoreGetTimeGameCreated(void) {
-  return sTimeStart;
+  return (long) sTimeStart;
 }
 
 /*********************************************************

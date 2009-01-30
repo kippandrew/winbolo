@@ -1856,7 +1856,7 @@ BYTE clientGetNumNeutralBases(void) {
 *
 *********************************************************/
 long screenGetTimeGameCreated(void) {
-  return timeStart;
+  return (long) timeStart;
 }
 
 /*********************************************************
