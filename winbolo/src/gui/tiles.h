@@ -809,5 +809,14 @@
 #define LGM_HELICOPTER_X (16 * TILE_SIZE_X)
 #define LGM_HELICOPTER_Y (7 * TILE_SIZE_Y)
 
+/* Building offsets for redrawing to fix Vista problem */
+#define DRAW_BUILDSELECT_WIDTH (66-21)
+#define DRAW_BUILDSELECT_HEIGHT (58-17)
+#define DRAW_BUILDSELECT_X 21
+#define DRAW_BUILDSELECT_TREES_Y 17
+#define DRAW_BUILDSELECT_ROAD_Y 67
+#define DRAW_BUILDING_ROAD_Y 117
+#define DRAW_BUILDING_PILLBOX_Y 167
+#define DRAW_BUILDING_MINE_Y 217
 
 #endif /* TILES_H */

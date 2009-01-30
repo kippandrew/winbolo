@@ -259,6 +259,7 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
       }
     }
   }
+
   /* Create the tank label back buffer */
   if (returnValue == TRUE) {
     ZeroMemory(&primDesc, sizeof (primDesc));
@@ -275,8 +276,6 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
       MessageBoxA(NULL, "Creating DD Tank Label Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     }
   }
-
-
 
   /* Create the Messages Buffer */
   if (returnValue == TRUE) {
@@ -313,7 +312,6 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
   }
 
   /* Create the Man status window */
-
   if (returnValue == TRUE) {
     ZeroMemory(&primDesc, sizeof (primDesc));
     primDesc.dwSize = sizeof (primDesc);
@@ -334,7 +332,6 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
       lpDDSManStatus->lpVtbl->Blt(lpDDSManStatus, NULL, NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
     }
   }
-
 
   /* Create the Base status window */
   if (returnValue == TRUE) {
@@ -487,7 +484,6 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     MessageBoxA(NULL, langGetText(STR_DRAWERROR_BRUSH), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
     returnValue = FALSE;
   }
-
 
   hManPen = CreatePen(PS_SOLID, 0, 0x00FFFFFF);
   if (hManPen == NULL) {
@@ -958,6 +954,86 @@ bool drawBackground(HINSTANCE appInst, HWND appWnd, int xValue, int yValue) {
 }
 
 /*********************************************************
+*NAME:          drawBuildSelectRefresh
+*AUTHOR:        John Morrison
+*CREATION DATE: 31/01/09
+*LAST MODIFIED: 31/01/09
+*PURPOSE:
+*  Redraws the build select icon on the main screen.
+*  Required as Vista Aero no long supports transparent/
+*  colour key blits onto the primary surface.
+*
+*  This is called after the drawBuildSelectIndents*
+*  functions complete. It is suboptimal as it loads in
+*  the bitmap file each time. This also happens twice:
+*  once for the On oppeation and onces for the off.
+*ARGUMENTS:
+*  value - The build select item to redraw
+*********************************************************/
+void drawBuildSelectRefresh(buildSelect value) { 
+  HBITMAP hBg = NULL; /* The background bitmap resource */
+  HDC hBgDC = NULL;   /* The background resource DC */
+  HDC hDC = NULL;     /* Temp DC of the window */
+  BYTE zoomFactor;    /* Scaling Factor */
+  char fileName[MAX_PATH]; /* Filename to load */
+  HWND hWnd;          /* Main window handle */
+  int top;            /* Top build select y co-ord to copy from */
+  
+  hWnd = windowWnd();
+  hBg = NULL;
+  zoomFactor = windowGetZoomFactor();
+  
+  switch (value) {
+    case BsTrees:
+      top = DRAW_BUILDSELECT_TREES_Y;
+      break;
+    case BsRoad:
+      top = DRAW_BUILDSELECT_ROAD_Y;
+      break;
+    case BsBuilding:
+      top = DRAW_BUILDING_ROAD_Y;
+      break;
+    case BsPillbox:
+      top = DRAW_BUILDING_PILLBOX_Y;
+      break;
+    default: 
+     /* BsMine:*/
+      top = DRAW_BUILDING_MINE_Y;
+      break;
+  }
+
+  /* Try to load from skins file First first */
+  if (skinsIsLoaded() == TRUE) {
+    skinsGetSkinDirectory(fileName);
+    if (fileName[strlen(fileName)-1] != '\\') {
+      strcat(fileName, "\\");
+    }
+    strcat(fileName, DRAW_SKINS_BGFILE);
+    hBg = (HBITMAP) LoadImage(NULL, fileName, IMAGE_BITMAP, SCREEN_SIZE_X , SCREEN_SIZE_Y, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+  } 
+
+  if (hBg == NULL) {
+    hBg = (HBITMAP) LoadImage(windowGetInstance(), MAKEINTRESOURCE(IDB_BACKGROUND), IMAGE_BITMAP, SCREEN_SIZE_X , SCREEN_SIZE_Y, LR_CREATEDIBSECTION);
+  }
+
+  if (hBg != NULL) {
+    hBgDC = CreateCompatibleDC(NULL);
+    SelectObject(hBgDC, hBg);
+    hDC = GetDC(hWnd);
+    if (hDC != NULL) {
+      if (zoomFactor == ZOOM_FACTOR_NORMAL) {
+        BitBlt(hDC, DRAW_BUILDSELECT_X, top, DRAW_BUILDSELECT_WIDTH, DRAW_BUILDSELECT_HEIGHT, hBgDC, DRAW_BUILDSELECT_X, top, SRCCOPY);
+      } else {
+        StretchBlt(hDC, DRAW_BUILDSELECT_X * zoomFactor, top * zoomFactor, zoomFactor * DRAW_BUILDSELECT_WIDTH, (zoomFactor * DRAW_BUILDSELECT_HEIGHT), hBgDC, DRAW_BUILDSELECT_X, top, DRAW_BUILDSELECT_WIDTH, DRAW_BUILDSELECT_HEIGHT, SRCCOPY);
+      }
+      DeleteDC(hBgDC);
+      DeleteObject(hBg);
+      ReleaseDC(hWnd, hDC);
+    }
+  } 
+}
+
+/*********************************************************
 *NAME:          drawSelectIndentsOn
 *AUTHOR:        John Morrison
 *CREATION DATE: 20/12/98
@@ -1056,7 +1132,7 @@ void drawSelectIndentsOn(buildSelect value, int xValue, int yValue) {
   
   /* Perform the drawing */
   lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , lpDDSTiles ,&src, DDBLT_WAIT, NULL);
-
+  drawBuildSelectRefresh(value);
 }
 
 /*********************************************************
@@ -1158,6 +1234,7 @@ void drawSelectIndentsOff(buildSelect value, int xValue, int yValue) {
   
   /* Perform the drawing */
   lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , lpDDSTiles ,&src, DDBLT_WAIT, NULL);
+  drawBuildSelectRefresh(value);
 }
 
 /*********************************************************
