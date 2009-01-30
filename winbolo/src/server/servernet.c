@@ -422,7 +422,7 @@ void serverNetUDPPacketArrive(BYTE *buff, int len, unsigned long addr, unsigned 
             }
           }
         } else {
-           printf("CRC Eror %d, %d\n", crcA, crcB); 
+           printf("CRC Error %d, %d\n", crcA, crcB); 
         }
       } 
     }
