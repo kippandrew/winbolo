@@ -718,7 +718,7 @@ HINSTANCE windowGetInstance() {
 *
 *********************************************************/
 void windowShowAboutBox() {
-  DialogBox(appInst, MAKEINTRESOURCE(IDD_ABOUT), appWnd, dialogAboutCallback);
+  DialogBox(appInst, MAKEINTRESOURCE(IDD_ABOUT), appWnd, (DLGPROC) dialogAboutCallback);
 }
 
 /*********************************************************
@@ -2422,7 +2422,7 @@ void windowSaveMap() {
 *********************************************************/
 void windowShowGameInfo(windowShowRequest req) {
   if (req == wsrOpen && infoWnd == NULL) {
-    infoWnd = CreateDialog(appInst, MAKEINTRESOURCE(IDD_GAME_INFO), NULL, dialogGameInfoCallback);
+    infoWnd = CreateDialog(appInst, MAKEINTRESOURCE(IDD_GAME_INFO), NULL, (DLGPROC) dialogGameInfoCallback);
     ShowWindow(infoWnd, SW_SHOWNORMAL);
   } else if (req == wsrOpen) {
     SetFocus(infoWnd);
@@ -2446,7 +2446,7 @@ void windowShowGameInfo(windowShowRequest req) {
 *********************************************************/
 void windowShowSysInfo(windowShowRequest req) {
   if (req == wsrOpen && sysWnd == NULL) {
-    sysWnd = CreateDialog(appInst, MAKEINTRESOURCE(IDD_SYSTEM_INFO), NULL, dialogSysInfoCallback);
+    sysWnd = CreateDialog(appInst, MAKEINTRESOURCE(IDD_SYSTEM_INFO), NULL, (DLGPROC) dialogSysInfoCallback);
     ShowWindow(sysWnd, SW_SHOWNORMAL);
   } else if (req == wsrOpen) {
     SetFocus(sysWnd);
@@ -2470,7 +2470,7 @@ void windowShowSysInfo(windowShowRequest req) {
 *********************************************************/
 void windowShowNetInfo(windowShowRequest req) {
   if (req == wsrOpen && netWnd == NULL) {
-    netWnd = CreateDialog(appInst, MAKEINTRESOURCE(IDD_NETWORK_INFO), NULL, dialogNetInfoCallback);
+    netWnd = CreateDialog(appInst, MAKEINTRESOURCE(IDD_NETWORK_INFO), NULL, (DLGPROC) dialogNetInfoCallback);
     ShowWindow(netWnd, SW_SHOWNORMAL);
   } else if (req == wsrOpen) {
     SetFocus(netWnd);
@@ -2494,7 +2494,7 @@ void windowShowNetInfo(windowShowRequest req) {
 *********************************************************/
 void windowShowSetPlayerName(windowShowRequest req) {
   if (req == wsrOpen) {
-    DialogBox(appInst, MAKEINTRESOURCE(IDD_SETPLAYERNAME), appWnd, dialogSetNameCallback);
+    DialogBox(appInst, MAKEINTRESOURCE(IDD_SETPLAYERNAME), appWnd, (DLGPROC) dialogSetNameCallback);
   }
 }
 
@@ -2512,7 +2512,7 @@ void windowShowSetPlayerName(windowShowRequest req) {
 *********************************************************/
 void windowShowSendMessages(windowShowRequest req) {
   if (req == wsrOpen && msgWnd == NULL) {
-    msgWnd = CreateDialog(appInst, MAKEINTRESOURCE(IDD_MESSAGES), NULL, dialogMessagesCallback);
+    msgWnd = CreateDialog(appInst, MAKEINTRESOURCE(IDD_MESSAGES), NULL, (DLGPROC) dialogMessagesCallback);
     ShowWindow(msgWnd, SW_SHOWNORMAL);
   } else if (req == wsrOpen) {
     SetFocus(msgWnd);
@@ -2536,7 +2536,7 @@ void windowShowSendMessages(windowShowRequest req) {
 *********************************************************/
 void windowShowSetKeys(windowShowRequest req) {
   if (req == wsrOpen && keyWnd == NULL) {
-    keyWnd = CreateDialog(appInst, MAKEINTRESOURCE(IDD_KEY_SETUP), appWnd, dialogKeySetupCallback);
+    keyWnd = CreateDialog(appInst, MAKEINTRESOURCE(IDD_KEY_SETUP), appWnd, (DLGPROC) dialogKeySetupCallback);
     ShowWindow(keyWnd, SW_SHOWNORMAL);
   } else if (req == wsrOpen) {
     SetFocus(keyWnd);

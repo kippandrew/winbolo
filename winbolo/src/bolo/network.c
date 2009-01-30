@@ -155,7 +155,7 @@ bool netSetup(netType value, unsigned short myPort, char *targetIp, unsigned sho
   strcpy(netPassword, password);
   udpp = udpPacketsCreate();
   #ifdef _WIN32
-  dlgAllianceWnd = CreateDialog(windowGetInstance(), MAKEINTRESOURCE(IDD_ALLIANCE), windowWnd(), dialogAllianceCallback);
+  dlgAllianceWnd = CreateDialog(windowGetInstance(), MAKEINTRESOURCE(IDD_ALLIANCE), windowWnd(), (DLGPROC) dialogAllianceCallback);
   #else
   dlgAllianceWnd = dialogAllianceCreate();
   #endif
@@ -1337,7 +1337,7 @@ void netMakeTokenPacket(void) {
   if (shouldSend == TRUE) {
     netSend(info, packetLen);
     /* Make the token time */
-    time(&tknTime);
+    time((time_t *) &tknTime);
     /* Update the screen */
     screenNetToken();
   }

@@ -428,36 +428,36 @@ void gameFrontDialogs(HINSTANCE appInst) {
       dlgState = openWelcome;
       break;
     case openWelcome:
-      DialogBox(appInst, MAKEINTRESOURCE(IDD_OPENING), NULL, dialogOpeningCallback);
+      DialogBox(appInst, MAKEINTRESOURCE(IDD_OPENING), NULL, (DLGPROC) dialogOpeningCallback);
       break;
     case openLang:
-      DialogBox(appInst, MAKEINTRESOURCE(IDD_LANGUAGES), NULL, dialogLanguagesCallback);
+      DialogBox(appInst, MAKEINTRESOURCE(IDD_LANGUAGES), NULL, (DLGPROC) dialogLanguagesCallback);
       break;
     case openSkins:
-      DialogBox(appInst, MAKEINTRESOURCE(IDD_SKINS), NULL, dialogSkinsCallback);
+      DialogBox(appInst, MAKEINTRESOURCE(IDD_SKINS), NULL, (DLGPROC) dialogSkinsCallback);
       break;
     case openUdp:
     case openInternetManual:
     case openLanManual:
-      DialogBox(appInst, MAKEINTRESOURCE(IDD_TCPIP_SETUP), NULL, dialogUdpSetupCallback);
+      DialogBox(appInst, MAKEINTRESOURCE(IDD_TCPIP_SETUP), NULL, (DLGPROC) dialogUdpSetupCallback);
       break;
     case openSetup:
     case openInternetSetup:
     case openLanSetup:
-      DialogBox(appInst, MAKEINTRESOURCE(IDD_GAME_SETUP), NULL, dialogGameSetupCallback);
+      DialogBox(appInst, MAKEINTRESOURCE(IDD_GAME_SETUP), NULL, (DLGPROC) dialogGameSetupCallback);
       break;
     case openUdpSetup:
-      DialogBox(appInst, MAKEINTRESOURCE(IDD_GAME_SETUP), NULL, dialogGameSetupCallback);
+      DialogBox(appInst, MAKEINTRESOURCE(IDD_GAME_SETUP), NULL, (DLGPROC) dialogGameSetupCallback);
       break;
     case openInternet:
       /* Game Finder */
       dialogGameFinderSetMethod(langGetText(STR_GAMEFRONT_TRACKERFINDER_TITLE), TRUE);
-      DialogBox(appInst, MAKEINTRESOURCE(IDD_GAMEFINDER), NULL, dialogGameFinderCallback);
+      DialogBox(appInst, MAKEINTRESOURCE(IDD_GAMEFINDER), NULL, (DLGPROC) dialogGameFinderCallback);
       break;
     case openLan:
       /* Lan Game Finder */
       dialogGameFinderSetMethod(langGetText(STR_GAMEFRONT_LANFINDER_TITLE), FALSE);
-      DialogBox(appInst, MAKEINTRESOURCE(IDD_GAMEFINDER), NULL, dialogGameFinderCallback);
+      DialogBox(appInst, MAKEINTRESOURCE(IDD_GAMEFINDER), NULL, (DLGPROC) dialogGameFinderCallback);
       break;
     case openTutorial:
       /* Load Tutorial */
@@ -699,7 +699,7 @@ void gameFrontSetUdpOptions(char *pn, char *add, unsigned short theirUdp, unsign
 *********************************************************/
 void gameFrontGetPassword(char *pword) {
   password[0] = '\0';
-  DialogBox(windowGetInstance(), MAKEINTRESOURCE(IDD_PASSWORD), NULL, dialogPasswordCallback);
+  DialogBox(windowGetInstance(), MAKEINTRESOURCE(IDD_PASSWORD), NULL, (DLGPROC) dialogPasswordCallback);
   strcpy(pword, password);
 }
 
@@ -1629,10 +1629,10 @@ void gameFrontReloadSkins() {
   drawCleanup();
   soundCleanup();
   if ((drawSetup(windowGetInstance(), gameFrontWnd)) == FALSE) {
-    MessageBoxA(NULL, langGetText(STR_GAMEFRONTERR_DDRAW), (LPCWSTR) DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, langGetText(STR_GAMEFRONTERR_DDRAW), (LPCSTR) DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
   }
   if ((soundSetup(windowGetInstance(), gameFrontWnd)) == FALSE) {
-    MessageBoxA(NULL, langGetText(STR_GAMEFRONTERR_DSOUND), (LPCWSTR) DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+    MessageBoxA(NULL, langGetText(STR_GAMEFRONTERR_DSOUND), (LPCSTR) DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
   }
 }
 

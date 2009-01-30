@@ -610,7 +610,7 @@ void winUtilOpenHelpFile(HINSTANCE appInst, HWND hWnd) {
     strcpy(file, "file://");
     strcat(file, path);
     strcat(file, "/Manual.pdf");
-    if ((int) ShellExecute(NULL, "open", file, NULL, NULL, SW_SHOW) <= 32) {
+    if (ShellExecute(NULL, "open", file, NULL, NULL, SW_SHOW) <= 32) {
       MessageBoxA(hWnd, langGetText(STRERR_HELPFILE), DIALOG_BOX_TITLE, MB_ICONINFORMATION); 
     }
   } else {

@@ -172,7 +172,7 @@ void dialogMessagesSend(HWND hWnd) {
       screenSendMessageAllSelected(message);
     }
     /* Disable the button */
-    timerId = SetTimer(hWnd, timerId, WAIT_TIME, NULL);
+    timerId = (int) SetTimer(hWnd, timerId, WAIT_TIME, NULL);
     EnableWindow(GetDlgItem(hWnd, IDOK), FALSE);
     /* Select the text */
     SendDlgItemMessageA(hWnd, IDC_EDITSEND, EM_SETSEL, 0, -1);

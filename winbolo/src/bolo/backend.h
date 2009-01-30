@@ -1378,6 +1378,19 @@ void screenSetInStartFind(bool entering);
 
 
 /*********************************************************
+*NAME:          screenGetGameType
+*AUTHOR:        John Morrison
+*CREATION DATE: 17/12/03
+*LAST MODIFIED: 17/12/03
+*PURPOSE:
+*  Returns a pointer to the game type
+*
+*ARGUMENTS:
+*
+*********************************************************/
+gameType *screenGetGameType();
+
+/*********************************************************
 *NAME:          screenGetInStartFind
 *AUTHOR:        John Morrison
 *CREATION DATE: 28/11/99

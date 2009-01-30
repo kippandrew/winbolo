@@ -105,7 +105,7 @@ bool serverNetCreate(unsigned short myPort, char *password, aiType ai, char *tra
   if (returnValue == TRUE) {
     serverTransportSetUs();
     time(&startTime);
-    serverCoreSetTimeGameCreated(startTime);
+    serverCoreSetTimeGameCreated((long) startTime);
     /* Try and set the tracker */
     netUseTracker = useTracker;
     if (useTracker == TRUE) {

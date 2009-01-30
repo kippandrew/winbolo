@@ -1309,7 +1309,7 @@ long mapPrepareRun(map *value, bmapRun *run, BYTE *xPos, BYTE *yPos) {
 
   *xPos = run->endx = x;
 	*yPos = run->y    = y;
-	return(run->datalen = nibble_data - (BYTE*)run);
+	return (run->datalen = (BYTE) (nibble_data - (BYTE*)run));
 }
 
 /*********************************************************

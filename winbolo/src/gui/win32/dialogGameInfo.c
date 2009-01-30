@@ -32,6 +32,7 @@
 #include "..\lang.h"
 #include "..\resource.h"
 #include "..\dialoggameinfo.h"
+#include "..\..\bolo\backend.h"
 
 unsigned int timerGameInfo = 3; /* The timer for getting the game time remaining etc.*/
 BYTE dlgGameInfoNumPlayers;      /* Number of players in the game */

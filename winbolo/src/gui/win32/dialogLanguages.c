@@ -73,8 +73,8 @@ BOOL CALLBACK dialogLanguagesCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, 
         char langName[FILENAME_MAX];
         int nItem, itemNum;
         hList = GetDlgItem(hWnd, IDC_LIST1); 
-        nItem = SendMessage(hList, LB_GETCURSEL, 0, 0); 
-        itemNum = SendMessage(hList, LB_GETITEMDATA, nItem, 0); 
+        nItem = (int) SendMessage(hList, LB_GETCURSEL, 0, 0); 
+        itemNum = (int) SendMessage(hList, LB_GETITEMDATA, nItem, 0); 
         SendMessage(hList, LB_GETTEXT, nItem, (LPARAM) (LPCTSTR) langName); 
         if (strcmp(langName, DEFAULT_ENGLISH) == 0) {
           langLoadFile(NULL, "");
