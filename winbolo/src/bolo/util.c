@@ -28,6 +28,9 @@
 /* Inludes */
 #include <math.h>
 #include <string.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 #include "global.h"
 #include "tank.h"
 #include "pillbox.h"
@@ -567,6 +570,43 @@ void utilStripNameReplace(char *name) {
   if (name[0] == '\0') {
     strcpy(name, "Me");
   }
+}
+
+/*********************************************************
+*NAME:          utilDetectVista
+*AUTHOR:        Minhiriath
+*CREATION DATE: 31/01/09
+*LAST MODIFIED: 31/01/09
+*PURPOSE:
+* Detects weither the operating system is vista or later.
+*
+*ARGUMENTS:
+*  none
+*********************************************************/
+bool utilDetectVista(void) {
+	#ifdef _WIN32
+	OSVERSIONINFO osvi;
+    BOOL bisWindowsVistaOrLater;
+
+    ZeroMemory(&osvi, sizeof(OSVERSIONINFO));
+    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+
+    GetVersionEx(&osvi);
+
+    bisWindowsVistaOrLater = 
+       ( (osvi.dwMajorVersion > 6) ||
+       ( (osvi.dwMajorVersion == 6) && (osvi.dwMinorVersion >= 1) ));
+
+    if(bisWindowsVistaOrLater){
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+	#else
+	return FALSE;
+	#endif
 }
 
 /*********************************************************

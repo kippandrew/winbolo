@@ -513,6 +513,7 @@ bool gameFrontSetDlgState(openingStates newState) {
     /* Start network game */
     dlgState = newState;
     SetCursor(LoadCursor(NULL, IDC_WAIT));
+	utilDetectVista();
     if (gameFrontSetupServer() == TRUE) {
       screenSetup(0, FALSE, 0, UNLIMITED_GAME_TIME);
       if (netSetup(netUdp, gameFrontMyUdp, "127.0.0.1", gameFrontTargetUdp, password, TRUE, gameFrontTrackerAddr, gameFrontTrackerPort, gameFrontTrackerEnabled, wantRejoin, gameFrontWbnUse, gameFrontWbnPass) == FALSE) {

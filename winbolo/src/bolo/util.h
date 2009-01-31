@@ -281,6 +281,19 @@ void utilExtractMapName(char *fileName, char *mapName);
 void utilStripNameReplace(char *name);
 
 /*********************************************************
+*NAME:          utilDetectVista
+*AUTHOR:        Minhiriath
+*CREATION DATE: 31/01/09
+*LAST MODIFIED: 31/01/09
+*PURPOSE:
+* Detects weither the operating system is vista or later.
+*
+*ARGUMENTS:
+*  none
+*********************************************************/
+bool utilDetectVista(void);
+
+/*********************************************************
 *NAME:          utilStripName
 *AUTHOR:        John Morrison
 *CREATION DATE: 30/01/02
