@@ -977,7 +977,7 @@ void screenGameTick(tankButton tb, bool tankShoot, bool isBrain) {
   shellsUpdate(&myshs, &mymp, &mypb, &mybs, ta, 1, FALSE);
   lgmUpdate(&mylgman, &mymp, &mypb, &mybs, &mytk);
   test = &mylgman;
-  tkExplosionUpdate(&clientTankExplosions, &mymp, &mypb, &mybs, (lgm **) &test, 1);
+  tkExplosionUpdate(&clientTankExplosions, &mymp, &mypb, &mybs, (lgm **) &test, 1, &mytk);
   explosionsUpdate(&clientExpl);
   minesExpUpdate(&clientMinesExp, &mymp, &mypb, &mybs, (lgm **) &(test), 1);
   floodUpdate(&clientFF, &mymp, &mypb, &mybs);

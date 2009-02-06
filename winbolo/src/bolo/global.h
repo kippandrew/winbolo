@@ -214,8 +214,19 @@ void efree(Generic object);
 #define PLAYER_NAME_LEN 33
 #define PLAYER_NAME_LAST 32 
 
-/* These are for the static view when a tank dies */
-#define STATIC_ON_TICKS 200
+/* These are for the static view when a tank dies.  The static
+ * appears at different times depending on how the tank died. */
+#define STATIC_ON_TICKS 145
+#define STATIC_ON_TICKS_DEEPSEA 195
+#define STATIC_ON_TICKS_MINES 145
+#define STATIC_ON_TICKS_SHELL 145
+
+/* How did the player's tank die? */
+#define LAST_DEATH_BY_DEEPSEA 1
+#define LAST_DEATH_BY_SHELL 2
+#define LAST_DEATH_BY_MINES 3
+
+/* Change the static bitmap displayed every 10 ticks */
 #define STATIC_CHANGE_TICKS 10
 
 /* 0xFF is neutral */

@@ -124,7 +124,6 @@ gzio.o: ${ZLIBDIR}gzio.c
 
 infback.o: ${ZLIBDIR}infback.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}infback.c
-
 inffast.o: ${ZLIBDIR}inffast.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}inffast.c
 
@@ -152,22 +151,22 @@ zip.o: ${ZLIBDIR}zip.c
 zutil.o: ${ZLIBDIR}zutil.c
 	${CC} ${CFLAGS} -c ${ZLIBDIR}zutil.c
 
+#
 # gui lang
+#
 lang.o: ${GUIDIRLINUX}lang.c ${GUIDIR}lang.h
 	${CC} ${CFLAGS} -c ${GUIDIRLINUX}lang.c
-
 preferences.o: ${GUIDIRLINUX}preferences.c ${GUIDIRLINUX}preferences.h
 	${CC} ${CFLAGS} -c ${GUIDIRLINUX}preferences.c
 
 # winbolonet
 winbolonet.o: ${WBNETDIR}winbolonet.c ${WBNETDIR}winbolonet.h
 	${CC} ${CFLAGS} -c ${WBNETDIR}winbolonet.c
-
+winbolonetevents.o: ${WBNETDIR}winbolonetevents.c ${WBNETDIR}winbolonetevents.h
+	${CC} ${CFLAGS} -c ${WBNETDIR}winbolonetevents.c
 winbolonetthread.o: ${WBNETDIR}winbolonetthread.c ${WBNETDIR}winbolonetthread.h
 	${CC} ${CFLAGS} -c ${WBNETDIR}winbolonetthread.c
 
-winbolonetevents.o: ${WBNETDIR}winbolonetevents.c ${WBNETDIR}winbolonetevents.h
-	${CC} ${CFLAGS} -c ${WBNETDIR}winbolonetevents.c
 
 http.o: ${WBNETDIR}http.c ${WBNETDIR}http.h
 	${CC} ${CFLAGS} -c ${WBNETDIR}http.c
@@ -193,49 +192,28 @@ playersrejoin.o: ${BOLODIR}playersrejoin.c ${BOLODIR}playersrejoin.h
 
 bases.o: ${BOLODIR}bases.h ${BOLODIR}bases.c
 	${CC} ${CFLAGS} -c ${BOLODIR}bases.c
-
-lgm.o: ${BOLODIR}lgm.c ${BOLODIR}lgm.h
-	${CC} ${CFLAGS} -c ${BOLODIR}lgm.c
-
-pillbox.o: ${BOLODIR}pillbox.c ${BOLODIR}pillbox.h
-	${CC} ${CFLAGS} -c ${BOLODIR}pillbox.c
-
-shells.o: ${BOLODIR}shells.c ${BOLODIR}shells.h
-	${CC} ${CFLAGS} -c ${BOLODIR}shells.c
-
-tank.o: ${BOLODIR}tank.c ${BOLODIR}tank.h
-	${CC} ${CFLAGS} -c ${BOLODIR}tank.c
-
-log.o: ${BOLODIR}log.c ${BOLODIR}log.h
-	${CC} ${CFLAGS} -c ${BOLODIR}log.c
-
-udppackets.o: ${BOLODIR}udppackets.c ${BOLODIR}udppackets.h
-	${CC} ${CFLAGS} -c ${BOLODIR}udppackets.c
-
-allience.o: ${BOLODIR}allience.c ${BOLODIR}allience.h
-	${CC} ${CFLAGS} -c ${BOLODIR}allience.c
-
 bolo_map.o: ${BOLODIR}bolo_map.c ${BOLODIR}bolo_map.h
 	${CC} ${CFLAGS} -c ${BOLODIR}bolo_map.c
-
 building.o: ${BOLODIR}building.c ${BOLODIR}building.h
 	${CC} ${CFLAGS} -c ${BOLODIR}building.c
-
+crc.o: ${BOLODIR}crc.c ${BOLODIR}crc.h
+	${CC} ${CFLAGS} -c ${BOLODIR}crc.c
 explosions.o: ${BOLODIR}explosions.c ${BOLODIR}explosions.h
 	${CC} ${CFLAGS} -c ${BOLODIR}explosions.c
-
 floodfill.o: ${BOLODIR}floodfill.c ${BOLODIR}floodfill.h
 	${CC} ${CFLAGS} -c ${BOLODIR}floodfill.c
-
 gametype.o: ${BOLODIR}gametype.c ${BOLODIR}gametype.h
 	${CC} ${CFLAGS} -c ${BOLODIR}gametype.c
-
+global.o: ${BOLODIR}global.c ${BOLODIR}global.h
+	${CC} ${CFLAGS} -c ${BOLODIR}global.c
 grass.o: ${BOLODIR}grass.c ${BOLODIR}grass.h
 	${CC} ${CFLAGS} -c ${BOLODIR}grass.c
-
 labels.o: ${BOLODIR}labels.c ${BOLODIR}labels.h
 	${CC} ${CFLAGS} -c ${BOLODIR}labels.c
-
+lgm.o: ${BOLODIR}lgm.c ${BOLODIR}lgm.h
+	${CC} ${CFLAGS} -c ${BOLODIR}lgm.c
+log.o: ${BOLODIR}log.c ${BOLODIR}log.h
+	${CC} ${CFLAGS} -c ${BOLODIR}log.c
 mathWinbolo.o: ${BOLODIR}mathWinbolo.c ${BOLODIR}mathWinbolo.h
 	${CC} ${CFLAGS} -c ${BOLODIR}mathWinbolo.c
 
@@ -244,10 +222,8 @@ messages.o: ${BOLODIR}messages.c ${BOLODIR}messages.h
 
 mines.o: ${BOLODIR}mines.c ${BOLODIR}mines.h
 	${CC} ${CFLAGS} -c ${BOLODIR}mines.c
-
 minesexp.o: ${BOLODIR}minesexp.c ${BOLODIR}minesexp.h
 	${CC} ${CFLAGS} -c ${BOLODIR}minesexp.c
-
 netmt.o: ${BOLODIR}netmt.c ${BOLODIR}netmt.h
 	${CC} ${CFLAGS} -c ${BOLODIR}netmt.c
 
@@ -259,7 +235,8 @@ netpnb.o: ${BOLODIR}netpnb.c ${BOLODIR}netpnb.h
 
 network.o: ${BOLODIR}network.c ${BOLODIR}network.h ${SERVERDIR}rsaalgorithm.h
 	${CC} ${CFLAGS} -c ${BOLODIR}network.c
-
+pillbox.o: ${BOLODIR}pillbox.c ${BOLODIR}pillbox.h
+	${CC} ${CFLAGS} -c ${BOLODIR}pillbox.c
 players.o: ${BOLODIR}players.c ${BOLODIR}players.h
 	${CC} ${CFLAGS} -c ${BOLODIR}players.c
 
@@ -274,34 +251,34 @@ screencalc.o: ${BOLODIR}screencalc.c ${BOLODIR}screencalc.h
 
 screenlgm.o: ${BOLODIR}screenlgm.c ${BOLODIR}screenlgm.h
 	${CC} ${CFLAGS} -c ${BOLODIR}screenlgm.c
-
 screentank.o: ${BOLODIR}screentank.c ${BOLODIR}screentank.h
 	${CC} ${CFLAGS} -c ${BOLODIR}screentank.c
-
-screen.o: ${BOLODIR}screen.c ${BOLODIR}screen.h
-	${CC} ${CFLAGS} -c ${BOLODIR}screen.c
-
 scroll.o: ${BOLODIR}scroll.c ${BOLODIR}scroll.h
 	${CC} ${CFLAGS} -c ${BOLODIR}scroll.c
 
 sounddist.o: ${BOLODIR}sounddist.c ${BOLODIR}sounddist.h
 	${CC} ${CFLAGS} -c ${BOLODIR}sounddist.c
-
 starts.o: ${BOLODIR}starts.c ${BOLODIR}starts.h
 	${CC} ${CFLAGS} -c ${BOLODIR}starts.c
-
 swamp.o: ${BOLODIR}swamp.c ${BOLODIR}swamp.h
 	${CC} ${CFLAGS} -c ${BOLODIR}swamp.c
-
+tank.o: ${BOLODIR}tank.c ${BOLODIR}tank.h
+	${CC} ${CFLAGS} -c ${BOLODIR}tank.c
 tankexp.o: ${BOLODIR}tankexp.c ${BOLODIR}tankexp.h
 	${CC} ${CFLAGS} -c ${BOLODIR}tankexp.c
-
 treegrow.o: ${BOLODIR}treegrow.c ${BOLODIR}treegrow.h
 	${CC} ${CFLAGS} -c ${BOLODIR}treegrow.c
+udppackets.o: ${BOLODIR}udppackets.c ${BOLODIR}udppackets.h
+	${CC} ${CFLAGS} -c ${BOLODIR}udppackets.c
+util.o:	${BOLODIR}util.c ${BOLODIR}util.h
+	${CC} ${CFLAGS} -c ${BOLODIR}util.c
 
+
+#
+# LZW
+#
 dcodlzw.o: ${COMPRESSDIR}dcodlzw.c
 	${CC} ${CFLAGS} -c ${COMPRESSDIR}dcodlzw.c
-
 ecodlzw.o: ${COMPRESSDIR}ecodlzw.c
 	${CC} ${CFLAGS} -c ${COMPRESSDIR}ecodlzw.c
 
@@ -317,10 +294,10 @@ serverfrontend.o: ${SERVERDIR}serverfrontend.c
 
 servermain.o: ${SERVERDIR}servermain.c
 	${CC} ${CFLAGS} -c ${SERVERDIR}servermain.c
-
+servermessages.o: ${SERVERDIR}servermessages.c ${BOLODIR}messages.h
+	 ${CC} ${CFLAGS} -c ${SERVERDIR}servermessages.c
 servernet.o: ${SERVERDIR}servernet.c ${SERVERDIR}servernet.h ${SERVERDIR}rsaalgorithm.h
 	${CC}  ${CFLAGS} -c ${SERVERDIR}servernet.c
-
 servertransport.o: ${SERVERDIR}servertransport.c ${SERVERDIR}servertransport.h
 	${CC}  ${CFLAGS} -c ${SERVERDIR}servertransport.c
 

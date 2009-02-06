@@ -771,6 +771,8 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
 *********************************************************/
 void tankTurn(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BYTE bmy, tankButton tb);
 
+void tankMovement(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BYTE bmy, tankButton tb);
+
 /*********************************************************
 *NAME:          tankAccel
 *AUTHOR:        John Morrison
@@ -1291,7 +1293,7 @@ void tankRegisterChangeByte(tank *value, int offset, BYTE newValue);
 *CREATION DATE: 21/8/00
 *LAST MODIFIED: 21/8/00
 *PURPOSE:
-*  Sets the number of trees in tank
+*  Sets the onBoat value for the tank
 *
 *ARGUMENTS:
 *  value  - Pointer to the tank structure
@@ -1299,4 +1301,48 @@ void tankRegisterChangeByte(tank *value, int offset, BYTE newValue);
 *********************************************************/
 void tankSetOnBoat(tank *value, bool onBoat);
 
+
+/*********************************************************
+*NAME:          tankSetLastTankDeath
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 04/2/09
+*LAST MODIFIED: 04/2/09
+*PURPOSE:
+*  Sets the previous death type of the tank
+*
+*ARGUMENTS:
+*  value  - Pointer to the tank structure
+*  deathType - deathType value to set
+*********************************************************/
+void tankSetLastTankDeath(tank *value, int deathType);
+
+
+/*********************************************************
+*NAME:          tankGetLastTankDeath
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 04/2/09
+*LAST MODIFIED: 04/2/09
+*PURPOSE:
+*  Gets the previous death type of the tank
+*
+*ARGUMENTS:
+*  value  - Pointer to the tank structure
+*********************************************************/
+int tankGetLastTankDeath(tank *value);
+
+
+/*********************************************************
+*NAME:          tankGetDeathWait
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 04/2/09
+*LAST MODIFIED: 04/2/09
+*PURPOSE:
+*  Gets the previous number of ticks left until respawn
+*
+*ARGUMENTS:
+*  value  - Pointer to the tank structure
+*********************************************************/
+int tankGetDeathWait(tank *value);
+
 #endif
+

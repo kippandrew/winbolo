@@ -108,6 +108,7 @@ void tankCreate(tank *value, starts *sts) {
   (*value)->tankHitCount = 0;
   (*value)->tankSlideTimer = 0;
   (*value)->tankSlideAngle = 0;
+  (*value)->lastTankDeath = 0;
 
   /* Get the start position */
   screenSetInStartFind(TRUE);
@@ -164,7 +165,7 @@ void tankDestroy(tank *value, map *mp, pillboxes *pb, bases *bs) {
 }
 
 
-//extern bool netSendNow;
+/* extern bool netSendNow; */
 
 /*********************************************************
 *NAME:          tankUpdate
@@ -199,7 +200,7 @@ void tankUpdate(tank *value, map *mp, bases *bs, pillboxes *pb, shells *shs, sta
   tankRegisterChangeByte(value, CRC_OBSTRUCTED_OFFSET, FALSE);
   (*value)->justFired = FALSE;
   tankRegisterChangeByte(value, CRC_JUSTFIRED_OFFSET, FALSE);
-  /* Extract co-ords from world co-ords */
+  /* Extract MAP co-ords from WORLD co-ords */
   conv = (*value)->x;
   conv >>= TANK_SHIFT_MAPSIZE;
   bmx = (BYTE) conv;
@@ -252,6 +253,7 @@ void tankUpdate(tank *value, map *mp, bases *bs, pillboxes *pb, shells *shs, sta
   } else if ((*value)->onBoat == FALSE && (mapGetPos(mp,bmx, bmy)) == DEEP_SEA && threadsGetContext() == FALSE) {
     /* Check for death by drowning */
 /*    if (threadsGetContext() == FALSE) { */
+	  tankSetLastTankDeath(value,LAST_DEATH_BY_DEEPSEA);
       soundDist(tankSinkNear, bmx, bmy);
       messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(MESSAGE_TANKSUNK));
       netMNTAdd(screenGetNetMnt(), NMNT_KILLME, 0, screenGetTankPlayer(value), 0xFF, 0xFF);
@@ -910,6 +912,7 @@ tankHit tankIsTankHit(tank *value, map *mp, pillboxes *pb, bases *bs, WORLD x, W
       } else {
         returnValue = TH_KILL_SMALL;
       }
+	  tankSetLastTankDeath(value,LAST_DEATH_BY_SHELL);
       (*value)->deathWait = 255;
       tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, 255);
       
@@ -2968,7 +2971,7 @@ void tankRegisterChangeByte(tank *value, int offset, BYTE newValue) {
 *CREATION DATE: 21/8/00
 *LAST MODIFIED: 21/8/00
 *PURPOSE:
-*  Sets the number of trees in tank
+*  Sets whether the tank is on a boat or not
 *
 *ARGUMENTS:
 *  value  - Pointer to the tank structure
@@ -2976,4 +2979,53 @@ void tankRegisterChangeByte(tank *value, int offset, BYTE newValue) {
 *********************************************************/
 void tankSetOnBoat(tank *value, bool onBoat) {
   (*value)->onBoat = onBoat;
+}
+
+
+/*********************************************************
+*NAME:          tankSetLastTankDeath
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 04/2/09
+*LAST MODIFIED: 04/2/09
+*PURPOSE:
+*  Sets the previous death type of the tank
+*
+*ARGUMENTS:
+*  value  - Pointer to the tank structure
+*  deathType - deathType value to set
+*********************************************************/
+
+void tankSetLastTankDeath(tank *value, int deathType) {
+  (*value)->lastTankDeath = deathType;
+}
+
+/*********************************************************
+*NAME:          tankGetLastTankDeath
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 04/2/09
+*LAST MODIFIED: 04/2/09
+*PURPOSE:
+*  Gets the previous death type of the tank
+*
+*ARGUMENTS:
+*  value  - Pointer to the tank structure
+*********************************************************/
+int tankGetLastTankDeath(tank *value) {
+	return (*value)->lastTankDeath;
+}
+
+
+/*********************************************************
+*NAME:          tankGetDeathWait
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 04/2/09
+*LAST MODIFIED: 04/2/09
+*PURPOSE:
+*  Gets the previous number of ticks left until respawn
+*
+*ARGUMENTS:
+*  value  - Pointer to the tank structure
+*********************************************************/
+int tankGetDeathWait(tank *value) {
+	return (*value)->deathWait;
 }

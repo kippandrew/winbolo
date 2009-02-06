@@ -665,9 +665,9 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
   /* Waiting for game to start. Draw coutdown */
   if (srtDelay > 0) { 
     drawStartDelay(rcWindow, srtDelay);
-  } else if (((*tank)->deathWait < STATIC_ON_TICKS && (*tank)->deathWait > 0) || ((*tank)->newTank && (*tank)->deathWait == 0)) {
+  } else if (tankGetDeathWait(tank) != 0 && ((tankGetLastTankDeath(tank) == LAST_DEATH_BY_DEEPSEA && tankGetDeathWait(tank) < STATIC_ON_TICKS_DEEPSEA) || (tankGetLastTankDeath(tank) == LAST_DEATH_BY_SHELL && tankGetDeathWait(tank) < STATIC_ON_TICKS_SHELL))) {
     /* Tank died and is waiting to respawn, throw some static on the screen */ 
-    if ((*tank)->deathWait != staticLast) {
+    if (tankGetDeathWait(tank) != staticLast) {
       staticLast = (*tank)->deathWait;
       for (x = 1; x < 16; x++) {
         for (y = 1; y < 16; y++) {
@@ -678,174 +678,175 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
           output.right = zoomFactor * (STATIC_X + staticOffset) + zoomFactor * TILE_SIZE_X;
           output.bottom = zoomFactor * STATIC_Y + zoomFactor * TILE_SIZE_Y;
           lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, (zoomFactor * y * TILE_SIZE_X), (zoomFactor * x * TILE_SIZE_Y), lpDDSTiles ,&output, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY);
-        }
-      }
+		}
+	  }
       if (staticCount % STATIC_CHANGE_TICKS == 0) {
         staticOffset += TILE_SIZE_X;
         if (staticOffset >= TILE_FILE_X) {
           staticOffset = 0;
-        }
+		}
         staticCount = 0;
-      }
+	  }
       staticCount++;
-	    /* Copy the back buffer to the window */
-	    output.left = (zoomFactor * TILE_SIZE_X) + edgeX;
-	    output.top = (zoomFactor * TILE_SIZE_Y) + edgeY;
-	    output.right = (zoomFactor * MAIN_SCREEN_SIZE_X * TILE_SIZE_X) + (zoomFactor * TILE_SIZE_X) + edgeX;
-	    output.bottom = (zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y) + (zoomFactor * TILE_SIZE_Y) + edgeY;
-	    rcWindow->left = rcWindow->left + (zoomFactor * MAIN_OFFSET_X);
-	    rcWindow->top = rcWindow->top + (zoomFactor * MAIN_OFFSET_Y);
-	    rcWindow->right = rcWindow->left + (MAIN_SCREEN_SIZE_X * (zoomFactor * TILE_SIZE_X));
-	    rcWindow->bottom = rcWindow->top + (zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y);
-	    lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, rcWindow, lpDDSBackBuffer, &output, DDBLT_WAIT, NULL);
-    }
+
+      /* Copy the back buffer to the window */
+	  output.left = (zoomFactor * TILE_SIZE_X) + edgeX;
+	  output.top = (zoomFactor * TILE_SIZE_Y) + edgeY;
+	  output.right = (zoomFactor * MAIN_SCREEN_SIZE_X * TILE_SIZE_X) + (zoomFactor * TILE_SIZE_X) + edgeX;
+	  output.bottom = (zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y) + (zoomFactor * TILE_SIZE_Y) + edgeY;
+	  rcWindow->left = rcWindow->left + (zoomFactor * MAIN_OFFSET_X);
+	  rcWindow->top = rcWindow->top + (zoomFactor * MAIN_OFFSET_Y);
+	  rcWindow->right = rcWindow->left + (MAIN_SCREEN_SIZE_X * (zoomFactor * TILE_SIZE_X));
+	  rcWindow->bottom = rcWindow->top + (zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y);
+	  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, rcWindow, lpDDSBackBuffer, &output, DDBLT_WAIT, NULL);
+	}
   } else {
-    count = 0;
-	  x = 0;
-	  y = 0;
-	  done = FALSE;
-    zoomFactor = windowGetZoomFactor();
-    str[0] = '\0';
+  count = 0;
+  x = 0;
+  y = 0;
+  done = FALSE;
+  zoomFactor = windowGetZoomFactor();
+  str[0] = '\0';
 
   
-    while (done == FALSE) {
-      pos = screenGetPos(value,x,y);
-      isPill = FALSE;
-      isBase = FALSE;
-      outputX = drawPosX[pos];
-      outputY = drawPosY[pos];
-      if (pos == PILL_EVIL_15 || pos == PILL_EVIL_14 || pos == PILL_EVIL_13 || pos == PILL_EVIL_12 || pos == PILL_EVIL_11 || pos == PILL_EVIL_10 || pos == PILL_EVIL_9 || pos == PILL_EVIL_8 || pos == PILL_EVIL_7 || pos == PILL_EVIL_6 || pos == PILL_EVIL_5 || pos == PILL_EVIL_4 || pos == PILL_EVIL_3 || pos == PILL_EVIL_2 || pos == PILL_EVIL_1 || pos == PILL_EVIL_0) {
-        isPill = TRUE;
-      }
-      if (pos == PILL_GOOD_15 || pos == PILL_GOOD_14 || pos == PILL_GOOD_13 || pos == PILL_GOOD_12 || pos == PILL_GOOD_11 || pos == PILL_GOOD_10 || pos == PILL_GOOD_9 || pos == PILL_GOOD_8 || pos == PILL_GOOD_7 || pos == PILL_GOOD_6 || pos == PILL_GOOD_5 || pos == PILL_GOOD_4 || pos == PILL_GOOD_3 || pos == PILL_GOOD_2 || pos == PILL_GOOD_1 || pos == PILL_GOOD_0) {
-        isPill = TRUE;
-      }
-      if (pos == BASE_GOOD || pos == BASE_NEUTRAL || pos == BASE_EVIL) {
-        isBase = TRUE;
-      }
+  while (done == FALSE) {
+    pos = screenGetPos(value,x,y);
+    isPill = FALSE;
+    isBase = FALSE;
+    outputX = drawPosX[pos];
+    outputY = drawPosY[pos];
+    if (pos == PILL_EVIL_15 || pos == PILL_EVIL_14 || pos == PILL_EVIL_13 || pos == PILL_EVIL_12 || pos == PILL_EVIL_11 || pos == PILL_EVIL_10 || pos == PILL_EVIL_9 || pos == PILL_EVIL_8 || pos == PILL_EVIL_7 || pos == PILL_EVIL_6 || pos == PILL_EVIL_5 || pos == PILL_EVIL_4 || pos == PILL_EVIL_3 || pos == PILL_EVIL_2 || pos == PILL_EVIL_1 || pos == PILL_EVIL_0) {
+      isPill = TRUE;
+    }
+    if (pos == PILL_GOOD_15 || pos == PILL_GOOD_14 || pos == PILL_GOOD_13 || pos == PILL_GOOD_12 || pos == PILL_GOOD_11 || pos == PILL_GOOD_10 || pos == PILL_GOOD_9 || pos == PILL_GOOD_8 || pos == PILL_GOOD_7 || pos == PILL_GOOD_6 || pos == PILL_GOOD_5 || pos == PILL_GOOD_4 || pos == PILL_GOOD_3 || pos == PILL_GOOD_2 || pos == PILL_GOOD_1 || pos == PILL_GOOD_0) {
+      isPill = TRUE;
+    }
+    if (pos == BASE_GOOD || pos == BASE_NEUTRAL || pos == BASE_EVIL) {
+      isBase = TRUE;
+    }
 
-      /* Drawing */
+    /* Drawing */
 
-      /* Draw the map block */
-      output.left = outputX;
-      output.right = outputX + zoomFactor * TILE_SIZE_X;
-      output.top = outputY;
-      output.bottom = outputY + zoomFactor * TILE_SIZE_Y;
-      lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, zoomFactor * (x * TILE_SIZE_X), (zoomFactor * y * TILE_SIZE_Y), lpDDSTiles ,&output, DDBLTFAST_WAIT);
+    /* Draw the map block */
+    output.left = outputX;
+    output.right = outputX + zoomFactor * TILE_SIZE_X;
+    output.top = outputY;
+    output.bottom = outputY + zoomFactor * TILE_SIZE_Y;
+    lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, zoomFactor * (x * TILE_SIZE_X), (zoomFactor * y * TILE_SIZE_Y), lpDDSTiles ,&output, DDBLTFAST_WAIT);
 
-      /* Draw Mines */
-      if ((screenIsMine(mineView,x,y)) == TRUE) { 
-        output.left = zoomFactor * MINE_X;
-        output.top = zoomFactor * MINE_Y;
-        output.right = zoomFactor * MINE_X + zoomFactor * TILE_SIZE_X;
-        output.bottom = zoomFactor * MINE_Y + zoomFactor * TILE_SIZE_Y;
-        lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, (zoomFactor * x * TILE_SIZE_X) , (zoomFactor * y * TILE_SIZE_Y), lpDDSTiles ,&output, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY);
-      }
+    /* Draw Mines */
+    if ((screenIsMine(mineView,x,y)) == TRUE) { 
+      output.left = zoomFactor * MINE_X;
+      output.top = zoomFactor * MINE_Y;
+      output.right = zoomFactor * MINE_X + zoomFactor * TILE_SIZE_X;
+      output.bottom = zoomFactor * MINE_Y + zoomFactor * TILE_SIZE_Y;
+      lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, (zoomFactor * x * TILE_SIZE_X) , (zoomFactor * y * TILE_SIZE_Y), lpDDSTiles ,&output, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY);
+    }
 
-  	
-	  /* Draw the pillNumber or base Number if required */
-      if (isPill == TRUE && showPillLabels == TRUE) {
-        labelNum = screenPillNumPos(x, y);
-        sprintf(str, "%d", (labelNum-1));
-        if (SUCCEEDED(lpDDSBackBuffer->lpVtbl->GetDC(lpDDSBackBuffer, &hDC))) {
-          fontSelect(hDC);
-          SetBkColor(hDC, RGB(0,0,0));
-          SetTextColor(hDC, RGB(255,255,255));
-          output.left = (zoomFactor * x * TILE_SIZE_X) + zoomFactor * LABEL_OFFSET_X;
-          output.right = zoomFactor * output.left + zoomFactor * TILE_SIZE_X;
-          output.top = (zoomFactor * y * TILE_SIZE_Y);
-          output.bottom = output.top + zoomFactor * TILE_SIZE_Y;
+	
+	/* Draw the pillNumber or base Number if required */
+    if (isPill == TRUE && showPillLabels == TRUE) {
+      labelNum = screenPillNumPos(x, y);
+      sprintf(str, "%d", (labelNum-1));
+      if (SUCCEEDED(lpDDSBackBuffer->lpVtbl->GetDC(lpDDSBackBuffer, &hDC))) {
+        fontSelect(hDC);
+        SetBkColor(hDC, RGB(0,0,0));
+        SetTextColor(hDC, RGB(255,255,255));
+        output.left = (zoomFactor * x * TILE_SIZE_X) + zoomFactor * LABEL_OFFSET_X;
+        output.right = zoomFactor * output.left + zoomFactor * TILE_SIZE_X;
+        output.top = (zoomFactor * y * TILE_SIZE_Y);
+        output.bottom = output.top + zoomFactor * TILE_SIZE_Y;
           DrawTextA(hDC, str, (int) strlen(str), &output, (DT_TOP | DT_NOCLIP));
-          lpDDSBackBuffer->lpVtbl->ReleaseDC(lpDDSBackBuffer, hDC);
-        } 
-      }
-      if (isBase == TRUE && showBaseLabels == TRUE) {
-        labelNum = screenBaseNumPos(x, y);
-        sprintf(str, "%d", (labelNum-1));
-        if (SUCCEEDED(lpDDSBackBuffer->lpVtbl->GetDC(lpDDSBackBuffer, &hDC))) {
-          fontSelect(hDC);
-          SetBkColor(hDC, RGB(0,0,0));
-          SetTextColor(hDC, RGB(255,255,255));
-          output.left = (zoomFactor * x * TILE_SIZE_X) + LABEL_OFFSET_X;
-          output.right = output.left + zoomFactor * TILE_SIZE_X;
-          output.top = (zoomFactor * y * TILE_SIZE_Y);
-          output.bottom = output.top + zoomFactor * TILE_SIZE_Y;
+        lpDDSBackBuffer->lpVtbl->ReleaseDC(lpDDSBackBuffer, hDC);
+      } 
+    }
+    if (isBase == TRUE && showBaseLabels == TRUE) {
+      labelNum = screenBaseNumPos(x, y);
+      sprintf(str, "%d", (labelNum-1));
+      if (SUCCEEDED(lpDDSBackBuffer->lpVtbl->GetDC(lpDDSBackBuffer, &hDC))) {
+        fontSelect(hDC);
+        SetBkColor(hDC, RGB(0,0,0));
+        SetTextColor(hDC, RGB(255,255,255));
+        output.left = (zoomFactor * x * TILE_SIZE_X) + LABEL_OFFSET_X;
+        output.right = output.left + zoomFactor * TILE_SIZE_X;
+        output.top = (zoomFactor * y * TILE_SIZE_Y);
+        output.bottom = output.top + zoomFactor * TILE_SIZE_Y;
           DrawTextA(hDC, str, (int) strlen(str), &output, (DT_TOP | DT_NOCLIP));
-          lpDDSBackBuffer->lpVtbl->ReleaseDC(lpDDSBackBuffer, hDC);
-        } 
+        lpDDSBackBuffer->lpVtbl->ReleaseDC(lpDDSBackBuffer, hDC);
+      } 
+    }
+
+    /* Increment the variable */
+    x++;
+    if (x == MAIN_BACK_BUFFER_SIZE_X) {
+      y++;
+      x = 0;
+      if (y == MAIN_BACK_BUFFER_SIZE_Y) {
+        done = TRUE;
       }
-
-      /* Increment the variable */
-      x++;
-      if (x == MAIN_BACK_BUFFER_SIZE_X) {
-        y++;
-        x = 0;
-        if (y == MAIN_BACK_BUFFER_SIZE_Y) {
-          done = TRUE;
-        }
-      }
     }
+  }
 
-    /* Draw Explosions if Required */
-    drawShells(sBullets);
+  /* Draw Explosions if Required */
+  drawShells(sBullets);
 
-    /* Draw the tank */
-    drawTanks(tks);
+  /* Draw the tank */
+  drawTanks(tks);
 
-    drawLGMs(lgms);
+  drawLGMs(lgms);
 
-    /* Draw Gunsight if Required */
-    if (gs->mapX != NO_GUNSIGHT) {
-      output.left = zoomFactor * GUNSIGHT_X;
-      output.right = zoomFactor * GUNSIGHT_X + zoomFactor * TILE_SIZE_X;
-      output.top = zoomFactor * GUNSIGHT_Y;
-      output.bottom = zoomFactor * GUNSIGHT_Y + zoomFactor * TILE_SIZE_Y;
-      outputX = (gs->mapX) * TILE_SIZE_X + (gs->pixelX);
-      outputY = (gs->mapY) * TILE_SIZE_Y + (gs->pixelY);
-      lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, (zoomFactor * outputX) ,  (zoomFactor * outputY), lpDDSTiles ,&output, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY);
-    }
+  /* Draw Gunsight if Required */
+  if (gs->mapX != NO_GUNSIGHT) {
+    output.left = zoomFactor * GUNSIGHT_X;
+    output.right = zoomFactor * GUNSIGHT_X + zoomFactor * TILE_SIZE_X;
+    output.top = zoomFactor * GUNSIGHT_Y;
+    output.bottom = zoomFactor * GUNSIGHT_Y + zoomFactor * TILE_SIZE_Y;
+    outputX = (gs->mapX) * TILE_SIZE_X + (gs->pixelX);
+    outputY = (gs->mapY) * TILE_SIZE_Y + (gs->pixelY);
+    lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, (zoomFactor * outputX) ,  (zoomFactor * outputY), lpDDSTiles ,&output, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY);
+  }
 
-    /* Draw the Cursor Square if required */
-    if (useCursor == TRUE) {
-      output.left = zoomFactor * MOUSE_SQUARE_X;
-      output.right = zoomFactor * MOUSE_SQUARE_X + zoomFactor * TILE_SIZE_X;
-      output.top = zoomFactor * MOUSE_SQUARE_Y;
-      output.bottom = zoomFactor * MOUSE_SQUARE_Y + zoomFactor * TILE_SIZE_Y;
-      outputX = cursorLeft * zoomFactor * TILE_SIZE_X;
-      outputY = cursorTop * zoomFactor * TILE_SIZE_Y;
-      lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, outputX, outputY, lpDDSTiles ,&output, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY);
-    }
+  /* Draw the Cursor Square if required */
+  if (useCursor == TRUE) {
+    output.left = zoomFactor * MOUSE_SQUARE_X;
+    output.right = zoomFactor * MOUSE_SQUARE_X + zoomFactor * TILE_SIZE_X;
+    output.top = zoomFactor * MOUSE_SQUARE_Y;
+    output.bottom = zoomFactor * MOUSE_SQUARE_Y + zoomFactor * TILE_SIZE_Y;
+    outputX = cursorLeft * zoomFactor * TILE_SIZE_X;
+    outputY = cursorTop * zoomFactor * TILE_SIZE_Y;
+    lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, outputX, outputY, lpDDSTiles ,&output, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY);
+  }
   /*  if ((cursorPos(rcWindow, &x, &y)) == TRUE) {
-      output.left = MOUSE_SQUARE_X;
-      output.right = MOUSE_SQUARE_X + TILE_SIZE_X;
-      output.top = MOUSE_SQUARE_Y;
-      output.bottom = MOUSE_SQUARE_Y + TILE_SIZE_Y;
-      x *= TILE_SIZE_X;
-      y *= TILE_SIZE_Y;
-      lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, x, y, lpDDSTiles ,&output, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY);
-    } */
-    /* Pillbox view */
-    if (isPillView == TRUE) {
-      /* we are in pillbox view - Write text here */
-      drawPillInView();
-    }
+    output.left = MOUSE_SQUARE_X;
+    output.right = MOUSE_SQUARE_X + TILE_SIZE_X;
+    output.top = MOUSE_SQUARE_Y;
+    output.bottom = MOUSE_SQUARE_Y + TILE_SIZE_Y;
+    x *= TILE_SIZE_X;
+    y *= TILE_SIZE_Y;
+    lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, x, y, lpDDSTiles ,&output, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY);
+  } */
+  /* Pillbox view */
+  if (isPillView == TRUE) {
+    /* we are in pillbox view - Write text here */
+    drawPillInView();
+  }
 
 
-    if (netGetStatus() == netFailed) {
-      drawNetFailed();
-    }
+  if (netGetStatus() == netFailed) {
+    drawNetFailed();
+  }
 
-    /* Copy the back buffer to the window */
-    output.left = (zoomFactor * TILE_SIZE_X) + edgeX;
-    output.top = (zoomFactor * TILE_SIZE_Y) + edgeY;
-    output.right = (zoomFactor * MAIN_SCREEN_SIZE_X * TILE_SIZE_X) + (zoomFactor * TILE_SIZE_X) + edgeX;
-    output.bottom = (zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y) + (zoomFactor * TILE_SIZE_Y) + edgeY;
-    rcWindow->left = rcWindow->left + (zoomFactor * MAIN_OFFSET_X);
-    rcWindow->top = rcWindow->top + (zoomFactor * MAIN_OFFSET_Y);
-    rcWindow->right = rcWindow->left + (MAIN_SCREEN_SIZE_X * (zoomFactor * TILE_SIZE_X));
-    rcWindow->bottom = rcWindow->top + (zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y);
-    
-    lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, rcWindow, lpDDSBackBuffer, &output, DDBLT_WAIT, NULL);
+  /* Copy the back buffer to the window */
+  output.left = (zoomFactor * TILE_SIZE_X) + edgeX;
+  output.top = (zoomFactor * TILE_SIZE_Y) + edgeY;
+  output.right = (zoomFactor * MAIN_SCREEN_SIZE_X * TILE_SIZE_X) + (zoomFactor * TILE_SIZE_X) + edgeX;
+  output.bottom = (zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y) + (zoomFactor * TILE_SIZE_Y) + edgeY;
+  rcWindow->left = rcWindow->left + (zoomFactor * MAIN_OFFSET_X);
+  rcWindow->top = rcWindow->top + (zoomFactor * MAIN_OFFSET_Y);
+  rcWindow->right = rcWindow->left + (MAIN_SCREEN_SIZE_X * (zoomFactor * TILE_SIZE_X));
+  rcWindow->bottom = rcWindow->top + (zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y);
+  
+  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, rcWindow, lpDDSBackBuffer, &output, DDBLT_WAIT, NULL);
 
   }
 

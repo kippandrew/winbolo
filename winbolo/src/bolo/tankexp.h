@@ -127,7 +127,7 @@ void tkExplosionAddItem(tkExplosion *tke, WORLD x, WORLD y, TURNTYPE angle, BYTE
 *NAME:          tkExplosionUpdate
 *AUTHOR:        John Morrison
 *CREATION DATE: 15/01/99
-*LAST MODIFIED: 04/04/02
+*LAST MODIFIED: 05/02/09
 *PURPOSE:
 *  Updates each tkExplosion position
 *
@@ -138,8 +138,9 @@ void tkExplosionAddItem(tkExplosion *tke, WORLD x, WORLD y, TURNTYPE angle, BYTE
 *  bs     - Pointer to the bases structure
 *  lgms   - Array of lgms
 *  numLgm - Number of lgms in the array
+*  tank   - Pointer to the tank object
 *********************************************************/
-void tkExplosionUpdate(tkExplosion *tke, map *mp, pillboxes *pb, bases *bs, lgm **lgms, BYTE numLgm);
+void tkExplosionUpdate(tkExplosion *tke, map *mp, pillboxes *pb, bases *bs, lgm **lgms, BYTE numLgm, tank *tank);
 
 /*********************************************************
 *NAME:          tkExplosionDeleteItem

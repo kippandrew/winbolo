@@ -374,7 +374,7 @@ void serverCoreGameTick() {
     }
   } 
   
-  tkExplosionUpdate(&serverTankExp, &mp, &pb, &bs, (lgm **) lgms, numTanks);
+  tkExplosionUpdate(&serverTankExp, &mp, &pb, &bs, (lgm **) lgms, numTanks, &tk);
   shellsUpdate(&shs, &mp, &pb, &bs, ta, numTanks, TRUE);
   explosionsUpdate(&serverExpl);
   minesExpUpdate(&serverMinesExp, &mp, &pb, &bs, (lgm **) lgms, numTanks); 

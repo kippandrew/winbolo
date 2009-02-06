@@ -123,7 +123,7 @@ void tkExplosionAddItem(tkExplosion *tke, WORLD x, WORLD y, TURNTYPE angle, BYTE
 *CREATION DATE: 15/01/99
 *LAST MODIFIED: 04/04/02
 *PURPOSE:
-*  Updates each tkExplosion position
+*  Updates each tkExplosion position.
 *
 *ARGUMENTS:
 *  tke    - Pointer to the tank explosions object
@@ -132,8 +132,9 @@ void tkExplosionAddItem(tkExplosion *tke, WORLD x, WORLD y, TURNTYPE angle, BYTE
 *  bs     - Pointer to the bases structure
 *  lgms   - Array of lgms
 *  numLgm - Number of lgms in the array
+*  tank   - Pointer to the tank object
 *********************************************************/
-void tkExplosionUpdate(tkExplosion *tke, map *mp, pillboxes *pb, bases *bs, lgm **lgms, BYTE numLgm) {
+void tkExplosionUpdate(tkExplosion *tke, map *mp, pillboxes *pb, bases *bs, lgm **lgms, BYTE numLgm, tank *tank) {
   static BYTE updateTime=0; /* Time between updates */
   tkExplosion position;     /* Position throught the items */
   bool needUpdate;          /* Whether an update is needed or not */
@@ -256,6 +257,7 @@ void tkExplosionUpdate(tkExplosion *tke, map *mp, pillboxes *pb, bases *bs, lgm 
         needUpdate = FALSE;
         if (position->own == TRUE) {
           soundDist(tankSinkNear, mx, my);
+		  tankSetLastTankDeath(tank,LAST_DEATH_BY_DEEPSEA); /* Override LAST_DEATH_BY_SHELL */
           messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(MESSAGE_TANKSUNK));
         }
         tkExplosionDeleteItem(tke, &position);

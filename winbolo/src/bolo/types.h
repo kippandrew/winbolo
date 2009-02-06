@@ -96,6 +96,18 @@ struct pillsObj {
   BYTE numPills;
 };
 
+/* 25B = 25x8 = 200b needed to be allocated */
+typedef struct vectorBodyObj *vectorBody;
+struct vectorBodyObj {
+    BYTE mass;              /* unsigned char, 1B */
+	TURNTYPE  angle;        /* float, 4B */
+	TURNTYPE  angle_prev;   /* float, 4B */
+	SPEEDTYPE speedX;       /* float, 4B */
+	SPEEDTYPE speedY;       /* float, 4B */
+	SPEEDTYPE speedX_prev;  /* float, 4B */
+	SPEEDTYPE speedY_prev;  /* float, 4B */
+};
+
 
 typedef struct tankCarrypbObj *tankCarryPb;
 struct tankCarrypbObj {
@@ -104,6 +116,19 @@ struct tankCarrypbObj {
 };
 
 
+
+/*
+typedef struct {
+    BYTE mass;
+	TURNTYPE  angle;
+	TURNTYPE  angle_prev;
+	SPEEDTYPE speedX;
+	SPEEDTYPE speedY;
+	SPEEDTYPE speedX_prev;
+	SPEEDTYPE speedY_prev;
+	//TODO: add a factor to mean how 'bouncy' the object is
+} vectorBodyObj;
+*/
 
 typedef struct tankObj *tank;
 
@@ -129,6 +154,16 @@ typedef struct tankObj *tank;
 #define CRC_AUTOHIDE_OFFSET (CRC_AUTOSLOWDOWN_OFFSET + 1)
 #define CRC_JUSTFIRED_OFFSET (CRC_AUTOHIDE_OFFSET+1)
 #define CRC_TANK_SIZE (CRC_JUSTFIRED_OFFSET+1)
+/*
+#define CRC_WORLDXPREV_OFFSET (CRC_TANK_SIZE + sizeof(WORLD))
+#define CRC_WORLDYPREV_OFFSET (CRC_WORLDXPREV_SIZE + sizeof(WORLD))
+#define CRC_WORLDXPREVPREV_OFFSET (CRC_WORLDYPREV_SIZE + sizeof(WORLD))
+#define CRC_WORLDYPREVPREV_OFFSET (CRC_WORLDXPREVPREV_SIZE + sizeof(WORLD))
+#define CRC_CARRYPILLS_OFFSET (CRC_WORLDYPREVPREV_SIZE + sizeof(tankCarryPb))
+#define CRC_TANKSLIDETIMER_OFFSET (CRC_CARRYPILLS_SIZE + sizeof(BYTE))
+#define CRC_VECTORBODY_OFFSET (CRC_TANKSLIDETIMER_SIZE + sizeof(vectorBody))
+#define CRC_VECTORBODYCOLLIDE_OFFSET (CRC_VECTORBODY_SIZE + sizeof(vectorBody))
+*/
 
 #pragma pack(push, 1)
 
@@ -140,7 +175,7 @@ struct tankObj {
   BYTE mines;         /* Amount of mines in tank. Maximum value 45 */
   SPEEDTYPE speed;    /* Tank speed */
   BYTE trees;         /* Amount of trees in tank */
-  TURNTYPE angle;     /* The angle the tank is on 0-256 */
+  TURNTYPE angle;     /* The angle the tank is pointing on 0-256 */
   BYTE reload;        /* Reload tick 0 is OK to shoot else counts back */
   bool onBoat;        /* Is the tank on a boat? */
   bool showSight;     /* Is the gunsight on or not */
@@ -156,9 +191,16 @@ struct tankObj {
   bool justFired;         /* Did the tank just fire */
   BYTE tankHitCount;  /* Number of times a tank has been hit to determine if they are cheating */
   int crc; /* CRC used to detect memory cheats */
+  WORLD x_prev;       /* World Coordinates at last tick */
+  WORLD y_prev;
+  WORLD x_prev_prev;
+  WORLD y_prev_prev;
   tankCarryPb carryPills; /* The Pillboxes being carried */
-  BYTE tankSlideTimer; /* This will be used to determine how long the tank should slide when hit */
-  TURNTYPE tankSlideAngle; /* This holds the angle that the shell was travelling so we know in which direction to push the tank */
+  BYTE tankSlideTimer;    /* This will be used to determine how long the tank should slide when hit */
+  TURNTYPE tankSlideAngle; /* This holds the angle at which the tank was hit with a shell */
+  BYTE lastTankDeath;      /* How did the most recent death to the tank occur? */
+  vectorBody vectorBodyTank; /* Holds tank's actual moving direction and component vectors (x and y axis speed) */
+  vectorBody vectorBodyCollide; /* Holds physics stuff for what hit the tank */
 };
 
 #pragma pack(pop)
