@@ -318,4 +318,17 @@ bool winUtilWBSubDirExist(char *subDirName);
 *********************************************************/
 void winUtilOpenHelpFile(HINSTANCE appInst, HWND hWnd);
 
+/*********************************************************
+*NAME:          utilDetectVista
+*AUTHOR:        Minhiriath
+*CREATION DATE: 31/01/09
+*LAST MODIFIED: 31/01/09
+*PURPOSE:
+* Detects weither the operating system is vista or later.
+*
+*ARGUMENTS:
+*  none
+*********************************************************/
+bool winUtilDetectVista(void);
+
 #endif /* WIN_UTIL_H */

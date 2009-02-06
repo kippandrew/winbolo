@@ -573,43 +573,6 @@ void utilStripNameReplace(char *name) {
 }
 
 /*********************************************************
-*NAME:          utilDetectVista
-*AUTHOR:        Minhiriath
-*CREATION DATE: 31/01/09
-*LAST MODIFIED: 31/01/09
-*PURPOSE:
-* Detects weither the operating system is vista or later.
-*
-*ARGUMENTS:
-*  none
-*********************************************************/
-bool utilDetectVista(void) {
-	#ifdef _WIN32
-	OSVERSIONINFO osvi;
-    BOOL bisWindowsVistaOrLater;
-
-    ZeroMemory(&osvi, sizeof(OSVERSIONINFO));
-    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-
-    GetVersionEx(&osvi);
-
-    bisWindowsVistaOrLater = 
-       ( (osvi.dwMajorVersion > 6) ||
-       ( (osvi.dwMajorVersion == 6) && (osvi.dwMinorVersion >= 1) ));
-
-    if(bisWindowsVistaOrLater){
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
-	#else
-	return FALSE;
-	#endif
-}
-
-/*********************************************************
 *NAME:          utilStripName
 *AUTHOR:        John Morrison
 *CREATION DATE: 30/01/02

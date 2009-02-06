@@ -511,27 +511,32 @@ bool gameFrontSetDlgState(openingStates newState) {
     dlgState = openLan;
   } else if ((dlgState == openUdpSetup || dlgState == openInternetSetup || dlgState == openLanSetup) && newState == openFinished) {
     /* Start network game */
-    dlgState = newState;
-    SetCursor(LoadCursor(NULL, IDC_WAIT));
-	utilDetectVista();
-    if (gameFrontSetupServer() == TRUE) {
-      screenSetup(0, FALSE, 0, UNLIMITED_GAME_TIME);
-      if (netSetup(netUdp, gameFrontMyUdp, "127.0.0.1", gameFrontTargetUdp, password, TRUE, gameFrontTrackerAddr, gameFrontTrackerPort, gameFrontTrackerEnabled, wantRejoin, gameFrontWbnUse, gameFrontWbnPass) == FALSE) {
-        wantRejoin = FALSE;
-        MessageBoxA(NULL, "Unable to start server", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
-        netDestroy();
-        screenDestroy();
-        gameFrontShutdownServer();
-        returnValue = FALSE;
-        dlgState = openStart;
-      } else {
-        dlgState = openFinished;
-      }
-     } else {
-        MessageBoxA(NULL, "Error starting server", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
-        dlgState = openStart;
-     }
-    SetCursor(LoadCursor(NULL, IDC_ARROW));
+
+    /* Starting servers from vista is currently broken. Don't allow it */
+    if (winUtilDetectVista() == TRUE) {
+      MessageBox(NULL, "Starting game servers from within the WinBolo client on Vista (or later) does not work correctly and has been disabled.\n\nIf you wish to start a new game server please use the dedicated server. See the WinBolo manual for details.", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+    } else {
+      dlgState = newState;
+      SetCursor(LoadCursor(NULL, IDC_WAIT));
+      if (gameFrontSetupServer() == TRUE) {
+        screenSetup(0, FALSE, 0, UNLIMITED_GAME_TIME);
+        if (netSetup(netUdp, gameFrontMyUdp, "127.0.0.1", gameFrontTargetUdp, password, TRUE, gameFrontTrackerAddr, gameFrontTrackerPort, gameFrontTrackerEnabled, wantRejoin, gameFrontWbnUse, gameFrontWbnPass) == FALSE) {
+          wantRejoin = FALSE;
+          MessageBoxA(NULL, "Unable to start server", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+          netDestroy();
+          screenDestroy();
+          gameFrontShutdownServer();
+          returnValue = FALSE;
+          dlgState = openStart;
+        } else {
+          dlgState = openFinished;
+        }
+       } else {
+          MessageBox(NULL, "Error starting server", DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+          dlgState = openStart;
+       }
+      SetCursor(LoadCursor(NULL, IDC_ARROW));
+    }
   } else if (dlgState == openSetup && newState == openFinished) {
     dlgState = openFinished;
     if (netSetup(netSingle, gameFrontMyUdp, gameFrontUdpAddress, gameFrontTargetUdp, password, TRUE, gameFrontTrackerAddr, gameFrontTrackerPort, gameFrontTrackerEnabled, wantRejoin, gameFrontWbnUse, gameFrontWbnPass) == FALSE) {

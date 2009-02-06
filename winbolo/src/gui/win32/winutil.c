@@ -618,3 +618,33 @@ void winUtilOpenHelpFile(HINSTANCE appInst, HWND hWnd) {
     MessageBoxA(hWnd, langGetText(STRERR_HELPFILE), DIALOG_BOX_TITLE, MB_ICONINFORMATION); 
   }
 }
+
+/*********************************************************
+*NAME:          utilDetectVista
+*AUTHOR:        Minhiriath
+*CREATION DATE: 31/01/09
+*LAST MODIFIED: 31/01/09
+*PURPOSE:
+* Detects weither the operating system is vista or later.
+*
+*ARGUMENTS:
+*  none
+*********************************************************/
+bool winUtilDetectVista(void) {
+#ifdef _WIN32
+  OSVERSIONINFO osvi;
+
+  ZeroMemory(&osvi, sizeof(OSVERSIONINFO));
+  osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+
+  GetVersionEx(&osvi);
+  if(osvi.dwMajorVersion >= 6) {
+    return TRUE;
+  }
+  return FALSE;
+
+#else
+  return FALSE;
+#endif
+
+}
