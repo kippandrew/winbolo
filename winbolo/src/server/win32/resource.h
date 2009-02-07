@@ -308,6 +308,7 @@
 #define LGM_NO_TREE                     420
 #define LGM_PILL_NO_NEED_REPAIR         430
 #define LGM_PILL_NO_BUILD_ON_MINE       431
+#define LGM_NO_BUILD_UNDER_BOAT         465
 #define MESSAGE_ASSISTANT               432
 #define MESSAGE_NEWSWIRE                433
 #define MESSAGE_AI                      434

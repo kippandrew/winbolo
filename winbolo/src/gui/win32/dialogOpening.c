@@ -41,7 +41,7 @@
 *NAME:          dialogOpeningCallback
 *AUTHOR:        John Morrison
 *CREATION DATE: 27/01/99
-*LAST MODIFIED: 28/09/03
+*LAST MODIFIED: 06/02/09
 *PURPOSE:
 *  The Opening Dialog call back function.
 *
@@ -73,24 +73,26 @@ BOOL CALLBACK dialogOpeningCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LPA
     case IDC_SKINSSETUP:
       gameFrontSetDlgState(openSkins);
       EndDialog(hWnd, TRUE);
-    case IDOK: 
-      EndDialog(hWnd, TRUE);
-      break;
-    case IDC_GAMETYPE00:
-      gameFrontSetDlgState(openTutorial);
-      break;
-    case IDC_GAMETYPE01:
-      gameFrontSetDlgState(openSetup);
-      break;
-    case IDC_GAMETYPE02:
-      gameFrontSetDlgState(openUdp);
-      break;
-    case IDC_GAMETYPE3:
-      gameFrontSetDlgState(openLan);
-      break;
-    case IDC_GAMETYPE4:
-      gameFrontSetDlgState(openInternet);
-      break;
+	case IDC_BTN_INTERNET:
+	  gameFrontSetDlgState(openInternet);
+	  EndDialog(hWnd, TRUE);
+	  break;
+	case IDC_BTN_LAN:
+	  gameFrontSetDlgState(openLan);
+	  EndDialog(hWnd, TRUE);
+	  break;
+	case IDC_BTN_TCP:
+	  gameFrontSetDlgState(openUdp);
+	  EndDialog(hWnd, TRUE);
+	  break;
+	case IDC_BTN_PRACTICE:
+	  gameFrontSetDlgState(openSetup);
+	  EndDialog(hWnd, TRUE);
+	  break;
+	case IDC_BTN_TUTORIAL:
+	  gameFrontSetDlgState(openTutorial);
+	  EndDialog(hWnd, TRUE);
+	  break;
     default:
       /* IDQUIT */
       windowGetKeys(&keys);
@@ -124,32 +126,35 @@ BOOL CALLBACK dialogOpeningCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LPA
 *********************************************************/
 void dialogOpeningSetup(HWND hWnd) {
   char *text; /* Text from language system */
+  HWND hwndBtn;
 
-  /* Setup language */
   text = langGetText(STR_DLGOPENING_TEXT);
   SetDlgItemTextA(hWnd, IDC_BLURB, text);
+  /* Tutorial button */
   text = langGetText(STR_DLGOPENING_OPTION0);
-  SetDlgItemTextA(hWnd, IDC_GAMETYPE00, text);
+  SetDlgItemTextA(hWnd, IDC_BTN_TUTORIAL, text);
+  /* Practice button */
   text = langGetText(STR_DLGOPENING_OPTION1);
-  SetDlgItemTextA(hWnd, IDC_GAMETYPE01, text);
+  SetDlgItemTextA(hWnd, IDC_BTN_PRACTICE, text);
+  /* TCP/IP button */
   text = langGetText(STR_DLGOPENING_OPTION2);
-  SetDlgItemTextA(hWnd, IDC_GAMETYPE02, text);
-  text = langGetText(STR_DLGOPENING_OPTION3);
-  SetDlgItemTextA(hWnd, IDC_GAMETYPE4, text);
+  SetDlgItemTextA(hWnd, IDC_BTN_TCP, text);
+  /* Local network button */
   text = langGetText(STR_DLGOPENING_OPTION4);
-  SetDlgItemTextA(hWnd, IDC_GAMETYPE3, text);
-  text = langGetText(STR_DLGOPENING_SKIP);
-  SetDlgItemTextA(hWnd, IDC_SKIP_DIALOG, text);
+  SetDlgItemTextA(hWnd, IDC_BTN_LAN, text);
+  /* Internet button */
+  text = langGetText(STR_DLGOPENING_OPTION3);
+  SetDlgItemTextA(hWnd, IDC_BTN_INTERNET, text);
+  /* Title bar */
   text = langGetText(STR_DLGOPENING_TITLE);
   SetWindowTextA(hWnd, text);
+  /* Quit button */
   text = langGetText(STR_DLGOPENING_BUTTON2);
   SetDlgItemTextA(hWnd, IDCANCEL, text);
+  /* Languages button */
   text = langGetText(STR_DLGOPENING_BUTTON3);
   SetDlgItemTextA(hWnd, IDC_LANG, text);
+  /* Help button */
   text = langGetText(STR_DLGOPENING_BUTTON4);
   SetDlgItemTextA(hWnd, IDC_OPENINGHELP, text);
-  text = langGetText(STR_OK);
-  SetDlgItemTextA(hWnd, IDOK, text);
-  gameFrontSetDlgState(openSetup);
-  CheckDlgButton(hWnd, IDC_GAMETYPE01, BST_CHECKED);
 }

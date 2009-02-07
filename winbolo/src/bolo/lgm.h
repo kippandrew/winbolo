@@ -68,19 +68,6 @@
 #define LGM_TANKBOAT_LEAVE 144
 #define LGM_TANKBOAT_RETURN 160
 
-/*
-Moved to become part of the language resources
-  
-#define LGM_MAN_DEAD "You cannot build until your new man parachutes in\0"
-#define LGM_NO_BUILD "You cannot build that there\0"
-#define LGM_NO_PILLS "You have no pillbox to place\0"
-#define LGM_INSUFFICIENT_TREES "You don't have the trees you require to build that\0"
-#define LGM_INSUFFICIENT_MINES "You have no mines to place\0"
-#define LGM_BUILDTANK "The man cannot build on a tank\0"
-#define LGM_NO_TREE "There is no tree to farm there\0"
-#define LGM_PILL_NO_NEED_REPAIR "That pillbox does not need repairing\0"
-#define LGM_PILL_NO_BUILD_ON_MINE "The man cannot build on a mine. It would kill him.\0"
-*/
 /* Speed the helicpter flys at */
 #define LGM_HELICOPTER_SPEED 3
 /* The frame number for the helicopter */

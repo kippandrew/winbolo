@@ -190,6 +190,7 @@ bool lgmCheckNewRequest(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk
 void lgmAddRequest(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk, BYTE mapX, BYTE mapY, BYTE action) {
 
   if ((*lgman)->isDead == TRUE && tankGetArmour(tnk) <= TANK_FULL_ARMOUR) {
+	/* LGM is parachuting in and tank is alive */
     messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(LGM_MAN_DEAD));
   } else if ((*lgman)->action != LGM_IDLE) {
     /* Busy doing something else  Place in second request */
@@ -241,6 +242,29 @@ void lgmTankDied(lgm *lgman) {
 }
 
 
+/*********************************************************
+*NAME:          lgmCheckNewRequest
+*AUTHOR:        John Morrison
+*CREATION DATE: 17/1/99
+*LAST MODIFIED: 23/9/00
+*PURPOSE:
+*  ???
+*
+*ARGUMENTS:
+*  lgman  - Pointer to the lgm sturcture
+*  mp     - Pointer to the map structure
+*  pb     - Pointer to the pillbox structure
+*  bs     - Pointer to the base structure
+*  tnk    - Pointer to the tank structure
+*  mapX   -
+*  mapY   -
+*  action - Pointer to
+*  pillNum - Pointer to
+*  isMine  - Pointer to
+*  trees   - Pointer to
+*  minesAmount - Pointer to
+*  perform     -
+*********************************************************/
 bool lgmCheckNewRequest(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk, BYTE mapX, BYTE mapY, BYTE *action, BYTE *pillNum, bool *isMine, BYTE *trees, BYTE *minesAmount, bool perform) {
   bool proceed;  /* Is it OK to proceed with the action */
   bool isBase;   /* Is the present co-ordinate a base */
@@ -259,6 +283,7 @@ bool lgmCheckNewRequest(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk
   *minesAmount = 0;
   *pillNum = LGM_NO_PILL;
 
+  /* Get the terrain of the map square that the user clicked on */
   pos = mapGetPos(mp,mapX,mapY);
   if (pos == MINE_FOREST) {
     pos = FOREST;
@@ -275,16 +300,23 @@ bool lgmCheckNewRequest(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk
     break;
   case LGM_ROAD_REQUEST:
     if (pos == FOREST && isPill == FALSE && isBase == FALSE) {
+	  /* Clicked on a tree that doesn't contain a base or pill on it */
       *action = LGM_TREE_REQUEST;
     } else if (pos == BOAT || pos == DEEP_SEA || pos == BUILDING || pos == HALFBUILDING || isPill == TRUE || isBase == TRUE) {
+	  /* Clicked one of the following a boat, deep sea, building, half building, pill, base  */
       proceed = FALSE;
       messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(LGM_NO_BUILD));
     } else if (pos == ROAD) {
+	  /* Clicked on a road */
       proceed = FALSE;
+    } else if (pos == RIVER && mapX == tankX && mapY == tankY && tankIsOnBoat(tnk)) {
+	  /* Clicked on a square that has a tank on a boat on it */
+	  proceed = FALSE;
+	  messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(LGM_NO_BUILD_UNDER_BOAT));
     } else if (tankGetLgmTrees(tnk, LGM_COST_ROAD, perform) == FALSE) {
       proceed = FALSE;
       messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(LGM_INSUFFICIENT_TREES));
-    } else {
+	} else {
       *trees = LGM_COST_ROAD;
     }
     break;
@@ -294,7 +326,12 @@ bool lgmCheckNewRequest(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk
     } else if (pos == BOAT || pos == DEEP_SEA || isPill == TRUE || isBase == TRUE) {
       proceed = FALSE;
       messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(LGM_NO_BUILD));
+    } else if (pos == RIVER && mapX == tankX && mapY == tankY && tankIsOnBoat(tnk)) {
+	  /* Clicked on a square that has a tank on a boat on it */
+	  proceed = FALSE;
+	  messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(LGM_NO_BUILD_UNDER_BOAT));
     } else if (pos == RIVER) {
+	  /* Build a wall on a river, that means build a boat */
       *action = LGM_BOAT_REQUEST;
       if (tankGetLgmTrees(tnk, LGM_COST_BOAT, perform) == FALSE) {
         proceed = FALSE;
@@ -340,7 +377,7 @@ bool lgmCheckNewRequest(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk
         proceed = FALSE;
         messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(LGM_INSUFFICIENT_TREES));
       } else {
-        *trees= LGM_COST_PILLREPAIR;
+        *trees = LGM_COST_PILLREPAIR;
       }
       *pillNum = LGM_NO_PILL;
     } else if ((tankGetCarriedPill(tnk, pillNum, perform)) == FALSE) {
@@ -487,7 +524,7 @@ void lgmNewPrimaryRequest(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *t
 }
 
 
-bool lgmCheckBlessedSquire(BYTE xValue, BYTE yValue, BYTE action, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
+bool lgmCheckBlessedSquare(BYTE xValue, BYTE yValue, BYTE action, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
   bool returnValue; /* Value to return */
   BYTE pos;
   bool isBase;
@@ -615,7 +652,7 @@ void lgmMoveAway(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
 
   if ((mapGetManSpeed(mp, pb, bs, bmx, newbmy, (*lgman)->playerNum)) > 0 || onBoat == TRUE) {
     (*lgman)->y = (WORLD) ((*lgman)->y  + yAdd);
-  } else if (bmx == (*lgman)->blessX && newbmy == (*lgman)->blessY && lgmCheckBlessedSquire(bmx, newbmy, (*lgman)->action, mp, pb, bs, tnk) == TRUE) {
+  } else if (bmx == (*lgman)->blessX && newbmy == (*lgman)->blessY && lgmCheckBlessedSquare(bmx, newbmy, (*lgman)->action, mp, pb, bs, tnk) == TRUE) {
     (*lgman)->y = (WORLD) ((*lgman)->y + yAdd);
     
 //  } else if (bmx == (*lgman)->blessX && newbmy == (*lgman)->blessY) {
@@ -627,7 +664,7 @@ void lgmMoveAway(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
   }
   if (((mapGetManSpeed(mp, pb, bs, newbmx, newbmy,(*lgman)->playerNum) )) > 0 && xAdd != 0 || onBoat == TRUE) {
     (*lgman)->x = (WORLD) ((*lgman)->x + xAdd);
-  } else if (newbmx == (*lgman)->blessX && bmy == (*lgman)->blessY && lgmCheckBlessedSquire(newbmx, newbmy, (*lgman)->action, mp, pb, bs, tnk) == TRUE) {
+  } else if (newbmx == (*lgman)->blessX && bmy == (*lgman)->blessY && lgmCheckBlessedSquare(newbmx, newbmy, (*lgman)->action, mp, pb, bs, tnk) == TRUE) {
     (*lgman)->x = (WORLD) ((*lgman)->x + xAdd);
 //  } else if (newbmx == (*lgman)->blessX && bmy == (*lgman)->blessY) {
 //    (*lgman)->x = (WORLD) ((*lgman)->x + xAdd);

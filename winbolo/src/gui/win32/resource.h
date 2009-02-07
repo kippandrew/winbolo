@@ -1,5 +1,5 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
+// Microsoft Developer Studio generated include file.
 // Used by Resource.rc
 //
 #define IDR_MENU1                       101
@@ -81,14 +81,19 @@
 #define STR_DLGGAMEINFO_GAMETYPE        188
 #define STR_DLGGAMEINFO_HIDDENMINES     189
 #define STR_DLGGAMEINFO_ALLOWCOMPTANKS  190
+#define IDB_BTN_INTERNET                190
 #define STR_DLGGAMEINFO_TIMELIMIT       191
 #define STR_DLGGAMESETUP_BLURB          192
 #define STR_CANCEL                      193
 #define STR_DLGGAMESETUP_TITLE          194
 #define STR_DLGGAMESETUP_CHOOSEMAP      195
+#define IDB_BTN_TUTORIAL                195
 #define STR_DLGGAMESETUP_SELECTEDMAP    196
+#define IDB_BTN_LAN                     196
 #define STR_DLGGAMESETUP_SELECTEDMAPINBUILT 197
+#define IDB_BTN_PRACTICE                197
 #define STR_DLGGAMESETUP_RADIO1         198
+#define IDB_BTN_TCP                     198
 #define STR_DLGGAMESETUP_RADIO2         199
 #define STR_DLGGAMESETUP_RADIO3         200
 #define STR_DLGGAMESETUP_HIDDENMINES    201
@@ -312,6 +317,7 @@
 #define LGM_NO_TREE                     420
 #define LGM_PILL_NO_NEED_REPAIR         430
 #define LGM_PILL_NO_BUILD_ON_MINE       431
+#define LGM_NO_BUILD_UNDER_BOAT         465
 #define MESSAGE_ASSISTANT               432
 #define MESSAGE_NEWSWIRE                433
 #define MESSAGE_AI                      434
@@ -526,6 +532,9 @@
 #define IDC_STATUS                      1143
 #define IDC_LABEL                       1143
 #define IDC_INFO                        1144
+#define IDC_CLOCKEDS                    1144
+#define IDC_SLOCKEDS                    1145
+#define IDC_STARTTIMES                  1147
 #define IDC_MAP                         1148
 #define IDC_USEWBN                      1150
 #define IDC_SAVEPASS                    1151
@@ -540,6 +549,11 @@
 #define IDC_SKINDEFAULT                 1160
 #define IDC_SKINAUTHORS                 1161
 #define IDC_SKINNOTESS                  1162
+#define IDC_BTN_INTERNET                1163
+#define IDC_BTN_LAN                     1165
+#define IDC_BTN_TCP                     1166
+#define IDC_BTN_PRACTICE                1167
+#define IDC_BTN_TUTORIAL                1168
 #define IDR_MENU2                       32000
 #define ID_FG_SDF                       32001
 #define ID_HELP_ABOUT                   40001
@@ -615,9 +629,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        189
+#define _APS_NEXT_RESOURCE_VALUE        201
 #define _APS_NEXT_COMMAND_VALUE         40081
-#define _APS_NEXT_CONTROL_VALUE         1163
+#define _APS_NEXT_CONTROL_VALUE         1166
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

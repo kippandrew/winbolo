@@ -536,7 +536,12 @@ END
 //
 
 IDB_BACKGROUND          BITMAP  MOVEABLE PURE   "background.bmp"
-IDB_TILE                BITMAP  MOVEABLE PURE   "tile.bmp"
+IDB_TILE                BITMAP  MOVEABLE PURE   "tiles.bmp"
+IDB_BTN_INTERNET        BITMAP  DISCARDABLE     "button_internet.bmp"
+IDB_BTN_TUTORIAL        BITMAP  DISCARDABLE     "button_tutorial.bmp"
+IDB_BTN_LAN             BITMAP  DISCARDABLE     "button_lan.bmp"
+IDB_BTN_PRACTICE        BITMAP  DISCARDABLE     "button_practice.bmp"
+IDB_BTN_TCP             BITMAP  DISCARDABLE     "button_tcp.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -666,32 +671,33 @@ BEGIN
     LTEXT           "minutes",IDC_MINUTES,164,163,55,8
 END
 
-IDD_OPENING DIALOGEX 0, 0, 186, 294
+IDD_OPENING DIALOGEX 0, 0, 186, 316
 STYLE DS_CENTER | WS_POPUP | WS_CAPTION
-CAPTION "Network Selection"
+CAPTION "WinBolo Game Selection"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,35,273,50,14
-    PUSHBUTTON      "Quit",IDCANCEL,97,273,50,14
-    LTEXT           "",IDC_BLURB,7,92,161,30,0,WS_EX_TRANSPARENT
+    PUSHBUTTON      "Practice",IDC_BTN_PRACTICE,62,129,90,25,BS_VCENTER
+    PUSHBUTTON      "Tutorial",IDC_BTN_TUTORIAL,62,100,90,25,BS_VCENTER
+    PUSHBUTTON      "TCP/IP",IDC_BTN_TCP,62,159,90,25,BS_VCENTER
+    PUSHBUTTON      "Local Network",IDC_BTN_LAN,62,189,90,25,BS_VCENTER
+    PUSHBUTTON      "Internet",IDC_BTN_INTERNET,62,219,90,25,BS_VCENTER
+    PUSHBUTTON      "WinBolo.net",IDC_WBNSETUP,32,255,58,14
+    PUSHBUTTON      "Skins",IDC_SKINSSETUP,94,255,58,14
+    PUSHBUTTON      "Languges",IDC_LANG,32,273,58,14
+    PUSHBUTTON      "Help",IDC_OPENINGHELP,94,273,58,14
+    PUSHBUTTON      "Quit",IDCANCEL,32,294,120,14
     CONTROL         143,IDC_STATIC,"Static",SS_BITMAP | SS_SUNKEN,7,7,172,78
-    CONTROL         "Practice (Single Player; No Network)",IDC_GAMETYPE00,
-                    "Button",BS_AUTORADIOBUTTON | WS_TABSTOP,16,129,162,11
-    CONTROL         "TCP/IP",IDC_GAMETYPE01,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,16,145,162,11
-    CONTROL         "Tutorial",IDC_GAMETYPE02,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,16,159,162,11
-    CONTROL         "TCP/IP",IDC_GAMETYPE3,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,16,174,162,11
-    CONTROL         "TCP/IP",IDC_GAMETYPE4,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,16,190,162,11
-    CONTROL         "Skip this Dialog Next Time",IDC_SKIP_DIALOG,"Button",
-                    BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,15,212,155,13
-    PUSHBUTTON      "Languges",IDC_LANG,35,252,51,13
-    PUSHBUTTON      "Help",IDC_OPENINGHELP,95,252,51,13
-    PUSHBUTTON      "WinBolo.net",IDC_WBNSETUP,36,234,52,13
-    PUSHBUTTON      "Skins",IDC_SKINSSETUP,93,234,52,13
-    LTEXT           "v1.15",IDC_STATIC,158,278,20,9
+    LTEXT           "v1.15",IDC_STATIC,160,300,20,9
+    CONTROL         190,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,219,25,
+                    23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
+    CONTROL         196,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,189,25,
+                    23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
+    CONTROL         198,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,159,25,
+                    23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
+    CONTROL         197,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,129,25,
+                    23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
+    CONTROL         195,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,100,25,
+                    23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
 END
 
 IDD_KEY_SETUP DIALOG DISCARDABLE  0, 0, 306, 247
@@ -855,14 +861,14 @@ STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "WinBolo Network Information"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "",IDC_SERVERS,7,13,113,8
-    LTEXT           "",IDC_THISADDRESSS,7,25,116,8
-    LTEXT           "",IDC_PPSPLS,7,52,116,8
-    LTEXT           "",IDC_SERVERPINGS,7,38,114,8
-    LTEXT           "",IDC_NETSTATUSS,7,66,118,8
-    LTEXT           "",IDC_NETERRORSS,7,79,117,8
-    LTEXT           "",IDC_SERVER,127,13,97,8
-    LTEXT           "",IDC_THISADDRESS,127,25,97,8
+    LTEXT           "Server address:",IDC_SERVERS,7,13,113,8
+    LTEXT           "This game address:",IDC_THISADDRESSS,7,25,116,8
+    LTEXT           "Packets per second (per player):",IDC_PPSPLS,7,52,116,8
+    LTEXT           "Server ping (ms):",IDC_SERVERPINGS,7,38,114,8
+    LTEXT           "Network status:",IDC_NETSTATUSS,7,66,118,8
+    LTEXT           "Network errors:",IDC_NETERRORSS,7,79,117,8
+    LTEXT           "255.255.255.255:27500",IDC_SERVER,127,13,97,8
+    LTEXT           "127.0.0.1:2600",IDC_THISADDRESS,127,25,97,8
     LTEXT           "0",IDC_PING,127,38,97,8
     LTEXT           "0",IDC_PACKETSPERSECOND,127,52,97,8
     LTEXT           "OK",IDC_NETSTATUS,127,66,97,8
@@ -872,7 +878,7 @@ END
 IDD_ABOUT DIALOGEX 0, 0, 279, 223
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About WinBolo"
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,114,202,50,14
     LTEXT           "WinBolo v1.15 © 1998-2006 John Morrison\nBolo © 1987-1995 Stuart Cheshire",
@@ -1057,7 +1063,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 178
         TOPMARGIN, 7
-        BOTTOMMARGIN, 287
+        BOTTOMMARGIN, 309
     END
 
     IDD_KEY_SETUP, DIALOG
@@ -1206,11 +1212,11 @@ END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
-    STR_DLGOPENING_TITLE    "Network Selection"
+    STR_DLGOPENING_TITLE    "WinBolo Game Selection"
     STR_DLGOPENING_TEXT     "Welcome to WinBolo, the multiplayer tank game.\nPlease choose a game type from the list below:"
-    STR_DLGOPENING_OPTION1  "Practice (Single Player; No Network)"
+    STR_DLGOPENING_OPTION1  "Practice"
     STR_DLGOPENING_OPTION2  "TCP/IP"
-    STR_DLGOPENING_OPTION3  "Internet (Tracker Search)"
+    STR_DLGOPENING_OPTION3  "Internet"
     STR_DLGOPENING_SKIP     "Skip this Dialog Next Time"
     STR_OK                  "OK"
     STR_DLGOPENING_BUTTON2  "Quit"
@@ -1223,8 +1229,8 @@ BEGIN
     STR_DLGLANG_NAME        "English (Default)"
     STR_DLGLANG_AUTHOR_CAPTION "Author: "
     STR_DLGLANG_AUTHOR      "John Morrison"
-    STR_DLGOPENING_OPTION4  "Local Network (Broadcast Search)"
-    STR_DLGOPENING_OPTION0  "Tutorial (Instruction for first-time player)"
+    STR_DLGOPENING_OPTION4  "Local Network"
+    STR_DLGOPENING_OPTION0  "Tutorial"
     STR_DLGLANG_NOTES_CAPTION "Notes: "
     STR_DLGLANG_NOTES       "None."
     STR_DLGLANG_DEFAULTNOTE "Note: For incomplete translations the missing items default back to English."
@@ -1586,6 +1592,12 @@ END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
+    STR_DLGSKIN_DEFAULTNOTE "If not all skin items are present then the default built in skin/sounds are used."
+    LGM_NO_BUILD_UNDER_BOAT "The man cannot build under your boat"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
     MESSAGE_ASSISTANT       "Online Assistant"
     MESSAGE_NEWSWIRE        "Newswire"
     MESSAGE_AI              "Brain"
@@ -1603,11 +1615,6 @@ BEGIN
                             "Time Limit has expired. Game is over. Go in peace"
     MESSAGE_TANKSUNK        "Tank Sunk in Deep Sea"
     NETERR_TRACKERDNS       "The tracker hostname lookup failed. Tracker notification disabled"
-END
-
-STRINGTABLE DISCARDABLE 
-BEGIN
-    STR_DLGSKIN_DEFAULTNOTE "If not all skin items are present then the default built in skin/sounds are used."
 END
 
 #endif    // English (Australia) resources
