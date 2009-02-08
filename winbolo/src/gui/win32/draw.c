@@ -55,7 +55,9 @@ LPDIRECTDRAWSURFACE lpDDSMessages = NULL;
 LPDIRECTDRAWSURFACE lpDDSManStatus = NULL;
 LPDIRECTDRAWSURFACE lpDDSPillsStatus = NULL;
 LPDIRECTDRAWSURFACE lpDDSBasesStatus = NULL;
+LPDIRECTDRAWSURFACE lpDDSBasesStatusBars = NULL;
 LPDIRECTDRAWSURFACE lpDDSTankStatus = NULL;
+LPDIRECTDRAWSURFACE lpDDSTankStatusBars = NULL;
 LPDIRECTDRAWSURFACE lpDDSTankLabels = NULL;
 LPDIRECTDRAWCLIPPER lpDDClipper = NULL;
 
@@ -431,6 +433,51 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     }
   }
 
+  /* Create the tank status bar window */
+  if (returnValue == TRUE) {
+    ZeroMemory(&primDesc, sizeof (primDesc));
+    primDesc.dwSize = sizeof (primDesc);
+    primDesc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
+    primDesc.dwWidth = zoomFactor * STATUS_TANK_BARS_TOTALWIDTH;
+    primDesc.dwHeight = zoomFactor * STATUS_TANK_BARS_HEIGHT;
+    primDesc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
+    primDesc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
+    res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSTankStatusBars, NULL);
+    if (FAILED(res)) {
+      MessageBoxA(NULL, "Creating DD Tanks Status Bar Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      returnValue = FALSE;
+    } else {
+      /* Fill the surface black */
+      ZeroMemory(&fx, sizeof(fx));
+      fx.dwSize = sizeof(fx);
+      fx.dwFillColor =  0;
+      lpDDSPillsStatus->lpVtbl->Blt(lpDDSTankStatusBars, NULL, NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+    }
+  }
+
+  /* Create the base status bar window */
+  if (returnValue == TRUE) {
+    ZeroMemory(&primDesc, sizeof (primDesc));
+    primDesc.dwSize = sizeof (primDesc);
+    primDesc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
+    primDesc.dwWidth = zoomFactor * STATUS_BASE_BARS_MAX_WIDTH;
+    primDesc.dwHeight = zoomFactor * STATUS_BASE_BARS_TOTALHEIGHT;
+    primDesc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
+    primDesc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
+    res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSBasesStatusBars, NULL);
+    if (FAILED(res)) {
+      MessageBoxA(NULL, "Creating DD Base Status Bar Back buffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      returnValue = FALSE;
+    } else {
+      /* Fill the surface black */
+      ZeroMemory(&fx, sizeof(fx));
+      fx.dwSize = sizeof(fx);
+      fx.dwFillColor =  0;
+      lpDDSPillsStatus->lpVtbl->Blt(lpDDSBasesStatusBars, NULL, NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+    }
+  }
+
+
   /* Create the clipper */
   if (returnValue == TRUE) {
     res = lpDD->lpVtbl->CreateClipper(lpDD, 0, &lpDDClipper, 0);
@@ -540,6 +587,14 @@ void drawCleanup(void) {
   if (lpDDSManStatus != NULL) {
     lpDDSManStatus->lpVtbl->Release(lpDDSManStatus);
     lpDDSManStatus = NULL;
+  }
+  if (lpDDSTankStatusBars != NULL) {
+    lpDDSTankStatusBars->lpVtbl->Release(lpDDSTankStatusBars);
+    lpDDSTankStatusBars = NULL;
+  }
+  if (lpDDSBasesStatusBars != NULL) {
+    lpDDSBasesStatusBars->lpVtbl->Release(lpDDSBasesStatusBars);
+    lpDDSBasesStatusBars = NULL;
   }
   if (lpDDSMessages != NULL) {
     lpDDSMessages->lpVtbl->Release(lpDDSMessages);
@@ -1768,45 +1823,46 @@ void drawStatusTankBars(int xValue, int yValue, BYTE shells, BYTE mines, BYTE ar
 
   /* Get Pixel Format and set color*/
   ddpf.dwSize = sizeof(ddpf);
-  lpDDSPrimary->lpVtbl->GetPixelFormat(lpDDSPrimary, &ddpf); 
+  lpDDSTankStatusBars->lpVtbl->GetPixelFormat(lpDDSTankStatusBars, &ddpf); 
   ZeroMemory(&fx, sizeof(fx));
   fx.dwSize = sizeof(fx);
   fx.dwFillColor =  0;
 
   /* Make the area black first */
 
-  dest.top = yValue + (zf * STATUS_TANK_BARS_TOP) + (zf * STATUS_TANK_BARS_HEIGHT) - ((zf * BAR_TANK_MULTIPLY) *  40);
-  dest.bottom = yValue + (zf * STATUS_TANK_BARS_TOP) + (zf * STATUS_TANK_BARS_HEIGHT);
-  dest.left = xValue + (zf * STATUS_TANK_SHELLS);
-  dest.right = xValue + (zf * STATUS_TANK_TREES) + (zf * STATUS_TANK_BARS_WIDTH);
-  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+  dest.top = 0;
+  dest.bottom = (zf * STATUS_TANK_BARS_HEIGHT);
+  dest.left = 0;
+  dest.right = (zf * STATUS_TANK_BARS_TOTALWIDTH);
+  lpDDSTankStatusBars->lpVtbl->Blt(lpDDSTankStatusBars, &dest, NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
 
   fx.dwFillColor =  ddpf.dwGBitMask;
   
   /* Shells */
-  dest.top = yValue + (zf * STATUS_TANK_BARS_TOP) + (zf * STATUS_TANK_BARS_HEIGHT) - ((zf * BAR_TANK_MULTIPLY) * shells);
-  dest.left = xValue + (zf * STATUS_TANK_SHELLS);
-  dest.bottom = yValue + (zf * STATUS_TANK_BARS_TOP) + (zf * STATUS_TANK_BARS_HEIGHT);
-  dest.right = xValue + (zf * STATUS_TANK_SHELLS) + (zf * STATUS_TANK_BARS_WIDTH);
-  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+  dest.top = (zf * STATUS_TANK_BARS_HEIGHT) - ((zf * BAR_TANK_MULTIPLY) * shells);
+  dest.left = 0;
+  dest.bottom = (zf * STATUS_TANK_BARS_HEIGHT);
+  dest.right = 0 + (zf * STATUS_TANK_BARS_WIDTH);
+  lpDDSTankStatusBars->lpVtbl->Blt(lpDDSTankStatusBars, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
 
   /* Mines */
-  dest.top = yValue + (zf * STATUS_TANK_BARS_TOP) + (zf * STATUS_TANK_BARS_HEIGHT) - ((zf * BAR_TANK_MULTIPLY) * mines);
-  dest.left = xValue + (zf * STATUS_TANK_MINES);
-  dest.right = xValue + (zf * STATUS_TANK_MINES) + (zf * STATUS_TANK_BARS_WIDTH);
-  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+  dest.top = (zf * STATUS_TANK_BARS_HEIGHT) - ((zf * BAR_TANK_MULTIPLY) * mines);
+  dest.left = (zf * STATUS_TANK_MINES);
+  dest.right = (zf * STATUS_TANK_MINES) + (zf * STATUS_TANK_BARS_WIDTH);
+  lpDDSTankStatusBars->lpVtbl->Blt(lpDDSTankStatusBars, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
 
   /* Armour */
-  dest.top = yValue + (zf * STATUS_TANK_BARS_TOP) + (zf * STATUS_TANK_BARS_HEIGHT) - ((zf * BAR_TANK_MULTIPLY) * armour);
-  dest.left = xValue + (zf * STATUS_TANK_ARMOUR);
-  dest.right = xValue + (zf * STATUS_TANK_ARMOUR) + (zf * STATUS_TANK_BARS_WIDTH);
-  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+  dest.top = (zf * STATUS_TANK_BARS_HEIGHT) - ((zf * BAR_TANK_MULTIPLY) * armour);
+  dest.left = (zf * STATUS_TANK_ARMOUR);
+  dest.right = (zf * STATUS_TANK_ARMOUR) + (zf * STATUS_TANK_BARS_WIDTH);
+  lpDDSTankStatusBars->lpVtbl->Blt(lpDDSTankStatusBars, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
 
   /* Trees */
-  dest.top = yValue + (zf * STATUS_TANK_BARS_TOP) + (zf * STATUS_TANK_BARS_HEIGHT) - ((zf * BAR_TANK_MULTIPLY) * trees);
-  dest.left = xValue + (zf * STATUS_TANK_TREES);
-  dest.right = xValue + (zf * STATUS_TANK_TREES) + (zf * STATUS_TANK_BARS_WIDTH);
-  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+  dest.top = (zf * STATUS_TANK_BARS_HEIGHT) - ((zf * BAR_TANK_MULTIPLY) * trees);
+  dest.left = (zf * STATUS_TANK_TREES);
+  dest.right = (zf * STATUS_TANK_TREES) + (zf * STATUS_TANK_BARS_WIDTH);
+  lpDDSTankStatusBars->lpVtbl->Blt(lpDDSTankStatusBars, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+  drawCopyTankStatusBars(xValue,yValue);
 }
 
 /*********************************************************
@@ -2610,41 +2666,42 @@ void drawStatusBaseBars(int xValue, int yValue, BYTE shells, BYTE mines, BYTE ar
     }
     /* Get Pixel Format and set color*/
     ddpf.dwSize = sizeof(ddpf);
-    lpDDSPrimary->lpVtbl->GetPixelFormat(lpDDSPrimary, &ddpf); 
+    lpDDSBasesStatusBars->lpVtbl->GetPixelFormat(lpDDSBasesStatusBars, &ddpf); 
     ZeroMemory(&fx, sizeof(fx));
     fx.dwSize = sizeof(fx);
     fx.dwFillColor =  0;
 
     /* Make the area black first */
 
-    dest.top = yValue + (zf * STATUS_BASE_SHELLS);
-    dest.bottom = yValue + (zf * STATUS_BASE_MINES) + (zf * STATUS_BASE_BARS_HEIGHT);
-    dest.left = xValue + (zf * STATUS_BASE_BARS_LEFT);
-    dest.right = xValue + (zf * STATUS_BASE_BARS_LEFT) + (zf * STATUS_BASE_BARS_MAX_WIDTH);
-    lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+    dest.top = 0;
+    dest.bottom = (zf * STATUS_BASE_BARS_TOTALHEIGHT);
+    dest.left = 0;
+    dest.right = (zf * STATUS_BASE_BARS_MAX_WIDTH);
+    lpDDSBasesStatusBars->lpVtbl->Blt(lpDDSBasesStatusBars, &dest, NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
 
 
     if (shells != 0 || mines != 0 || armour != 0) {
       fx.dwFillColor =  ddpf.dwGBitMask;  
       /* Shells */
-      dest.top = yValue + (zf * STATUS_BASE_SHELLS);
-      dest.left = xValue + (zf * STATUS_BASE_BARS_LEFT);
-      dest.bottom = yValue + (zf * STATUS_BASE_SHELLS) + (zf * STATUS_BASE_BARS_HEIGHT);
-      dest.right = (long) (xValue + (zf * STATUS_BASE_BARS_LEFT) + (shells * (zf * BAR_BASE_MULTIPLY)));
-      lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+      dest.top = 0;
+      dest.left = 0;
+      dest.bottom = (zf * STATUS_BASE_BARS_HEIGHT);
+      dest.right = (long) ((shells * (zf * BAR_BASE_MULTIPLY)));
+      lpDDSBasesStatusBars->lpVtbl->Blt(lpDDSBasesStatusBars, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
 
       /* Mines */
-      dest.top = yValue + (zf * STATUS_BASE_MINES);
-      dest.bottom = yValue + (zf * STATUS_BASE_MINES) + (zf * STATUS_BASE_BARS_HEIGHT);
-      dest.right = (long) (xValue + (zf * STATUS_BASE_BARS_LEFT) + (mines * (zf * BAR_BASE_MULTIPLY)));
-      lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+      dest.top = (zf * STATUS_BASE_MINES);
+      dest.bottom = (zf * STATUS_BASE_MINES) + (zf * STATUS_BASE_BARS_HEIGHT);
+      dest.right = (long) ((mines * (zf * BAR_BASE_MULTIPLY)));
+      lpDDSBasesStatusBars->lpVtbl->Blt(lpDDSBasesStatusBars, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
 
       /* Armour */
-      dest.top = yValue + (zf * STATUS_BASE_ARMOUR);
-      dest.bottom = yValue + (zf * STATUS_BASE_ARMOUR) + (zf * STATUS_BASE_BARS_HEIGHT);
-      dest.right = (long) (xValue + (zf * STATUS_BASE_BARS_LEFT) + (armour * (zf * BAR_BASE_MULTIPLY)));
-      lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+      dest.top = (zf * STATUS_BASE_ARMOUR);
+      dest.bottom = (zf * STATUS_BASE_ARMOUR) + (zf * STATUS_BASE_BARS_HEIGHT);
+      dest.right = (long) ((armour * (zf * BAR_BASE_MULTIPLY)));
+      lpDDSBasesStatusBars->lpVtbl->Blt(lpDDSBasesStatusBars, &dest , NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
     }
+	drawCopyBasesStatusBars(xValue, yValue);
   }
 }
 
@@ -2999,6 +3056,57 @@ void drawCopyBasesStatus(int xValue, int yValue) {
 }
 
 /*********************************************************
+*NAME:          drawCopyBasesStatusBars
+*AUTHOR:        Minhiriath
+*CREATION DATE: 08/2/2009
+*LAST MODIFIED: 08/2/2009
+*PURPOSE:
+*  Copys the Bases status bars on to the primary buffer
+*
+*ARGUMENTS:
+*  xValue  - The left position of the window
+*  yValue  - The top position of the window
+*********************************************************/
+void drawCopyBasesStatusBars(int xValue, int yValue) {
+  RECT dest; /* Destination location */
+  BYTE zf;   /* Zoom Factor */
+
+  zf = windowGetZoomFactor();
+
+  dest.left = xValue + (zf * STATUS_BASE_BARS_LEFT);
+  dest.top = yValue + (zf * STATUS_BASE_BARS_TOP);
+  dest.right = dest.left + (zf * STATUS_BASE_BARS_MAX_WIDTH);
+  dest.bottom = dest.top + (zf * STATUS_BASE_BARS_TOTALHEIGHT);
+  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, lpDDSBasesStatusBars, NULL, DDBLT_WAIT, NULL);
+}
+
+
+/*********************************************************
+*NAME:          drawCopyTankStatusBars
+*AUTHOR:        Minhiriath
+*CREATION DATE: 08/2/2009
+*LAST MODIFIED: 08/2/2009
+*PURPOSE:
+*  Copys the tank status bars on to the primary buffer
+*
+*ARGUMENTS:
+*  xValue  - The left position of the window
+*  yValue  - The top position of the window
+*********************************************************/
+void drawCopyTankStatusBars(int xValue, int yValue) {
+  RECT dest; /* Destination location */
+  BYTE zf;   /* Zoom Factor */
+
+  zf = windowGetZoomFactor();
+
+  dest.left = xValue + (zf * STATUS_TANK_SHELLS);
+  dest.top = yValue + (zf * STATUS_TANK_BARS_TOP);
+  dest.right = dest.left + (zf * STATUS_TANK_BARS_TOTALWIDTH);
+  dest.bottom = dest.top + (zf * STATUS_TANK_BARS_HEIGHT);
+  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, lpDDSTankStatusBars, NULL, DDBLT_WAIT, NULL);
+}
+
+/*********************************************************
 *NAME:          drawCopyPillsStatus
 *AUTHOR:        John Morrison
 *CREATION DATE: 23/1/98
@@ -3332,7 +3440,6 @@ void drawRestore(void) {
     lpDDSManStatus->lpVtbl->Restore(lpDDSManStatus);
     lpDDSManStatus->lpVtbl->Blt(lpDDSManStatus, NULL, NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
 
-
     /* Create the Base status window */
     /* Fill the surface black */
     lpDDSBasesStatus->lpVtbl->Restore(lpDDSBasesStatus);
@@ -3363,6 +3470,15 @@ void drawRestore(void) {
     dest.bottom = dest.top + (zoomFactor * TILE_SIZE_Y);
     lpDDSPillsStatus->lpVtbl->Blt(lpDDSPillsStatus, &dest, lpDDSTiles, &src, DDBLT_WAIT, NULL);
 
+    /* Tank Status Bars*/
+    /* Fill the surface black */
+    lpDDSTankStatusBars->lpVtbl->Restore(lpDDSTankStatusBars);
+    lpDDSTankStatusBars->lpVtbl->Blt(lpDDSTankStatusBars, NULL, NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
+
+    /* Base Status Bars*/
+    /* Fill the surface black */
+    lpDDSBasesStatusBars->lpVtbl->Restore(lpDDSBasesStatusBars);
+    lpDDSBasesStatusBars->lpVtbl->Blt(lpDDSBasesStatusBars, NULL, NULL, NULL, DDBLT_WAIT | DDBLT_COLORFILL, &fx);
 
     /* Tank Labels */
     lpDDSTankLabels->lpVtbl->Restore(lpDDSTankLabels);

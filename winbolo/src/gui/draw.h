@@ -433,6 +433,34 @@ void drawSetTanksStatusClear(void);
 void drawCopyBasesStatus(int xValue, int yValue);
 
 /*********************************************************
+*NAME:          drawCopyBasesStatusBars
+*AUTHOR:        Minhiriath
+*CREATION DATE: 08/2/2009
+*LAST MODIFIED: 08/2/2009
+*PURPOSE:
+*  Copys the Bases status bars on to the primary buffer
+*
+*ARGUMENTS:
+*  xValue  - The left position of the window
+*  yValue  - The top position of the window
+*********************************************************/
+void drawCopyBasesStatusBars(int xValue, int yValue);
+
+/*********************************************************
+*NAME:          drawCopyTankStatusBars
+*AUTHOR:        Minhiriath
+*CREATION DATE: 08/2/2009
+*LAST MODIFIED: 08/2/2009
+*PURPOSE:
+*  Copys the tank status bars on to the primary buffer
+*
+*ARGUMENTS:
+*  xValue  - The left position of the window
+*  yValue  - The top position of the window
+*********************************************************/
+void drawCopyTankStatusBars(int xValue, int yValue);
+
+/*********************************************************
 *NAME:          drawCopyPillsStatus
 *AUTHOR:        John Morrison
 *CREATION DATE: 23/1/98
