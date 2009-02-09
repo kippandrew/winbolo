@@ -73,6 +73,7 @@ BOOL CALLBACK dialogOpeningCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LPA
     case IDC_SKINSSETUP:
       gameFrontSetDlgState(openSkins);
       EndDialog(hWnd, TRUE);
+	  break;
 	case IDC_BTN_INTERNET:
 	  gameFrontSetDlgState(openInternet);
 	  EndDialog(hWnd, TRUE);
