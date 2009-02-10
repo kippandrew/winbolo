@@ -2996,7 +2996,9 @@ void tankSetOnBoat(tank *value, bool onBoat) {
 *********************************************************/
 
 void tankSetLastTankDeath(tank *value, int deathType) {
-  (*value)->lastTankDeath = deathType;
+  if ((*value) != NULL) {
+    (*value)->lastTankDeath = deathType;
+  }
 }
 
 /*********************************************************
