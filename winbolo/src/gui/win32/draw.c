@@ -720,13 +720,24 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
   /* Waiting for game to start. Draw coutdown */
   if (srtDelay > 0) { 
     drawStartDelay(rcWindow, srtDelay);
-  } else if (tankGetDeathWait(tank) != 0 && ((tankGetLastTankDeath(tank) == LAST_DEATH_BY_DEEPSEA && tankGetDeathWait(tank) < STATIC_ON_TICKS_DEEPSEA) || (tankGetLastTankDeath(tank) == LAST_DEATH_BY_SHELL && tankGetDeathWait(tank) < STATIC_ON_TICKS_SHELL))) {
-    /* Tank died and is waiting to respawn, throw some static on the screen */ 
+  }
+  
+  
+  else if (tankGetDeathWait(tank) != 0 && ((tankGetLastTankDeath(tank) == LAST_DEATH_BY_DEEPSEA && tankGetDeathWait(tank) < STATIC_ON_TICKS_DEEPSEA) || (tankGetLastTankDeath(tank) == LAST_DEATH_BY_SHELL && tankGetDeathWait(tank) < STATIC_ON_TICKS_SHELL) || (tankGetLastTankDeath(tank) == LAST_DEATH_BY_MINES && tankGetDeathWait(tank) < STATIC_ON_TICKS_MINES))) { /* added third test for death by mines */
+	  /* Tank died and is waiting to respawn, throw some static on the screen */ 
     if (tankGetDeathWait(tank) != staticLast) {
       staticLast = (*tank)->deathWait;
       for (x = 1; x < 16; x++) {
         for (y = 1; y < 16; y++) {
-          staticCount = rand() % STATIC_CHANGE_TICKS;
+
+			/*
+				Changed from staticCount = rand() % STATIC_CHANGE_TICKS
+				which provided inconsistant death static update speed
+
+				jhood - feb 10, 2009
+			*/
+			staticCount = STATIC_CHANGE_TICKS;
+
           zoomFactor = windowGetZoomFactor();        
           output.left = zoomFactor * (STATIC_X + staticOffset);
           output.top = zoomFactor * STATIC_Y;

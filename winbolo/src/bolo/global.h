@@ -224,7 +224,7 @@ void efree(Generic object);
 /* How did the player's tank die? */
 #define LAST_DEATH_BY_DEEPSEA 1
 #define LAST_DEATH_BY_SHELL 2
-#define LAST_DEATH_BY_MINES 3
+#define LAST_DEATH_BY_MINES 0		/* changed this from 3 to 0 on feb 10, 2009 -- jhood */
 
 /* Change the static bitmap displayed every 10 ticks */
 #define STATIC_CHANGE_TICKS 10

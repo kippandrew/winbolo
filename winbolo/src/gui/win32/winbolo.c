@@ -428,6 +428,19 @@ LRESULT CALLBACK ExWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
       }
     }
     break;
+
+	
+	case WM_MOVE:
+    if (GetClientRect( appWnd, &rcWindow )) {
+      if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
+        clientMutexWaitFor();
+        drawRedrawAll(appInst, appWnd, BsCurrent, &rcWindow, showPillLabels, showBaseLabels);
+        clientMutexRelease();
+      }
+    }
+
+	break;
+
   case WM_COMMAND:
     switch (LOWORD (wParam)) {
     case ID_FILEMENU_NEW:
