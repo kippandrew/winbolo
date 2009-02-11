@@ -727,6 +727,7 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
 	  /* Tank died and is waiting to respawn, throw some static on the screen */ 
     if (tankGetDeathWait(tank) != staticLast) {
       staticLast = (*tank)->deathWait;
+      zoomFactor = windowGetZoomFactor();
       for (x = 1; x < 16; x++) {
         for (y = 1; y < 16; y++) {
 
@@ -737,8 +738,7 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
 				jhood - feb 10, 2009
 			*/
 			staticCount = STATIC_CHANGE_TICKS;
-
-          zoomFactor = windowGetZoomFactor();        
+          staticOffset = rand() % (TILE_FILE_X / (TILE_SIZE_X));    
           output.left = zoomFactor * (STATIC_X + staticOffset);
           output.top = zoomFactor * STATIC_Y;
           output.right = zoomFactor * (STATIC_X + staticOffset) + zoomFactor * TILE_SIZE_X;
