@@ -696,7 +696,8 @@ void serverNetMakePacketHeader(BOLOHEADER *hdr, BYTE packetType) {
 void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned short port) {
   PLAYERNUM_PACKET pnp;                       /* Packet to send back to the requesting player */
   PLAYERNUM_REQ_PACKET prp;                   /* The request player number packet */
-  NEWPLAYER_PACKET npp;                       /* New Player Packet */
+  NEWPLAYER_PACKET npp;						  /* New Player Packet */
+  RSA_PACKET rsap;							  /* RSA Packet */
   char info[MAX_UDPPACKET_SIZE] = GENERICHEADER; /* Buffer to send */
   char ipStr[FILENAME_MAX];                   /* IP Address as a string */
   char *ip;                                   /* String representing IP of player */
@@ -756,6 +757,12 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
 
   if (strcmp(rsadecryptedholder, rmsg) != 0) {
     /* randomstring doesn't match so, disconnect them*/
+	/* Name in use  - Just send back a incorrect packet */
+	serverNetMakePacketHeader(&(rsap.h), BOLOPACKET_RSAFAIL);
+	printf("RSA Authorization Failed\r\n");
+	/* Send reply */
+    memcpy(info, &rsap, sizeof(rsap));
+    serverTransportSendUDPLast(info, sizeof(rsap), TRUE);
 	return;
   }
 
