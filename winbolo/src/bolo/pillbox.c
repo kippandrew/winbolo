@@ -20,7 +20,7 @@
 *Filename:      pillbox.c
 *Author:        John Morrison
 *Creation Date: 28/10/98
-*Last Modified: 24/07/04
+*Last Modified: 11/02/09
 *Purpose:
 *  Provides operations on pillbox and pillboxes
 *********************************************************/
@@ -630,7 +630,7 @@ TURNTYPE pillsTargetTank(map *mp, pillboxes *pb, bases *bs, WORLD xValue, WORLD 
 *NAME:          pillsTargetTankMove
 *AUTHOR:        John Morrison
 *CREATION DATE: 31/12/98
-*LAST MODIFIED: 15/11/99
+*LAST MODIFIED: 11/02/09
 *PURPOSE:
 *  Returns the angle need to fire to hit a moving tank
 *
@@ -662,6 +662,7 @@ TURNTYPE pillsTargetTankMove(map *mp, pillboxes *pb, bases *bs, WORLD xValue, WO
   int shellAddY;        /* Tank add Y */
   WORLD shellX;         /* Shell X location */
   WORLD shellY;         /* Shell Y locatiopn */
+  bool isLand;          /* Is this square land */
 
   found = FALSE;
   count = 1;
@@ -713,10 +714,13 @@ TURNTYPE pillsTargetTankMove(map *mp, pillboxes *pb, bases *bs, WORLD xValue, WO
     bmx = (BYTE) tankTestAddX;
     bmy = (BYTE) tankTestAddY;
 
-    if ((mapGetSpeed(mp,pb,bs,bmx,newbmy, onBoat, playersGetSelf(screenGetPlayers()))) > 0 && (onBoat == FALSE || (onBoat == TRUE && speed >= BOAT_EXIT_SPEED))) {
+    isLand = mapIsLand(mp, pb,bs, bmx, newbmy);
+    if (mapGetSpeed(mp,pb,bs,bmx,newbmy, onBoat, playersGetSelf(screenGetPlayers())) > 0 && (onBoat == FALSE || (onBoat == TRUE && isLand == FALSE) || (onBoat == TRUE && isLand == TRUE && speed >= BOAT_EXIT_SPEED))) {
       tankY = (WORLD) (tankY + tankAddY);
     }
-    if ((mapGetSpeed(mp,pb,bs,newbmx,bmy, onBoat, playersGetSelf(screenGetPlayers()))) > 0 && (onBoat == FALSE || (onBoat == TRUE && speed >= BOAT_EXIT_SPEED))) {
+
+    isLand = mapIsLand(mp, pb,bs, newbmx, bmy);
+    if (mapGetSpeed(mp,pb,bs,newbmx,bmy, onBoat, playersGetSelf(screenGetPlayers())) > 0 && (onBoat == FALSE || (onBoat == TRUE && isLand == FALSE) || (onBoat == TRUE && isLand == TRUE && speed >= BOAT_EXIT_SPEED))) {
       tankX = (WORLD) (tankX + tankAddX);
     }
     
