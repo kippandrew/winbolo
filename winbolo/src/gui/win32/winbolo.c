@@ -26,7 +26,7 @@
 *********************************************************/
 
 
-#include <windows.h>
+#include <Windows.h>
 #include <string.h>
 #include <commdlg.h>
 #include <mmsystem.h>
@@ -55,6 +55,10 @@
 #include "..\winutil.h"
 #include "..\winbolo.h"
 
+/* Defined in winuser.h but not included if you are running VS2005 on 64bit windows*/
+#ifndef WM_MOUSEWHEEL
+  #define WM_MOUSEWHEEL                   0x020A
+#endif
 
 void windowStartTutorial();
 bool isTutorial;
@@ -364,6 +368,13 @@ LRESULT CALLBACK ExWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
   case WM_KILLFOCUS:
     cursorLeaveWindow();
     break;
+  case WM_MOUSEWHEEL:
+		if((short) HIWORD(wParam)< 0){
+			screenGunsightRange(FALSE);
+		} else {
+			screenGunsightRange(TRUE);
+		}
+	break;
   case WM_PAINT:
     /* Redraw the window */
     if (GetClientRect( appWnd, &rcWindow )) {
