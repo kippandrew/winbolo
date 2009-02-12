@@ -390,8 +390,13 @@ LRESULT CALLBACK ExWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     /* Keys Pressed - Test for scroll keys*/
      windowKeyPressed((int) wParam);
      break;
+  case WM_CLOSE:
+	winboloQuit=TRUE;
+	PostQuitMessage(0);
+	break;
   case WM_DESTROY:
     /* Quit time */
+	winboloQuit=TRUE;
     PostQuitMessage(0);
     break;
   case WM_ENTERMENULOOP:
