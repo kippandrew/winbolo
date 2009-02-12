@@ -918,11 +918,9 @@ tankHit tankIsTankHit(tank *value, map *mp, pillboxes *pb, bases *bs, WORLD x, W
       
 /*      netSendNow = TRUE; */
       tankDropPills(value, mp, pb, bs);
-    }
-	/* Tank was hit and survived */
-	else { /* if ((*value)->armour <= TANK_FULL_ARMOUR)  */
-
-	  (*value)->tankSlideTimer = TANK_SLIDE_TICKS; /* TODO: make this a non-magical number, aka, #define */
+    } else { /* if ((*value)->armour <= TANK_FULL_ARMOUR)  */
+	    /* Tank was hit and survived */
+	    (*value)->tankSlideTimer = TANK_SLIDE_TICKS;
       (*value)->tankSlideAngle = angle;
 
       utilCalcDistance(&newX, &newY, angle, TANK_SLIDE); //MAP_SQUARE_MIDDLE
@@ -1113,7 +1111,8 @@ void tankDeath(tank *value, starts *sts) {
   } else if (threadsGetContext() == TRUE) { /* FIXME */
     (*value)->armour = 10;
   }
-
+  /* Stop the tank from sliding if it was sliding when it died */
+  (*value)->tankSlideTimer = 0;
 }
 
 
