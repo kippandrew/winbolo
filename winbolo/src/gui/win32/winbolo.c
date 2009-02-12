@@ -391,12 +391,12 @@ LRESULT CALLBACK ExWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
      windowKeyPressed((int) wParam);
      break;
   case WM_CLOSE:
-	winboloQuit=TRUE;
-	PostQuitMessage(0);
+    winboloQuit=TRUE;
+    PostQuitMessage(0);
 	break;
   case WM_DESTROY:
     /* Quit time */
-	winboloQuit=TRUE;
+    winboloQuit=TRUE;
     PostQuitMessage(0);
     break;
   case WM_ENTERMENULOOP:

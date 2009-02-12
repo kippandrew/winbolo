@@ -238,7 +238,7 @@ void efree(Generic object);
 #define M_W_SHIFT_SIZE 8
 
 /* Version number */
-#define STRVER "1.15"
+#define STRVER "1.16"
 
 #include "../server/threads.h"
 

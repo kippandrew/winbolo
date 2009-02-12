@@ -80,8 +80,11 @@ void dialogAboutInit(HWND hWnd) {
 
   text = langGetText(STR_OK);
   SetDlgItemTextA(hWnd, IDOK, text);
+/* Commented out till localised
   text = langGetText(STR_DLGABOUT_BLURB);
   SetDlgItemTextA(hWnd, IDC_BLURB, text);
+  */
   text = langGetText(STR_DLGABOUT_TITLE);
   SetWindowTextA(hWnd, text);
+
 }

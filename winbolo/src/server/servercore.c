@@ -64,10 +64,10 @@
 #include "servercore.h"
 
 #ifdef _WIN32
-#define BOLO_VERSION_STRING "WinBolo Server - v1.15 (09/04/06)\0"
+#define BOLO_VERSION_STRING "WinBolo Server - v1.16 (12/02/09)\0"
 #define COPYRIGHT_STRING "WinBolo Copyright 1998-2006 John Morrison\nBolo Copyright 1987-1995 Stuart Cheshire\0"
 #else 
-#define BOLO_VERSION_STRING "LinBolo Server - v1.15 (21/04/06)\0"
+#define BOLO_VERSION_STRING "LinBolo Server - v1.16 (12/02/09)\0"
 #define COPYRIGHT_STRING "LinBolo Copyright 1998-2006 John Morrison\nBolo Copyright 1987-1995 Stuart Cheshire\0"
 #endif
 
