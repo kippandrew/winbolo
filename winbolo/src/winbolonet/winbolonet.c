@@ -29,6 +29,7 @@
 #include "winbolonet.h"
 #include "http.h"
 #include "../server/servercore.h"
+#include "../bolo/netpacks.h"
 #include "../bolo/util.h"
 #include "winbolonetevents.h"
 #include "winbolonetthread.h"
@@ -788,8 +789,8 @@ void winboloNetSendVersion() {
     buff[2] = WINBOLO_NET_VERSION_REVISION;
     buff[3] = WINBOLO_NET_VERSION;
     memcpy(buff+4, winboloNetServerKey, WINBOLONET_KEY_LEN);
-    buff[4+WINBOLONET_KEY_LEN] = 1;
-    buff[5+WINBOLONET_KEY_LEN] = 5;
+    buff[4+WINBOLONET_KEY_LEN] = BOLO_VERSION_MINOR;
+    buff[5+WINBOLONET_KEY_LEN] = BOLO_VERSION_REVISION;
     httpSendMessage(buff, 6+WINBOLONET_KEY_LEN, winboloNetBuff, WINBOLONET_BUFFSIZE);
   }
 }
