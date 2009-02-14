@@ -34,34 +34,37 @@
 #include <commdlg.h>
 #include <ctype.h>
 #include <time.h>
-#include "..\..\bolo\global.h"
-#include "..\winbolo.h"
 #include "resource.h"
 #include "..\..\bolo\backend.h"
-#include "..\draw.h"
-#include "..\sound.h"
-#include "..\input.h"
-#include "..\cursor.h"
-#include "..\font.h"
-#include "..\dialogopening.h"
-#include "..\dialogskins.h"
-#include "..\dialoggamesetup.h"
-#include "..\dialogudpsetup.h"
-#include "..\dialogpassword.h"
-#include "..\dialoggamefinder.h"
-#include "..\dialogLanguages.h"
-#include "..\dialogkeysetup.h"
-#include "..\dialogsetname.h"
+#include "..\..\bolo\global.h"
 #include "..\..\bolo\network.h"
-#include "..\lang.h"
-#include "..\brainsHandler.h"
-#include "..\clientmutex.h"
-#include "..\winutil.h"
-#include "..\gamefront.h"
-#include "..\skins.h"
-#include "..\..\winbolonet\winbolonet.h"
+#include "..\..\bolo\players.h"
 #include "..\..\server\servercore.h"
 #include "..\..\server\servernet.h"
+#include "..\..\winbolonet\winbolonet.h"
+#include "..\brainsHandler.h"
+#include "..\clientmutex.h"
+#include "..\cursor.h"
+#include "..\dialoggamefinder.h"
+#include "..\dialoggamesetup.h"
+#include "..\dialogLanguages.h"
+#include "..\dialogkeysetup.h"
+#include "..\dialogopening.h"
+#include "..\dialogpassword.h"
+#include "..\dialogsetname.h"
+#include "..\dialogskins.h"
+#include "..\dialogudpsetup.h"
+#include "..\draw.h"
+#include "..\font.h"
+#include "..\gamefront.h"
+#include "..\input.h"
+#include "..\lang.h"
+#include "..\skins.h"
+#include "..\sound.h"
+#include "..\winbolo.h"
+#include "..\winutil.h"
+
+
 
 /* Game playing options */
 char fileName[FILENAME_MAX]; /* filename and path of the map to use or command line arguement */
@@ -71,7 +74,7 @@ aiType compTanks = aiNone;   /* Whether computer tanks are allowed */
 gameType gametype;           /* The type of game being played */
 long startDelay;             /* The start delay */
 long timeLen;                /* Game time length */
-bool gameFrontRemeber;       /* Remeber player name? */
+bool gameFrontRemeber;       /* Remember player name? */
 
 /* UDP stuff */
 char gameFrontName[PLAYER_NAME_LEN]; /* Player Name */
@@ -251,6 +254,13 @@ HWND gameFrontStart(HINSTANCE hInst, char *cmdLine, int nCmdShow, keyItems *keys
     }
     fileName[0] = EMPTY_CHAR;
   }
+
+  /* Setup the player's previous name */
+  if (gameFrontRemeber) {
+    playersSetMyLastPlayerName(gameFrontName);
+  }
+  
+
   
   gameFrontDialogs(hInst); /* Process starting dialogs */
 
@@ -856,6 +866,7 @@ bool gameFrontGetPrefs(keyItems *keys, bool *useAutoslow, bool *useAutohide) {
   GetPrivateProfileStringA("KEYS", "Scroll Right", def, buff, FILENAME_MAX, PREFERENCE_FILE);
   keys->kiScrollRight = atoi(buff);
 
+
   /* Remeber */
   GetPrivateProfileStringA("SETTINGS", "Remember Player Name", "Yes", buff, FILENAME_MAX, PREFERENCE_FILE);
   gameFrontRemeber = YESNO_TO_TRUEFALSE(buff[0]);
@@ -971,6 +982,7 @@ void gameFrontPutPrefs(keyItems *keys) {
   char buff[FILENAME_MAX];          /* Read Buffer               */
  
   /* Player Name */
+  /* If it's a single-player game or we should remember the player's name and the dialog isn't at the Setup screen */
   if ((netGetType() == netSingle || gameFrontRemeber == TRUE) && dlgState != openSetup) {
     screenGetPlayerName(playerName);
     if (playerName[0] == '*') {
@@ -981,7 +993,7 @@ void gameFrontPutPrefs(keyItems *keys) {
     strcpy(gameFrontName, playerName2);
     WritePrivateProfileStringA("SETTINGS", "Player Name", playerName2, PREFERENCE_FILE);
   } else {
-	WritePrivateProfileStringA("SETTINGS", "Player Name", gameFrontName, PREFERENCE_FILE);
+	  WritePrivateProfileStringA("SETTINGS", "Player Name", gameFrontName, PREFERENCE_FILE);
   }
 
   /* Target Address */

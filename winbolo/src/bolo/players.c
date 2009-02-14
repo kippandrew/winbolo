@@ -466,6 +466,7 @@ void playersGetPlayerName(players *plrs, BYTE playerNum, char *dest) {
       strcpy(dest, NO_TANK);
     }
   } else if (backendGetContext() == FALSE) {
+    /* We are a client.. */
     strcpy(dest, myLastPlayerName);
   }
 }
@@ -2117,3 +2118,21 @@ void playerNeedUpdateDone(players *plrs) {
   }
 }
 
+
+/*********************************************************
+*NAME:          playersSetMyLastPlayerName
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 14/02/09
+*LAST MODIFIED: 14/02/09
+*PURPOSE:
+* Will copy a string to the myLastPlayerName variable.
+* This should be done on initial start-up of WinBolo when
+* it loads the winbolo.ini file.
+*
+*ARGUMENTS:
+* dest       - Name to be set as player's previous name 
+*********************************************************/
+void playersSetMyLastPlayerName(char *dest)
+{
+  strcpy(myLastPlayerName, dest);
+}

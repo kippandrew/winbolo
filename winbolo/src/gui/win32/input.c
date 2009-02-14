@@ -36,7 +36,6 @@
 #include "..\resource.h"
 #include "..\input.h"
 
-#define PRESSED 0x80
 #define KEY_STATES 256
 
 
