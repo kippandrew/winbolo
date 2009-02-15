@@ -566,11 +566,18 @@ BYTE screenCalcSquare(BYTE xValue, BYTE yValue, BYTE scrX, BYTE scrY) {
     }
   }  else {
     currentPos = mapGetPos(&mymp,xValue,yValue);
+	// this is a invisiwall check, if there is supposed to be a mine here, but its a building, thats impossible, so, remove the mine and reset the terrain back to its correct value.
+	if (currentPos>=HALFBUILDING+MINE_SUBTRACT&&currentPos!=DEEP_SEA){
+	  minesRemoveItem(screenGetMines(), xValue, yValue);
+	  (*mineView).mineItem[scrX][scrY] = FALSE;
+	  currentPos = currentPos - MINE_SUBTRACT;
+	  mapSetPos(&mymp, xValue, yValue, currentPos,TRUE,TRUE);
+	}
     if (mapIsMine(&mymp, xValue, yValue) == TRUE) {
       if (minesExistPos(&clientMines, xValue, yValue) == TRUE) {
         (*mineView).mineItem[scrX][scrY] = TRUE;
       }
-      if (currentPos != DEEP_SEA) {
+	  if (currentPos != DEEP_SEA) {
         currentPos = currentPos - MINE_SUBTRACT;
       }
     } else {
