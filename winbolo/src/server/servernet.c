@@ -972,24 +972,26 @@ void serverNetSendPlayer(BYTE playerNum, BYTE *buff, int len) {
 }
 
 void serverNetSendAllExceptPlayer(BYTE playerNum, BYTE *buff, int len) {
+  BYTE data[MAX_UDPPACKET_SIZE];
   BYTE crcA;
   BYTE crcB;
   BYTE count;
   udpPackets udp;
 
+  memcpy(data, buff, len);
   count = 0;
   while (count < MAX_TANKS) {
     if (count != playerNum && netPlayersGetInUse(&np, count) == TRUE) {
       /* Send it */
       udp = netPlayersGetUdpPackets(&np, count);
 
-      buff[len] = udpPacketsGetNextOutSequenceNumber(&udp);
-      CRCCalcBytes(buff, len+1, &crcA, &crcB);
+      data[len] = udpPacketsGetNextOutSequenceNumber(&udp);
+      CRCCalcBytes(data, len+1, &crcA, &crcB);
 
-      buff[len+1] = crcA;
-      buff[len+2] = crcB;
-      udpPacketsSetOutBuff(&udp, buff[len], buff, len+3);
-      serverTransportSendUDP(buff, len+3, netPlayersGetAddr(&np, count));
+      data[len+1] = crcA;
+      data[len+2] = crcB;
+      udpPacketsSetOutBuff(&udp, data[len], data, len+3);
+      serverTransportSendUDP(data, len+3, netPlayersGetAddr(&np, count));
     }
     count++;
   }
