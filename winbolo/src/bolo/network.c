@@ -1071,10 +1071,10 @@ bool netJoinFinalise(char *targetip, unsigned short port, bool wantRejoin, char 
 	// rsa encryption here
 	/* Encrypt c = m^e mod n */
 	bdModExp(c, m, e, n);
-	pr_msg("c= ", c);
-	pr_msg("m= ", m);
-	pr_msg("e= ", e);
-	pr_msg("n= ", n);
+	//pr_msg("c= ", c);
+	//pr_msg("m= ", m);
+	//pr_msg("e= ", e);
+	//pr_msg("n= ", n);
 	bdConvToHex(c,rsaencryptedholder,RSA_DATA_SIZE);
 	memcpy(prp.rsaencrypted,rsaencryptedholder,sizeof(rsaencryptedholder));
 	bdFree(&c);
