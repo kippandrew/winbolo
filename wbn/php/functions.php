@@ -1598,7 +1598,7 @@ function doPlayerSignUp($login, $password, $password2, $fullname, $email, $count
 	global $userdata;
 
 
-	if ($confirmVersion != "1.15") {
+	if ($confirmVersion != "1.16") {
 		return "You answered the version number question wrong.";
 	}
 
