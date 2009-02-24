@@ -294,4 +294,17 @@ void utilStripNameReplace(char *name);
 *********************************************************/
 void utilStripName(char *name);
 
+/*********************************************************
+*NAME:          roundDouble
+*AUTHOR:        Minhiriath
+*CREATION DATE: 23/02/2009
+*LAST MODIFIED: 23/02/2009
+*PURPOSE:
+* Rounds up or down the double so we can stuff it into a int
+*
+*ARGUMENTS:
+*  number - the double to round
+*********************************************************/
+int roundDouble(double number); 
+
 #endif /* UTILS_H */

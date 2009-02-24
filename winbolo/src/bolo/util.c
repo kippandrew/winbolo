@@ -67,8 +67,8 @@ void utilCalcDistance(int *xAmount, int *yAmount, TURNTYPE angle, int speed) {
   /* Convert degrees to radians */
   dbAngle = (dbAngle / DEGREES_MAX) * RADIANS_MAX;
   /* Perform calculation */
-  *xAmount = (int) (speed * cos(dbAngle));
-  *yAmount = (int) (speed * sin(dbAngle));
+  *xAmount = (int) roundDouble((speed * cos(dbAngle)));
+  *yAmount = (int) roundDouble((speed * sin(dbAngle)));
 }
 
 
@@ -101,8 +101,8 @@ void utilCalcTankSlide(BYTE tankSlideTimer, TURNTYPE angle, int *xAmount, int *y
 	ratio = (float)tankSlideTimer / (float)speed;
 
 	/* Calculate the change in both x and y directions */
-	*xAmount = (int)(ratio * cos(angleRad));
-	*yAmount = (int)(ratio * sin(angleRad)) * -1;
+	*xAmount = (int) roundDouble((ratio * cos(angleRad)));
+	*yAmount = (int) roundDouble((ratio * sin(angleRad)) * -1);
 
 	return;
 }
@@ -615,4 +615,18 @@ void utilStripName(char *name) {
   }
 }
 
-
+/*********************************************************
+*NAME:          roundDouble
+*AUTHOR:        Minhiriath
+*CREATION DATE: 23/02/2009
+*LAST MODIFIED: 23/02/2009
+*PURPOSE:
+* Rounds up or down the double so we can stuff it into a int
+*
+*ARGUMENTS:
+*  number - the double to round
+*********************************************************/
+int roundDouble(double number) 
+{ 
+  return (number >= 0) ? (int)(number + 0.5) : (int)(number - 0.5);
+}
