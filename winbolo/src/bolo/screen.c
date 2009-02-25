@@ -296,9 +296,6 @@ void screenUpdate(updateType value) {
   netStatus ns;
   BYTE oldXOffset = xOffset;
   BYTE oldYOffset = yOffset;
-  // ************************************************************
-
-  // ************************************************************
 
   if (needScreenReCalc == TRUE) {
     needScreenReCalc = FALSE;
@@ -384,9 +381,7 @@ void screenUpdate(updateType value) {
       if (scrollCheck(xOffset, (BYTE) (yOffset-1), x, y) == TRUE) {
         yOffset--;
   //      screenTankScroll();
-		// ************************************************************
 		moveMousePointer(up);
-		// ************************************************************
         if (yOffset != oldYOffset) {
           cursorPosY++;
         }
