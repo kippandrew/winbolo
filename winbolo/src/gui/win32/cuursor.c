@@ -39,7 +39,7 @@
 /* Is the cursor inside the main view area */
 bool cursorInMainView = FALSE;
 HCURSOR saveCurs = NULL;
-
+HWND cursorappWnd = NULL;
 /*********************************************************
 *NAME:          cursorSetup
 *AUTHOR:        John Morrison
@@ -56,6 +56,7 @@ HCURSOR saveCurs = NULL;
 *********************************************************/
 bool cursorSetup(HINSTANCE appInst, HWND appWnd) {
   saveCurs = CopyCursor(LoadCursor(NULL, IDC_ARROW));
+  cursorappWnd = appWnd;
   return TRUE;
 }
 
@@ -284,5 +285,69 @@ void cursorSetPos(RECT rcWindow, BYTE xValue, BYTE yValue) {
     y = yValue * zoomFactor * TILE_SIZE_Y + 8;
     
 //    SetCursorPos(zoomFactor * MAIN_OFFSET_X + rcWindow.left + x, zoomFactor * MAIN_OFFSET_Y + rcWindow.top + y);
+  }
+}
+
+/*********************************************************
+*NAME:          moveMousePointer
+*AUTHOR:        Minhiriath
+*CREATION DATE: 25/2/2009
+*LAST MODIFIED: 25/2/2009
+*PURPOSE:
+*  Sets the mouse pointers position on the screen
+*
+*ARGUMENTS:
+*  value - which scroll direction was requested
+*********************************************************/
+void moveMousePointer(updateType value){
+  POINT mousePointer;                  /* mousepointer location  */
+  RECT clientArea;					   /* client area coordinates */
+  BYTE zoomFactor;					   /* The zooming factor */
+  
+  clientArea.top = 0;
+  clientArea.bottom = 0;
+  clientArea.left = 0;
+  clientArea.right = 0;
+  
+  zoomFactor = windowGetZoomFactor();
+  GetCursorPos(&mousePointer); 
+  ScreenToClient(cursorappWnd, &mousePointer);
+  if(mousePointer.x>(MAIN_OFFSET_X-TILE_SIZE_X)*zoomFactor&&mousePointer.x<(MAIN_OFFSET_X + TILE_SIZE_X + (MAIN_SCREEN_SIZE_X * TILE_SIZE_X))*zoomFactor){
+	  if(mousePointer.y>(MAIN_OFFSET_Y-TILE_SIZE_Y)*zoomFactor&&mousePointer.y<(MAIN_OFFSET_Y + TILE_SIZE_Y + (MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y))*zoomFactor){
+			switch (value) {
+		  case left:
+			mousePointer.x += (MIDDLE_PIXEL*2)*zoomFactor;
+			break;
+		  case right:
+			mousePointer.x -= (MIDDLE_PIXEL*2)*zoomFactor;
+			break;
+		  case up:
+			mousePointer.y += (MIDDLE_PIXEL*2)*zoomFactor;
+			break;
+		  case down:
+			mousePointer.y -= (MIDDLE_PIXEL*2)*zoomFactor;
+			break;
+			}
+  
+		  GetClientRect(cursorappWnd, &clientArea);
+  
+		  if (mousePointer.x >= (MAIN_OFFSET_X + TILE_SIZE_X + (MAIN_SCREEN_SIZE_X * TILE_SIZE_X))*zoomFactor) { 
+			mousePointer.x = (MAIN_OFFSET_X + TILE_SIZE_X + (MAIN_SCREEN_SIZE_X * TILE_SIZE_X))*zoomFactor; 
+		  } else { 
+			if (mousePointer.x < (MAIN_OFFSET_X-TILE_SIZE_X)*zoomFactor) { 
+			  mousePointer.x = (MAIN_OFFSET_X-TILE_SIZE_X)*zoomFactor; 
+			} 
+		  } 
+
+		  if (mousePointer.y >= (MAIN_OFFSET_Y + TILE_SIZE_Y + (MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y))*zoomFactor){ 
+			mousePointer.y = (MAIN_OFFSET_Y + TILE_SIZE_Y + (MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y))*zoomFactor; 
+		  } else { 
+			  if (mousePointer.y < (MAIN_OFFSET_Y-TILE_SIZE_Y)*zoomFactor) {
+				mousePointer.y = (MAIN_OFFSET_Y-TILE_SIZE_Y)*zoomFactor;
+			  }
+		  }
+		  ClientToScreen(cursorappWnd, &mousePointer);
+		  SetCursorPos(mousePointer.x, mousePointer.y);
+	  }
   }
 }

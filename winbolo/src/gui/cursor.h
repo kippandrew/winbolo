@@ -151,4 +151,17 @@ void cursorLeaveWindow(void);
 *********************************************************/
 void cursorSetPos(RECT rcWindow, BYTE xValue, BYTE yValue);
 
+/*********************************************************
+*NAME:          moveMousePointer
+*AUTHOR:        Minhiriath
+*CREATION DATE: 25/2/2009
+*LAST MODIFIED: 25/2/2009
+*PURPOSE:
+*  Sets the mouse pointers position on the screen
+*
+*ARGUMENTS:
+*  value - which scroll direction was requested
+*********************************************************/
+void moveMousePointer(updateType value);
+
 #endif /* CURSOR_H */

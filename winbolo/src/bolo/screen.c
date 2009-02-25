@@ -296,6 +296,9 @@ void screenUpdate(updateType value) {
   netStatus ns;
   BYTE oldXOffset = xOffset;
   BYTE oldYOffset = yOffset;
+  // ************************************************************
+
+  // ************************************************************
 
   if (needScreenReCalc == TRUE) {
     needScreenReCalc = FALSE;
@@ -344,6 +347,7 @@ void screenUpdate(updateType value) {
       if (scrollCheck((BYTE) (xOffset-1), yOffset, x, y) == TRUE) {
         xOffset--;
 //        screenTankScroll();
+		moveMousePointer(left);
         if (xOffset != oldXOffset) {
           cursorPosX++;
         }
@@ -362,6 +366,7 @@ void screenUpdate(updateType value) {
         char str[255];
         xOffset++;
 //        screenTankScroll();
+		moveMousePointer(right);
         if (xOffset != oldXOffset) {
           cursorPosX--;
         }
@@ -379,6 +384,9 @@ void screenUpdate(updateType value) {
       if (scrollCheck(xOffset, (BYTE) (yOffset-1), x, y) == TRUE) {
         yOffset--;
   //      screenTankScroll();
+		// ************************************************************
+		moveMousePointer(up);
+		// ************************************************************
         if (yOffset != oldYOffset) {
           cursorPosY++;
         }
@@ -396,6 +404,7 @@ void screenUpdate(updateType value) {
       if (scrollCheck(xOffset, (BYTE) (yOffset+1), x, y) == TRUE) {
         yOffset++;
     //    screenTankScroll();
+		moveMousePointer(down);
         if (yOffset != oldYOffset) {
           cursorPosY--;
         }
@@ -955,13 +964,17 @@ void screenGameTick(tankButton tb, bool tankShoot, bool isBrain) {
       if (scrollUpdate(&mypb, &xOffset, &yOffset, (tankGetScreenMX(&mytk)), (tankGetScreenMY(&mytk)), TRUE, tmx, tmy,(tankGetSpeed(&mytk)), (tankGetArmour(&mytk)), (TURNTYPE) (tankGetTravelAngel(&mytk)),  FALSE) == TRUE) {
         if (oldXOffset < xOffset) {
           cursorPosX--;
+		  moveMousePointer(right);
         } else if (oldXOffset > xOffset) {
           cursorPosX++;
+		  moveMousePointer(left);
         }
         if (oldYOffset < yOffset) {
           cursorPosY--;
+		  moveMousePointer(down);
         } else if (oldYOffset > yOffset) {
           cursorPosY++;
+		  moveMousePointer(up);
         }
           
         screenReCalc();
