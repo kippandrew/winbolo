@@ -65,8 +65,8 @@
 #define BASE_MINES_GIVE 1
 
 #define BASE_REFUEL_ARMOUR 40 /* 125 */
-#define BASE_REFUEL_SHELLS 10 /* 30 */
-#define BASE_REFUEL_MINES 10 /* 30 */
+#define BASE_REFUEL_SHELLS 7.5 /* 30 */
+#define BASE_REFUEL_MINES 7.5 /* 30 */
 
 /* Minimum armour required for a capture */
 #define MIN_ARMOUR_CAPTURE 9
@@ -75,6 +75,11 @@
 /* 7 map squares or 1792 WORLD units */
 #define BASE_STATUS_RANGE 1792
 
+/* This is for the half tick calculator these numbers are simply unique identifiers*/
+
+#define BASES_HALFTICK_TYPE_SHELL  1
+#define BASES_HALFTICK_TYPE_MINE   2
+#define BASES_HALFTICK_TYPE_ARMOUR 3
 
 /* Bases Brain stuff */
 #define BASES_BRAIN_FRIENDLY 0
@@ -725,6 +730,19 @@ void basesClearMines(bases *value, map *mp);
 *  playerNum - Player number for bases
 *********************************************************/
 BYTE basesGetNumberOwnedByPlayer(bases *value, BYTE playerNum);
+
+/*********************************************************
+*NAME:          basesHalfTickCalulator
+*AUTHOR:        John Morrison
+*CREATION DATE: 31/7/00
+*LAST MODIFIED: 31/7/00
+*PURPOSE:
+* calculate what to return to average out half ticks
+*
+*ARGUMENTS:
+*  typeSelector - tells us what type of number to return.
+*********************************************************/
+int basesHalfTickCalulator(int typeSelector);
 
 void basesSetBaseCompressData(bases *value, BYTE *buff, int dataLen);
 

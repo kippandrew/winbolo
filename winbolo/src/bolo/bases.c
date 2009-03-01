@@ -401,7 +401,7 @@ void basesUpdate(bases *value, tank *tnk) {
         basesRefueling(value, tnk, baseNum);
       } else {
         (*value)->item[baseNum-1].justStopped = FALSE;
-        (*value)->item[baseNum-1].refuelTime = BASE_REFUEL_ARMOUR;
+        (*value)->item[baseNum-1].refuelTime = basesHalfTickCalulator(BASES_HALFTICK_TYPE_ARMOUR);
       }
     }
   } else {
@@ -716,7 +716,7 @@ void basesRefueling(bases *value, tank *tnk, BYTE baseNum) {
       if (armour < TANK_FULL_ARMOUR && ((*value)->item[baseNum].armour - BASE_ARMOUR_GIVE) >= BASE_MIN_ARMOUR) {
         (*value)->item[baseNum].armour -= BASE_ARMOUR_GIVE;
         tankAddArmour(tnk, BASE_ARMOUR_GIVE);
-        (*value)->item[baseNum].refuelTime = BASE_REFUEL_ARMOUR;
+        (*value)->item[baseNum].refuelTime = basesHalfTickCalulator(BASES_HALFTICK_TYPE_ARMOUR);
         netPNBAdd(screenGetNetPnb(), NPNB_BASE_REFUEL_ARMOUR, baseNum, playersGetSelf(screenGetPlayers()), 0, 0);
         if (threadsGetContext() == FALSE) {
           frontEndUpdateBaseStatusBars(((*value)->item[baseNum].shells), ((*value)->item[baseNum].mines), ((*value)->item[baseNum].armour));
@@ -725,14 +725,14 @@ void basesRefueling(bases *value, tank *tnk, BYTE baseNum) {
         (*value)->item[baseNum].shells -= BASE_SHELLS_GIVE;
         tankAddShells(tnk, BASE_SHELLS_GIVE);
         netPNBAdd(screenGetNetPnb(), NPNB_BASE_REFUEL_SHELLS, baseNum, playersGetSelf(screenGetPlayers()), 0, 0);
-        (*value)->item[baseNum].refuelTime = BASE_REFUEL_SHELLS;
+        (*value)->item[baseNum].refuelTime = basesHalfTickCalulator(BASES_HALFTICK_TYPE_SHELL);
         if (threadsGetContext() == FALSE) {
           frontEndUpdateBaseStatusBars(((*value)->item[baseNum].shells), ((*value)->item[baseNum].mines), ((*value)->item[baseNum].armour));
         }
       } else if (mines < TANK_FULL_MINES && ((*value)->item[baseNum].mines - BASE_MINES_GIVE) >= BASE_MIN_MINES) {
         (*value)->item[baseNum].mines -= BASE_MINES_GIVE;
         tankAddMines(tnk, BASE_MINES_GIVE);
-        (*value)->item[baseNum].refuelTime = BASE_REFUEL_MINES;
+        (*value)->item[baseNum].refuelTime = basesHalfTickCalulator(BASES_HALFTICK_TYPE_MINE);
         netPNBAdd(screenGetNetPnb(), NPNB_BASE_REFUEL_MINES, baseNum, playersGetSelf(screenGetPlayers()), 0, 0);
         if (threadsGetContext() == FALSE) {
           frontEndUpdateBaseStatusBars(((*value)->item[baseNum].shells), ((*value)->item[baseNum].mines), ((*value)->item[baseNum].armour));
@@ -1144,7 +1144,7 @@ BYTE basesGetBaseNetData(bases *value, BYTE *buff) {
 void basesNetGiveArmour(bases *value, BYTE baseNum) {
   if (((*value)->item[baseNum].armour - BASE_ARMOUR_GIVE) >= BASE_MIN_ARMOUR) {
     (*value)->item[baseNum].armour -= BASE_ARMOUR_GIVE;
-    (*value)->item[baseNum].refuelTime = BASE_REFUEL_ARMOUR;
+    (*value)->item[baseNum].refuelTime = basesHalfTickCalulator(BASES_HALFTICK_TYPE_ARMOUR);
     logAddEvent(log_BaseSetStock, baseNum, (*value)->item[baseNum].shells, (*value)->item[baseNum].mines, (*value)->item[baseNum].armour, 0, NULL);
   }
 }
@@ -1165,7 +1165,7 @@ void basesNetGiveArmour(bases *value, BYTE baseNum) {
 void basesNetGiveShells(bases *value, BYTE baseNum) {
   if (((*value)->item[baseNum].shells - BASE_SHELLS_GIVE) >= BASE_MIN_SHELLS) {
     (*value)->item[baseNum].shells -= BASE_SHELLS_GIVE;
-    (*value)->item[baseNum].refuelTime = BASE_REFUEL_SHELLS;
+    (*value)->item[baseNum].refuelTime = basesHalfTickCalulator(BASES_HALFTICK_TYPE_SHELL);
     logAddEvent(log_BaseSetStock, baseNum, (*value)->item[baseNum].shells, (*value)->item[baseNum].mines, (*value)->item[baseNum].armour, 0, NULL);
   }
 }
@@ -1186,7 +1186,7 @@ void basesNetGiveShells(bases *value, BYTE baseNum) {
 void basesNetGiveMines(bases *value, BYTE baseNum) {
   if (((*value)->item[baseNum].mines - BASE_MINES_GIVE) >= BASE_MIN_MINES) {
     (*value)->item[baseNum].mines -= BASE_MINES_GIVE;
-    (*value)->item[baseNum].refuelTime = BASE_REFUEL_MINES;
+    (*value)->item[baseNum].refuelTime = basesHalfTickCalulator(BASES_HALFTICK_TYPE_MINE);
     logAddEvent(log_BaseSetStock, baseNum, (*value)->item[baseNum].shells, (*value)->item[baseNum].mines, (*value)->item[baseNum].armour, 0, NULL);
   }
 }
@@ -1586,4 +1586,63 @@ BYTE basesGetNumberOwnedByPlayer(bases *value, BYTE playerNum) {
   }
 
   return returnValue;
+}
+
+/*********************************************************
+*NAME:          basesHalfTickCalulator
+*AUTHOR:        John Morrison
+*CREATION DATE: 31/7/00
+*LAST MODIFIED: 31/7/00
+*PURPOSE:
+* calculate what to return to average out half ticks
+*
+*ARGUMENTS:
+*  typeSelector - tells us what type of number to return.
+*********************************************************/
+int basesHalfTickCalulator(int typeSelector) {
+	static double lastShell;
+	static double lastMine;
+	static double lastArmour;
+	double tempShell = 0;
+	double tempMine = 0;
+	double tempArmour = 0;
+
+	switch(typeSelector)
+	{
+	case BASES_HALFTICK_TYPE_SHELL: 
+	  if(floor(BASE_REFUEL_SHELLS) != BASE_REFUEL_SHELLS){
+	  	if(lastShell == 0){
+			lastShell = BASE_REFUEL_SHELLS-floor(BASE_REFUEL_SHELLS);
+			tempShell = floor(BASE_REFUEL_SHELLS);
+			return (int) tempShell;
+		} else {
+			tempShell = BASE_REFUEL_SHELLS+lastShell;
+			lastShell = 0;
+			return (int) floor(tempShell);
+		}
+	  } else {
+	    return BASE_REFUEL_SHELLS;
+	  }
+	  break;
+	case BASES_HALFTICK_TYPE_MINE: 
+	  if(floor(BASE_REFUEL_MINES) != BASE_REFUEL_MINES){
+	  	if(lastMine == 0){
+			lastMine = BASE_REFUEL_MINES-floor(BASE_REFUEL_MINES);
+			return (int) floor(BASE_REFUEL_MINES);
+		} else {
+			tempMine = BASE_REFUEL_MINES+lastMine;
+			lastMine = 0;
+			return (int) floor(tempMine);
+		}
+	  } else {
+	    return BASE_REFUEL_MINES;
+	  }
+	  break;
+	case BASES_HALFTICK_TYPE_ARMOUR: 
+	  return BASE_REFUEL_ARMOUR;
+	  break;
+	default:
+	  return 0;
+	  break;
+	}
 }
