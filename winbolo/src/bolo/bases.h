@@ -64,7 +64,7 @@
 #define BASE_ARMOUR_GIVE 5
 #define BASE_MINES_GIVE 1
 
-#define BASE_REFUEL_ARMOUR 40 /* 125 */
+#define BASE_REFUEL_ARMOUR 46 /* 125 */
 #define BASE_REFUEL_SHELLS 7.5 /* 30 */
 #define BASE_REFUEL_MINES 7.5 /* 30 */
 
