@@ -141,6 +141,7 @@ void dialogMessagesSetup(HWND hWnd) {
   CheckDlgButton(hWnd, IDC_ALL_PLAYERS, BST_CHECKED);
   dialogMessagesChange(hWnd);
   controlWnd = GetDlgItem(hWnd, IDC_EDITSEND);
+  SendDlgItemMessageA(hWnd, IDC_EDITSEND,  EM_LIMITTEXT, 100, 0);
   SetFocus(controlWnd); 
 }
 
