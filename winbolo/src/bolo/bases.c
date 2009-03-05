@@ -1590,9 +1590,9 @@ BYTE basesGetNumberOwnedByPlayer(bases *value, BYTE playerNum) {
 
 /*********************************************************
 *NAME:          basesHalfTickCalulator
-*AUTHOR:        John Morrison
-*CREATION DATE: 31/7/00
-*LAST MODIFIED: 31/7/00
+*AUTHOR:        Minhiriath
+*CREATION DATE: 1/3/2009
+*LAST MODIFIED: 3/3/2009
 *PURPOSE:
 * calculate what to return to average out half ticks
 *
