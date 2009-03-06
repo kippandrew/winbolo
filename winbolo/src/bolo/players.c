@@ -859,12 +859,19 @@ BYTE playersGetNumPlayers(players *plrs) {
 
 
   returnValue = 0;
-  if (*plrs != NULL) {
-    for (count=0;count<MAX_TANKS;count++) {
-      if ((*plrs)->item[count].inUse == TRUE) {
-        returnValue++;
-      }
-    }
+  // This is some code to attempt to debug a linbolods crash with plrs = 0x0
+  if (*plrs != 0x0){
+	  if (*plrs != NULL) {
+		for (count=0;count<MAX_TANKS;count++) {
+		  if ((*plrs)->item[count].inUse == TRUE) {
+			returnValue++;
+		  }
+		}
+	  }
+  } else {
+	// At this point we will print a message to the console, and then allow the function to return
+	// hopefully this will allow a logfile to be generated rather than a seg fault, so that we can perhaps track this error better.
+    screenServerConsoleMessage("Players is equal to zero, something has happened that shouldn't have. \r\n");
   }
   return returnValue;
 }
