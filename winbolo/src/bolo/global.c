@@ -25,5 +25,6 @@ Generic emalloc(size_t size) {
 void efree(Generic object) {
 	if(object!=NULL){
 		free(object);
+		object = NULL;
 	}
 }
