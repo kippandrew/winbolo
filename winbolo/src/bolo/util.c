@@ -630,3 +630,4 @@ int roundDouble(double number)
 { 
   return (number >= 0) ? (int)(number + 0.5) : (int)(number - 0.5);
 }
+

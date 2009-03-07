@@ -27,7 +27,7 @@ REM = rm
 
 # Flags for gcc and rm
 REMFLAGS = -f
-SDLFLAGS = `sdl-config --libs`
+SDLFLAGS = -g `sdl-config --libs`
 CFLAGS = -g `sdl-config --cflags`
 BDFLAGS = -std=c99 -pedantic -Wall -Wpointer-arith -Wstrict-prototypes -O2
 
@@ -184,6 +184,9 @@ util.o: ${BOLODIR}util.c ${BOLODIR}util.h
 crc.o: ${BOLODIR}crc.c ${BOLODIR}crc.h
 	${CC} ${CFLAGS} -c ${BOLODIR}crc.c
 
+shells.o: ${BOLODIR}shells.c ${BOLODIR}shells.h
+	${CC} ${CFLAGS} -c ${BOLODIR}shells.c
+
 screenbullet.o: ${BOLODIR}screenbullet.c ${BOLODIR}screenbullet.h
 	${CC} ${CFLAGS} -c ${BOLODIR}screenbullet.c
 
@@ -264,6 +267,8 @@ swamp.o: ${BOLODIR}swamp.c ${BOLODIR}swamp.h
 	${CC} ${CFLAGS} -c ${BOLODIR}swamp.c
 tank.o: ${BOLODIR}tank.c ${BOLODIR}tank.h
 	${CC} ${CFLAGS} -c ${BOLODIR}tank.c
+allience.o: ${BOLODIR}allience.c ${BOLODIR}allience.h
+	${CC} ${CFLAGS} -c ${BOLODIR}allience.c
 tankexp.o: ${BOLODIR}tankexp.c ${BOLODIR}tankexp.h
 	${CC} ${CFLAGS} -c ${BOLODIR}tankexp.c
 treegrow.o: ${BOLODIR}treegrow.c ${BOLODIR}treegrow.h
