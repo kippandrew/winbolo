@@ -228,6 +228,24 @@ function getLogNumRatings() {
 	return $this->logNumRatings;
 }
 
+function prepareIPPortString() {
+	return $this->getIP() . ":" . $this->getPort();
+}
+
+function writeRssEntryGamesCurrent() {
+	echo "			<description>\n";
+	echo "Type:    " . $this->getGameType() . "\n";
+	if ($this->getLocked() == true) {
+		echo "Locked:  " . "Yes" ."\n";	
+	} else if ($this->getLocked() == false) {
+		echo "Locked:  " . "No" . "\n";
+	}
+	echo "Version: " . $this->getVersion() . "\n";
+	echo "Players: " . $this->getPlayers() . "\n";	
+	echo "Neutral Bases: " . $this->getNumFreeBases() . "\n";
+	echo "Neutral Pills: " . $this->getNumFreePills() . "\n";
+	echo "			</description>\n";
+}
 
 }
 ?>

@@ -72,11 +72,9 @@ function writeRssEntry() {
 		break;
 		case WINBOLO_NET_EVENT_BASE_CAPTURE:
 		echo $this->prepareName($this->playera, false) . " just captured a neutral base.";
-
 		break;
 		case WINBOLO_NET_EVENT_TANK_KILL:
 		echo $this->prepareName($this->playera, false) . " just killed " . $this->prepareName($this->playerb, false) . ".";
-
 		break;
 		case WINBOLO_NET_EVENT_PLAYER_LEAVE:
 		echo $this->prepareName($this->playera, false) . " just left game.";
@@ -125,11 +123,9 @@ function writeEntry() {
 		break;
 		case WINBOLO_NET_EVENT_BASE_CAPTURE:
 		echo  "<img src=\"/images/base.gif\"> " . $this->prepareName($this->playera, true) . " just captured a neutral base.";
-
 		break;
 		case WINBOLO_NET_EVENT_TANK_KILL:
 		echo "<img src=\"/images/tank.gif\"> " . $this->prepareName($this->playera, true) . " just killed " . $this->prepareName($this->playerb, true) . ".";
-
 		break;
 		case WINBOLO_NET_EVENT_PLAYER_LEAVE:
 		echo "<img src=\"/images/tank.gif\"> " . $this->prepareName($this->playera, true) . " just left game.";
@@ -155,7 +151,6 @@ function writeEntry() {
 		case WINBOLO_NET_EVENT_QUITTING:
 		echo "<img src=\"/images/tank.gif\"> " . $this->prepareName($this->playera, true) . " just quit game.";
 		break;
-
 		default:
 		echo "  - " . $this->eventType .  " basd";
 		break;
