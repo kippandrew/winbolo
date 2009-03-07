@@ -301,6 +301,7 @@
 #define    LGM_NO_TREE             "There is no tree to farm there"
 #define    LGM_PILL_NO_NEED_REPAIR "That pillbox does not need repairing"
 #define   LGM_PILL_NO_BUILD_ON_MINE "The man cannot build on a mine. It would kill him."
+#define   LGM_NO_BUILD_UNDER_BOAT "The man cannot build under your boat"
 #define   MESSAGE_ASSISTANT       "Online Assistant"
 #define   MESSAGE_NEWSWIRE        "Newswire"
 #define   MESSAGE_AI              "Brain"
