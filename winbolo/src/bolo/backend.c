@@ -86,10 +86,10 @@ bool screenMapIsMine(BYTE bmx, BYTE bmy) {
 *
 *********************************************************/
 players *screenGetPlayers() {
-  if (threadsGetContext() == FALSE) {
-    return clientGetPlayers();
+  if (threadsGetContext() == TRUE||clientGetPlayers()==NULL) {
+    return serverCoreGetPlayers();
   }
-  return serverCoreGetPlayers();
+  return clientGetPlayers();
 }
 
 
