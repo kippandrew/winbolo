@@ -277,7 +277,8 @@ BEGIN
     STR_DLGGAMEFINDER_MESSAGEOFTHEDAY "Bericht van de dag"
     STR_DLGGAMEFINDER_WRONGVERSION 
                             "Het spel waaraan u wilt meedoen heeft een verschillende versie \nvan WinBolo. Probeert u een ander spel"
-    STR_DLGGAMEFINDER_NOGAMESINPROGRESS "Geen spel bezig (Begin een spel!)"
+    STR_DLGGAMEFINDER_PLAYERWRONG "Sorry, but your player name is blank, you must have a player name (needs translation)"
+	STR_DLGGAMEFINDER_NOGAMESINPROGRESS "Geen spel bezig (Begin een spel!)"
     STR_YES                 "Ja"
     STR_NO                  "Nee"
     STR_DLGGAMEFINDER_YESADV "Ja (Adv)"

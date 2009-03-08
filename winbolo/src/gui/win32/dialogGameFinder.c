@@ -293,7 +293,14 @@ bool dialogGameFinderJoin(HWND hWnd) {
     port = atoi(address);
     GetDlgItemText(hWnd, IDC_SERVERADDRESS, address, (sizeof(address)));
     gameFrontGetPlayerName(playerName);
-    gameFrontSetUdpOptions(playerName, address, port, 0);
+	if(strlen(playerName)>0)
+	{
+		gameFrontSetUdpOptions(playerName, address, port, 0);
+	} else
+	{
+		MessageBoxA(hWnd, langGetText(STR_DLGGAMEFINDER_PLAYERWRONG) ,DIALOG_BOX_TITLE, MB_ICONINFORMATION);
+		returnValue = FALSE;
+	}
   }
 
   return returnValue;

@@ -41,6 +41,7 @@
 #define   STR_DLGGAMEFINDER_REFRESHFIRST "Try hitting refresh first."
 #define   STR_DLGGAMEFINDER_MESSAGEOFTHEDAY "Message of the Day"
 #define   STR_DLGGAMEFINDER_WRONGVERSION "The game you tried to join is a different version of LinBolo.\nTry joining a different game"
+#define   STR_DLGGAMEFINDER_PLAYERWRONG "Sorry, but your player name is blank, you must have a player name"
 #define   STR_DLGGAMEFINDER_NOGAMESINPROGRESS "No games in progress (Start one!)"
 #define   STR_YES                 "Yes"
 #define   STR_NO                  "No"

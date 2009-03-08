@@ -341,6 +341,7 @@
 #define STR_DLGOPENING_BUTTON3          460
 #define STR_DLGOPENING_BUTTON4          461
 #define STRERR_HELPFILE                 462
+#define STR_DLGGAMEFINDER_PLAYERWRONG   466
 #define IDC_STATIC1                     1003
 #define IDC_FPSS                        1003
 #define IDC_FRAME_RATE                  1005

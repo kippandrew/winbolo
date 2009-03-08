@@ -445,7 +445,8 @@ BEGIN
     STR_DLGGAMEFINDER_MESSAGEOFTHEDAY "Message of the Day"
     STR_DLGGAMEFINDER_WRONGVERSION 
                             "The game you tried to join is a different version of WinBolo. Try joining a different game"
-    STR_DLGGAMEFINDER_NOGAMESINPROGRESS "No games in progress (Start one!)"
+    STR_DLGGAMEFINDER_PLAYERWRONG "Sorry, but your player name is blank, you must have a player name"
+	STR_DLGGAMEFINDER_NOGAMESINPROGRESS "No games in progress (Start one!)"
     STR_YES                 "Yes"
     STR_NO                  "No"
     STR_DLGGAMEFINDER_YESADV "Yes (Adv)"

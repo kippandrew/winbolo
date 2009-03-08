@@ -294,7 +294,8 @@ BEGIN
     STR_DLGGAMEFINDER_MESSAGEOFTHEDAY "Dagens meddelande"
     STR_DLGGAMEFINDER_WRONGVERSION 
                             "Spelet du försökte att ansluta dig till är av en annan version av WinBolo. Försök ansluta dig till ett annat spel istället"
-    STR_DLGGAMEFINDER_NOGAMESINPROGRESS "Inga spel pågår (Starta ett!)"
+    STR_DLGGAMEFINDER_PLAYERWRONG "Sorry, but your player name is blank, you must have a player name (needs translation)"
+	STR_DLGGAMEFINDER_NOGAMESINPROGRESS "Inga spel pågår (Starta ett!)"
     STR_YES                 "Ja"
     STR_NO                  "Nej"
     STR_DLGGAMEFINDER_YESADV "Ja (Med en fördel)"
