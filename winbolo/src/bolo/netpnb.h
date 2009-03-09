@@ -68,6 +68,7 @@ struct netPNBObj {
   BYTE id;      /* Item Id                 */
   BYTE x;       /* Item X & Y Co-ordinates */
   BYTE y;
+  BYTE opt;
 };
 
 typedef struct netPnbContextObj *netPnbContext;
@@ -121,7 +122,7 @@ void netPNBDestroy(netPnbContext *pnbc);
 *  opt1    - Optional location data
 *  opt2    - Optional location data
 *********************************************************/
-void netPNBAdd(netPnbContext *pnbc, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2);
+void netPNBAdd(netPnbContext *pnbc, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2, BYTE opt3);
 
 /*********************************************************
 *NAME:          netPNBMake
@@ -157,7 +158,7 @@ int netPNBMake(netPnbContext *pnbc, BYTE *buff);
 *  opt1    - Optional data 1
 *  opt2    - Optional data 2
 *********************************************************/
-bool netPNBExtractItemServer(netPnbContext *pnbc, map *mp, bases *bs, pillboxes *pb, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2);
+bool netPNBExtractItemServer(netPnbContext *pnbc, map *mp, bases *bs, pillboxes *pb, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2, BYTE opt3);
 
 /*********************************************************
 *NAME:          netPNBExtractItemClient
@@ -179,7 +180,7 @@ bool netPNBExtractItemServer(netPnbContext *pnbc, map *mp, bases *bs, pillboxes 
 *  opt1    - Optional data 1
 *  opt2    - Optional data 2
 *********************************************************/
-bool netPNBExtractItemClient(netPnbContext *pnbc, map *mp, bases *bs, pillboxes *pb, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2);
+bool netPNBExtractItemClient(netPnbContext *pnbc, map *mp, bases *bs, pillboxes *pb, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2, BYTE opt3);
 
 /*********************************************************
 *NAME:          netPNBExtract

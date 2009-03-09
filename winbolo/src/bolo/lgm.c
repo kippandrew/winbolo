@@ -271,11 +271,13 @@ bool lgmCheckNewRequest(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk
   bool isPill;   /* Is the present co-ordinate a pill */
   BYTE tankX;    /* Tank co-ordinates */
   BYTE tankY;
+  BYTE tankTrees;
   BYTE pos;      /* Map terrain at build request place */
+  BYTE pillArmour=0;
   
   tankX = tankGetMX(tnk);
   tankY = tankGetMY(tnk);
-  
+  tankTrees = (*tnk)->trees;
 
   proceed = TRUE;
   *isMine = FALSE;
@@ -373,11 +375,28 @@ bool lgmCheckNewRequest(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk
       if (pillsGetArmourPos(pb, mapX, mapY) == PILLS_MAX_ARMOUR) {
         proceed= FALSE;
         messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(LGM_PILL_NO_NEED_REPAIR));
-      } else if (tankGetLgmTrees(tnk, LGM_COST_PILLREPAIR, perform) == FALSE) {
+      } else if (tankTrees<LGM_COST_PILLREPAIR) {
         proceed = FALSE;
         messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(LGM_INSUFFICIENT_TREES));
       } else {
-        *trees = LGM_COST_PILLREPAIR;
+		pillArmour = pillsGetArmourPos(pb, mapX, mapY);
+		if(pillArmour>=11){
+          *trees = LGM_COST_PILLREPAIR;
+		}
+		if(pillArmour>=7&&pillArmour<11){
+		  *trees = LGM_COST_PILLREPAIR*2;
+		}
+		if(pillArmour>=3&&pillArmour<7){
+		  *trees = LGM_COST_PILLREPAIR*3;
+		}
+		if(pillArmour<3){
+		  *trees = LGM_COST_PILLREPAIR*4;
+		}
+		if(tankTrees<*trees)
+		{
+			*trees = LGM_COST_PILLREPAIR*tankTrees;
+		}
+		tankGetLgmTrees(tnk, *trees, perform);
       }
       *pillNum = LGM_NO_PILL;
     } else if ((tankGetCarriedPill(tnk, pillNum, perform)) == FALSE) {
@@ -847,7 +866,7 @@ void lgmDoWork(lgm *lgman, map *mp, pillboxes *pb, bases *bs) {
         mapSetPos(mp, bmx, bmy, GRASS, TRUE, FALSE);
       }
       (*lgman)->numTrees = LGM_GATHER_TREE;
-      netPNBAdd(screenGetNetPnb(), NPNB_LGM_FARMTREE, 0, (*lgman)->playerNum, bmx, bmy);
+      netPNBAdd(screenGetNetPnb(), NPNB_LGM_FARMTREE, 0, (*lgman)->playerNum, bmx, bmy, 0);
       soundDist(farmingTreeNear, bmx, bmy);
     }
     screenReCalc();
@@ -862,7 +881,7 @@ void lgmDoWork(lgm *lgman, map *mp, pillboxes *pb, bases *bs) {
         mapSetPos(mp, bmx, bmy, ROAD, TRUE, FALSE);
       }
       (*lgman)->numTrees = 0;
-      netPNBAdd(screenGetNetPnb(), NPNB_LGM_BUILDROAD, 0, (*lgman)->playerNum, bmx, bmy);
+      netPNBAdd(screenGetNetPnb(), NPNB_LGM_BUILDROAD, 0, (*lgman)->playerNum, bmx, bmy, 0);
       soundDist(manBuildingNear, bmx, bmy);
     
       lgmCheckRemove(terrain, bmx, bmy);
@@ -913,9 +932,9 @@ void lgmDoWork(lgm *lgman, map *mp, pillboxes *pb, bases *bs) {
     if ((*lgman)->numPills == LGM_NO_PILL) {
       /* Repair pill */
       if (isPill == TRUE) {
-        (*lgman)->numTrees = 0;
-        pillsRepairPos(pb, bmx, bmy);
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_REPAIR, 0, (*lgman)->playerNum, bmx, bmy);
+        pillsRepairPos(pb, bmx, bmy,(*lgman)->numTrees);
+        netPNBAdd(screenGetNetPnb(), NPNB_PILL_REPAIR, 0, (*lgman)->playerNum, bmx, bmy,(*lgman)->numTrees);
+		(*lgman)->numTrees = 0;
         soundDist(manBuildingNear, bmx, bmy);
       }
     } else {
@@ -936,7 +955,7 @@ void lgmDoWork(lgm *lgman, map *mp, pillboxes *pb, bases *bs) {
           addPill.inTank = FALSE;
           addPill.justSeen = FALSE;
           pillsSetPill(pb, &addPill, (*lgman)->numPills);
-          netPNBAdd(screenGetNetPnb(), NPNB_PILL_DROP, (BYTE) ((*lgman)->numPills-1), (*lgman)->playerNum, addPill.x, addPill.y);
+          netPNBAdd(screenGetNetPnb(), NPNB_PILL_DROP, (BYTE) ((*lgman)->numPills-1), (*lgman)->playerNum, addPill.x, addPill.y, 0);
           soundDist(manBuildingNear, bmx, bmy);
           if (threadsGetContext() == FALSE) {
             frontEndStatusPillbox((*lgman)->numPills, (pillsGetAllianceNum(pb, (*lgman)->numPills)));
@@ -1187,7 +1206,7 @@ void lgmDeathCheck(lgm *lgman, map *mp, pillboxes *pb, bases *bs, WORLD wx, WORL
     }
 
     if (dead == TRUE) {
-      netPNBAdd(screenGetNetPnb(), NPNB_LGM_DEAD, FALSE, (*lgman)->playerNum, lgmX, lgmY);
+      netPNBAdd(screenGetNetPnb(), NPNB_LGM_DEAD, FALSE, (*lgman)->playerNum, lgmX, lgmY, 0);
       soundDist(manDyingNear, lgmX, lgmY);
       (*lgman)->isDead = TRUE;
       (*lgman)->frame = LGM_HELICOPTER_FRAME;
@@ -1225,7 +1244,7 @@ void lgmDeathCheck(lgm *lgman, map *mp, pillboxes *pb, bases *bs, WORLD wx, WORL
           item.inTank = FALSE;
           item.justSeen = FALSE;
           pillsSetPill(pb,&item,(*lgman)->numPills);
-          netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, (BYTE) ((*lgman)->numPills-1), (*lgman)->playerNum, item.x, item.y);
+          netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, (BYTE) ((*lgman)->numPills-1), (*lgman)->playerNum, item.x, item.y, 0);
           if (threadsGetContext() == FALSE) {
             frontEndStatusPillbox((*lgman)->numPills, (pillsGetAllianceNum(pb, (*lgman)->numPills)));
           }
@@ -1292,7 +1311,7 @@ void lgmParchutingIn(lgm *lgman) {
   if (((*lgman)->x - (*lgman)->destX) >= -16 && ((*lgman)->x - (*lgman)->destX) <=16 && ((*lgman)->y - (*lgman)->destY) >= -16 && ((*lgman)->y - (*lgman)->destY) <=16) {
     /* Arrived at drop off spot. Begin trek back to tank */
     if (threadsGetContext() == TRUE) {
-      netPNBAdd(screenGetNetPnb(), NPNB_LGM_DEAD, TRUE, (*lgman)->playerNum, 0, 0);
+      netPNBAdd(screenGetNetPnb(), NPNB_LGM_DEAD, TRUE, (*lgman)->playerNum, 0, 0, 0);
     }
 
     (*lgman)->isDead = FALSE;

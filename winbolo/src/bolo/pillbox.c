@@ -996,17 +996,22 @@ BYTE pillsNumInRect(pillboxes *value, BYTE leftPos, BYTE rightPos, BYTE top, BYT
 *  xValue - X Map position
 *  yValue - Y Map position
 *********************************************************/
-void pillsRepairPos(pillboxes *value, BYTE xValue, BYTE yValue) {
+void pillsRepairPos(pillboxes *value, BYTE xValue, BYTE yValue, BYTE treeAmount) {
   BYTE count; /* Looping variable */
-  
+  BYTE repairAmount =0;
+
   count = 0;
   while (count < ((*value)->numPills)) {
     if (((*value)->item[count].x) == xValue && ((*value)->item[count].y) == yValue && ((*value)->item[count].inTank) == FALSE) {
-      (*value)->item[count].armour = PILLS_MAX_ARMOUR;
+      repairAmount = treeAmount*PILL_REPAIR_AMOUNT;
+	  (*value)->item[count].armour = (*value)->item[count].armour + repairAmount;
+	  if((*value)->item[count].armour>PILLS_MAX_ARMOUR) {
+	    (*value)->item[count].armour = PILLS_MAX_ARMOUR;
+      }
       if (threadsGetContext() == FALSE) {
         frontEndStatusPillbox((BYTE) (count+1), (pillsGetAllianceNum(value, (BYTE) (count+1))));
       }
-      logAddEvent(log_PillSetHealth, utilPutNibble(count, PILLS_MAX_ARMOUR), 0, 0, 0, 0, NULL);
+      logAddEvent(log_PillSetHealth, utilPutNibble(count, (*value)->item[count].armour), 0, 0, 0, 0, NULL);
       count = (*value)->numPills;
 
     }
@@ -1389,10 +1394,10 @@ void pillsDropSetNeutralOwner(pillboxes *value, BYTE owner) {
   while (count < ((*value)->numPills)) {
     if (((*value)->item[count].owner) == owner) {
       (*value)->item[count].owner = NEUTRAL;
-      netPNBAdd(screenGetNetPnb(), NPNB_PILL_CAPTURE, count, NEUTRAL, (*value)->item[count].x, (*value)->item[count].y);
+      netPNBAdd(screenGetNetPnb(), NPNB_PILL_CAPTURE, count, NEUTRAL, (*value)->item[count].x, (*value)->item[count].y, 0);
       if (((*value)->item[count].inTank) == TRUE) {
         (*value)->item[count].inTank = FALSE;
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, count, NEUTRAL, (*value)->item[count].x, (*value)->item[count].y);
+        netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, count, NEUTRAL, (*value)->item[count].x, (*value)->item[count].y, 0);
         logAddEvent(log_PillSetInTank, utilPutNibble(count, FALSE), 0, 0, 0, 0, NULL);
         logAddEvent(log_PillSetOwner, count, NEUTRAL, FALSE, 0, 0, NULL);
       }
@@ -1430,7 +1435,7 @@ void pillsMigrate(pillboxes *value, BYTE oldOwner, BYTE newOwner) {
         logAddEvent(log_PillSetOwner, count, newOwner, FALSE, 0, 0, NULL);
         logAddEvent(log_PillSetInTank, utilPutNibble(count, FALSE), 0, 0, 0, 0, NULL);
         logAddEvent(log_PillSetPlace, count, (*value)->item[count].x, (*value)->item[count].y, 0, 0, NULL);
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, count, newOwner, (*value)->item[count].x, (*value)->item[count].y);
+        netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, count, newOwner, (*value)->item[count].x, (*value)->item[count].y, 0);
       }
     }
     count++;
@@ -1490,7 +1495,7 @@ void pillsExplicitDrop(pillboxes *value, BYTE owner) {
     if (((*value)->item[count].owner) == owner) {
       if (((*value)->item[count].inTank) == TRUE) {
         (*value)->item[count].inTank = FALSE;
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, count, NEUTRAL, (*value)->item[count].x, (*value)->item[count].y);
+        netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, count, NEUTRAL, (*value)->item[count].x, (*value)->item[count].y, 0);
         logAddEvent(log_PillSetInTank, utilPutNibble(count, FALSE), 0, 0, 0, 0, NULL);
         logAddEvent(log_PillSetPlace, count, (*value)->item[count].x, (*value)->item[count].y, 0, 0, NULL);
       }

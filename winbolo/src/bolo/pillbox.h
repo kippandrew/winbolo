@@ -59,6 +59,9 @@
 #define PILL_BASE_HIT_TOP -9
 #define PILL_BASE_HIT_BOTTOM 9
 
+/* Amount of damage each tree unit repairs */
+#define PILL_REPAIR_AMOUNT 4
+
 /* The maximum amount of time we will iterate to aim a shell to hit a tank */
 /* Added to fix the rare tank run away bug so the shell will never hit the tank */
 #define MAX_AIM_ITERATE 200
@@ -441,8 +444,9 @@ BYTE pillsNumInRect(pillboxes *value, BYTE leftPos, BYTE rightPos, BYTE top, BYT
 *  value  - Pointer to the pillbox structure
 *  xValue - X Map position
 *  yValue - Y Map position
+*  treeAmount - The amount of trees used to repair the pillbox.
 *********************************************************/
-void pillsRepairPos(pillboxes *value, BYTE mx, BYTE my);
+void pillsRepairPos(pillboxes *value, BYTE mx, BYTE my, BYTE treeAmount);
 
 /*********************************************************
 *NAME:          pillsGetArmourPos

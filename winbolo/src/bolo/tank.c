@@ -1578,7 +1578,7 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
       if (basesAmOwner(bs, screenGetTankPlayer(value), bmx, bmy) == FALSE) {
         basesSetOwner(bs, bmx, bmy, screenGetTankPlayer(value), FALSE);
         baseNum = basesGetBaseNum(bs, bmx, bmy);
-        netPNBAdd(screenGetNetPnb(), NPNB_BASE_CAPTURE, (BYTE) (baseNum-1), screenGetTankPlayer(value), bmx, bmy);
+        netPNBAdd(screenGetNetPnb(), NPNB_BASE_CAPTURE, (BYTE) (baseNum-1), screenGetTankPlayer(value), bmx, bmy, 0);
         if (threadsGetContext() == FALSE) {
           frontEndStatusBase(baseNum, (basesGetStatusNum(bs, baseNum)));
         }
@@ -1733,9 +1733,9 @@ void tankCheckPillCapture(tank *value, pillboxes *pb) {
     if (bmx != 0 && bmy != 0 && pillsIsCapturable(pb, bmx,bmy) == TRUE) {
       pillNum = pillsGetPillNum(pb, bmx, bmy, TRUE, FALSE);
       while (pillNum != PILL_NOT_FOUND) {
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0);
+        netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0, 0);
         pillsSetPillInTank(pb,pillNum, TRUE);
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_CAPTURE, (BYTE) (pillNum-1) , screenGetTankPlayer(value), 0, 0);
+        netPNBAdd(screenGetNetPnb(), NPNB_PILL_CAPTURE, (BYTE) (pillNum-1) , screenGetTankPlayer(value), 0, 0, 0);
         if (threadsGetContext() == FALSE) {
           frontEndStatusPillbox(pillNum, (pillsGetAllianceNum(pb, pillNum)));
         }
@@ -1746,9 +1746,9 @@ void tankCheckPillCapture(tank *value, pillboxes *pb) {
         if ((pillsGetPillOwner(pb, pillNum)) != screenGetTankPlayer(value)) {
           pillsSetPillOwner(pb, pillNum, screenGetTankPlayer(value), FALSE);
         }
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0);
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_CAPTURE, (BYTE) (pillNum-1) , screenGetTankPlayer(value), 0, 0);
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0);
+        netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0, 0);
+        netPNBAdd(screenGetNetPnb(), NPNB_PILL_CAPTURE, (BYTE) (pillNum-1) , screenGetTankPlayer(value), 0, 0, 0);
+        netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0, 0);
         if (pillsExistPos(pb, bmx, bmy) == TRUE) {
           pillNum = pillsGetPillNum(pb, bmx, bmy, TRUE, FALSE);
         } else {
@@ -1837,7 +1837,7 @@ void tankDropPills(tank *value, map *mp, pillboxes *pb, bases *bs) {
           if (pillsExistPos(pb, item.x, item.y) == FALSE && basesExistPos(bs, item.x, item.y) == FALSE && pos != BUILDING && pos != HALFBUILDING && pos != BOAT) {
             if (threadsGetContext() == TRUE || netGetType() == netSingle) {
               pillsSetPill(pb,&item,q->pillNum);
-              netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, (BYTE) ((q->pillNum) - 1), screenGetTankPlayer(value), item.x, item.y);
+              netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, (BYTE) ((q->pillNum) - 1), screenGetTankPlayer(value), item.x, item.y, 0);
             }
             if (threadsGetContext() == FALSE) {
               frontEndStatusPillbox(q->pillNum, (pillsGetAllianceNum(pb, q->pillNum)));

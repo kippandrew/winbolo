@@ -1412,7 +1412,7 @@ void screenLgmDropPill(BYTE mx, BYTE my, BYTE owner, BYTE pillNum) {
   item.y = my;
   item.justSeen = FALSE;
   pillsSetPill(&mypb,&item, pillNum);
-  netPNBAdd(&clientPNB, NPNB_PILL_DEAD, (BYTE) (pillNum-1), playersGetSelf(screenGetPlayers()), mx, my);
+  netPNBAdd(&clientPNB, NPNB_PILL_DEAD, (BYTE) (pillNum-1), playersGetSelf(screenGetPlayers()), mx, my, 0);
   frontEndStatusPillbox(pillNum, (pillsGetAllianceNum(&mypb, pillNum)));
 }
 
@@ -1773,7 +1773,7 @@ bool screenSaveMap(char *fileName) {
 
   returnValue = mapWrite(fileName, &mymp, &mypb, &mybs, &myss);
   if (returnValue == TRUE) {
-    netPNBAdd(&clientPNB, NPNB_SAVEMAP, 0, playersGetSelf(screenGetPlayers()), 0, 0);
+    netPNBAdd(&clientPNB, NPNB_SAVEMAP, 0, playersGetSelf(screenGetPlayers()), 0, 0, 0);
     if (netGetType() == netSingle) {
       playersMakeMessageName(screenGetPlayers(), playersGetSelf(screenGetPlayers()), name);
       strcat(output, MESSAGE_QUOTES);

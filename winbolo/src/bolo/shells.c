@@ -445,9 +445,9 @@ bool shellsCalcCollision(map *mp, pillboxes *pb, tank *tk, bases *bs, WORLD *xVa
     if (isServer == TRUE || gameT == netSingle) {
       if (pillsDamagePos(pb, mapX, mapY, TRUE, TRUE) == TRUE) {
         count = pillsGetPillNum(pb, mapX, mapY, FALSE, FALSE);
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, (BYTE) (count-1), pillsGetPillOwner(pb, count), mapX, mapY);
+        netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, (BYTE) (count-1), pillsGetPillOwner(pb, count), mapX, mapY, 0);
       } else {
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_HIT, 0, owner, mapX, mapY);
+        netPNBAdd(screenGetNetPnb(), NPNB_PILL_HIT, 0, owner, mapX, mapY, 0);
       }
     } else if (owner == screenGetTankPlayer(tk)) {
       pillsDamagePos(pb, mapX, mapY, FALSE, TRUE);
@@ -541,7 +541,7 @@ bool shellsCalcCollision(map *mp, pillboxes *pb, tank *tk, bases *bs, WORLD *xVa
         if ((basesCanHit(bs, mapX, mapY, owner)) == TRUE) {
           if (isServer == TRUE || gameT == netSingle) {
             basesDamagePos(bs, mapX, mapY);
-            netPNBAdd(screenGetNetPnb(), NPNB_BASE_HIT, 0, screenGetTankPlayer(tk), mapX, mapY);
+            netPNBAdd(screenGetNetPnb(), NPNB_BASE_HIT, 0, screenGetTankPlayer(tk), mapX, mapY, 0);
           }
           pillsBaseHit(pb, mapX, mapY, (basesGetOwnerPos(bs, mapX, mapY)));
         }
@@ -557,7 +557,7 @@ bool shellsCalcCollision(map *mp, pillboxes *pb, tank *tk, bases *bs, WORLD *xVa
         /* Do damage to base */
         if (isServer == TRUE || gameT == netSingle) {
           basesDamagePos(bs, mapX, mapY);
-          netPNBAdd(screenGetNetPnb(), NPNB_BASE_HIT, 0, screenGetTankPlayer(tk), mapX, mapY);
+          netPNBAdd(screenGetNetPnb(), NPNB_BASE_HIT, 0, screenGetTankPlayer(tk), mapX, mapY, 0);
         }
         pillsBaseHit(pb, mapX, mapY, (basesGetOwnerPos(bs, mapX, mapY)));
         /* Play sound */

@@ -98,7 +98,7 @@ void netPNBDestroy(netPnbContext *pnbc) {
 *  opt1     - Optional location data
 *  opt2     - Optional location data
 *********************************************************/
-void netPNBAdd(netPnbContext *pnbc, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2) {
+void netPNBAdd(netPnbContext *pnbc, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2, BYTE opt3) {
   netPnb add1; /* Items to add */
 
   if (netGetType() != netSingle && playersGetNumPlayers(screenGetPlayers()) > 0) {
@@ -108,6 +108,7 @@ void netPNBAdd(netPnbContext *pnbc, BYTE event, BYTE itemNum, BYTE owner, BYTE o
     add1->owner = owner;
     add1->x = opt1;
     add1->y = opt2;
+	add1->opt = opt3;
     if (threadsGetContext() == TRUE) {
       add1->id = (*pnbc)->netPnbUpto;
       (*pnbc)->netPnbUpto++;
@@ -162,7 +163,10 @@ int netPNBMake(netPnbContext *pnbc, BYTE *buff) {
     returnValue++;
     *pnt = q->y;
     pnt++;
-    returnValue++;      
+    returnValue++;
+	*pnt = q->opt;
+	pnt++;
+    returnValue++;
     q = NetPNBTail(q);
     netPNBDeleteItem(pnbc, count);
   }
@@ -191,7 +195,7 @@ int netPNBMake(netPnbContext *pnbc, BYTE *buff) {
 *  opt1    - Optional data 1
 *  opt2    - Optional data 2
 *********************************************************/
-bool netPNBExtractItemServer(netPnbContext *pnbc, map *mp, bases *bs, pillboxes *pb, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2) {
+bool netPNBExtractItemServer(netPnbContext *pnbc, map *mp, bases *bs, pillboxes *pb, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2, BYTE opt3) {
   bool returnValue; /* Value to return */
   pillbox addPill; /* Pill to place if required */
   tank *tnk;
@@ -285,7 +289,7 @@ bool netPNBExtractItemServer(netPnbContext *pnbc, map *mp, bases *bs, pillboxes 
     break;
   case NPNB_PILL_REPAIR:
     /* Pill repair */
-    pillsRepairPos(pb, opt1, opt2);
+    pillsRepairPos(pb, opt1, opt2, opt3);
     break;
   case NPNB_LGM_DEAD:
     /* LGM Died */
@@ -330,7 +334,7 @@ void tankPutPill(tank *value, pillboxes *pb, BYTE pillNum);
 *  opt1    - Optional data 1
 *  opt2    - Optional data 2
 *********************************************************/
-bool netPNBExtractItemClient(netPnbContext *pnbc, map *mp, bases *bs, pillboxes *pb, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2) {
+bool netPNBExtractItemClient(netPnbContext *pnbc, map *mp, bases *bs, pillboxes *pb, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2, BYTE opt3) {
   pillbox addPill; /* Pill to place if required */
   bool needCalc; /* Needs a recalc */
   BYTE playerNum;  /* Our player Number */
@@ -391,7 +395,7 @@ bool netPNBExtractItemClient(netPnbContext *pnbc, map *mp, bases *bs, pillboxes 
       if (tankGetArmour(tnk) > TANK_FULL_ARMOUR ) {
         pillbox p; 
         pillsGetPill(pb, &p, (BYTE) (itemNum +1));
-        netPNBAdd(pnbc, NPNB_PILL_DEAD, itemNum, owner, p.x, p.y);
+        netPNBAdd(pnbc, NPNB_PILL_DEAD, itemNum, owner, p.x, p.y, 0);
         tankStopCarryingPill(tnk, itemNum);
       } else {
         pillsSetPillOwner(pb, (BYTE) (itemNum+1), owner, FALSE);
@@ -406,7 +410,7 @@ bool netPNBExtractItemClient(netPnbContext *pnbc, map *mp, bases *bs, pillboxes 
       if (tankGetArmour(tnk) > TANK_FULL_ARMOUR ) {
         pillbox p; 
         pillsGetPill(pb, &p, (BYTE) (itemNum +1));
-        netPNBAdd(pnbc, NPNB_PILL_DEAD, itemNum, owner, p.x, p.y);
+        netPNBAdd(pnbc, NPNB_PILL_DEAD, itemNum, owner, p.x, p.y, 0);
         tankStopCarryingPill(tnk, itemNum);
       } else {
         tankPutPill(screenGetTankFromPlayer(playerNum), pb, (BYTE) (itemNum+1));
@@ -460,7 +464,7 @@ bool netPNBExtractItemClient(netPnbContext *pnbc, map *mp, bases *bs, pillboxes 
     break;
   case NPNB_PILL_REPAIR:
     /* Pill repair */
-    pillsRepairPos(pb, opt1, opt2);
+    pillsRepairPos(pb, opt1, opt2, opt3);
     soundDist(manBuildingNear, opt1, opt2);
     if (threadsGetContext() == FALSE) {
       frontEndStatusPillbox((BYTE) (itemNum+1), (pillsGetAllianceNum(pb, (BYTE) (itemNum+1))));
@@ -532,6 +536,7 @@ bool netPNBExtract(netPnbContext *pnbc, map *mp, bases *bs, pillboxes *pb, BYTE 
   BYTE id;          /* item Id     */
   BYTE opt1;        /* Optional Data */
   BYTE opt2;
+  BYTE opt3;
   bool needCalc;    /* Does the screen need a recalc? */
   bool testCalc;    /* Does the screen need a recalc? */
   bool isServer;    /* Are we a server */
@@ -556,14 +561,16 @@ bool netPNBExtract(netPnbContext *pnbc, map *mp, bases *bs, pillboxes *pb, BYTE 
     count++;
     opt2 = buff[count];
     count++;
+	opt3 = buff[count];
+	count++;
 
     /* Process the occurence */
     if (isServer == TRUE) {
-      if (netPNBExtractItemServer(pnbc, mp, bs, pb, event, itemNum, owner, opt1, opt2) == TRUE) {
-        netPNBAdd(pnbc, event, itemNum, owner, opt1, opt2);
+      if (netPNBExtractItemServer(pnbc, mp, bs, pb, event, itemNum, owner, opt1, opt2, opt3) == TRUE) {
+        netPNBAdd(pnbc, event, itemNum, owner, opt1, opt2, 0);
       }
     } else {
-      testCalc = netPNBExtractItemClient(pnbc, mp, bs, pb, event, itemNum, owner, opt1, opt2);
+      testCalc = netPNBExtractItemClient(pnbc, mp, bs, pb, event, itemNum, owner, opt1, opt2, opt3);
       if (needCalc == FALSE) {
         needCalc = testCalc;
       }

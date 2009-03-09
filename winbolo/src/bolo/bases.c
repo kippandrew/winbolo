@@ -717,14 +717,14 @@ void basesRefueling(bases *value, tank *tnk, BYTE baseNum) {
         (*value)->item[baseNum].armour -= BASE_ARMOUR_GIVE;
         tankAddArmour(tnk, BASE_ARMOUR_GIVE);
         (*value)->item[baseNum].refuelTime = basesHalfTickCalulator(BASES_HALFTICK_TYPE_ARMOUR);
-        netPNBAdd(screenGetNetPnb(), NPNB_BASE_REFUEL_ARMOUR, baseNum, playersGetSelf(screenGetPlayers()), 0, 0);
+        netPNBAdd(screenGetNetPnb(), NPNB_BASE_REFUEL_ARMOUR, baseNum, playersGetSelf(screenGetPlayers()), 0, 0, 0);
         if (threadsGetContext() == FALSE) {
           frontEndUpdateBaseStatusBars(((*value)->item[baseNum].shells), ((*value)->item[baseNum].mines), ((*value)->item[baseNum].armour));
         }
       } else if (shellsAmount < TANK_FULL_SHELLS && ((*value)->item[baseNum].shells - BASE_SHELLS_GIVE) >= BASE_MIN_SHELLS) {
         (*value)->item[baseNum].shells -= BASE_SHELLS_GIVE;
         tankAddShells(tnk, BASE_SHELLS_GIVE);
-        netPNBAdd(screenGetNetPnb(), NPNB_BASE_REFUEL_SHELLS, baseNum, playersGetSelf(screenGetPlayers()), 0, 0);
+        netPNBAdd(screenGetNetPnb(), NPNB_BASE_REFUEL_SHELLS, baseNum, playersGetSelf(screenGetPlayers()), 0, 0, 0);
         (*value)->item[baseNum].refuelTime = basesHalfTickCalulator(BASES_HALFTICK_TYPE_SHELL);
         if (threadsGetContext() == FALSE) {
           frontEndUpdateBaseStatusBars(((*value)->item[baseNum].shells), ((*value)->item[baseNum].mines), ((*value)->item[baseNum].armour));
@@ -733,7 +733,7 @@ void basesRefueling(bases *value, tank *tnk, BYTE baseNum) {
         (*value)->item[baseNum].mines -= BASE_MINES_GIVE;
         tankAddMines(tnk, BASE_MINES_GIVE);
         (*value)->item[baseNum].refuelTime = basesHalfTickCalulator(BASES_HALFTICK_TYPE_MINE);
-        netPNBAdd(screenGetNetPnb(), NPNB_BASE_REFUEL_MINES, baseNum, playersGetSelf(screenGetPlayers()), 0, 0);
+        netPNBAdd(screenGetNetPnb(), NPNB_BASE_REFUEL_MINES, baseNum, playersGetSelf(screenGetPlayers()), 0, 0, 0);
         if (threadsGetContext() == FALSE) {
           frontEndUpdateBaseStatusBars(((*value)->item[baseNum].shells), ((*value)->item[baseNum].mines), ((*value)->item[baseNum].armour));
         }
@@ -1211,7 +1211,7 @@ void basesSetNeutralOwner(bases *value, BYTE owner) {
     if (((*value)->item[count].owner) == owner) {
       (*value)->item[count].owner = NEUTRAL;
       logAddEvent(log_BaseSetOwner, count, NEUTRAL, FALSE, 0, 0, NULL);
-      netPNBAdd(screenGetNetPnb(), NPNB_BASE_CAPTURE, count, NEUTRAL, (*value)->item[count].x, (*value)->item[count].y);
+      netPNBAdd(screenGetNetPnb(), NPNB_BASE_CAPTURE, count, NEUTRAL, (*value)->item[count].x, (*value)->item[count].y, 0);
     }
     count++;
   }
