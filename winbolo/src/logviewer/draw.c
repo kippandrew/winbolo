@@ -1673,8 +1673,8 @@ void drawTankLabel(char *str, int mx, int my, BYTE px, BYTE py) {
       lpDDSBackBuffer->lpVtbl->BltFast(lpDDSBackBuffer, x, y, lpDDSTankLabels, &textRect, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY);
       /* Mark Redraw for the squares */
       count1 =0;
-	  if (len > 10) {
-		  width = 16;
+	  if (len > 6) {
+		  width = 25;
 	  }
 
       while (count1 < 2) {
