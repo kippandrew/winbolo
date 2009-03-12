@@ -31,7 +31,7 @@
 //#include "frontend.h"
 #include "util.h"
 #include "messages.h"
-
+#include "backend.h"
 
 /* Module Variables */
 
@@ -118,7 +118,7 @@ void messageDestroy(void) {
 *  top     - The message to print in the top line
 *  bottom  - The message to print in the bottom line
 *********************************************************/
-void messageAdd(messageType msgType, char *top, char *bottom) {
+void messageAdder(messageType msgType, char *top, char *bottom) {
   static BYTE lastMessage = globalMessage;
    
   switch (msgType) {
@@ -456,7 +456,7 @@ void messageUpdate(void) {
     topLine[MESSAGE_WIDTH-1] = END_OF_STRING;
     bottomLine[MESSAGE_WIDTH-1] = END_OF_STRING;
     /* Update the screen */
-    frontEndMessages(topLine,bottomLine);
+    windowAddEvent(topLine,bottomLine);
   }
 }
 

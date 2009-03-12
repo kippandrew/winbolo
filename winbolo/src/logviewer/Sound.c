@@ -152,30 +152,30 @@ bool soundSetup(HINSTANCE appInst, HWND appWnd) {
 
   /* Load Sound Files In */
   if (returnValue == TRUE && boloSounds != NULL) {
-    lpDSTankSinkingNear = DSLoadSoundBuffer(lpDS,boloSounds, IDW_TANK_SINKING_NEAR);
-    lpDSShootSelf = DSLoadSoundBuffer(lpDS,boloSounds,IDW_SHOOTING_SELF);
-    lpDSShootNear = DSLoadSoundBuffer(lpDS,boloSounds, IDW_SHOOTING_NEAR);
-    lpDSShootFar = DSLoadSoundBuffer(lpDS,boloSounds,IDW_SHOOTING_FAR);
-    lpDSBigExplosionFar = DSLoadSoundBuffer(lpDS,boloSounds, IDW_BIG_EXPLOSION_FAR);
-    lpDSBigExplosionNear = DSLoadSoundBuffer(lpDS,boloSounds,IDW_BIG_EXPLOSION_NEAR);
-    lpDSBubbles = DSLoadSoundBuffer(lpDS,boloSounds,IDW_BUBBLES);
-    lpDSFarmingTreeFar = DSLoadSoundBuffer(lpDS,boloSounds,IDW_FARMING_TREE_FAR);
-    lpDSFarmingTreeNear = DSLoadSoundBuffer(lpDS,boloSounds,IDW_FARMING_TREE_NEAR);
-    lpDSHitTankFar = DSLoadSoundBuffer(lpDS,boloSounds,IDW_HIT_TANK_FAR);
-    lpDSHitTankNear = DSLoadSoundBuffer(lpDS,boloSounds, IDW_HIT_TANK_NEAR);
-    lpDSHitTankSelf = DSLoadSoundBuffer(lpDS,boloSounds, IDW_HIT_TANK_SELF);
-    lpDSManBuildingFar = DSLoadSoundBuffer(lpDS,boloSounds, IDW_MAN_BUILDING_FAR);
-    lpDSManBuildingNear = DSLoadSoundBuffer(lpDS,boloSounds, IDW_MAN_BUILDING_NEAR);
-    lpDSManDyingFar = DSLoadSoundBuffer(lpDS,boloSounds, IDW_MAN_DYING_FAR);
-    lpDSManDyingNear = DSLoadSoundBuffer(lpDS,boloSounds, IDW_MAN_DYING_NEAR);
-    lpDSManLayingMineNear = DSLoadSoundBuffer(lpDS,boloSounds, IDW_MAN_LAYING_MINE_NEAR);
-    lpDSMineExplosionFar = DSLoadSoundBuffer(lpDS,boloSounds, IDW_MINE_EXPLOSION_FAR);
-    lpDSMineExplosionNear = DSLoadSoundBuffer(lpDS,boloSounds, IDW_MINE_EXPLOSION_NEAR);
-    lpDSShotBuildingFar = DSLoadSoundBuffer(lpDS,boloSounds, IDW_SHOT_BUILDING_FAR);
-    lpDSShotBuildingNear = DSLoadSoundBuffer(lpDS,boloSounds, IDW_SHOT_BUILDING_NEAR);
-    lpDSShotTreeFar = DSLoadSoundBuffer(lpDS,boloSounds,IDW_SHOT_TREE_FAR);
-    lpDSShotTreeNear = DSLoadSoundBuffer(lpDS,boloSounds, IDW_SHOT_TREE_NEAR);
-    lpDSTankSinkingFar = DSLoadSoundBuffer(lpDS,boloSounds, IDW_TANK_SINKING_FAR);
+    lpDSTankSinkingNear = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_TANK_SINKING_NEAR);
+    lpDSShootSelf = DSLoadSoundBufferResource(lpDS,boloSounds,IDW_SHOOTING_SELF);
+    lpDSShootNear = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_SHOOTING_NEAR);
+    lpDSShootFar = DSLoadSoundBufferResource(lpDS,boloSounds,IDW_SHOOTING_FAR);
+    lpDSBigExplosionFar = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_BIG_EXPLOSION_FAR);
+    lpDSBigExplosionNear = DSLoadSoundBufferResource(lpDS,boloSounds,IDW_BIG_EXPLOSION_NEAR);
+    lpDSBubbles = DSLoadSoundBufferResource(lpDS,boloSounds,IDW_BUBBLES);
+    lpDSFarmingTreeFar = DSLoadSoundBufferResource(lpDS,boloSounds,IDW_FARMING_TREE_FAR);
+    lpDSFarmingTreeNear = DSLoadSoundBufferResource(lpDS,boloSounds,IDW_FARMING_TREE_NEAR);
+    lpDSHitTankFar = DSLoadSoundBufferResource(lpDS,boloSounds,IDW_HIT_TANK_FAR);
+    lpDSHitTankNear = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_HIT_TANK_NEAR);
+    lpDSHitTankSelf = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_HIT_TANK_SELF);
+    lpDSManBuildingFar = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_MAN_BUILDING_FAR);
+    lpDSManBuildingNear = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_MAN_BUILDING_NEAR);
+    lpDSManDyingFar = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_MAN_DYING_FAR);
+    lpDSManDyingNear = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_MAN_DYING_NEAR);
+    lpDSManLayingMineNear = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_MAN_LAYING_MINE_NEAR);
+    lpDSMineExplosionFar = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_MINE_EXPLOSION_FAR);
+    lpDSMineExplosionNear = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_MINE_EXPLOSION_NEAR);
+    lpDSShotBuildingFar = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_SHOT_BUILDING_FAR);
+    lpDSShotBuildingNear = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_SHOT_BUILDING_NEAR);
+    lpDSShotTreeFar = DSLoadSoundBufferResource(lpDS,boloSounds,IDW_SHOT_TREE_FAR);
+    lpDSShotTreeNear = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_SHOT_TREE_NEAR);
+    lpDSTankSinkingFar = DSLoadSoundBufferResource(lpDS,boloSounds, IDW_TANK_SINKING_FAR);
     
     if (lpDSBigExplosionFar == NULL || lpDSBigExplosionNear == NULL || lpDSBubbles == NULL || lpDSFarmingTreeFar == NULL || lpDSFarmingTreeNear == NULL || lpDSHitTankFar == NULL || lpDSHitTankNear == NULL || lpDSHitTankSelf == NULL || lpDSManBuildingFar == NULL || lpDSManBuildingNear == NULL || lpDSManDyingFar == NULL || lpDSManDyingNear == NULL || lpDSMineExplosionFar == NULL || lpDSMineExplosionNear == NULL || lpDSShootFar == NULL || lpDSShootNear == NULL || lpDSShootSelf == NULL || lpDSShotBuildingFar == NULL || lpDSShotBuildingNear == NULL || lpDSShotTreeFar == NULL || lpDSShotTreeNear == NULL || lpDSTankSinkingFar == NULL || lpDSManLayingMineNear == NULL || lpDSTankSinkingNear == NULL) {
       returnValue = FALSE;

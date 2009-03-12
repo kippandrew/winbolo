@@ -24,9 +24,9 @@
 #include <mmsystem.h>
 #include <dsound.h>
 
-#include "..\..\bolo\global.h"
-#include "..\winbolo.h"
-#include "..\dsutil.h"
+#include "..\bolo\global.h"
+#include "..\gui\winbolo.h"
+#include "..\gui\dsutil.h"
 
 static const char c_szWAV[] = "WAV";
 
@@ -78,7 +78,7 @@ IDirectSoundBuffer *DSLoadSoundBufferResource(IDirectSound *pDS, HMODULE hModule
     bool backgroundSound;  /* Should we be using background sound */
 
 
-    backgroundSound = windowGetBackgroundSound();
+    backgroundSound = TRUE;
 
     if (DSGetWaveResource(hModule, lpName, &dsBD.lpwfxFormat, &pbWaveData, &dsBD.dwBufferBytes))
     {
@@ -279,7 +279,7 @@ BOOL CreateSoundBuffer(IDirectSound *pDS, IDirectSoundBuffer **buff, DWORD dwBuf
     DSBUFFERDESC dsbdesc;
     bool backgroundSound;  /* Should we be using background sound */
 
-    backgroundSound = windowGetBackgroundSound();
+    backgroundSound = TRUE;
 
 
     

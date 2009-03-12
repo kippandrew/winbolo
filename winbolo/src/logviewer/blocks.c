@@ -18,7 +18,7 @@
 #include "global.h"
 #include "memoryblock.h"
 #include "blocks.h"
-#include "/winbolo/src/zlib/unzip.h"
+#include "../zlib/unzip.h"
 
 /* typedef struct blocksObj *blocks;
 
