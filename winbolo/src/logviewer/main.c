@@ -778,8 +778,8 @@ void updateSpeed(BYTE speed, bool updateSlider) {
     timerSleep = 6;
     break;
   case 9:
-    SetDlgItemText(hControlsWnd, IDC_SPEED, "2.5x");
-    timerSleep = 5;
+    SetDlgItemText(hControlsWnd, IDC_SPEED, "Fast");
+    timerSleep = 1;
     break;
   case 1:
   default:
