@@ -714,8 +714,8 @@ void screenProcessLog(unsigned short numEvents) {
     case log_KillPlayer:
       logReadBytes(&opt1, 1);
       logReadBytes(&opt2, 1);
-      playersGetPlayerName(opt1, str);
-      playersGetPlayerName(opt2, mem);
+      playersGetPlayerName(opt1, mem);
+      playersGetPlayerName(opt2, str);
       strcat(str, " just killed player ");
       strcat(str, mem);
       windowAddEvent(0, str);
