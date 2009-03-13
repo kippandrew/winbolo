@@ -877,6 +877,17 @@ void shellsNetExtract(shells *value, pillboxes *pb, BYTE *buff, BYTE dataLen, bo
         utilCalcDistance(&xAdd, &yAdd, tt, SHELL_SPEED);
         xAdd *=2;
         yAdd *=2;
+		// Becuase the pillbox fires from the 'center' of the pill, this doesn't translate perfectly back to the pillbox on the east and south side
+		// so we have to add 1 world coordinate to the distance check, so that it properly determines that the pillbox did indeed fire the shells.
+		// Ultimately this should be fixed by making winbolo fire a pillbox from the turrets of the pillbox, instead of from the 'center' so this is just a 
+		// hack to get the code functioning correctly again. This problem was revealed becuase the new rounding code makes the bullets move 1 world coordinate
+		// more and this moved it just enough that this check no longer works properly.
+		if (xAdd == 64){
+			xAdd++;
+		}
+		if (yAdd == 64){
+			yAdd++;
+		}
         if (pillsExistPos(pb, (BYTE) ((WORLD) (wx-xAdd) >> M_W_SHIFT_SIZE), (BYTE) ((WORLD) (wy-yAdd) >> M_W_SHIFT_SIZE)) == TRUE && pillsDeadPos(pb, (BYTE) ((WORLD) (wx-xAdd) >> M_W_SHIFT_SIZE), (BYTE) ((WORLD) (wy-yAdd) >> M_W_SHIFT_SIZE)) == FALSE) {
           shouldAdd = TRUE;
         }
