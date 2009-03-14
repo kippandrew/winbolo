@@ -1388,6 +1388,7 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
   int yAmount;   /* depending on the speed of the tank */
   int xslideAmount;
   int yslideAmount;
+  int dummy1,dummy2;
   WORLD conv;
   BYTE ang;
   BYTE newbmx;
@@ -1575,15 +1576,20 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
   /* Check for capture base */
   if (isServer == TRUE || netGetType() == netSingle) {
     if (baseIsCapturable(bs, bmx, bmy) == TRUE) {
-      if (basesAmOwner(bs, screenGetTankPlayer(value), bmx, bmy) == FALSE) {
-        basesSetOwner(bs, bmx, bmy, screenGetTankPlayer(value), FALSE);
-        baseNum = basesGetBaseNum(bs, bmx, bmy);
-        netPNBAdd(screenGetNetPnb(), NPNB_BASE_CAPTURE, (BYTE) (baseNum-1), screenGetTankPlayer(value), bmx, bmy, 0);
-        if (threadsGetContext() == FALSE) {
-          frontEndStatusBase(baseNum, (basesGetStatusNum(bs, baseNum)));
-        }
-        screenReCalc();
-      }
+	  /* check for player collisions here. Basically this means, if your colliding with another tank, on the base
+	     sorry, you can't capture it. This is to prevent the bug were both players seem to be taking a base, and it crashes the server
+	  */
+	  if(playersCheckCollision(screenGetPlayers(), screenGetTankPlayer(value), (*value)->x, (*value)->y, &dummy1, &dummy2) == FALSE){
+		  if (basesAmOwner(bs, screenGetTankPlayer(value), bmx, bmy) == FALSE) {
+			basesSetOwner(bs, bmx, bmy, screenGetTankPlayer(value), FALSE);
+			baseNum = basesGetBaseNum(bs, bmx, bmy);
+			netPNBAdd(screenGetNetPnb(), NPNB_BASE_CAPTURE, (BYTE) (baseNum-1), screenGetTankPlayer(value), bmx, bmy, 0);
+			if (threadsGetContext() == FALSE) {
+			  frontEndStatusBase(baseNum, (basesGetStatusNum(bs, baseNum)));
+			}
+			screenReCalc();
+		  }
+	  }
     }
   }
 
