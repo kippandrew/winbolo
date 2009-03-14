@@ -898,6 +898,21 @@ bool playersNeedUpdate(players *plrs, BYTE playerNum);
 
 void playerNeedUpdateDone(players *plrs);
 
+/*********************************************************
+*NAME:          playersCheckSameSquare
+*AUTHOR:        Minhiriath
+*CREATION DATE: 13/3/2009
+*LAST MODIFIED: 13/3/2009
+*PURPOSE:
+* Checks to see if our tank is in the same square as any other tank.
+*
+*ARGUMENTS:
+* plrs - Pointer to the players object 
+* playerNum - The player num to check
+* xValue  - Tank X Map co-ordinate
+* yValue  - Tank Y Map co-ordinate
+*********************************************************/
+bool playersCheckSameSquare(players *plrs, BYTE playerNum, BYTE xValue, BYTE yValue);
 
 /*********************************************************
 *NAME:          playersSetMyLastPlayerName

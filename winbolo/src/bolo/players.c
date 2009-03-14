@@ -2125,6 +2125,53 @@ void playerNeedUpdateDone(players *plrs) {
   }
 }
 
+/*********************************************************
+*NAME:          playersCheckSameSquare
+*AUTHOR:        Minhiriath
+*CREATION DATE: 13/3/2009
+*LAST MODIFIED: 13/3/2009
+*PURPOSE:
+* Checks to see if our tank is in the same square as any other tank.
+*
+*ARGUMENTS:
+* plrs - Pointer to the players object 
+* playerNum - The player num to check
+* xValue  - Tank X Map co-ordinate
+* yValue  - Tank Y Map co-ordinate
+*********************************************************/
+bool playersCheckSameSquare(players *plrs, BYTE playerNum, BYTE xValue, BYTE yValue) {
+  bool returnValue; /* Value to return */
+  bool count;       /* Looping Variable */
+  WORLD conv;   /* Used for conversions */
+  WORLD mx;     /* Tank map offsets */
+  WORLD my;
+  WORLD testX;
+  WORLD testY;
+
+  count = 0;
+  returnValue = FALSE;
+
+  while (returnValue == FALSE && count < MAX_TANKS) {
+    if ((*plrs)->item[count].inUse == TRUE && count != playerNum) {
+      /* Test for collision */
+      conv = (*plrs)->item[count].mapX;
+      conv <<= TANK_SHIFT_MAPSIZE;
+      mx = conv;
+	  
+      conv = (*plrs)->item[count].mapY;
+      conv <<= TANK_SHIFT_MAPSIZE;
+      my = conv;
+
+	  if(xValue == mx && yValue == my)
+	  {
+		  returnValue = TRUE;
+	  }
+    }
+    count++;
+  }
+
+  return returnValue;
+}
 
 /*********************************************************
 *NAME:          playersSetMyLastPlayerName
