@@ -1575,9 +1575,8 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
   /* Check for capture base */
   if (isServer == TRUE || netGetType() == netSingle) {
     if (baseIsCapturable(bs, bmx, bmy) == TRUE) {
-	  /* check for player collisions here. Basically this means, if your colliding with another tank, on the base
-	     sorry, you can't capture it. This is to prevent the bug were both players seem to be taking a base, and it crashes the server
-         ultimately this should be more like 'if there is a tank mostly on this base, another tank can't capture it' or something similiar.
+	  /* This checks to see if another player is detected in this same square, if they are, this base is not capturable. 
+	     having this check prevents the game from swapping bases back and forth between players and crashing the server.
 	  */
 	  if(playersCheckSameSquare(screenGetPlayers(), screenGetTankPlayer(value), bmx, bmy) == FALSE){
 		  if (basesAmOwner(bs, screenGetTankPlayer(value), bmx, bmy) == FALSE) {
