@@ -604,7 +604,9 @@ bool winboloNetIsPlayerParticipant(BYTE playerNum) {
   if (returnValue == TRUE) {
     if (winboloNetPlayerKey[playerNum][0] != EMPTY_CHAR) {
       returnValue = TRUE;
-    }
+    } else {
+	  returnValue = FALSE;
+	}
   }
   return returnValue;
 }
