@@ -29,7 +29,7 @@ if ($size > 0) {
         while ($count < $size) {
                 $game = $games[$count];
                 echo "	<item>\n";
-                echo "		<title>" $game->getMapName() . " - " . $game->prepareIPPortString() . "</title>\n";
+                echo "		<title>" . $game->getMapName() . " - " . $game->prepareIPPortString() . "</title>\n";
                 $game->writeRssEntryGamesCurrent();
                 echo "		<link>winbolo://" . $game->prepareIPPortString() . "</link>\n";
                 echo "	</item>\n";
