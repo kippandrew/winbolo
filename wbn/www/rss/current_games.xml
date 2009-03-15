@@ -32,6 +32,7 @@ if ($size > 0) {
                 echo "		<title>" . $game->getMapName() . " - " . $game->prepareIPPortString() . "</title>\n";
                 $game->writeRssEntryGamesCurrent();
                 echo "		<link>winbolo://" . $game->prepareIPPortString() . "</link>\n";
+                echo "		<pubDate>" . date(DATE_RFC822) . "</pubDate>\n";
                 echo "	</item>\n";
                 $count++;
         }
