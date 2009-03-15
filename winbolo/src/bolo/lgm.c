@@ -1214,20 +1214,19 @@ bool lgmOnScreen(lgm *lgman, BYTE leftPos, BYTE rightPos, BYTE top, BYTE bottom)
 void lgmGetScreenCoords(lgm *lgman, BYTE leftPos, BYTE topPos, BYTE *mx, BYTE *my, BYTE *px, BYTE *py, BYTE *frame) {
   WORLD conv; /* Used for Bit shifting */
 
-
   if ((*lgman)->isDead == TRUE) {
     *frame = LGM_HELICOPTER_FRAME;
-    conv = (*lgman)->x - MAP_SQUARE_MIDDLE;
+    conv = (*lgman)->x-MAP_SQUARE_MIDDLE;
     conv >>= TANK_SHIFT_MAPSIZE;
     *mx = (BYTE) conv - leftPos;
-    conv = (*lgman)->y - MAP_SQUARE_MIDDLE;
+    conv = (*lgman)->y-MAP_SQUARE_MIDDLE;
     conv >>= TANK_SHIFT_MAPSIZE;
     *my = (BYTE) conv - topPos;
-    conv = (*lgman)->x -MAP_SQUARE_MIDDLE ;
+    conv = (*lgman)->x-MAP_SQUARE_MIDDLE;
     conv <<= TANK_SHIFT_MAPSIZE;
     conv >>= TANK_SHIFT_PIXELSIZE;
     *px = (BYTE) conv;
-    conv = (*lgman)->y -MAP_SQUARE_MIDDLE;
+    conv = (*lgman)->y-MAP_SQUARE_MIDDLE;
     conv <<= TANK_SHIFT_MAPSIZE;
     conv >>= TANK_SHIFT_PIXELSIZE;
     *py = (BYTE) conv;
@@ -1365,6 +1364,7 @@ void lgmDeathCheck(lgm *lgman, map *mp, pillboxes *pb, bases *bs, WORLD wx, WORL
         (*lgman)->destX = (*lgman)->x;
         (*lgman)->destY = (*lgman)->y;
       }
+	  
       screenGetRandStart(&lgmX, &lgmY, &dummy);
       (*lgman)->x = lgmX;
       (*lgman)->x <<= TANK_SHIFT_MAPSIZE;
