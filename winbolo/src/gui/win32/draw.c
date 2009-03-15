@@ -723,7 +723,7 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
   }
   
   
-  else if (tankGetDeathWait(tank) != 0 && ((tankGetLastTankDeath(tank) == LAST_DEATH_BY_DEEPSEA && tankGetDeathWait(tank) < STATIC_ON_TICKS_DEEPSEA) || (tankGetLastTankDeath(tank) == LAST_DEATH_BY_SHELL && tankGetDeathWait(tank) < STATIC_ON_TICKS_SHELL) || (tankGetLastTankDeath(tank) == LAST_DEATH_BY_MINES && tankGetDeathWait(tank) < STATIC_ON_TICKS_MINES))) { /* added third test for death by mines */
+  else if (isPillView == FALSE && tankGetDeathWait(tank) != 0 && ((tankGetLastTankDeath(tank) == LAST_DEATH_BY_DEEPSEA && tankGetDeathWait(tank) < STATIC_ON_TICKS_DEEPSEA) || (tankGetLastTankDeath(tank) == LAST_DEATH_BY_SHELL && tankGetDeathWait(tank) < STATIC_ON_TICKS_SHELL) || (tankGetLastTankDeath(tank) == LAST_DEATH_BY_MINES && tankGetDeathWait(tank) < STATIC_ON_TICKS_MINES))) { /* added third test for death by mines */
 	  /* Tank died and is waiting to respawn, throw some static on the screen */ 
     if (tankGetDeathWait(tank) != staticLast) {
       staticLast = (*tank)->deathWait;
