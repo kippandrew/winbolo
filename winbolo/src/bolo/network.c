@@ -241,7 +241,9 @@ void netDestroy(void) {
 #else 
     gtk_widget_destroy(dlgAllianceWnd);
 #endif
-    dlgAllianceWnd = NULL;
+	if(windowDestroyed == TRUE){
+      dlgAllianceWnd = NULL;
+	}
   }
   if (networkGameType == netUdp) {
     inNetShutdown = TRUE;

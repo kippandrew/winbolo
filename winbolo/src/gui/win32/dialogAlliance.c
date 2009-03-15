@@ -65,6 +65,7 @@ BOOL CALLBACK dialogAllianceCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, L
       break;
     case IDCANCEL:
       ShowWindow(hWnd, FALSE);
+	  return TRUE;
       break;
     }
     break;
