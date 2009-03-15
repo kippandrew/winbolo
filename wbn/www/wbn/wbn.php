@@ -514,6 +514,9 @@ function processServerKeyRequest($data) {
 	$mapName = mysql_escape_string($mapName);
 	$ipAddress = $ip;
 	$ip = gethostbyaddr($ip);
+	if (gethostbyname($ip)!=$ipAddress){
+		$ip = $ipAddress;
+	}
 	# Fix for west
 	if ($ip == "gatekeeper.nt4.com") {
 		$ip = "west.winbolo.com";
