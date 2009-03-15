@@ -234,13 +234,13 @@ function prepareIPPortString() {
 
 function writeRssEntryGamesCurrent() {
 	echo "			<description>\n";
-	echo "Type:    " . $this->getGameType() . "<br/>";
+	echo "Type:    " . $this->getGameType() . "&lt;br&gt;";
 	if ($this->getLocked() == true) {
-		echo "Locked:  " . "Yes" ."<br/>";	
+		echo "Locked:  " . "Yes" ."&lt;br&gt;";	
 	} else if ($this->getLocked() == false) {
-		echo "Locked:  " . "No" . "<br/>";
+		echo "Locked:  " . "No" . "&lt;br&gt;";
 	}
-	echo "Version: " . $this->getVersion() . "<br/>";
+	echo "Version: " . $this->getVersion() . "&lt;br&gt;";
 	echo "Players: ";
 	$players = $this->getPlayers();
 	$playersCount = 0;
@@ -258,9 +258,9 @@ function writeRssEntryGamesCurrent() {
 		}
 	}
 	#Close up the players list
-	echo "<br/>";
-	echo "Neutral Bases: " . $this->getNumFreeBases() . "<br/>";
-	echo "Neutral Pills: " . $this->getNumFreePills() . "<br/>";
+	echo "&lt;br&gt;";
+	echo "Neutral Bases: " . $this->getNumFreeBases() . "&lt;br&gt;";
+	echo "Neutral Pills: " . $this->getNumFreePills() . "&lt;br&gt;";
 	echo "			</description>\n";
 }
 
