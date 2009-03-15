@@ -87,6 +87,7 @@ lgm lgmCreate(BYTE playerNum) {
   lgman->waitTime = 0;
   lgman->blessX = 0;
   lgman->blessY = 0;
+  lgman->onTop = 0;
   lgman->obstructed = 0;
 
   return lgman;
@@ -125,10 +126,25 @@ void lgmDestroy(lgm *value) {
 *  tnk    - Pointer to the tank structure
 *********************************************************/
 void lgmUpdate(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
+  BYTE pos = 0;
+  BYTE mx,my= 0;
   if (netGetType() == netSingle || threadsGetContext() == TRUE) {
     if ((*lgman)->isDead == TRUE) {
       /* Man is parachuting in */
       lgmParchutingIn(lgman);
+	  /* check to see if lgm will land ontop of a building/pillbox/or base */
+	  mx = lgmGetMX(lgman);
+	  my = lgmGetMY(lgman);
+	  pos = mapGetPos(mp, mx, my);
+      if (pos == BUILDING || pos == HALFBUILDING || pillsExistPos(pb, mx, my) == TRUE || basesExistPos(bs, mx, my) == TRUE) {
+		  (*lgman)->onTop = TRUE;
+		  // if base is owned by player, then, we're not ontop.
+		  if(basesAmOwner(bs,(*lgman)->playerNum, mx, my)==TRUE){
+			(*lgman)->onTop = FALSE;
+		  }
+	  } else {
+		  (*lgman)->onTop = FALSE;
+	  }
     } else if ((*lgman)->state != LGM_STATE_IDLE) {
       /* Man is out and about doing stuff */
       /* Update frame */
@@ -727,6 +743,9 @@ void lgmReturn(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
   WORLD newmy;
   BYTE newbmx;
   BYTE newbmy;
+  BYTE newTerrainX=0,newTerrainY=0,currentTerrain=0;
+  BYTE onTopEdgeX=0,onTopEdgeY=0;
+  bool sameTerrainTypeX = FALSE,sameTerrainTypeY = FALSE;
   int xAdd;       /* Add amounts */
   int yAdd;
   bool onBoat;    /* Is the tank on a boat */
@@ -790,6 +809,93 @@ void lgmReturn(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
   if (((*lgman)->x >> TANK_SHIFT_MAPSIZE) != (*lgman)->blessX || ((*lgman)->y >> TANK_SHIFT_MAPSIZE) != (*lgman)->blessY) {
     (*lgman)->blessX = 0;
     (*lgman)->blessY = 0;
+  }
+
+  if((*lgman)->onTop == TRUE){
+	/*
+	  ok we landed ontop of a obstruction, so, we're going to keep moving get speed, calculate movement.
+	*/
+    speed = 6;
+	utilCalcDistance(&xAdd, &yAdd, angle, speed);
+	/* once this algorithm is completed, the below edge numbers need to be defined instead of magic */
+	onTopEdgeX = 0;
+	onTopEdgeY = 0;
+    newmx = (WORLD) ((*lgman)->x + xAdd + onTopEdgeX); /* ontopedge x and y are to give an 'edge' to the obstruction */
+    newmy = (WORLD) ((*lgman)->y + yAdd + onTopEdgeY); 
+
+    newmx >>= TANK_SHIFT_MAPSIZE;
+    newmy >>= TANK_SHIFT_MAPSIZE;
+    newbmx = (BYTE) newmx;
+    newbmy = (BYTE) newmy;
+    /*
+	  ok here we're going to have to check for edges, if we see the edge of the obstruction, we have to stop
+	  this is so we don't go outside of the obstruction
+
+      we have to check for edges on the x sides, and the y sides. edges will be determined by weither the terrain next to us
+	  is a obstructed object also, if it is, we will run over onto it also, this will allow us to run around ontop
+	  of blocks of pills, or bases, so we have to check for any pillbox, enemy bases, and buildings or half buildings.
+	
+	  so, we will need to know first how close we are to the edge, if we're within a certain number of world coordinates to the 
+	  edge of the tile we're on, do a check for a tile we can run onto in the neighbouring area.
+	*/
+	/* detect the terrain types, don't check diagonal squares. becuase the lgm can't run ontop of diagonal squares */
+	currentTerrain = mapGetPos(mp,bmx,bmy);
+	newTerrainX = mapGetPos(mp,newbmx,bmy);
+   	newTerrainY = mapGetPos(mp,bmx,newbmy);
+
+    if (currentTerrain == BUILDING||currentTerrain == HALFBUILDING){
+		if (newTerrainX == BUILDING||newTerrainX == HALFBUILDING){
+			sameTerrainTypeX = TRUE;
+		}
+		if (newTerrainY == BUILDING||newTerrainY == HALFBUILDING){
+			sameTerrainTypeY = TRUE;
+		}
+	} else {
+		/* do the check to see if pills/bases are beside each other, to allow the lgm to run around ontop of pills or bases.
+		   if pills exist in the current location, then check to see if the new location is also a pill, if it is, you can go onto it.
+		*/
+		if (pillsExistPos(pb, bmx, bmy) == TRUE){
+			if (pillsExistPos(pb, newbmx, bmy) == TRUE){
+				sameTerrainTypeX = TRUE;
+			}
+			if (pillsExistPos(pb, bmx, newbmy) == TRUE){
+				sameTerrainTypeY = TRUE;
+			}
+		} else {
+			/* bases will be a bit more complicated, I will have to check for base ownership.
+			   can't have tbe lgm running over onto a based owned by the player.
+			*/
+			if (basesExistPos(bs, bmx, bmy) == TRUE)
+			{
+				if (basesExistPos(bs, newbmx, bmy) == TRUE){
+					if(basesAmOwner(bs,(*lgman)->playerNum, newbmx, bmy)==TRUE){
+					  sameTerrainTypeX = FALSE;
+					} else {
+  					  sameTerrainTypeX = TRUE;
+					}
+				}
+				if (basesExistPos(bs, bmx, newbmy) == TRUE){
+					if(basesAmOwner(bs,(*lgman)->playerNum, bmx, newbmy)==TRUE){
+					  sameTerrainTypeY = FALSE;
+					} else {
+					  sameTerrainTypeY = TRUE;
+					}
+				}
+			} else {
+			  /* must not be ontop of a building anymore, since its failed all the checks, onTop = false*/
+			  (*lgman)->onTop = FALSE;
+			}
+		} 
+	}
+	// if the lgm's old mapx coordinate is still the same, then we can add xAdd and yAdd to the lgm's coordinates)
+	// ok so the below works, now we need to modify it, to allow us to run onto tiles that are next to us.
+	if (bmx == newbmx||sameTerrainTypeX == TRUE){
+	  (*lgman)->x = (WORLD) ((*lgman)->x + xAdd);
+	}
+	if (bmy == newbmy||sameTerrainTypeY == TRUE){
+	  (*lgman)->y = (WORLD) ((*lgman)->y + yAdd);
+	}
+	speed = 0;
   }
 
   /* Check for achieved goal */
@@ -1253,6 +1359,7 @@ void lgmDeathCheck(lgm *lgman, map *mp, pillboxes *pb, bases *bs, WORLD wx, WORL
         screenReCalc();
       }
       screenGetTankWorldFromLgm(lgman, &((*lgman)->destX), &((*lgman)->destY));
+      
       /* Check for tank in mines (i.e. dead) send builder back to spoke it died*/
       if ((*lgman)->destX <= ((MAP_MINE_EDGE_LEFT+1) << 8) || (*lgman)->destX >= ((MAP_MINE_EDGE_RIGHT-1) << 8) || (*lgman)->destY <= ((MAP_MINE_EDGE_TOP+1) << 8) || (*lgman)->destY >= ((MAP_MINE_EDGE_BOTTOM-1) << 8)) {
         (*lgman)->destX = (*lgman)->x;
@@ -1313,7 +1420,7 @@ void lgmParchutingIn(lgm *lgman) {
     if (threadsGetContext() == TRUE) {
       netPNBAdd(screenGetNetPnb(), NPNB_LGM_DEAD, TRUE, (*lgman)->playerNum, 0, 0, 0);
     }
-
+   
     (*lgman)->isDead = FALSE;
     (*lgman)->state = LGM_STATE_RETURN;
     (*lgman)->frame = 0;
@@ -1725,6 +1832,7 @@ void lgmNetBackInTank(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk, 
   (*lgman)->action = LGM_IDLE;
   (*lgman)->blessX = 0;
   (*lgman)->blessY = 0;
+  (*lgman)->onTop = 0;
   (*lgman)->numPills = pillNum;
   (*lgman)->numTrees = numTrees;
   (*lgman)->numMines = numMines;

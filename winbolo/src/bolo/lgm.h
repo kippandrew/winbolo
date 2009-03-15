@@ -115,6 +115,7 @@ struct lgmObj {
   BYTE frame;      /* Animation frame */
   bool blessX;     /* The lgm blessed X map square (can travel over it) */
   bool blessY;     /* The lgm blessed X map square (can travel over it) */
+  bool onTop;      /* did the lgm land ontop of a building/base/orpillbox? from a parachute?*/
   BYTE obstructed; /* For brain - 0 = free, 1 = touching wall, 2 = completely stuck */
   BYTE playerNum;  /* Our player Number */
 };
