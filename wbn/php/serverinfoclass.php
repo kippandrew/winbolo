@@ -234,16 +234,33 @@ function prepareIPPortString() {
 
 function writeRssEntryGamesCurrent() {
 	echo "			<description>\n";
-	echo "Type:    " . $this->getGameType() . "\n";
+	echo "Type:    " . $this->getGameType() . "<br>";
 	if ($this->getLocked() == true) {
-		echo "Locked:  " . "Yes" ."\n";	
+		echo "Locked:  " . "Yes" ."<br>";	
 	} else if ($this->getLocked() == false) {
-		echo "Locked:  " . "No" . "\n";
+		echo "Locked:  " . "No" . "<br>";
 	}
-	echo "Version: " . $this->getVersion() . "\n";
-	echo "Players: " . $this->getPlayers() . "\n";	
-	echo "Neutral Bases: " . $this->getNumFreeBases() . "\n";
-	echo "Neutral Pills: " . $this->getNumFreePills() . "\n";
+	echo "Version: " . $this->getVersion() . "<br>";
+	echo "Players: ";
+	$players = $this->getPlayers();
+	$playersCount = 0;
+	if (sizeof($players) > 0) {
+		while ($playersCount < sizeof($players)) {
+			if ($playersCount != 0) {
+				echo ", ";
+			}
+			#echo "<A href=\"playerinfo.php?name=" . urlencode($players[$playersCount]) . "\">" . $players[$playersCount] . "</A>";
+			echo urlencode($players[$playersCount])
+			$playersCount++;
+		}
+		if (sizeof($players) != $info->getNumPlayers() && ($info->getNumPlayers() - sizeof($players) > 0)) {
+			echo " + " . ($info->getNumPlayers() - sizeof($players)) . " non WinBolo.net participants";
+		}
+	}
+	#Close up the players list
+	echo "<br>";
+	echo "Neutral Bases: " . $this->getNumFreeBases() . "<br>";
+	echo "Neutral Pills: " . $this->getNumFreePills() . "<br>";
 	echo "			</description>\n";
 }
 
