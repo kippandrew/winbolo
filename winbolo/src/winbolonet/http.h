@@ -163,4 +163,6 @@ int httpRecvData(SOCKET sock, BYTE *buff, int maxSize);
 *********************************************************/
 int httpSendMessage(BYTE *message, int len, BYTE *response, int maxSize);
 
+void setAltIpAddress(char *iptoset);
+
 #endif /* __HTTP_H */

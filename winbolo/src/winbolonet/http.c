@@ -43,6 +43,7 @@
 #endif
 #include "../bolo/global.h"
 #include "winbolonet.h"
+#include "../server/servertransport.h"
 #include "http.h"
 
 bool httpStarted = FALSE; /* Is the http subsystem operational */
@@ -50,6 +51,26 @@ struct sockaddr_in httpAddrServer; /* Winbolo.net Server address */
 char wbnHostString[FILENAME_MAX]; /* Preference for name */
 char hostString[FILENAME_MAX]; /* Host String Name Host: wbnHostString */
 int hostStringLen; /* Length of hostString */
+char altIpAddress[FILENAME_MAX];
+
+static unsigned long getaddrbyany(char *sp_name)  {               
+  struct hostent *sp_he;
+  int i; 
+
+  if(isdigit(*sp_name))
+    return inet_addr(sp_name);
+  for(i=0;i<100;i++) {                       
+    sp_he = gethostbyname(sp_name);
+    if(!(sp_he)) {
+      Sleep(1);
+     if(i>=3) {
+       return(0);
+     }
+   } else break;   
+  }
+
+  return sp_he ? *(long*)*sp_he->h_addr_list : 0;
+}   
 
 /*********************************************************
 *NAME:          httpCreate
@@ -340,17 +361,38 @@ int httpSendMessage(BYTE *message, int len, BYTE *response, int maxSize) {
   int returnValue =-1; /* Value to return */
   int ret;             /* Function return value */ 
   SOCKET sock;         /* Socket used     */
+  struct sockaddr_in ourAddress; /*This structure is to allow us to bind an ip to the socket */
+  unsigned long addressToBind; /*This is the address we're going to bind, this is the address winbolo.net will show */
 
   if (httpStarted == TRUE) {
+	ourAddress.sin_family = AF_INET;
+	ourAddress.sin_port = 0; /*setting this to zero should have it just grab a ephemeral port*/
+	ourAddress.sin_addr.s_addr = INADDR_ANY; /* grabs the ip from the default interface */
+	/* 
+	  This is were we test for an -addr and then put it into the above variable, havn't coded this yet.
+	*/
+	if(strlen(altIpAddress)>1){
+		addressToBind = getaddrbyany(altIpAddress);
+		if(addressToBind>0){
+			ourAddress.sin_addr.s_addr = addressToBind;
+		}
+	}
     sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     returnValue = TRUE;
     if (sock <= 0) {
       returnValue = -1;
     } else {
-      ret = connect(sock, (struct sockaddr *) &httpAddrServer, sizeof(httpAddrServer));
-      if (ret == SOCKET_ERROR) {
-        returnValue = FALSE;
-      }
+	  /* bind the socket here, so that it will use the IP address we've set in the above code when it connects to winbolo.net*/
+      ret = bind(sock,(struct sockaddr*)&ourAddress,sizeof(ourAddress));
+	  if(ret < 0) {
+	    returnValue = -1;
+	  } else {
+		ret = 0;
+	    ret = connect(sock, (struct sockaddr *) &httpAddrServer, sizeof(httpAddrServer));
+        if (ret == SOCKET_ERROR) {
+          returnValue = FALSE;
+		}
+	  }
     }
 
     if (returnValue == TRUE) {
@@ -485,3 +527,8 @@ bool httpSendLogFile(char *fileName, BYTE *key, bool wantFeedback) {
   }
   return FALSE;
 }
+
+void setAltIpAddress(char *iptoset){
+	strcpy(altIpAddress,iptoset);
+}
+

@@ -713,6 +713,7 @@ int main(int argc, char **argv) {
   useAddr = NULL;
   if (argExist(argc, argv, "addr") == TRUE) {
     useAddr = (char *) argv[findArg(argc, argv, "addr")];
+	setAltIpAddress(useAddr);
   }
 
   quitOnWinFlag = argExist(argc,argv, "quitonwin");
