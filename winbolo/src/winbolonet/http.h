@@ -163,6 +163,17 @@ int httpRecvData(SOCKET sock, BYTE *buff, int maxSize);
 *********************************************************/
 int httpSendMessage(BYTE *message, int len, BYTE *response, int maxSize);
 
-void setAltIpAddress(char *iptoset);
+/*********************************************************
+*NAME:          httpSetAltIpAddress
+*AUTHOR:        Minhiriath	
+*CREATION DATE: 14/3/2009
+*LAST MODIFIED: 14/3/2009
+*PURPOSE:
+* This function sets the alternate ip address to use on multi-ip servers.
+*
+*ARGUMENTS:
+* iptoset - the alternate ip address to use.
+*********************************************************/
+void httpSetAltIpAddress(char *iptoset);
 
 #endif /* __HTTP_H */

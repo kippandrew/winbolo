@@ -711,9 +711,10 @@ int main(int argc, char **argv) {
     }
   }
   useAddr = NULL;
+  httpSetAltIpAddress("");
   if (argExist(argc, argv, "addr") == TRUE) {
     useAddr = (char *) argv[findArg(argc, argv, "addr")];
-	setAltIpAddress(useAddr);
+	httpSetAltIpAddress(useAddr);
   }
 
   quitOnWinFlag = argExist(argc,argv, "quitonwin");

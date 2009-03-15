@@ -362,7 +362,8 @@ int httpSendMessage(BYTE *message, int len, BYTE *response, int maxSize) {
   int ret;             /* Function return value */ 
   SOCKET sock;         /* Socket used     */
   struct sockaddr_in ourAddress; /*This structure is to allow us to bind an ip to the socket */
-  unsigned long addressToBind; /*This is the address we're going to bind, this is the address winbolo.net will show */
+  static unsigned long addressToBind=0; /*This is the address we're going to bind, this is the address winbolo.net will show */
+  
 
   if (httpStarted == TRUE) {
 	ourAddress.sin_family = AF_INET;
@@ -372,7 +373,9 @@ int httpSendMessage(BYTE *message, int len, BYTE *response, int maxSize) {
 	  This is were we test for an -addr and then put it into the above variable, havn't coded this yet.
 	*/
 	if(strlen(altIpAddress)>1){
-		addressToBind = getaddrbyany(altIpAddress);
+		if(addressToBind==0){
+			addressToBind = getaddrbyany(altIpAddress);
+		}
 		if(addressToBind>0){
 			ourAddress.sin_addr.s_addr = addressToBind;
 		}
@@ -528,7 +531,18 @@ bool httpSendLogFile(char *fileName, BYTE *key, bool wantFeedback) {
   return FALSE;
 }
 
-void setAltIpAddress(char *iptoset){
+/*********************************************************
+*NAME:          httpSetAltIpAddress
+*AUTHOR:        Minhiriath	
+*CREATION DATE: 14/3/2009
+*LAST MODIFIED: 14/3/2009
+*PURPOSE:
+* This function sets the alternate ip address to use on multi-ip servers.
+*
+*ARGUMENTS:
+* iptoset - the alternate ip address to use.
+*********************************************************/
+void httpSetAltIpAddress(char *iptoset){
 	strcpy(altIpAddress,iptoset);
 }
 
