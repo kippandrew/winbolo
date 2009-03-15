@@ -2392,7 +2392,7 @@ void tankCheckGroundClear(tank *value, map *mp, pillboxes *pb, bases *bs) {
       tankRegisterChangeByte(value, CRC_OBSTRUCTED_OFFSET, TRUE);
       needFix = TRUE;
     } else {
-      return;
+      //return;
     }
   }
 
