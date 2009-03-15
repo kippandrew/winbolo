@@ -54,7 +54,7 @@
 /* Password in netgames */
 char netPassword[MAP_STR_SIZE];
 // holder for random string
-char rmsg[256];
+char rmsg[5][256];
 aiType allowAi;
 bool netUseTracker; /* Do we use the tracker or not */
 bool serverLock;    /* Is the game locked by server? */
@@ -180,6 +180,7 @@ void serverNetUDPPacketArrive(BYTE *buff, int len, unsigned long addr, unsigned 
   static BYTE crcA;  /* First CRC Byte */
   static BYTE crcB;  /* Second CRC Byte */
   static BYTE sequenceNumber; /* Sequence number */
+  static int rmsgCounter=0;
   udpPackets udpp;
   char *ip; /* Variable 'addr' in character form */
   struct sockaddr_in infoPacketAddress; /* Address in octet format */
@@ -346,13 +347,16 @@ void serverNetUDPPacketArrive(BYTE *buff, int len, unsigned long addr, unsigned 
 			  bdRandomBits(randommessage, 512);
 		  	  //pr_msg("random=\n", randommessage);
 			  // convert the message over to a hexidecimal string
-			  bdConvToHex(randommessage, rmsg, 128);
+			  bdConvToHex(randommessage, rmsg[rmsgCounter], 128);
 			  bdFree(&randommessage);
-			  strcpy(rsap.rsa,rmsg);
+			  strcpy(rsap.rsa,rmsg[rmsgCounter]);
 			  memcpy(info,&rsap,sizeof(rsap));
 			  // send the random hex string off to the client
 			  serverTransportSendUDPLast(info, sizeof(rsap), TRUE);
-		
+			  rmsgCounter++;
+			  if(rmsgCounter == 6){
+				  rmsgCounter = 0;
+			  }
             } else if (len == sizeof(PASSWORD_PACKET) && buff[BOLOPACKET_REQUEST_TYPEPOS] == BOLOPACKET_PASSWORDCHECK) { 
              /* Password check packet */
 			  PASSWORD_PACKET pp;
@@ -712,6 +716,8 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
   BYTE ip2;
   BYTE ip3;
   BYTE ip4;
+  bool rsaMatchs = FALSE;
+  int counter = 0;
   
   memset(rsadecryptedholder, 0, RSA_DATA_SIZE);
   /* Check Name not in use */
@@ -754,8 +760,13 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
 //	below is commented out debugging code stuff for the rsa code.
 //  printf("rmsg: %s \r\n", rmsg);
 //  printf("decrypted: %s \r\n", rsadecryptedholder);
-
-  if (strcmp(rsadecryptedholder, rmsg) != 0) {
+	while (counter <= 5){
+		if(strcmp(rsadecryptedholder, rmsg[counter]) == 0){
+			rsaMatchs = TRUE;
+		}
+		counter++;
+	}
+  if (rsaMatchs == FALSE) {
     /* randomstring doesn't match so, disconnect them*/
 	/* Name in use  - Just send back a incorrect packet */
 	serverNetMakePacketHeader(&(rsap.h), BOLOPACKET_RSAFAIL);
