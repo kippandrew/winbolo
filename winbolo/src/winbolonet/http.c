@@ -61,8 +61,12 @@ static unsigned long getaddrbyany(char *sp_name)  {
     return inet_addr(sp_name);
   for(i=0;i<100;i++) {                       
     sp_he = gethostbyname(sp_name);
-    if(!(sp_he)) {
+    if(!(sp_he)) {		
+#ifdef _WIN32
       Sleep(1);
+#else
+      sleep(1);
+#endif
      if(i>=3) {
        return(0);
      }
