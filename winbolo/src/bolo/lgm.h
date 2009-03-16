@@ -81,8 +81,11 @@
 #define LGM_MAX_GOAL 16
 
 /* Min and Max distance away from return to the tank goal */
-#define LGM_RETURN_MIN_GOAL (-16 * 5)
-#define LGM_RETURN_MAX_GOAL (16 * 5)
+/* currently these are set to 16 * 5 which is about 80 world coordinates.
+   however, the lgm should be able to return to the tank, from the tanks perimeter, so, we're changing this to 8
+*/
+#define LGM_RETURN_MIN_GOAL (-16 * 8)
+#define LGM_RETURN_MAX_GOAL (16 * 8)
 
 /* The LGM's Brain State */
 #define LGM_BRAIN_INTANK 0
