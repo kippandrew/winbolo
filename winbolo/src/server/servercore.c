@@ -752,7 +752,9 @@ void serverCoreSetPosData(BYTE *buff) {
           tankSetArmour(&tk[playerNum], TANK_FULL_ARMOUR+1);
         }
       }
-      tankSetLocationData(&tk[playerNum], wx, wy, ang, st, onBoat);
+	  if(tankGetDeathWait(&tk[playerNum])==0){
+	    tankSetLocationData(&tk[playerNum], wx, wy, ang, st, onBoat);
+	  }
     }
     playersUpdate(&splrs, playerNum, mx, my, px, py, frame, onBoat, lgmMX, lgmMY, lgmPX, lgmPY, lgmFrame);
   }
