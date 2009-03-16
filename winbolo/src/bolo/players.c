@@ -318,7 +318,7 @@ void playersSetPlayer(players *plrs, BYTE playerNum, char *playerName, char *loc
       frontEndStatusTank((BYTE) (playerNum+1), playersScreenAllience(plrs, playerNum));
     }
   }
-  windowRedrawAll();
+  drawShouldWindowRedrawAll();
 } 
 
 

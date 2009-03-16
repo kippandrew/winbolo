@@ -1112,6 +1112,21 @@ void clientPillsMigratePlanted(BYTE playerNumOldOwner, BYTE playerNumNewOwner) {
 }
 
 /*********************************************************
+*NAME:          drawShouldWindowRedrawAll
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+* fake function for server.
+*
+*ARGUMENTS:
+*
+*********************************************************/
+void drawShouldWindowRedrawAll(void){
+  // do nothing here, since the server doesn't need to redraw anything.
+}
+
+/*********************************************************
 *NAME:          clientGetBuildings
 *AUTHOR:        John Morrison
 *CREATION DATE: 04/10/03

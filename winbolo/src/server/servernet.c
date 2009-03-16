@@ -51,10 +51,11 @@
 #include "servernet.h"
 #include "rsaalgorithm.h"
 
+#define RSA_RANDOMMESSAGENUMBER 5
 /* Password in netgames */
 char netPassword[MAP_STR_SIZE];
 // holder for random string
-char rmsg[5][256];
+char rmsg[RSA_RANDOMMESSAGENUMBER][256];
 aiType allowAi;
 bool netUseTracker; /* Do we use the tracker or not */
 bool serverLock;    /* Is the game locked by server? */
@@ -88,6 +89,7 @@ int lzwencoding(char *src, char *dest, int len);
 bool serverNetCreate(unsigned short myPort, char *password, aiType ai, char *trackerAddr, unsigned short trackerPort, bool useTracker, char *useAddr, BYTE maxPlayers) {
   bool returnValue; /* Value to return */
   time_t startTime; /* Start Time if we created the game */
+  int counter=0;
 
   returnValue = TRUE;
   snMaxPlayers = maxPlayers;
@@ -100,6 +102,10 @@ bool serverNetCreate(unsigned short myPort, char *password, aiType ai, char *tra
   netPlayersCreate(&np);
   allowAi = ai;
   serverLock = FALSE;
+
+  for(counter =0;counter<=RSA_RANDOMMESSAGENUMBER;counter++){
+    strcpy(rmsg[counter], "");
+  }
 
   returnValue = serverTransportCreate(myPort, useAddr);
   if (returnValue == TRUE) {
@@ -354,7 +360,7 @@ void serverNetUDPPacketArrive(BYTE *buff, int len, unsigned long addr, unsigned 
 			  // send the random hex string off to the client
 			  serverTransportSendUDPLast(info, sizeof(rsap), TRUE);
 			  rmsgCounter++;
-			  if(rmsgCounter == 6){
+			  if(rmsgCounter == RSA_RANDOMMESSAGENUMBER+1){
 				  rmsgCounter = 0;
 			  }
             } else if (len == sizeof(PASSWORD_PACKET) && buff[BOLOPACKET_REQUEST_TYPEPOS] == BOLOPACKET_PASSWORDCHECK) { 

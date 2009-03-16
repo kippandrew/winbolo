@@ -243,12 +243,12 @@ void tankUpdate(tank *value, map *mp, bases *bs, pillboxes *pb, shells *shs, sta
     tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, (*value)->deathWait);
     if ((*value)->deathWait == 0) {
       (*value)->newTank = TRUE;
-      tankRegisterChangeByte(value, CRC_NEWTANK_OFFSET, TRUE);
+	  tankRegisterChangeByte(value, CRC_NEWTANK_OFFSET, TRUE);
     }
   } else if ((*value)->armour > TANK_FULL_ARMOUR) {
 	/* Tank just took enough damage to die */
     if (screenGetInStartFind() == FALSE) {
-      tankDeath(value, sts);
+	  tankDeath(value, sts);
     }
   } else if ((*value)->onBoat == FALSE && (mapGetPos(mp,bmx, bmy)) == DEEP_SEA && threadsGetContext() == FALSE) {
     /* Check for death by drowning */

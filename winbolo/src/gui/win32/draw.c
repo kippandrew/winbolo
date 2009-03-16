@@ -73,6 +73,7 @@ DWORD	g_dwFrameCount = 0;
 /* The total frames per second for last second */
 DWORD g_dwFrameTotal = 0;
 
+bool shouldWindowRedrawAll = FALSE;
 
 int drawPosX[255];
 int drawPosY[255];
@@ -897,6 +898,10 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
     drawPillInView();
   }
 
+  if (shouldWindowRedrawAll == TRUE){
+    windowRedrawAll();
+	shouldWindowRedrawAll = FALSE;
+  }
 
   if (netGetStatus() == netFailed) {
     drawNetFailed();
@@ -3597,7 +3602,9 @@ void drawMainScreenBlack(RECT *rcWindow) {
   lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, rcWindow, lpDDSBackBuffer, &output, DDBLT_WAIT, NULL);
 }
 
-
+void drawShouldWindowRedrawAll(void){
+	shouldWindowRedrawAll = TRUE;
+}
 
 /*********************************************************
 *NAME:          drawSetupArrays

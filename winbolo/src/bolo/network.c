@@ -1117,9 +1117,9 @@ bool netJoinFinalise(char *targetip, unsigned short port, bool wantRejoin, char 
 		  returnValue = FALSE;
 		  if (buffLen == sizeof(RSA_PACKET) + BOLO_PACKET_CRC_SIZE && buff[BOLOPACKET_REQUEST_TYPEPOS] == BOLOPACKET_RSAFAIL) {
 			  #ifdef _WIN32
-			  MessageBox(NULL, "The version of WinBolo you are running does not appear to be using a authorised set of RSA keys. To play on official servers you are required to use the correct client", DIALOG_BOX_TITLE, MB_OK);
+			  MessageBox(NULL, "The version of WinBolo you are running does not appear to be using an authorised set of RSA keys. To play on official servers you are required to use the correct client", DIALOG_BOX_TITLE, MB_OK);
 			  #else
-			  MessageBox("The version of WinBolo you are running does not appear to be using a authorised set of RSA keys. To play on official servers you are required to use the correct client", DIALOG_BOX_TITLE);
+			  MessageBox("The version of WinBolo you are running does not appear to be using an authorised set of RSA keys. To play on official servers you are required to use the correct client", DIALOG_BOX_TITLE);
 			  #endif
 		  } else {
 		      #ifdef _WIN32
