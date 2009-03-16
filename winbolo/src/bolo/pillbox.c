@@ -1442,6 +1442,39 @@ void pillsMigrate(pillboxes *value, BYTE oldOwner, BYTE newOwner) {
   }
 }
 
+/*********************************************************
+*NAME:          pillsMigratePlanted
+*AUTHOR:        Minhiriath
+*CREATION DATE: 14/03/2009
+*LAST MODIFIED: 14/03/2009
+*PURPOSE:
+*  Causes all pills owned by owner  to migrate to a new 
+* owner becuase its owner left alliance
+*
+*ARGUMENTS:
+*  value    - Pointer to the bases structure
+*  oldOwner - Old Owner to remove
+*  newOwner - Owner to replace with
+*********************************************************/
+void pillsMigratePlanted(pillboxes *value, BYTE oldOwner, BYTE newOwner) {
+  BYTE count;    /* Looping Variable */
+  bool isServer; /* Are we a server */
+
+  count = 0;
+  isServer = threadsGetContext();
+  while (count < ((*value)->numPills)) {
+	if (((*value)->item[count].owner) == oldOwner) {
+ 	  if((*value)->item[count].inTank == FALSE){
+	    (*value)->item[count].owner = newOwner;
+	    netMNTAdd(screenGetNetMnt(), NMNT_PILLMIGRATE, count, newOwner, (*value)->item[count].x, (*value)->item[count].y);
+	  } else {
+	    (*value)->item[count].inTank = TRUE;
+		(*value)->item[count].owner = oldOwner;
+	  }
+	} 
+    count++;
+  }
+}
 
 /*********************************************************
 *NAME:          pillsIsCapturable

@@ -1015,4 +1015,32 @@ gameType *serverCoreGetGameType();
 *********************************************************/
 gameType serverCoreGetActualGameType();
 
+/*********************************************************
+*NAME:          serverCoreBasesMigrate
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+*  Migrates bases
+*
+*ARGUMENTS:
+* playerNumOldOwner - old owner
+* playerNumNewOwner - new owner
+*********************************************************/
+void serverCoreBasesMigrate(BYTE playerNumOldOwner, BYTE playerNumNewOwner);
+
+/*********************************************************
+*NAME:          serverCorePillsMigratePlanted
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+*  Migrates planted pills
+*
+*ARGUMENTS:
+* playerNumOldOwner - old owner
+* playerNumNewOwner - new owner
+*********************************************************/
+void serverCorePillsMigratePlanted(BYTE playerNumOldOwner, BYTE playerNumNewOwner);
+
 #endif /* SERVER_CORE_H */

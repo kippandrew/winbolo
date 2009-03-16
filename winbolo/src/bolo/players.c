@@ -1642,6 +1642,21 @@ void playersRequestAlliance(players *plrs) {
 void playersLeaveAlliance(players *plrs, BYTE playerNum) {
   BYTE count; /* Looping variable */
   BYTE total; /* Amount of items to redraw */
+  bool found;
+  count = 0;
+  found = FALSE;
+  while (count < MAX_TANKS && found == FALSE) {
+    if (playerNum != count) {
+      if (playersIsAllie(plrs, count, playerNum) == TRUE) {
+        found = TRUE;
+	  }
+	}
+    count++;
+  }
+  count--;
+
+  screenBasesMigrate(playerNum,count);
+  screenPillsMigratePlanted(playerNum,count);
 
   allienceDestroy(&((*plrs)->item[playerNum].allie));
   (*plrs)->item[playerNum].allie = allienceCreate();

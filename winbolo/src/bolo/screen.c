@@ -3979,6 +3979,38 @@ gameType *clientGetGameType() {
     return &myGame;
 }
 
+/*********************************************************
+*NAME:          clientBasesMigrate
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+*  Migrates bases
+*
+*ARGUMENTS:
+* playerNumOldOwner - old owner
+* playerNumNewOwner - new owner
+*********************************************************/
+void clientBasesMigrate(BYTE playerNumOldOwner, BYTE playerNumNewOwner){
+	basesMigrate(&mybs, playerNumOldOwner, playerNumNewOwner);
+}
+
+/*********************************************************
+*NAME:          clientPillsMigratePlanted
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+*  Migrates planted pills
+*
+*ARGUMENTS:
+* playerNumOldOwner - old owner
+* playerNumNewOwner - new owner
+*********************************************************/
+void clientPillsMigratePlanted(BYTE playerNumOldOwner, BYTE playerNumNewOwner){
+	pillsMigratePlanted(&mypb, playerNumOldOwner, playerNumNewOwner);
+}
+
 void screenSendMem() {
   netMNTAdd(screenGetNetMnt(), NMNT_TANKHIT, playersGetSelf(screenGetPlayers()), playersGetSelf(screenGetPlayers()), 0xFF , 0xFF);
 }

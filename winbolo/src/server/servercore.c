@@ -1870,6 +1870,38 @@ gameType *serverCoreGetGameType() {
 }
 
 /*********************************************************
+*NAME:          serverCoreBasesMigrate
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+*  Migrates bases
+*
+*ARGUMENTS:
+* playerNumOldOwner - old owner
+* playerNumNewOwner - new owner
+*********************************************************/
+void serverCoreBasesMigrate(BYTE playerNumOldOwner, BYTE playerNumNewOwner){
+	basesMigrate(&bs, playerNumOldOwner, playerNumNewOwner);
+}
+
+/*********************************************************
+*NAME:          serverCorePillsMigratePlanted
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+*  Migrates planted pills
+*
+*ARGUMENTS:
+* playerNumOldOwner - old owner
+* playerNumNewOwner - new owner
+*********************************************************/
+void serverCorePillsMigratePlanted(BYTE playerNumOldOwner, BYTE playerNumNewOwner){
+	pillsMigratePlanted(&pb, playerNumOldOwner, playerNumNewOwner);
+}
+
+/*********************************************************
 *NAME:          serverCoreInformation
 *AUTHOR:        John Morrison
 *CREATION DATE: 19/11/03

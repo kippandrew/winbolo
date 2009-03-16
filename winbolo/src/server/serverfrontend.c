@@ -1081,6 +1081,35 @@ players *clientGetPlayers() {
   return NULL;
 }
 
+/*********************************************************
+*NAME:          clientBasesMigrate
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+* migrates the clients bases
+*
+*ARGUMENTS:
+*
+*********************************************************/
+void clientBasesMigrate(BYTE playerNumOldOwner, BYTE playerNumNewOwner) {
+  // do nothing here.
+}
+
+/*********************************************************
+*NAME:          clientPillsMigratePlanted
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+* migrates the clients planted pills
+*
+*ARGUMENTS:
+*
+*********************************************************/
+void clientPillsMigratePlanted(BYTE playerNumOldOwner, BYTE playerNumNewOwner) {
+  // do nothing here.
+}
 
 /*********************************************************
 *NAME:          clientGetBuildings

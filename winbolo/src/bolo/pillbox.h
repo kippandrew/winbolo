@@ -594,6 +594,22 @@ void pillsDropSetNeutralOwner(pillboxes *value, BYTE owner);
 void pillsMigrate(pillboxes *value, BYTE oldOwner, BYTE newOwner);
 
 /*********************************************************
+*NAME:          pillsMigratePlanted
+*AUTHOR:        Minhiriath
+*CREATION DATE: 14/03/2009
+*LAST MODIFIED: 14/03/2009
+*PURPOSE:
+*  Causes all pills owned by owner  to migrate to a new 
+* owner becuase its owner left alliance
+*
+*ARGUMENTS:
+*  value    - Pointer to the bases structure
+*  oldOwner - Old Owner to remove
+*  newOwner - Owner to replace with
+*********************************************************/
+void pillsMigratePlanted(pillboxes *value, BYTE oldOwner, BYTE newOwner);
+
+/*********************************************************
 *NAME:          pillsExplicitDrop
 *AUTHOR:        John Morrison
 *CREATION DATE: 10/11/99

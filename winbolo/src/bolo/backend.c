@@ -94,6 +94,43 @@ players *screenGetPlayers() {
 
 
 /*********************************************************
+*NAME:          screenBasesMigrate
+*AUTHOR:        Minhiriath
+*CREATION DATE: 19/01/99
+*LAST MODIFIED: 05/05/01
+*PURPOSE:
+* runs the correct bases migrate functions
+*
+*ARGUMENTS:
+*
+*********************************************************/
+void screenBasesMigrate(BYTE playerNumOldOwner, BYTE playerNumNewOwner) {
+  if (threadsGetContext() == TRUE) {
+    serverCoreBasesMigrate(playerNumOldOwner, playerNumNewOwner);
+  }
+  clientBasesMigrate(playerNumOldOwner, playerNumNewOwner);
+}
+
+/*********************************************************
+*NAME:          screenPillsMigratePlanted
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+*  Migrates planted pills
+*
+*ARGUMENTS:
+* playerNumOldOwner - old owner
+* playerNumNewOwner - new owner
+*********************************************************/
+void screenPillsMigratePlanted(BYTE playerNumOldOwner, BYTE playerNumNewOwner){
+  if (threadsGetContext() == TRUE) {
+    serverCorePillsMigratePlanted(playerNumOldOwner, playerNumNewOwner);
+  }
+  clientPillsMigratePlanted(playerNumOldOwner, playerNumNewOwner);
+}
+
+/*********************************************************
 *NAME:          screenGetTankFromPlayer
 *AUTHOR:        John Morrison
 *CREATION DATE: 21/10/00

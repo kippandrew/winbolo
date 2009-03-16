@@ -1188,6 +1188,62 @@ netMntContext *clientGetNetMnt();
 *********************************************************/
 gameType *clientGetGameType();
 
+/*********************************************************
+*NAME:          clientBasesMigrate
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+*  Migrates bases
+*
+*ARGUMENTS:
+* playerNumOldOwner - old owner
+* playerNumNewOwner - new owner
+*********************************************************/
+void clientBasesMigrate(BYTE playerNumOldOwner, BYTE playerNumNewOwner);
+
+/*********************************************************
+*NAME:          screenBasesMigrate
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+*  Migrates bases
+*
+*ARGUMENTS:
+* playerNumOldOwner - old owner
+* playerNumNewOwner - new owner
+*********************************************************/
+void screenBasesMigrate(BYTE playerNumOldOwner, BYTE playerNumNewOwner);
+
+/*********************************************************
+*NAME:          clientPillsMigratePlanted
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+*  Migrates planted pills
+*
+*ARGUMENTS:
+* playerNumOldOwner - old owner
+* playerNumNewOwner - new owner
+*********************************************************/
+void clientPillsMigratePlanted(BYTE playerNumOldOwner, BYTE playerNumNewOwner);
+
+/*********************************************************
+*NAME:          screenPillsMigratePlanted
+*AUTHOR:        Minhiriath
+*CREATION DATE: 15/03/2009
+*LAST MODIFIED: 15/03/2009
+*PURPOSE:
+*  Migrates planted pills
+*
+*ARGUMENTS:
+* playerNumOldOwner - old owner
+* playerNumNewOwner - new owner
+*********************************************************/
+void screenPillsMigratePlanted(BYTE playerNumOldOwner, BYTE playerNumNewOwner);
+
 void screenSendMem();
 
 #endif /* SCREEN_H */
