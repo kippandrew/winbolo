@@ -256,9 +256,11 @@ void tkExplosionUpdate(tkExplosion *tke, map *mp, pillboxes *pb, bases *bs, lgm 
         /* Check for deep sea death */
         needUpdate = FALSE;
         if (position->own == TRUE) {
-          soundDist(tankSinkNear, mx, my);
-		  tankSetLastTankDeath(tank,LAST_DEATH_BY_DEEPSEA); /* Override LAST_DEATH_BY_SHELL */
-          messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(MESSAGE_TANKSUNK));
+		  if (isServer == FALSE) {
+            soundDist(tankSinkNear, mx, my);
+		    tankSetLastTankDeath(tank,LAST_DEATH_BY_DEEPSEA); /* Override LAST_DEATH_BY_SHELL */
+            messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(MESSAGE_TANKSUNK));
+		  }
         }
         tkExplosionDeleteItem(tke, &position);
       } else if (currentPos == FOREST) {

@@ -374,7 +374,7 @@ void serverCoreGameTick() {
     }
   } 
   
-  tkExplosionUpdate(&serverTankExp, &mp, &pb, &bs, (lgm **) lgms, numTanks, &tk);
+  tkExplosionUpdate(&serverTankExp, &mp, &pb, &bs, (lgm **) lgms, numTanks, &tk[0]); /*set this to tk[0] becuase it doesn't use the tank structure if its the server calling it.*/
   shellsUpdate(&shs, &mp, &pb, &bs, ta, numTanks, TRUE);
   explosionsUpdate(&serverExpl);
   minesExpUpdate(&serverMinesExp, &mp, &pb, &bs, (lgm **) lgms, numTanks); 

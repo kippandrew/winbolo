@@ -1820,13 +1820,13 @@ void tankDropPills(tank *value, map *mp, pillboxes *pb, bases *bs) {
     bmx -= width/2;
     bmy -= width/2;
 
-    if (bmx >= 0 && bmx <= MAP_MINE_EDGE_LEFT) {
+    if (bmx <= MAP_MINE_EDGE_LEFT) { /*bmx >= 0 is always true becuase of the data type.*/
       bmx = MAP_MINE_EDGE_LEFT+1;
     } else if (bmx >= MAP_MINE_EDGE_RIGHT) {
       bmx = MAP_MINE_EDGE_RIGHT - 10;
     }
 
-    if (bmy >= 0 && bmy <= MAP_MINE_EDGE_TOP) {
+    if (bmy <= MAP_MINE_EDGE_TOP) { /*bmx >= 0 is always true becuase of the data type.*/
       bmy = MAP_MINE_EDGE_TOP+1;
     } else if (bmy >= MAP_MINE_EDGE_BOTTOM) {
       bmy = MAP_MINE_EDGE_BOTTOM - 10;
