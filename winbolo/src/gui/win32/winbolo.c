@@ -2598,6 +2598,23 @@ void windowRedrawAll(void) {
 }
 
 /*********************************************************
+*NAME:          frontEndRedrawAll
+*AUTHOR:        Minhiriath
+*CREATION DATE: 16/3/2009
+*LAST MODIFIED: 16/3/2009
+*PURPOSE:
+*  called windowRedrawAll()
+* 
+*ARGUMENTS:
+*  none
+*********************************************************/
+void frontEndRedrawAll(void){
+	if (threadsGetContext() == FALSE){
+		windowRedrawAll();
+	}
+}
+
+/*********************************************************
 *NAME:          windowGetBackgroundSound
 *AUTHOR:        John Morrison
 *CREATION DATE: 27/3/99

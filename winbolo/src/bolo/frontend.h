@@ -318,6 +318,19 @@ void frontEndEnableLeaveAllyMenu(bool enabled);
 void frontEndShowGunsight(bool isShown);
 
 /*********************************************************
+*NAME:          frontEndRedrawAll
+*AUTHOR:        Minhiriath
+*CREATION DATE: 16/3/2009
+*LAST MODIFIED: 16/3/2009
+*PURPOSE:
+*  called windowRedrawAll()
+* 
+*ARGUMENTS:
+*  none
+*********************************************************/
+void frontEndRedrawAll(void);
+
+/*********************************************************
 *NAME:          frontEndTutorial
 *AUTHOR:        John Morrison
 *CREATION DATE: 27/5/00

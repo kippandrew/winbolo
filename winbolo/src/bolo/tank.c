@@ -596,10 +596,12 @@ BYTE tankGetPY(tank *value) {
 *  treesAmount  - Pointer to hold amount of trees
 *********************************************************/
 void tankGetStats(tank *value, BYTE *shellsAmount, BYTE *minesAmount, BYTE *armourAmount, BYTE *treesAmount) {
-  *shellsAmount = (*value)->shells;
-  *minesAmount = (*value)->mines;
-  *armourAmount = (*value)->armour;
-  *treesAmount = (*value)->trees;
+	if(*value!=NULL){
+	  *shellsAmount = (*value)->shells;
+	  *minesAmount = (*value)->mines;
+	  *armourAmount = (*value)->armour;
+	  *treesAmount = (*value)->trees;
+	}
 }
 
 /*********************************************************
@@ -1132,8 +1134,10 @@ void tankDeath(tank *value, starts *sts) {
 *  deaths - Pointer to hold the number of deaths
 *********************************************************/
 void tankGetKillsDeaths(tank *value, int *kills, int *deaths) {
-  *kills = (*value)->numKills;
-  *deaths = (*value)->numDeaths;
+	if(*value != NULL){
+		*kills = (*value)->numKills;
+		*deaths = (*value)->numDeaths;
+	}
 }
 
 /*********************************************************

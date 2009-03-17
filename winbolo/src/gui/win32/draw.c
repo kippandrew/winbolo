@@ -898,11 +898,6 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
     drawPillInView();
   }
 
-  if (shouldWindowRedrawAll == TRUE){
-    windowRedrawAll();
-	shouldWindowRedrawAll = FALSE;
-  }
-
   if (netGetStatus() == netFailed) {
     drawNetFailed();
   }
@@ -3600,10 +3595,6 @@ void drawMainScreenBlack(RECT *rcWindow) {
   rcWindow->right = rcWindow->left + (MAIN_SCREEN_SIZE_X * (zoomFactor * TILE_SIZE_X));
   rcWindow->bottom = rcWindow->top + (zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y); 
   lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, rcWindow, lpDDSBackBuffer, &output, DDBLT_WAIT, NULL);
-}
-
-void drawShouldWindowRedrawAll(void){
-	shouldWindowRedrawAll = TRUE;
 }
 
 /*********************************************************

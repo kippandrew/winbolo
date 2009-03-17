@@ -1112,18 +1112,18 @@ void clientPillsMigratePlanted(BYTE playerNumOldOwner, BYTE playerNumNewOwner) {
 }
 
 /*********************************************************
-*NAME:          drawShouldWindowRedrawAll
+*NAME:          frontEndRedrawAll
 *AUTHOR:        Minhiriath
-*CREATION DATE: 15/03/2009
-*LAST MODIFIED: 15/03/2009
+*CREATION DATE: 16/3/2009
+*LAST MODIFIED: 16/3/2009
 *PURPOSE:
-* fake function for server.
-*
+*  called windowRedrawAll()
+* 
 *ARGUMENTS:
-*
+*  none
 *********************************************************/
-void drawShouldWindowRedrawAll(void){
-  // do nothing here, since the server doesn't need to redraw anything.
+void frontEndRedrawAll(void){
+	// do nothing here.
 }
 
 /*********************************************************

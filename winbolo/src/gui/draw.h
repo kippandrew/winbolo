@@ -588,6 +588,4 @@ void drawMainScreenBlack(RECT *rcWindow);
 *********************************************************/
 void drawSetupArrays(BYTE zoomFactor);
 
-void drawShouldWindowRedrawAll(void);
-
 #endif

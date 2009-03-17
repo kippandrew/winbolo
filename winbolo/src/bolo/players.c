@@ -316,9 +316,10 @@ void playersSetPlayer(players *plrs, BYTE playerNum, char *playerName, char *loc
     if (threadsGetContext() == FALSE) {
       frontEndSetPlayer((playerNumbers) playerNum, str);
       frontEndStatusTank((BYTE) (playerNum+1), playersScreenAllience(plrs, playerNum));
+	  frontEndRedrawAll();
     }
   }
-  drawShouldWindowRedrawAll();
+  
 } 
 
 

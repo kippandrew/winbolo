@@ -815,7 +815,10 @@ void lgmReturn(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
 	/*
 	  ok we landed ontop of a obstruction, so, we're going to keep moving get speed, calculate movement.
 	*/
-    speed = 6;
+    speed = 6; 
+	/* speed is a magic number currently, once we detemine what the ontop speed for the various types of 
+	   terrain are, this will be adjusted
+	*/ 
 	utilCalcDistance(&xAdd, &yAdd, angle, speed);
 	/* once this algorithm is completed, the below edge numbers need to be defined instead of magic */
 	onTopEdgeX = 0;
