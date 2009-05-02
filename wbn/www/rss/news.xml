@@ -15,27 +15,31 @@
  * GNU General Public License for more details.
  */	
 
-
 require "../../php/header.php";
 header("Content-type: text/xml");
 echo '<?xml version="1.0"?>' . "\n";
 ?>
 <rss version="2.0">
 <channel>
+<title>Winbolo.net News</title>
+<link>http://winbolo.net/forums/viewforum.php?f=5</link>
+<description>Most recent news items posted on Winbolo.net</description>
 <?
 $nis = getNewsItems(10);
 $size = sizeof($nis);
 $count = 0;
 if ($size > 0) {
-        while ($count < $size) {
-                $item = $nis[$count];
+	while ($count < $size) {
+		$item = $nis[$count];
 		echo "	<item>\n";
 		echo "		<title>" . $item->getSubject() . "</title>\n";
 		echo "		<description>" . htmlspecialchars($item->getText()) . "</description>\n";
 		echo "		<link>http://www.winbolo.net/forums/viewtopic.php?t=" . $item->getPostId() . "</link>\n";
-                echo "</item>\n";
-                $count++;
-        }
+#		echo "		<pubDate>" . htmlspecialchars(date(DATE_RFC822, $item->getTime())) . "</pubDate>\n";
+#		echo "		<author>" . htmlspecialchars($item->getAuthor()) . "</author>\n";
+		echo "	</item>\n";
+		$count++;
+	}
 }
 ?>
 </channel>
