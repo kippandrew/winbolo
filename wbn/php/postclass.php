@@ -47,9 +47,6 @@ function getTime() {
 }
 
 function getPost() {
-	if (strlen($this->text) >  150) {
-		return substr($this->text, 0, 150) . "...";
-	}
 	return $this->text;
 }
 
