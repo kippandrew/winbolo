@@ -360,8 +360,9 @@ void serverNetUDPPacketArrive(BYTE *buff, int len, unsigned long addr, unsigned 
 			  // send the random hex string off to the client
 			  serverTransportSendUDPLast(info, sizeof(rsap), TRUE);
 			  rmsgCounter++;
-			  if(rmsgCounter == RSA_RANDOMMESSAGENUMBER+1){
+			  if(rmsgCounter == RSA_RANDOMMESSAGENUMBER){
 				  rmsgCounter = 0;
+
 			  }
             } else if (len == sizeof(PASSWORD_PACKET) && buff[BOLOPACKET_REQUEST_TYPEPOS] == BOLOPACKET_PASSWORDCHECK) { 
              /* Password check packet */
