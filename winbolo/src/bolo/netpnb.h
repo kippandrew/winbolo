@@ -112,15 +112,16 @@ void netPNBDestroy(netPnbContext *pnbc);
 *CREATION DATE:  9/3/99
 *LAST MODIFIED: 31/10/99
 *PURPOSE:
-* Adds an item to the netPND structure
+* Adds an item to the netPNB structure
 *
 *ARGUMENTS:
 *  pnbc    - Pointer to the netPnbContext object
 *  event   - Event type
-*  itemNum - Item Number which the even occured to
+*  itemNum - Item Number which the event occured to
 *  owner   - Owner of the event
 *  opt1    - Optional location data
 *  opt2    - Optional location data
+*  opt3    - Optional data
 *********************************************************/
 void netPNBAdd(netPnbContext *pnbc, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2, BYTE opt3);
 
@@ -157,6 +158,7 @@ int netPNBMake(netPnbContext *pnbc, BYTE *buff);
 *  owner   - Owner of the event
 *  opt1    - Optional data 1
 *  opt2    - Optional data 2
+*  opt3    - Optional data 3
 *********************************************************/
 bool netPNBExtractItemServer(netPnbContext *pnbc, map *mp, bases *bs, pillboxes *pb, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2, BYTE opt3);
 
@@ -179,6 +181,7 @@ bool netPNBExtractItemServer(netPnbContext *pnbc, map *mp, bases *bs, pillboxes 
 *  owner   - Owner of the event
 *  opt1    - Optional data 1
 *  opt2    - Optional data 2
+*  opt3    - Optional data 3
 *********************************************************/
 bool netPNBExtractItemClient(netPnbContext *pnbc, map *mp, bases *bs, pillboxes *pb, BYTE event, BYTE itemNum, BYTE owner, BYTE opt1, BYTE opt2, BYTE opt3);
 

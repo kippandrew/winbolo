@@ -45,7 +45,7 @@
 /* Shell life is 2 times map length */
 #define SHELL_LIFE 8
 
-/* Shells die when there length equals */
+/* Shells die when their length equals */
 #define SHELL_DEATH 0
 
 /* Shell Speed is 32 world units per tick */

@@ -212,6 +212,20 @@ bool logIsRecording() {
   return logIsRunning;
 }
 
+
+/*********************************************************
+*NAME:          logAddToMemory
+*AUTHOR:        John Morrison
+*CREATION DATE: 5/5/01
+*LAST MODIFIED: 5/5/01
+*PURPOSE:
+*
+*
+*ARGUMENTS:
+*	memPos -
+*	data   -
+*	dataLen -
+*********************************************************/
 void logAddToMemory(BYTE *memPos, BYTE *data, BYTE dataLen) {
   BYTE count = 0;
 

@@ -279,7 +279,6 @@ int treeGrowCalcSquare(map *mp, pillboxes *pb, bases *bs, BYTE mx, BYTE my) {
       case BOAT:  
         returnValue += TREE_GROW_BOAT;
         break;
-
       case DEEP_SEA:
         returnValue += TREE_GROW_DEEP_SEA;
         break;

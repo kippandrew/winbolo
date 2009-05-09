@@ -29,31 +29,32 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
-#include "global.h"
-#include "util.h"
-#include "shells.h"
-#include "tilenum.h"
-#include "messages.h"
-#include "frontend.h"
-#include "sounddist.h"
+#include "crc.h"
+#include "backend.h"
 #include "explosions.h"
-#include "lgm.h"
-#include "tankexp.h"
-#include "minesexp.h"
+#include "frontend.h"
 #include "gametype.h"
-#include "mines.h"
+#include "global.h"
+#include "lgm.h"
 #include "labels.h"
-#include "tankexp.h"
+#include "log.h"
+#include "messages.h"
+#include "mines.h"
+#include "minesexp.h"
 #include "players.h"
 #include "netpnb.h"
 #include "netmt.h"
 #include "network.h"
 #include "netplayers.h"
 #include "tank.h"
+#include "tankexp.h"
+#include "tilenum.h"
 #include "screen.h"
-#include "backend.h"
-#include "crc.h"
-#include "log.h"
+#include "shells.h"
+#include "sounddist.h"
+#include "util.h"
+
+
 
 bool tankShuttingDown = FALSE; // Enourmouse HACK. Please Fix Me FIXME
 BYTE ct[50];
@@ -227,6 +228,7 @@ void tankUpdate(tank *value, map *mp, bases *bs, pillboxes *pb, shells *shs, sta
     tankRegisterChangeByte(value, CRC_RELOAD_OFFSET, TANK_RELOAD_TIME);
     (*value)->shells--;
     tankRegisterChangeByte(value, CRC_SHELLS_OFFSET, (*value)->shells);
+
     if (threadsGetContext() == FALSE) {
       frontEndPlaySound(shootSelf);
       frontEndUpdateTankStatusBars((*value)->shells, (*value)->mines, (*value)->armour, (*value)->trees);
@@ -401,6 +403,7 @@ SPEEDTYPE tankGetActualSpeed(tank *value) {
 BYTE tankGetArmour(tank *value) {
   return ((*value)->armour);
 }
+
 
 /*********************************************************
 *NAME:          tankGetScreenMX
@@ -858,121 +861,134 @@ void tankSetWorld(tank *value, WORLD x, WORLD y, TURNTYPE angle, bool setResourc
 *  owner  - Shells owner
 *********************************************************/
 tankHit tankIsTankHit(tank *value, map *mp, pillboxes *pb, bases *bs, WORLD x, WORLD y, TURNTYPE angle, BYTE owner) {
-  tankHit returnValue; /* Value to return */
-  WORLD conv;          /* Used in the conversion */
-  int newX;            /* Amount to add because the tank has been hit */
-  int newY;
-  WORLD newmx;
-  WORLD newmy;
-  BYTE bmx;
-  BYTE bmy;
-  BYTE newbmx;       /* Test locations to check for a collision */
-  BYTE newbmy; 
-  bool needSend = FALSE; /* Do we need to send to the network */
+	tankHit returnValue; /* Value to return */
+	WORLD conv;          /* Used in the conversion */
+	int newX;            /* Amount to add because the tank has been hit */
+	int newY;
+	WORLD newmx;
+	WORLD newmy;
+	BYTE bmx;
+	BYTE bmy;
+	BYTE newbmx;       /* Test locations to check for a collision */
+	BYTE newbmy; 
+	bool needSend = FALSE; /* Do we need to send to the network */
+
+	returnValue = TH_MISSED;
+
+	/* If no tank was passed, it missed. */
+	if (*value == NULL) {
+		return TH_MISSED;
+	}
+
+	if (threadsGetContext() == FALSE) {
+		if (owner == screenGetTankPlayer(value)) {
+			return TH_MISSED;
+		}
+	}
+
+	returnValue = TH_MISSED;
+
+	/*
+	* TODO: here is where we would call a collision-detection function.  For now, we check to see
+	* if the shell is within 128 WORLD coordinates of a tank's WORLD coordinates.  Since a tank's
+	* WORLD coordinates are from the center, we assume that the tank is basically a circle.
+	*
+	* Issue: so if the threadsGetContext() is set to TRUE, it doesn't get sent to the client.  The 
+	* server will still process it and take armour points away until the next hit after it has zero.
+	* Then the tank disappears.  I believe that another conditional should be thrown in to catch when
+	* the tank's armour is greater than TANK_FULL_ARMOUR.
+	* 
+	* Is there any reason why client and server can't execute it at once?  Issues with latency?
+	*
+	*/
+	if (abs((*value)->x - x) < 128 && abs((*value)->y - y) < 128  && (*value)->armour <= TANK_FULL_ARMOUR) {
+		returnValue = TH_HIT;
+		needSend = TRUE;
+		if (threadsGetContext() == FALSE) { /* Fix Me... */
+			(*value)->armour -= DAMAGE;
+			tankRegisterChangeByte(value, CRC_ARMOUR_OFFSET, (*value)->armour);
+		}
+		if ((*value)->onBoat == TRUE) {
+			(*value)->onBoat = FALSE;
+			tankRegisterChangeByte(value, CRC_ONBOAT_OFFSET, FALSE);
+			(*value)->speed = 0;
+			tankRegisterChangeFloat(value, CRC_SPEED_OFFSET, 0);
+			screenReCalc();
+		}
+
+		/* 
+		* Tank was at zero armor before it was hit with a shell.  When we decrement the armor counter, it
+		* "wraps" around and becomes larger than what a tank is supposed to have.  This signals that the 
+		* tank should die.
+		*/
+		if ((*value)->armour > TANK_FULL_ARMOUR) {
+			if (((*value)->shells + (*value)->mines) > TANK_BIG_EXPLOSION_THRESHOLD) {
+				returnValue = TH_KILL_BIG;
+			} else {
+				returnValue = TH_KILL_SMALL;
+			}
+
+			tankSetLastTankDeath(value,LAST_DEATH_BY_SHELL);
+			(*value)->deathWait = 255;
+			tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, 255);
+
+			/*      netSendNow = TRUE; */
+			tankDropPills(value, mp, pb, bs);
+		} else { /* if ((*value)->armour <= TANK_FULL_ARMOUR)  */
+			/* Tank was hit and survived */
+			(*value)->tankSlideTimer = TANK_SLIDE_TICKS;
+			(*value)->tankSlideAngle = angle;
+
+			utilCalcDistance(&newX, &newY, angle, TANK_SLIDE); //MAP_SQUARE_MIDDLE
+			/*	  utilCalcTankSlide((*value)->tankSlideTimer, angle, &newX, &newY, MAP_SQUARE_MIDDLE); */
+
+			/* Check for Colisions */
+			conv = (*value)->x;  
+			conv >>= TANK_SHIFT_MAPSIZE;
+			bmx = (BYTE) conv;
+			conv = (*value)->y;
+			conv >>= TANK_SHIFT_MAPSIZE;
+			bmy = (BYTE) conv;
+
+			newmx = (WORLD) ((*value)->x + newX);
+			newmy = (WORLD) ((*value)->y + newY);
 
 
-  returnValue = TH_MISSED;
-  if (*value == NULL) {
-    return TH_MISSED;
-  }
+			newmx >>= TANK_SHIFT_MAPSIZE;
+			newmy >>= TANK_SHIFT_MAPSIZE;
+			newbmx = (BYTE) newmx;
+			newbmy = (BYTE) newmy;
 
-  if (threadsGetContext() == FALSE) {
-    if (owner == screenGetTankPlayer(value)) {
-      return TH_MISSED;
-    }
-  }
-
-  returnValue = TH_MISSED;
-
-  /*
-   * TODO: here is where we would call a collision-detection function.  For now, we check to see
-   * if the shell is within 128 WORLD coordinates of a tank's WORLD coordinates.  Since a tank's
-   * WORLD coordinates are from the center, we assume that the tank is basically a circle.
-   */
-  if (abs((*value)->x - x) < 128 && abs((*value)->y - y) < 128  && (*value)->armour <= TANK_FULL_ARMOUR) {
-    returnValue = TH_HIT;
-    needSend = TRUE;
-    if (threadsGetContext() == FALSE) { /* Fix Me */
-      (*value)->armour -= DAMAGE;
-      tankRegisterChangeByte(value, CRC_ARMOUR_OFFSET, (*value)->armour);
-    }
-    if ((*value)->onBoat == TRUE) {
-      (*value)->onBoat = FALSE;
-      tankRegisterChangeByte(value, CRC_ONBOAT_OFFSET, FALSE);
-      (*value)->speed = 0;
-      tankRegisterChangeFloat(value, CRC_SPEED_OFFSET, 0);
-      screenReCalc();
-    }
-	/* 
-	 * Tank was at zero armor before it was hit with a shell.  When we decrement the armor counter, it
-	 * "wraps" around and becomes larger than what a tank is supposed to have.  This signals that the 
-	 * tank should die.
-	 */
-    if ((*value)->armour > TANK_FULL_ARMOUR) {
-      if (((*value)->shells + (*value)->mines) > TANK_BIG_EXPLOSION_THRESHOLD) {
-        returnValue = TH_KILL_BIG;
-      } else {
-        returnValue = TH_KILL_SMALL;
-      }
-	  tankSetLastTankDeath(value,LAST_DEATH_BY_SHELL);
-      (*value)->deathWait = 255;
-      tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, 255);
-      
-/*      netSendNow = TRUE; */
-      tankDropPills(value, mp, pb, bs);
-    } else { /* if ((*value)->armour <= TANK_FULL_ARMOUR)  */
-	    /* Tank was hit and survived */
-	    (*value)->tankSlideTimer = TANK_SLIDE_TICKS;
-      (*value)->tankSlideAngle = angle;
-
-      utilCalcDistance(&newX, &newY, angle, TANK_SLIDE); //MAP_SQUARE_MIDDLE
-/*	  utilCalcTankSlide((*value)->tankSlideTimer, angle, &newX, &newY, MAP_SQUARE_MIDDLE); */
-
-      /* Check for Colisions */
-      conv = (*value)->x;  
-      conv >>= TANK_SHIFT_MAPSIZE;
-      bmx = (BYTE) conv;
-      conv = (*value)->y;
-      conv >>= TANK_SHIFT_MAPSIZE;
-      bmy = (BYTE) conv;
-
-      newmx = (WORLD) ((*value)->x + newX);
-      newmy = (WORLD) ((*value)->y + newY);
-
-
-      newmx >>= TANK_SHIFT_MAPSIZE;
-      newmy >>= TANK_SHIFT_MAPSIZE;
-      newbmx = (BYTE) newmx;
-      newbmy = (BYTE) newmy;
-
-      if ((mapGetSpeed(mp,pb,bs,bmx,newbmy,(*value)->onBoat, screenGetTankPlayer(value))) > 0) {
-        (*value)->y = (WORLD) ((*value)->y + newY);
-        tankRegisterChangeWorld(value, CRC_WORLDY_OFFSET, (*value)->y);
-        bmy = newbmy;
-      }
-      if ((mapGetSpeed(mp,pb,bs,newbmx,bmy,(*value)->onBoat, screenGetTankPlayer(value))) > 0) {
-        (*value)->x = (WORLD) ((*value)->x + newX);
-        tankRegisterChangeWorld(value, CRC_WORLDX_OFFSET, (*value)->x);
-        bmx = newbmx;
-      }
-      /* Check for scroll of screen */
-      screenTankScroll();
-    }
-    if ((*value)->armour <= TANK_FULL_ARMOUR) {
-      if (threadsGetContext() == FALSE) {
-        frontEndUpdateTankStatusBars((*value)->shells, (*value)->mines, (*value)->armour, (*value)->trees);
-        if (needSend == TRUE) {
-          /* Send hit to network */
-          netMNTAdd(screenGetNetMnt(), NMNT_TANKHIT, playersGetSelf(screenGetPlayers()), playersGetSelf(screenGetPlayers()), 1 , (BYTE) ((*value)->armour / 5) );
-        }
-      }
-    } else {
-      if (threadsGetContext() == FALSE) {
-        frontEndUpdateTankStatusBars((*value)->shells, (*value)->mines, 0, (*value)->trees);
-      }
-    }
-  }
-  return returnValue;
+			if ((mapGetSpeed(mp,pb,bs,bmx,newbmy,(*value)->onBoat, screenGetTankPlayer(value))) > 0) {
+				(*value)->y = (WORLD) ((*value)->y + newY);
+				tankRegisterChangeWorld(value, CRC_WORLDY_OFFSET, (*value)->y);
+				bmy = newbmy;
+			}
+			if ((mapGetSpeed(mp,pb,bs,newbmx,bmy,(*value)->onBoat, screenGetTankPlayer(value))) > 0) {
+				(*value)->x = (WORLD) ((*value)->x + newX);
+				tankRegisterChangeWorld(value, CRC_WORLDX_OFFSET, (*value)->x);
+				bmx = newbmx;
+			}
+			/* Check for scroll of screen */
+			screenTankScroll();
+		}
+		if ((*value)->armour <= TANK_FULL_ARMOUR) {
+			if (threadsGetContext() == FALSE) {
+				frontEndUpdateTankStatusBars((*value)->shells, (*value)->mines, (*value)->armour, (*value)->trees);
+				if (needSend == TRUE) {
+					/* Send hit to network */
+					netMNTAdd(screenGetNetMnt(), NMNT_TANKHIT, playersGetSelf(screenGetPlayers()), playersGetSelf(screenGetPlayers()), 1 , (BYTE) ((*value)->armour / 5) );
+				}
+			}
+		} else {
+			if (threadsGetContext() == FALSE) {
+				frontEndUpdateTankStatusBars((*value)->shells, (*value)->mines, 0, (*value)->trees);
+			}
+		}
+	} else if (abs((*value)->x - x) < 128 && abs((*value)->y - y) < 128  && (*value)->armour > TANK_FULL_ARMOUR) {
+		/* Do crazy shit here */
+	}
+	return returnValue;
 }
 
 
@@ -1723,50 +1739,52 @@ bool pillsIsCapturable(pillboxes *value, BYTE xValue, BYTE yValue);
 *  pb     - Pointer to the pillbox structure
 *********************************************************/
 void tankCheckPillCapture(tank *value, pillboxes *pb) {
-  WORLD conv;     /* Used for conversion */
-  BYTE bmx;       /* Current MAP x-coord of tank */
-  BYTE bmy;       /* Current MAP y-coord of tank */
-  BYTE pillNum;   /* The pill number */
-  tankCarryPb q;  /* Temp pointer for adding PBs to tank */
+	WORLD conv;     /* Used for conversion */
+	BYTE bmx;       /* Current MAP x-coord of tank */
+	BYTE bmy;       /* Current MAP y-coord of tank */
+	BYTE pillNum;   /* The pill number */
+	tankCarryPb q;  /* Temp pointer for adding PBs to tank */
 
-  /* Tank is alive and we are either in a server context or a non-network game */
-  if ((*value)->armour <= TANK_FULL_ARMOUR && (threadsGetContext() == TRUE || netGetType() == netSingle)) {
+	/* Tank is alive and we are either in a server context or a non-network game */
+	if ((*value)->armour <= TANK_FULL_ARMOUR && (threadsGetContext() == TRUE || netGetType() == netSingle)) {
 
-	conv = (*value)->x;
-    conv >>= TANK_SHIFT_MAPSIZE;
-    bmx = (BYTE) conv;
-    conv = (*value)->y;
-    conv >>= TANK_SHIFT_MAPSIZE;
-    bmy = (BYTE) conv;
+		conv = (*value)->x;
+		conv >>= TANK_SHIFT_MAPSIZE;
+		bmx = (BYTE) conv;
+		conv = (*value)->y;
+		conv >>= TANK_SHIFT_MAPSIZE;
+		bmy = (BYTE) conv;
 
-    if (bmx != 0 && bmy != 0 && pillsIsCapturable(pb, bmx,bmy) == TRUE) {
-      pillNum = pillsGetPillNum(pb, bmx, bmy, TRUE, FALSE);
-      while (pillNum != PILL_NOT_FOUND) {
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0, 0);
-        pillsSetPillInTank(pb,pillNum, TRUE);
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_CAPTURE, (BYTE) (pillNum-1) , screenGetTankPlayer(value), 0, 0, 0);
-        if (threadsGetContext() == FALSE) {
-          frontEndStatusPillbox(pillNum, (pillsGetAllianceNum(pb, pillNum)));
-        }
-        New(q);
-        q->pillNum = pillNum;
-        q->next = (*value)->carryPills;
-        (*value)->carryPills = q;
-        if ((pillsGetPillOwner(pb, pillNum)) != screenGetTankPlayer(value)) {
-          pillsSetPillOwner(pb, pillNum, screenGetTankPlayer(value), FALSE);
-        }
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0, 0);
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_CAPTURE, (BYTE) (pillNum-1) , screenGetTankPlayer(value), 0, 0, 0);
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0, 0);
-        if (pillsExistPos(pb, bmx, bmy) == TRUE) {
-          pillNum = pillsGetPillNum(pb, bmx, bmy, TRUE, FALSE);
-        } else {
-          pillNum = PILL_NOT_FOUND;
-        }
-      }
-      screenReCalc();
-    } 
-  }
+		/* The tank is not at the origin and the pill is capturable */
+		if (bmx != 0 && bmy != 0 && pillsIsCapturable(pb, bmx,bmy) == TRUE) {
+			pillNum = pillsGetPillNum(pb, bmx, bmy, TRUE, FALSE);
+			while (pillNum != PILL_NOT_FOUND) {
+				netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0, 0);
+				pillsSetPillInTank(pb,pillNum, TRUE);
+				netPNBAdd(screenGetNetPnb(), NPNB_PILL_CAPTURE, (BYTE) (pillNum-1) , screenGetTankPlayer(value), 0, 0, 0);
+				/* We are a client.. which should only happen in a single player game */
+				if (threadsGetContext() == FALSE) {
+					frontEndStatusPillbox(pillNum, (pillsGetAllianceNum(pb, pillNum)));
+				}
+				New(q);
+				q->pillNum = pillNum;
+				q->next = (*value)->carryPills;
+				(*value)->carryPills = q;
+				if ((pillsGetPillOwner(pb, pillNum)) != screenGetTankPlayer(value)) {
+					pillsSetPillOwner(pb, pillNum, screenGetTankPlayer(value), FALSE);
+				}
+				netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0, 0);
+				netPNBAdd(screenGetNetPnb(), NPNB_PILL_CAPTURE, (BYTE) (pillNum-1) , screenGetTankPlayer(value), 0, 0, 0);
+				netPNBAdd(screenGetNetPnb(), NPNB_PILL_PICKUP, (BYTE) (pillNum-1), screenGetTankPlayer(value), 0, 0, 0);
+				if (pillsExistPos(pb, bmx, bmy) == TRUE) {
+					pillNum = pillsGetPillNum(pb, bmx, bmy, TRUE, FALSE);
+				} else {
+					pillNum = PILL_NOT_FOUND;
+				}
+			}
+			screenReCalc();
+		}
+	}
 }
 
 /*********************************************************
@@ -2119,33 +2137,33 @@ void tankPutCarriedPill(tank *value, BYTE pillNum) {
 *  pillNum - Pillbox number to drop if we are holding it
 *********************************************************/
 void tankStopCarryingPill(tank *value, BYTE pillNum) {
-  bool done;        /* Have we done looping */
-  tankCarryPb q;    /* temp pointer */
-  tankCarryPb prev; /* temp pointer */
+	bool done;        /* Have we done looping */
+	tankCarryPb q;    /* temp pointer */
+	tankCarryPb prev; /* temp pointer */
 
-  done = FALSE;
-  pillNum++;
-  if (*value != NULL) {
-    if (!IsEmpty((*value)->carryPills)) {
-      prev = NULL;
-      q = (*value)->carryPills;
-      while (NonEmpty(q) && done == FALSE) {
-        if (q->pillNum == pillNum) {
-          /* We are carrying it */
-          done = TRUE;
-          if (prev == NULL) {
-            (*value)->carryPills = q->next;
-          } else {
-            prev->next = q->next;
-          }
-          Dispose(q);
-        } else {
-          prev = q;
-          q = q->next;
-        }
-      }
-    }
-  }
+	done = FALSE;
+	pillNum++;
+	if (*value != NULL) {
+		if (!IsEmpty((*value)->carryPills)) {
+			prev = NULL;
+			q = (*value)->carryPills;
+			while (NonEmpty(q) && done == FALSE) {
+				if (q->pillNum == pillNum) {
+					/* We are carrying it */
+					done = TRUE;
+					if (prev == NULL) {
+						(*value)->carryPills = q->next;
+					} else {
+						prev->next = q->next;
+					}
+					Dispose(q);
+				} else {
+					prev = q;
+					q = q->next;
+				}
+			}
+		}
+	}
 }
 
 /*********************************************************

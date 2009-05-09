@@ -862,7 +862,7 @@ bool tankGetLgmTrees(tank *value, BYTE amount, bool perform);
 *LAST MODIFIED: 17/1/99
 *PURPOSE:
 * Adds the amount given in the amount to the tanks stocks
-* and updates the displat
+* and updates the display
 *
 *ARGUMENTS:
 *  value  - Pointer to the tank structure

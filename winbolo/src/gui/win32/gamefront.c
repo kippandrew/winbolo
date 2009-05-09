@@ -866,7 +866,6 @@ bool gameFrontGetPrefs(keyItems *keys, bool *useAutoslow, bool *useAutohide) {
   GetPrivateProfileStringA("KEYS", "Scroll Right", def, buff, FILENAME_MAX, PREFERENCE_FILE);
   keys->kiScrollRight = atoi(buff);
 
-
   /* Remeber */
   GetPrivateProfileStringA("SETTINGS", "Remember Player Name", "Yes", buff, FILENAME_MAX, PREFERENCE_FILE);
   gameFrontRemeber = YESNO_TO_TRUEFALSE(buff[0]);

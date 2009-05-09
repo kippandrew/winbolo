@@ -26,22 +26,25 @@
 *********************************************************/
 
 #include <string.h>
-#include "global.h"
+
 #include "allience.h"
-#include "tank.h"
-#include "messages.h"
+#include "frontend.h"
+#include "global.h"
 #include "labels.h"
-#include "screentank.h"
-#include "screenlgm.h"
-#include "screen.h"
-#include "../server/servercore.h"
-#include "tilenum.h"
-#include "network.h"
-#include "util.h"
 #include "lgm.h"
 #include "log.h"
-#include "frontend.h"
+#include "messages.h"
+#include "network.h"
 #include "players.h"
+#include "screen.h"
+#include "screenlgm.h"
+#include "screentank.h"
+#include "tank.h"
+#include "tilenum.h"
+#include "util.h"
+
+#include "../server/servercore.h"
+
 
 char myLastPlayerName[PLAYER_NAME_LEN];
 

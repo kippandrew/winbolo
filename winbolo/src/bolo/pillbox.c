@@ -202,19 +202,21 @@ void pillsGetPill(pillboxes *value, pillbox *item, BYTE pillNum) {
 *  yValue - Y Location
 *********************************************************/
 bool pillsExistPos(pillboxes *value, BYTE xValue, BYTE yValue) {
-  bool returnValue; /* Value to return */
-  BYTE count;       /* Looping Variable */
+	bool returnValue; /* Value to return */
+	BYTE count;       /* Looping Variable */
 
-  returnValue = FALSE;
-  count = 0;
-  while (returnValue == FALSE && count < ((*value)->numPills)) {
-    if (((*value)->item[count].x) == xValue && ((*value)->item[count].y) == yValue && ((*value)->item[count].inTank) == FALSE) {
-      returnValue = TRUE;
-    }
-    count++;
-  }
-
-  return returnValue;
+	returnValue = FALSE;
+	count = 0;
+	while (returnValue == FALSE && count < ((*value)->numPills)) {
+		/* Does the pill's map coords match what was passed and is it not in a tank? */
+		if ((((*value)->item[count].x) == xValue)
+		&& (((*value)->item[count].y) == yValue)
+		&& (((*value)->item[count].inTank) == FALSE)) {
+			returnValue = TRUE;
+		}
+		count++;
+	}
+	return returnValue;
 }
 
 /*********************************************************
@@ -750,18 +752,23 @@ TURNTYPE pillsTargetTankMove(map *mp, pillboxes *pb, bases *bs, WORLD xValue, WO
 *  yValue - Y Location of pillbox
 *********************************************************/
 bool pillsDeadPos(pillboxes *value, BYTE xValue, BYTE yValue) {
-  bool returnValue; /* Value to return */
-  BYTE count;       /* Looping Variable */
+	bool returnValue; /* Value to return */
+	BYTE count;       /* Looping Variable */
 
-  returnValue = FALSE;
-  count = 0;
-  while (returnValue == FALSE && count < ((*value)->numPills)) {
-    if (((*value)->item[count].x) == xValue && ((*value)->item[count].y) == yValue && ((*value)->item[count].armour == 0)) {
-      returnValue = TRUE;
-    }
-    count++;
-  }
-  return returnValue;
+	returnValue = FALSE;
+	count = 0;
+	while (returnValue == FALSE && count < ((*value)->numPills)) {
+		/* Do the pill's map coords match what was passed and does it have zero armour and is it not in a tank? */
+		if ((((*value)->item[count].x) == xValue)
+		&& (((*value)->item[count].y) == yValue)
+		&& (((*value)->item[count].armour == 0))
+		&& (((*value)->item[count].inTank == FALSE)))
+		{
+			returnValue = TRUE;
+		}
+		count++;
+	}
+	return returnValue;
 }
 
 /*********************************************************
@@ -1388,22 +1395,26 @@ BYTE pillsGetPillNetData(pillboxes *value, BYTE *buff) {
 *  owner - Owner to set back to neutral
 *********************************************************/
 void pillsDropSetNeutralOwner(pillboxes *value, BYTE owner) {
-  BYTE count;       /* Looping Variable */
+	BYTE count;       /* Looping Variable */
 
-  count = 0;
-  while (count < ((*value)->numPills)) {
-    if (((*value)->item[count].owner) == owner) {
-      (*value)->item[count].owner = NEUTRAL;
-      netPNBAdd(screenGetNetPnb(), NPNB_PILL_CAPTURE, count, NEUTRAL, (*value)->item[count].x, (*value)->item[count].y, 0);
-      if (((*value)->item[count].inTank) == TRUE) {
-        (*value)->item[count].inTank = FALSE;
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, count, NEUTRAL, (*value)->item[count].x, (*value)->item[count].y, 0);
+	count = 0;
+	while (count < ((*value)->numPills)) {
+		/* Pills owner is the same owner that has quit the game */
+		if (((*value)->item[count].owner) == owner) {
+			(*value)->item[count].owner = NEUTRAL;
+			/* A 'neutral' tank captures the pill instantly */
+			netPNBAdd(screenGetNetPnb(), NPNB_PILL_CAPTURE, count, NEUTRAL, (*value)->item[count].x, (*value)->item[count].y, 0);
+			/* The tank was carrying pills */
+			if (((*value)->item[count].inTank) == TRUE) {
+				(*value)->item[count].inTank = FALSE;
+				/* Send a message that all the pills in the tank are now dead and belong to a 'neutral' player */
+				netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, count, NEUTRAL, (*value)->item[count].x, (*value)->item[count].y, 0);
         logAddEvent(log_PillSetInTank, utilPutNibble(count, FALSE), 0, 0, 0, 0, NULL);
         logAddEvent(log_PillSetOwner, count, NEUTRAL, FALSE, 0, 0, NULL);
-      }
-    }
-    count++;
-  }
+			}
+		}
+		count++;
+	}
 }
 
 /*********************************************************
@@ -1412,8 +1423,8 @@ void pillsDropSetNeutralOwner(pillboxes *value, BYTE owner) {
 *CREATION DATE: 1/11/99
 *LAST MODIFIED: 1/11/99
 *PURPOSE:
-*  Causes all bases owned by owner  to migrate to a new 
-* owner because its old owner left the game.
+*  Causes all bases owned by owner to migrate to a new 
+*  owner because its old owner left the game.
 *
 *ARGUMENTS:
 *  value    - Pointer to the bases structure
@@ -1421,25 +1432,25 @@ void pillsDropSetNeutralOwner(pillboxes *value, BYTE owner) {
 *  newOwner - Owner to replace with
 *********************************************************/
 void pillsMigrate(pillboxes *value, BYTE oldOwner, BYTE newOwner) {
-  BYTE count;    /* Looping Variable */
-  bool isServer; /* Are we a server */
+	BYTE count;    /* Looping Variable */
+	bool isServer; /* Are we a server */
 
-  count = 0;
-  isServer = threadsGetContext();
-  while (count < ((*value)->numPills)) {
-    if (((*value)->item[count].owner) == oldOwner) {
-      (*value)->item[count].owner = newOwner;
-      netMNTAdd(screenGetNetMnt(), NMNT_PILLMIGRATE, count, newOwner, (*value)->item[count].x, (*value)->item[count].y);
-      if (((*value)->item[count].inTank) == TRUE && isServer == TRUE) {
-        (*value)->item[count].inTank = FALSE;
+	count = 0;
+	isServer = threadsGetContext();
+	while (count < ((*value)->numPills)) {
+		if (((*value)->item[count].owner) == oldOwner) {
+			(*value)->item[count].owner = newOwner;
+			netMNTAdd(screenGetNetMnt(), NMNT_PILLMIGRATE, count, newOwner, (*value)->item[count].x, (*value)->item[count].y);
+			if (((*value)->item[count].inTank) == TRUE && isServer == TRUE) {
+				(*value)->item[count].inTank = FALSE;
         logAddEvent(log_PillSetOwner, count, newOwner, FALSE, 0, 0, NULL);
         logAddEvent(log_PillSetInTank, utilPutNibble(count, FALSE), 0, 0, 0, 0, NULL);
         logAddEvent(log_PillSetPlace, count, (*value)->item[count].x, (*value)->item[count].y, 0, 0, NULL);
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, count, newOwner, (*value)->item[count].x, (*value)->item[count].y, 0);
-      }
-    }
-    count++;
-  }
+				netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, count, newOwner, (*value)->item[count].x, (*value)->item[count].y, 0);
+			}
+		}
+		count++;
+	}
 }
 
 /*********************************************************

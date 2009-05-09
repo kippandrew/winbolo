@@ -26,32 +26,32 @@
 *********************************************************/
 
 #include <memory.h>
-#include "global.h"
-#include "util.h"
+
 #include "bolo_map.h"
-#include "pillbox.h"
-#include "tank.h"
-#include "screenbullet.h"
-#include "screen.h"
-#include "rubble.h"
 #include "building.h"
 #include "explosions.h"
-#include "sounddist.h"
-#include "grass.h"
-#include "swamp.h"
-#include "tankexp.h"
-#include "lgm.h"
 #include "floodfill.h"
 #include "frontend.h"
+#include "global.h"
+#include "grass.h"
+#include "lgm.h"
 #include "minesexp.h"
-#include "util.h"
-#include "sounddist.h"
 #include "players.h"
 #include "netpnb.h"
 #include "netmt.h"
 #include "network.h"
-#include "shells.h"
+#include "pillbox.h"
+#include "rubble.h"
 #include "screen.h"
+#include "screenbullet.h"
+#include "shells.h"
+#include "sounddist.h"
+#include "swamp.h"
+#include "tank.h"
+#include "tankexp.h"
+#include "util.h"
+
+
 
 bool c;
 shellsNetHit snh;
@@ -124,7 +124,8 @@ void shellsAddItem(shells *value, WORLD x, WORLD y, TURNTYPE angle, TURNTYPE len
   utilCalcDistance(&xAdd, &yAdd, angle, SHELL_SPEED);
   x = (WORLD) (x + (SHELL_START_ADD) * xAdd);
   y = (WORLD) (y + (SHELL_START_ADD) * yAdd);
-/*  if (xAdd >= 0) {
+/*  
+  if (xAdd >= 0) {
     x += 22;
   } else {
     x -= 22;
@@ -133,7 +134,8 @@ void shellsAddItem(shells *value, WORLD x, WORLD y, TURNTYPE angle, TURNTYPE len
     y += 22;
   } else {
     y -= 22;
-  }  */
+  }
+*/
   New (q);
   q->x = x;
   q->y = y;
@@ -169,131 +171,132 @@ void shellsAddItem(shells *value, WORLD x, WORLD y, TURNTYPE angle, TURNTYPE len
 *  isServer - TRUE if we are a server
 *********************************************************/
 void shellsUpdate(shells *value, map *mp, pillboxes *pb, bases *bs, tank *tk, BYTE numTanks, bool isServer) {
-  WORLD newX;      /* X and Y positions of the new shell location */
-  WORLD newY;
-  shells position; /* The position in the stack of items */
-  bool needUpdate; /* Does an update need to occur? */
-  int xAdd;        /* Amounts to add */
-  int yAdd;  
-  BYTE bmx;        /* Shell X and Y map positions */
-  BYTE bmy;
-  BYTE sx;         /* Screen - TANK_SUBTRACT Map X and Y Positions */
-  BYTE sy;
-  BYTE spx;        /* Screen - TANK_SUBTRACT  Pixel X and Y Positions */
-  BYTE spy;
-  WORLD conv;      /* Used for bit shifting */
-  BYTE testPos;    /* Test position for mine send */
-  BYTE count;      /* Looping variable */
-  
-  position = *value;
-  if (netGetType() == netSingle) {
-    isServer = FALSE;
-  } 
+	WORLD newX;      /* world x-coord of new shell location */
+	WORLD newY;      /* world y-coord of new shell location */
+	shells position; /* The position in the stack of items */
+	bool needUpdate; /* Does an update need to occur? */
+	int xAdd;        /* Amounts to add */
+	int yAdd;  
+	BYTE bmx;        /* Shell map x-coord */
+	BYTE bmy;        /* Shell map y-coord */
+	BYTE sx;         /* Screen - TANK_SUBTRACT Map X and Y Positions */
+	BYTE sy;
+	BYTE spx;        /* Screen - TANK_SUBTRACT  Pixel X and Y Positions */
+	BYTE spy;
+	WORLD conv;      /* Used for bit shifting */
+	BYTE testPos;    /* Test position for mine send */
+	BYTE count;      /* Looping variable */
 
-  while (NonEmpty(position)) {
-    needUpdate = TRUE;
-    if (position->shellDead == TRUE && (position->packSent == TRUE || netGetType() == netSingle)) {
-      needUpdate = FALSE;
-      shellsDeleteItem(value, &position);
-    } else if (position->shellDead == TRUE && position->packSent == FALSE) {
-      needUpdate = TRUE;
-    } else if (position->length > SHELL_DEATH) {
-      /* Move the shell */
-      utilCalcDistance(&xAdd, &yAdd, position->angle, SHELL_SPEED);
-      newX = (WORLD) (position->x + xAdd);
-      newY = (WORLD) (position->y + yAdd);
-      /* Check for colision */
-      if ((shellsCalcCollision(mp, pb, tk, bs, &newX, &newY, position->angle, position->owner, position->onBoat, numTanks, isServer)) == TRUE) {
-        /* Get X and Y map co-ords. */
-        conv = newX;
-        conv >>= TANK_SHIFT_MAPSIZE;
-        bmx = (BYTE) conv;
-        conv = newY;
-        conv >>= TANK_SHIFT_MAPSIZE;
-        bmy = (BYTE) conv;
-        /* Get Screen - TANK_SUBTRACT co-ords */
-        conv = newX - TANK_SUBTRACT;
-        conv >>= TANK_SHIFT_MAPSIZE;
-        sx = (BYTE) conv;
-        conv = newY - TANK_SUBTRACT;
-        conv >>= TANK_SHIFT_MAPSIZE;
-        sy = (BYTE) conv;
-        conv = newX - TANK_SUBTRACT;
-        conv <<= TANK_SHIFT_MAPSIZE;
-        conv >>= TANK_SHIFT_PIXELSIZE;
-        spx = (BYTE) conv;
-        conv = newY - TANK_SUBTRACT;
-        conv <<= TANK_SHIFT_MAPSIZE;
-        conv >>= TANK_SHIFT_PIXELSIZE;
-        spy = (BYTE) conv;
-        explosionsAddItem(screenGetExplosions(), sx,sy,spx,spy,EXPLOSION_START);
-        minesExpAddItem(screenGetMinesExp(), mp, bmx, bmy);
-        count = 0;
-        while (count < numTanks) {
-          lgmDeathCheck(screenGetLgmFromPlayerNum(screenGetTankPlayer(&tk[count])), mp, pb, bs, newX, newY, position->owner);
-          count++;
-        }        
-        if (position->packSent == TRUE) { 
-          needUpdate = FALSE;
-          shellsDeleteItem(value, &position);
-        } else {
-          position->shellDead = TRUE;
-        }
-      } else {
-        position->length--;
-        position->x = newX;
-        position->y = newY;
-      }
-      /* Update Position */
-    } else {
-      /* Add to explosion Data structure and remove from shells data structure */
-      needUpdate = FALSE;
-      /* Get X and Y map co-ords. */
-      conv = position->x;
-      conv >>= TANK_SHIFT_MAPSIZE;
-      bmx = (BYTE) conv;
-      conv = position->y;
-      conv >>= TANK_SHIFT_MAPSIZE;
-      bmy = (BYTE) conv;
-      /* Get Screen - TANK_SUBTRACT co-ords */
-      conv = position->x - TANK_SUBTRACT;
-      conv >>= TANK_SHIFT_MAPSIZE;
-      sx = (BYTE) conv;
-      conv = position->y - TANK_SUBTRACT;
-      conv >>= TANK_SHIFT_MAPSIZE;
-      sy = (BYTE) conv;
-      conv = position->x - TANK_SUBTRACT;
-      conv <<= TANK_SHIFT_MAPSIZE;
-      conv >>= TANK_SHIFT_PIXELSIZE;
-      spx = (BYTE) conv;
-      conv = position->y - TANK_SUBTRACT;
-      conv <<= TANK_SHIFT_MAPSIZE;
-      conv >>= TANK_SHIFT_PIXELSIZE;
-      spy = (BYTE) conv;
-      explosionsAddItem(screenGetExplosions(), sx,sy,spx,spy,EXPLOSION_START);
-      minesExpAddItem(screenGetMinesExp(), mp, bmx, bmy);
-      testPos = mapGetPos(mp, bmx, bmy);
-      if (isServer == TRUE && testPos >= MINE_START && testPos <= MINE_END) {
-        netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), bmx, bmy);
-      }
-      count = 0;
-      while (count < numTanks) {
-        lgmDeathCheck(screenGetLgmFromPlayerNum(screenGetTankPlayer(&tk[count])), mp, pb, bs, position->x, position->y, position->owner);
-        count++;
-      }
-      if (position->packSent == TRUE) {
-        shellsDeleteItem(value, &position);
-      } else if (position->shellDead == FALSE) {
-        position->shellDead = TRUE;
-      }
-      
-    }
+	position = *value;
 
-    /* Get the next Item */
-    if (*value != NULL && needUpdate == TRUE) {
-      position = ShellsTail(position);
-    }
-  }
+	if (netGetType() == netSingle) {
+		isServer = FALSE;
+	} 
+
+	/* While there are shells to process.. */
+	while (NonEmpty(position)) {
+		needUpdate = TRUE;
+		if (position->shellDead == TRUE && (position->packSent == TRUE || netGetType() == netSingle)) {
+			needUpdate = FALSE;
+			shellsDeleteItem(value, &position);
+		} else if (position->shellDead == TRUE && position->packSent == FALSE) {
+			needUpdate = TRUE;
+		} else if (position->length > SHELL_DEATH) {
+			/* Move the shell */
+			utilCalcDistance(&xAdd, &yAdd, position->angle, SHELL_SPEED);
+			newX = (WORLD) (position->x + xAdd);
+			newY = (WORLD) (position->y + yAdd);
+			/* Check for colision */
+			if ((shellsCalcCollision(mp, pb, tk, bs, &newX, &newY, position->angle, position->owner, position->onBoat, numTanks, isServer)) == TRUE)
+			{
+				/* Get X and Y map co-ords. */
+				conv = newX;
+				conv >>= TANK_SHIFT_MAPSIZE;
+				bmx = (BYTE) conv;
+				conv = newY;
+				conv >>= TANK_SHIFT_MAPSIZE;
+				bmy = (BYTE) conv;
+				/* Get Screen - TANK_SUBTRACT co-ords */
+				conv = newX - TANK_SUBTRACT;
+				conv >>= TANK_SHIFT_MAPSIZE;
+				sx = (BYTE) conv;
+				conv = newY - TANK_SUBTRACT;
+				conv >>= TANK_SHIFT_MAPSIZE;
+				sy = (BYTE) conv;
+				conv = newX - TANK_SUBTRACT;
+				conv <<= TANK_SHIFT_MAPSIZE;
+				conv >>= TANK_SHIFT_PIXELSIZE;
+				spx = (BYTE) conv;
+				conv = newY - TANK_SUBTRACT;
+				conv <<= TANK_SHIFT_MAPSIZE;
+				conv >>= TANK_SHIFT_PIXELSIZE;
+				spy = (BYTE) conv;
+				explosionsAddItem(screenGetExplosions(), sx,sy,spx,spy,EXPLOSION_START);
+				minesExpAddItem(screenGetMinesExp(), mp, bmx, bmy);
+				count = 0;
+				while (count < numTanks) {
+					lgmDeathCheck(screenGetLgmFromPlayerNum(screenGetTankPlayer(&tk[count])), mp, pb, bs, newX, newY, position->owner);
+					count++;
+				}        
+				if (position->packSent == TRUE) { 
+					needUpdate = FALSE;
+					shellsDeleteItem(value, &position);
+				} else {
+					position->shellDead = TRUE;
+				}
+			} else {
+				position->length--;
+				position->x = newX;
+				position->y = newY;
+			}
+		} else { /* Update Position */
+			/* Add to explosion Data structure and remove from shells data structure */
+			needUpdate = FALSE;
+			/* Get X and Y map co-ords. */
+			conv = position->x;
+			conv >>= TANK_SHIFT_MAPSIZE;
+			bmx = (BYTE) conv;
+			conv = position->y;
+			conv >>= TANK_SHIFT_MAPSIZE;
+			bmy = (BYTE) conv;
+			/* Get Screen - TANK_SUBTRACT co-ords */
+			conv = position->x - TANK_SUBTRACT;
+			conv >>= TANK_SHIFT_MAPSIZE;
+			sx = (BYTE) conv;
+			conv = position->y - TANK_SUBTRACT;
+			conv >>= TANK_SHIFT_MAPSIZE;
+			sy = (BYTE) conv;
+			conv = position->x - TANK_SUBTRACT;
+			conv <<= TANK_SHIFT_MAPSIZE;
+			conv >>= TANK_SHIFT_PIXELSIZE;
+			spx = (BYTE) conv;
+			conv = position->y - TANK_SUBTRACT;
+			conv <<= TANK_SHIFT_MAPSIZE;
+			conv >>= TANK_SHIFT_PIXELSIZE;
+			spy = (BYTE) conv;
+			explosionsAddItem(screenGetExplosions(), sx,sy,spx,spy,EXPLOSION_START);
+			minesExpAddItem(screenGetMinesExp(), mp, bmx, bmy);
+			testPos = mapGetPos(mp, bmx, bmy);
+			if (isServer == TRUE && testPos >= MINE_START && testPos <= MINE_END) {
+				netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), bmx, bmy);
+			}
+			count = 0;
+			while (count < numTanks) {
+				lgmDeathCheck(screenGetLgmFromPlayerNum(screenGetTankPlayer(&tk[count])), mp, pb, bs, position->x, position->y, position->owner);
+				count++;
+			}
+			if (position->packSent == TRUE) {
+				shellsDeleteItem(value, &position);
+			} else if (position->shellDead == FALSE) {
+				position->shellDead = TRUE;
+			}
+		}
+
+		/* Get the next Item */
+		if (*value != NULL && needUpdate == TRUE) {
+			position = ShellsTail(position);
+		}
+	}
 }
 
 /*********************************************************
@@ -407,268 +410,282 @@ void shellsCalcScreenBullets(shells *value, screenBullets *sBullets, BYTE leftPo
 *  isServer - TRUE if we are a server
 *********************************************************/
 bool shellsCalcCollision(map *mp, pillboxes *pb, tank *tk, bases *bs, WORLD *xValue, WORLD *yValue, TURNTYPE angle, BYTE owner, bool onBoat, BYTE numTanks, bool isServer) {
-  bool returnValue; /* Value to return */
-  tankHit th;       /* Used to store whether the tank has been hit */
-  WORLD conv;       /* Used in the conversion */
-  BYTE mapX;        /* Map Co-ordinates of where the item is going to hit */
-  BYTE mapY;
-  BYTE terrain;     /* The Terrain Type hit */
-  BYTE newTerrain;  /* The new terrain type to replace it with */
-  BYTE playerHit;   /* The player number of the player that got hit */
-  bool isMine;      /* Is the terrain a mine */
-  BYTE count;       /* Looping variable */
-  bool baseExist;   /* Does a base exist here */
-  netType gameT;    /* Type of network game */
+	bool returnValue; /* Value to return */
+	tankHit th;       /* Used to store whether the tank has been hit */
+	WORLD conv;       /* Used in the conversion */
+	BYTE mapX;        /* Map Co-ordinates of where the item is going to hit */
+	BYTE mapY;
+	BYTE terrain;     /* The Terrain Type hit */
+	BYTE newTerrain;  /* The new terrain type to replace it with */
+	BYTE playerHit;   /* The player number of the player that got hit */
+	bool isMine;      /* Is the terrain a mine */
+	BYTE count;       /* Looping variable */
+	bool baseExist;   /* Does a base exist here */
+	netType gameT;    /* Type of network game */
 
 
-  returnValue =  FALSE;
-  isMine = FALSE;
-  gameT = netGetType();
-  baseExist = FALSE;
-  /* Convert the position to Map co-ords */
-  conv = *xValue;
-  conv >>= TANK_SHIFT_MAPSIZE;
-  mapX = (BYTE) conv; 
-  conv = *yValue;
-  conv >>= TANK_SHIFT_MAPSIZE;
-  mapY = (BYTE) conv;
+	returnValue =  FALSE;
+	isMine = FALSE;
+	gameT = netGetType();
+	baseExist = FALSE;
+	/* Convert the position to Map co-ords */
+	conv = *xValue;
+	conv >>= TANK_SHIFT_MAPSIZE;
+	mapX = (BYTE) conv; 
+	conv = *yValue;
+	conv >>= TANK_SHIFT_MAPSIZE;
+	mapY = (BYTE) conv;
 
-  if ((pillsIsPillHit(pb, mapX, mapY)) == TRUE) {
-    returnValue = TRUE;
-    *xValue = mapX;
-    *xValue <<= TANK_SHIFT_MAPSIZE;
-    *xValue += MAP_SQUARE_MIDDLE;
-    *yValue = mapY;
-    *yValue <<= TANK_SHIFT_MAPSIZE;
-    *yValue += MAP_SQUARE_MIDDLE;
-    /* Play sound here */
-    if (isServer == TRUE || gameT == netSingle) {
-      if (pillsDamagePos(pb, mapX, mapY, TRUE, TRUE) == TRUE) {
-        count = pillsGetPillNum(pb, mapX, mapY, FALSE, FALSE);
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, (BYTE) (count-1), pillsGetPillOwner(pb, count), mapX, mapY, 0);
-      } else {
-        netPNBAdd(screenGetNetPnb(), NPNB_PILL_HIT, 0, owner, mapX, mapY, 0);
-      }
-    } else if (owner == screenGetTankPlayer(tk)) {
-      pillsDamagePos(pb, mapX, mapY, FALSE, TRUE);
-    }
-    soundDist(shotBuildingNear, mapX, mapY);
-  }
-  if (returnValue == FALSE) {
-    count = 0;
-    while (count < numTanks && returnValue == FALSE) {
-      if (screenGetTankPlayer(&tk[count]) != owner) {
-        th = tankIsTankHit(&(tk[count]), mp, pb, bs, *xValue, *yValue, angle, owner);
-        switch (th) {
-        case TH_HIT:
-          returnValue = TRUE;
-          if (threadsGetContext() == FALSE) {
-            frontEndPlaySound(hitTankSelf);
-          }
-          if (isServer == FALSE) {
-            if ((mapGetPos(mp, tankGetMX(&(tk[count])), tankGetMY(&(tk[count]))) == DEEP_SEA)) {
-            /* We have drowned - They have killed us */
-//              if (owner != NEUTRAL) {
-                netMNTAdd(screenGetNetMnt(), NMNT_KILLME, playersGetSelf(screenGetPlayers()), screenGetTankPlayer(&(tk[count])), owner, 0xFF);
-  //            } else {
-                /* Was player get self for first owner parameter all the time */
-    //            netMNTAdd(NMNT_KILLME, owner, screenGetTankPlayer(&(tk[count])), 0xFF, 0xFF);
-//              }
+	/* Pill is hit by the shell */
+	if ((pillsIsPillHit(pb, mapX, mapY)) == TRUE) {
+		returnValue = TRUE;
+		*xValue = mapX;
+		*xValue <<= TANK_SHIFT_MAPSIZE;
+		*xValue += MAP_SQUARE_MIDDLE;
+		*yValue = mapY;
+		*yValue <<= TANK_SHIFT_MAPSIZE;
+		*yValue += MAP_SQUARE_MIDDLE;
+		/* We are the server or are in a single player game */
+		if (isServer == TRUE || gameT == netSingle) {
+			/* The pill has died */
+			if (pillsDamagePos(pb, mapX, mapY, TRUE, TRUE) == TRUE) {
+				count = pillsGetPillNum(pb, mapX, mapY, FALSE, FALSE);
+				netPNBAdd(screenGetNetPnb(), NPNB_PILL_DEAD, (BYTE) (count-1), pillsGetPillOwner(pb, count), mapX, mapY, 0);
+			} else {
+				/* The pill has not died, just been hit */
+				netPNBAdd(screenGetNetPnb(), NPNB_PILL_HIT, 0, owner, mapX, mapY, 0);
+			}
+		} else if (owner == screenGetTankPlayer(tk)) {
+			pillsDamagePos(pb, mapX, mapY, FALSE, TRUE);
+		}
+		soundDist(shotBuildingNear, mapX, mapY);
+	}
 
-            }
-          }
-          break;
-        case TH_KILL_SMALL:
-          returnValue = TRUE;
-          if (isServer == FALSE) {
-            tkExplosionAddItem(screenGetTankExplosions(), *xValue, *yValue, angle, TK_EXPLODE_LENGTH, TK_SMALL_EXPLOSION);
-  //            if (owner != NEUTRAL) {
-                netMNTAdd(screenGetNetMnt(), NMNT_KILLME, playersGetSelf(screenGetPlayers()), screenGetTankPlayer(&(tk[count])), owner, 0xFF);
-//              } else {
- //               netMNTAdd(NMNT_KILLME, owner, screenGetTankPlayer(&(tk[count])), 0xFF, 0xFF);
-//              }
 
-          }
-          if (threadsGetContext() == FALSE) {
-            frontEndPlaySound(hitTankSelf);
-          }
-          break;
-        case TH_KILL_BIG:
-          returnValue = TRUE;
-          if (isServer == FALSE) {
-            tkExplosionAddItem(screenGetTankExplosions(), *xValue, *yValue, angle, TK_EXPLODE_LENGTH, TK_LARGE_EXPLOSION);
-//              if (owner != NEUTRAL) {
-  //              netMNTAdd(NMNT_KILLME, owner, screenGetTankPlayer(&(tk[count])), playersGetSelf(), 0);
-    //          } else {
-                netMNTAdd(screenGetNetMnt(), NMNT_KILLME, playersGetSelf(screenGetPlayers()), screenGetTankPlayer(&(tk[count])), owner, 0xFF);
-     //         }
+	/* Shell did not hit pillbox */
+	if (returnValue == FALSE) {
+		count = 0;
+		while (count < numTanks && returnValue == FALSE) 
+		{
+			if (screenGetTankPlayer(&tk[count]) != owner) 
+			{
+				th = tankIsTankHit(&(tk[count]), mp, pb, bs, *xValue, *yValue, angle, owner);
+				switch (th) 
+				{
+					case TH_HIT:
+						returnValue = TRUE;
+						if (threadsGetContext() == FALSE) {
+							frontEndPlaySound(hitTankSelf);
+						}
+						if (isServer == FALSE) {
+							if ((mapGetPos(mp, tankGetMX(&(tk[count])), tankGetMY(&(tk[count]))) == DEEP_SEA)) {
+								/* We have drowned - They have killed us */
+/*								if (owner != NEUTRAL) { */
+								netMNTAdd(screenGetNetMnt(), NMNT_KILLME, playersGetSelf(screenGetPlayers()), screenGetTankPlayer(&(tk[count])), owner, 0xFF);
+/*								} else { */
+								/* Was player get self for first owner parameter all the time */
+/*						            netMNTAdd(NMNT_KILLME, owner, screenGetTankPlayer(&(tk[count])), 0xFF, 0xFF);
+/*								 }*/
+							}
+						}
+						break;
+					case TH_KILL_SMALL:
+						returnValue = TRUE;
+						if (isServer == FALSE) {
+							tkExplosionAddItem(screenGetTankExplosions(), *xValue, *yValue, angle, TK_EXPLODE_LENGTH, TK_SMALL_EXPLOSION);
+/*							if (owner != NEUTRAL) { */
+							netMNTAdd(screenGetNetMnt(), NMNT_KILLME, playersGetSelf(screenGetPlayers()), screenGetTankPlayer(&(tk[count])), owner, 0xFF);
+/*							} else { */
+/*								netMNTAdd(NMNT_KILLME, owner, screenGetTankPlayer(&(tk[count])), 0xFF, 0xFF); */
+/*							} */
+						}
+						if (threadsGetContext() == FALSE) {
+							frontEndPlaySound(hitTankSelf);
+						}
+						break;
+					case TH_KILL_BIG:
+						returnValue = TRUE;
+						if (isServer == FALSE) {
+							tkExplosionAddItem(screenGetTankExplosions(), *xValue, *yValue, angle, TK_EXPLODE_LENGTH, TK_LARGE_EXPLOSION);
+/*							if (owner != NEUTRAL) { */
+/*								netMNTAdd(NMNT_KILLME, owner, screenGetTankPlayer(&(tk[count])), playersGetSelf(), 0); */
+/*							} else { */
+							netMNTAdd(screenGetNetMnt(), NMNT_KILLME, playersGetSelf(screenGetPlayers()), screenGetTankPlayer(&(tk[count])), owner, 0xFF);
+/*							} */
+						}
+						if (threadsGetContext() == FALSE) {
+							frontEndPlaySound(hitTankSelf);
+						}
+						break;
+					case TH_MISSED:
+						default:
+						break;
+				}
+			}
+			count++;
+		}
+	}
 
-          }
-          if (threadsGetContext() == FALSE) {
-            frontEndPlaySound(hitTankSelf);
-          }
-          break;
-         case TH_MISSED:
-         default:
-           break;
-        }
-      }
-      count++;
-    }
-  }
-  /* Check for player hit */
-  if (returnValue == FALSE && isServer == FALSE) {
-    playerHit = playersIsTankHit(screenGetPlayers(), *xValue, *yValue, angle, owner);
-    if (playerHit != NEUTRAL) {
-      returnValue = TRUE;
-      soundDist(hitTankNear, mapX, mapY);
-    }
-  }
-  
-  if (returnValue == FALSE) {
-    baseExist = basesExistPos(bs, mapX, mapY); 
-    /* Check for base */
-    if (baseExist == TRUE) {
-      if (onBoat == TRUE) {
-        returnValue = TRUE;
-        *xValue = mapX;
-        *xValue <<= TANK_SHIFT_MAPSIZE;
-        *xValue += MAP_SQUARE_MIDDLE;
-        *yValue = mapY;
-        *yValue <<= TANK_SHIFT_MAPSIZE;
-        *yValue += MAP_SQUARE_MIDDLE;
-        /* Play sound */
-        if ((basesCanHit(bs, mapX, mapY, owner)) == TRUE) {
-          if (isServer == TRUE || gameT == netSingle) {
-            basesDamagePos(bs, mapX, mapY);
-            netPNBAdd(screenGetNetPnb(), NPNB_BASE_HIT, 0, screenGetTankPlayer(tk), mapX, mapY, 0);
-          }
-          pillsBaseHit(pb, mapX, mapY, (basesGetOwnerPos(bs, mapX, mapY)));
-        }
-        soundDist(shotBuildingNear, mapX, mapY);
-      } else if ((basesCanHit(bs, mapX, mapY, owner)) == TRUE) { /* Huh? */
-        returnValue = TRUE;
-        *xValue = mapX;
-        *xValue <<= TANK_SHIFT_MAPSIZE;
-        *xValue += MAP_SQUARE_MIDDLE;
-        *yValue = mapY;
-        *yValue <<= TANK_SHIFT_MAPSIZE;
-        *yValue += MAP_SQUARE_MIDDLE;
-        /* Do damage to base */
-        if (isServer == TRUE || gameT == netSingle) {
-          basesDamagePos(bs, mapX, mapY);
-          netPNBAdd(screenGetNetPnb(), NPNB_BASE_HIT, 0, screenGetTankPlayer(tk), mapX, mapY, 0);
-        }
-        pillsBaseHit(pb, mapX, mapY, (basesGetOwnerPos(bs, mapX, mapY)));
-        /* Play sound */
-        soundDist(shotBuildingNear, mapX, mapY);
-      } /*end huh?*/
-    }
-  }
-  if (returnValue == FALSE) {
-    if ((mapIsPassable(mp, mapX, mapY, onBoat)) == FALSE && baseExist == FALSE) {
-      returnValue = TRUE;
-      *xValue = mapX;
-      *xValue <<= TANK_SHIFT_MAPSIZE;
-      *xValue += MAP_SQUARE_MIDDLE;
-      conv = *xValue;
-      conv >>= TANK_SHIFT_MAPSIZE;
-      mapX = (BYTE) conv;      
-      *yValue = mapY;
-      *yValue <<= TANK_SHIFT_MAPSIZE;
-      *yValue += MAP_SQUARE_MIDDLE;
-      conv = *yValue;
-      conv >>= TANK_SHIFT_MAPSIZE;
-      mapY = (BYTE) conv;
-    
-      terrain = mapGetPos(mp, mapX, mapY);
-      if (terrain >= MINE_START && terrain <= MINE_END) {
-        terrain -= MINE_SUBTRACT;
-        isMine = TRUE;
-      }
-      /* Update the map  & Play the sound */
-      switch (terrain) {
-      case BUILDING:
-        mapSetPos(mp, mapX, mapY, (buildingAddItem(screenGetBuildings(), mapX, mapY)), FALSE, FALSE);
-        soundDist(shotBuildingNear, mapX, mapY);
-        break;
-      case FOREST:
-        if (isMine == TRUE) {
-          mapSetPos(mp, mapX, mapY, GRASS+MINE_SUBTRACT, FALSE, FALSE);
-          if (isServer == TRUE) {
-            netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), mapX, mapY);
-          }
-        } else {
-          mapSetPos(mp, mapX, mapY, GRASS, FALSE, FALSE);
-        }
-        soundDist(shotTreeNear, mapX, mapY);
-        break;
-      case HALFBUILDING:
-        mapSetPos(mp, mapX, mapY, (buildingAddItem(screenGetBuildings(), mapX, mapY)), FALSE, FALSE);
-        soundDist(shotBuildingNear, mapX, mapY);
-        break;
-      case BOAT:
-        mapSetPos(mp, mapX, mapY, RIVER, FALSE, FALSE);
-        soundDist(shotBuildingNear, mapX, mapY);
-        break;
-      case GRASS:
-        if (isMine == TRUE) {
-          mapSetPos(mp, mapX, mapY, GRASS+MINE_SUBTRACT, FALSE, FALSE);
-          if (isServer == TRUE) {
-            netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), mapX, mapY);
-          }
-        } else {
-          newTerrain = grassAddItem(screenGetGrass(), mapX, mapY);
-          mapSetPos(mp, mapX, mapY, newTerrain, FALSE, FALSE);
-          if (newTerrain == RIVER) {
-            floodAddItem(screenGetFloodFill(), mapX, mapY);
-          }
-        }
-        break;
-      case SWAMP:
-        if (isMine == TRUE) {
-          mapSetPos(mp, mapX, mapY, SWAMP+MINE_SUBTRACT, FALSE, FALSE);
-          if (isServer == TRUE) {
-            netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), mapX, mapY);
-          }
-        } else {
-          newTerrain = swampAddItem(screenGetSwamp(), mapX, mapY);
-          mapSetPos(mp, mapX, mapY, newTerrain, FALSE, FALSE);
-          if (newTerrain == RIVER) {
-            floodAddItem(screenGetFloodFill(), mapX, mapY);
-          }
-        }
-        break;
-      case RUBBLE:
-        if (isMine == TRUE) {
-          mapSetPos(mp, mapX, mapY, RUBBLE+MINE_SUBTRACT, FALSE, FALSE);
-          if (isServer == TRUE) {
-            netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), mapX, mapY);
-          }
-        } else {
-			newTerrain = rubbleAddItem(screenGetRubble(), mapX, mapY);
-			mapSetPos(mp, mapX, mapY, newTerrain, FALSE, FALSE);
-			if (newTerrain == RIVER) {
-			  floodAddItem(screenGetFloodFill(), mapX, mapY);
+	/* Check for player hit */
+	if (returnValue == FALSE && isServer == FALSE) {
+		playerHit = playersIsTankHit(screenGetPlayers(), *xValue, *yValue, angle, owner);
+		if (playerHit != NEUTRAL) {
+			returnValue = TRUE;
+			soundDist(hitTankNear, mapX, mapY);
+		}
+	}
+
+	if (returnValue == FALSE) {
+		baseExist = basesExistPos(bs, mapX, mapY); 
+		/* Check for base */
+		if (baseExist == TRUE) {
+			if (onBoat == TRUE) {
+				returnValue = TRUE;
+				*xValue = mapX;
+				*xValue <<= TANK_SHIFT_MAPSIZE;
+				*xValue += MAP_SQUARE_MIDDLE;
+				*yValue = mapY;
+				*yValue <<= TANK_SHIFT_MAPSIZE;
+				*yValue += MAP_SQUARE_MIDDLE;
+				/* Play sound */
+				if ((basesCanHit(bs, mapX, mapY, owner)) == TRUE) {
+					if (isServer == TRUE || gameT == netSingle) {
+						basesDamagePos(bs, mapX, mapY);
+						netPNBAdd(screenGetNetPnb(), NPNB_BASE_HIT, 0, screenGetTankPlayer(tk), mapX, mapY, 0);
+					}
+					pillsBaseHit(pb, mapX, mapY, (basesGetOwnerPos(bs, mapX, mapY)));
+				}
+				soundDist(shotBuildingNear, mapX, mapY);
+			} else if ((basesCanHit(bs, mapX, mapY, owner)) == TRUE) { /* Huh? */
+				returnValue = TRUE;
+				*xValue = mapX;
+				*xValue <<= TANK_SHIFT_MAPSIZE;
+				*xValue += MAP_SQUARE_MIDDLE;
+				*yValue = mapY;
+				*yValue <<= TANK_SHIFT_MAPSIZE;
+				*yValue += MAP_SQUARE_MIDDLE;
+				/* Do damage to base */
+				if (isServer == TRUE || gameT == netSingle) {
+					basesDamagePos(bs, mapX, mapY);
+					netPNBAdd(screenGetNetPnb(), NPNB_BASE_HIT, 0, screenGetTankPlayer(tk), mapX, mapY, 0);
+				}
+				pillsBaseHit(pb, mapX, mapY, (basesGetOwnerPos(bs, mapX, mapY)));
+				/* Play sound */
+				soundDist(shotBuildingNear, mapX, mapY);
+			} /*end huh?*/
+		}
+	}
+
+	if (returnValue == FALSE)
+	{
+		if ((mapIsPassable(mp, mapX, mapY, onBoat)) == FALSE && baseExist == FALSE)
+		{
+			returnValue = TRUE;
+			*xValue = mapX;
+			*xValue <<= TANK_SHIFT_MAPSIZE;
+			*xValue += MAP_SQUARE_MIDDLE;
+			conv = *xValue;
+			conv >>= TANK_SHIFT_MAPSIZE;
+			mapX = (BYTE) conv;      
+			*yValue = mapY;
+			*yValue <<= TANK_SHIFT_MAPSIZE;
+			*yValue += MAP_SQUARE_MIDDLE;
+			conv = *yValue;
+			conv >>= TANK_SHIFT_MAPSIZE;
+			mapY = (BYTE) conv;
+
+			terrain = mapGetPos(mp, mapX, mapY);
+			if (terrain >= MINE_START && terrain <= MINE_END) {
+				terrain -= MINE_SUBTRACT;
+				isMine = TRUE;
+			}
+	
+			/* Update the map  & Play the sound */
+			switch (terrain)
+			{
+				case BUILDING:
+					mapSetPos(mp, mapX, mapY, (buildingAddItem(screenGetBuildings(), mapX, mapY)), FALSE, FALSE);
+					soundDist(shotBuildingNear, mapX, mapY);
+					break;
+				case FOREST:
+					if (isMine == TRUE) {
+						mapSetPos(mp, mapX, mapY, GRASS+MINE_SUBTRACT, FALSE, FALSE);
+						if (isServer == TRUE) {
+							netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), mapX, mapY);
+						}
+					} else {
+						mapSetPos(mp, mapX, mapY, GRASS, FALSE, FALSE);
+					}
+					soundDist(shotTreeNear, mapX, mapY);
+					break;
+				case HALFBUILDING:
+					mapSetPos(mp, mapX, mapY, (buildingAddItem(screenGetBuildings(), mapX, mapY)), FALSE, FALSE);
+					soundDist(shotBuildingNear, mapX, mapY);
+					break;
+				case BOAT:
+					mapSetPos(mp, mapX, mapY, RIVER, FALSE, FALSE);
+					soundDist(shotBuildingNear, mapX, mapY);
+					break;
+				case GRASS:
+					if (isMine == TRUE) {
+						mapSetPos(mp, mapX, mapY, GRASS+MINE_SUBTRACT, FALSE, FALSE);
+						if (isServer == TRUE) {
+							netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), mapX, mapY);
+						}
+					} else {
+						newTerrain = grassAddItem(screenGetGrass(), mapX, mapY);
+						mapSetPos(mp, mapX, mapY, newTerrain, FALSE, FALSE);
+						if (newTerrain == RIVER) {
+							floodAddItem(screenGetFloodFill(), mapX, mapY);
+						}
+					}
+					break;
+				case SWAMP:
+					if (isMine == TRUE) {
+						mapSetPos(mp, mapX, mapY, SWAMP+MINE_SUBTRACT, FALSE, FALSE);
+						if (isServer == TRUE) {
+							netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), mapX, mapY);
+						}
+					} else {
+						newTerrain = swampAddItem(screenGetSwamp(), mapX, mapY);
+						mapSetPos(mp, mapX, mapY, newTerrain, FALSE, FALSE);
+						if (newTerrain == RIVER) {
+							floodAddItem(screenGetFloodFill(), mapX, mapY);
+						}
+					}
+					break;
+				case RUBBLE:
+					if (isMine == TRUE) {
+						mapSetPos(mp, mapX, mapY, RUBBLE+MINE_SUBTRACT, FALSE, FALSE);
+						if (isServer == TRUE) {
+							netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), mapX, mapY);
+						}
+					} else {
+						newTerrain = rubbleAddItem(screenGetRubble(), mapX, mapY);
+						mapSetPos(mp, mapX, mapY, newTerrain, FALSE, FALSE);
+						if (newTerrain == RIVER) {
+							floodAddItem(screenGetFloodFill(), mapX, mapY);
+						}
+					}
+					break;
+				case ROAD:
+					if (isMine == TRUE) {
+						mapSetPos(mp, mapX, mapY, ROAD+MINE_SUBTRACT, FALSE, FALSE);
+						if (isServer == TRUE) {
+							netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), mapX, mapY);
+						}
+					} else {
+						mapSetPos(mp, mapX, mapY, (shellsCheckRoad(mp, pb, bs, mapX, mapY, angle)), FALSE, FALSE);         
+					}
 			}
 		}
-        break;
-      case ROAD:
-        if (isMine == TRUE) {
-          mapSetPos(mp, mapX, mapY, ROAD+MINE_SUBTRACT, FALSE, FALSE);
-          if (isServer == TRUE) {
-            netMNTAdd(screenGetNetMnt(), NMNT_MINEEXPLOSION, 0, screenGetTankPlayer(tk), mapX, mapY);
-          }
-        } else {
-          mapSetPos(mp, mapX, mapY, (shellsCheckRoad(mp, pb, bs, mapX, mapY, angle)), FALSE, FALSE);         
-        }
-      }
-    }
-  }
-  if (returnValue == TRUE) {
-    screenReCalc();
-  }
-  return returnValue;
+	}
+
+	if (returnValue == TRUE) {
+		screenReCalc();
+	}
+
+	return returnValue;
 }
 
 
@@ -855,7 +872,7 @@ void shellsNetExtract(shells *value, pillboxes *pb, BYTE *buff, BYTE dataLen, bo
     onBoat = *pnt; /* On boat */
     pnt++;
     pos++;
-    creator = *pnt;
+    creator = *pnt; /* Who or what created it */
     pnt++;
     pos++;
 
@@ -888,7 +905,9 @@ void shellsNetExtract(shells *value, pillboxes *pb, BYTE *buff, BYTE dataLen, bo
 		if (yAdd == 64){
 			yAdd++;
 		}
-        if (pillsExistPos(pb, (BYTE) ((WORLD) (wx-xAdd) >> M_W_SHIFT_SIZE), (BYTE) ((WORLD) (wy-yAdd) >> M_W_SHIFT_SIZE)) == TRUE && pillsDeadPos(pb, (BYTE) ((WORLD) (wx-xAdd) >> M_W_SHIFT_SIZE), (BYTE) ((WORLD) (wy-yAdd) >> M_W_SHIFT_SIZE)) == FALSE) {
+		/* If a pill exists at the location of ??? and a dead pill does not exist at that same location */
+        if ((pillsExistPos(pb, (BYTE) ((WORLD) (wx-xAdd) >> M_W_SHIFT_SIZE), (BYTE) ((WORLD) (wy-yAdd) >> M_W_SHIFT_SIZE)) == TRUE)
+			&& (pillsDeadPos(pb, (BYTE) ((WORLD) (wx-xAdd) >> M_W_SHIFT_SIZE), (BYTE) ((WORLD) (wy-yAdd) >> M_W_SHIFT_SIZE)) == FALSE)) {
           shouldAdd = TRUE;
         }
       }

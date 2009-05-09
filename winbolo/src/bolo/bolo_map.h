@@ -20,10 +20,11 @@
 #define MAP_H
 
 /* Defines */
+#include "bases.h"
 #include "global.h"
 #include "pillbox.h"
 #include "starts.h"
-#include "bases.h"
+#include "types.h"
 
 #define LENGTH_ID 8 /* Number of charecters in the "BMAPBOLO" id tag */
 #define CURRENT_MAP_VERSION 1 /* The current Version is */
@@ -139,8 +140,7 @@ typedef struct {
 
 
 typedef struct {
-	BYTE datalen;	/* length of the data for this run */
-	      				/* INCLUDING this 4 byte header */
+	BYTE datalen;	/* length of the data for this run, INCLUDING this 4 byte header */
 	MAP_Y y;		  /* y co-ordinate of this run. */
 	BYTE  startx;	/* first square of the run */
 	BYTE endx;		/* last square of run + 1 */
@@ -156,7 +156,7 @@ typedef struct {
 /* The maximum amount of time to wait for the server to authorise this change */
 #define MAP_MAX_SERVER_WAIT 3 
 
-#include "types.h"
+
 
 /* Prototypes */
 

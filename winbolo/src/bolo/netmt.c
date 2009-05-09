@@ -27,29 +27,28 @@
 *********************************************************/
 
 
-#include "global.h"
 #include "bolo_map.h"
 #include "building.h"
 #include "explosions.h"
-#include "swamp.h"
-#include "rubble.h"
+#include "frontend.h"
+#include "global.h"
 #include "grass.h"
+#include "lgm.h"
+#include "log.h"
+#include "messages.h"
 #include "mines.h"
+#include "minesexp.h"
+#include "netmt.h"
+#include "network.h"
+#include "players.h"
+#include "rubble.h"
 #include "screen.h"
 #include "sounddist.h"
-#include "players.h"
-#include "messages.h"
-#include "network.h"
-#include "lgm.h"
-#include "frontend.h"
+#include "swamp.h"
 #include "tank.h"
-#include "minesexp.h"
-#include "network.h"
-#include "players.h"
 #include "../server/servercore.h"
 #include "../winbolonet/winbolonet.h"
-#include "log.h"
-#include "netmt.h"
+
 
 /* Protos */
 void netErrorOccured();
