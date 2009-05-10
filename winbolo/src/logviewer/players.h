@@ -58,23 +58,53 @@ typedef struct {
   bool inUse;                       /* Is player slot in use? */
   char playerName[PLAYER_NAME_LEN]; /* Player name */
   char location[512];   /* Location field */
-  allience allie;                   /* Alliences this player has */
-  BYTE mapX;                        /* Map X and Y co-ordinates */
+  /* Alliances this player has */
+  allience allie;
+  /* Tank's location in map x-coords */
+  BYTE mapX;
+  /* Tank's location in map y-coords */
   BYTE mapY;
   BYTE pixelX;                      /* Pixel X and Y co-ordinates */
   BYTE pixelY;
-  BYTE frame;                       /* Animation frame */
-  bool onBoat;                      /* Is this player on a boat ? */
-  /* LGM Stuff */
-  BYTE lgmMapX;                     /* LGM Map X and Y positions */
+  /* Animation frame */
+  BYTE frame;
+  /* Is this player on a boat ? */
+  bool onBoat;                      
+  /* LGM map x-coordinate */
+  BYTE lgmMapX;
+  /* LGM map y-coordinate */
   BYTE lgmMapY;
-  BYTE lgmPixelX;                   /* LGM Pixel X and Y positions */
+  /* LGM pixel x-coord */
+  BYTE lgmPixelX;
+  /* LGM pixel y-coord */
   BYTE lgmPixelY;
-  BYTE lgmFrame;                    /* LGM Frame */
-  /* Misc */
-  bool isChecked;                   /* Is this item checked */
+  /* LGM Frame */
+  BYTE lgmFrame;
+  /* Is this item checked? */
+  bool isChecked;
   bool needUpdate;
+  /* The team the player is on */
   BYTE team;
+  /* The number of shells the tank has */
+  BYTE shells;
+  /* The number of mines the tank has */
+  BYTE mines;
+  /* The amount of armour the tank has */
+  BYTE armour;
+  /* The amount of trees the tank has */
+  BYTE resources;
+  /* Number of times tank has died. This is an int as it could be possible that during some game a tank will die more than 255 times. */
+  int deaths;
+  /* Number of times tank has died.  This is an int as it could be possible that during some game a tank will die more than 255 times. */
+  int kills;
+  /* Number of LGM losses. */
+  BYTE lgmDeaths;
+  /* Number of LGM kills. Does not distinguish between hostile, friendly, or self LGM kills. */
+  BYTE lgmKills;
+  /* Number of neutral or hostile base captures the tank has */
+  BYTE baseCaptures;
+  /* Number of neutral or hostile pill captures the tank has */
+  BYTE pillCaptures;
 } player;
 
 /* Array of all the players */
@@ -170,6 +200,29 @@ void playersSetPlayer(BYTE playerNum, char *playerName, char *location, BYTE mx,
 void playersUpdateTank(BYTE playerNum, BYTE mx, BYTE my, BYTE px, BYTE py, BYTE frame, bool onBoat);
 
 
+/*********************************************************
+*NAME:          playersSetPlayer
+*AUTHOR:        John Morrison
+*CREATION DATE: 18/2/99
+*LAST MODIFIED: 26/11/99
+*PURPOSE:
+*	Stores information about the tank so that when the
+*	tank is clicked, you can view what resources it has.
+*
+*ARGUMENTS:
+*	playerNum	- The player number to set
+*	shells		- Quantity of shells in tank
+*	mines		- Quantity of mines in tank
+*	armour		- Quantity of armour in tank
+*	resources	- Quantity of trees in tank
+*
+*********************************************************/
+void playersUpdateResources(BYTE playerNum, BYTE shells, BYTE mines, BYTE armour, BYTE resources);
+
+void playersTankDied(BYTE playerNum);
+void playersKilledTank(BYTE playerNum);
+void playersLgmDied(BYTE playerNum);
+void playersKilledLgm(BYTE playerNum);
 void playersUpdateLgm(BYTE playerNum, BYTE lgmMX, BYTE lgmMY, BYTE lgmPX, BYTE lgmPY, BYTE lgmFrame);
 
 /*********************************************************
@@ -386,5 +439,6 @@ BYTE playersGetUnusedTeam(BYTE playerNum);
 BYTE playersGetTeamForOwner(BYTE owner);
 void playersSetTeams(BYTE *pTeams);
 void playersCopyPTeams(BYTE *dest);
+players playersGetPlayerObject();
 
 #endif /* _PLAYERS_H */

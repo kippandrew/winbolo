@@ -50,8 +50,19 @@
 #define DEFAULT_SCROLLUP 72
 #define DEFAULT_SCROLLRIGHT 77
 #define DEFAULT_SCROLLDOWN 76
+/* Views, dunno the first two, then letters T-G-B */
 #define DEFAULT_TANKVIEW 84
 #define DEFAULT_PILLVIEW 71
+#define DEFAULT_ALLYVIEW 21
+#define DEFAULT_LGMVIEW 35
+#define DEFAULT_BASEVIEW 50
+/* Quick keys, number row keys 1-5 */
+#define DEFAULT_QUICKTREE 2
+#define DEFAULT_QUICKROAD 3
+#define DEFAULT_QUICKWALL 4
+#define DEFAULT_QUICKPILLBOX 5
+#define DEFAULT_QUICKMINE 6
+
 /* + and - Keys */
 #define DEFAULT_SCROLL_GUNINCREASE 78
 #define DEFAULT_SCROLL_GUNDECREASE 28
@@ -86,7 +97,8 @@ typedef enum {
   openInternetJoin,
   openInternetManual,
   openInternetSetup,
-  openFinished
+  openFinished,
+  openSettings
 } openingStates;
 
 /*********************************************************

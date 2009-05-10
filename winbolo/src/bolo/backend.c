@@ -36,6 +36,9 @@ static struct timeval start_time;
 
 bool threadsGetContext();
 
+/* Current building item selected */
+buildSelect BsCurrent = BsTrees;
+
 /*********************************************************
 *NAME:          screenGetNumNeutralBases
 *AUTHOR:        John Morrison
@@ -674,6 +677,58 @@ gameType *screenGetGameType() {
 
 bool backendGetContext() {
   return threadsGetContext();
+}
+
+
+/*
+typedef enum {
+  BsTrees,
+  BsRoad,
+  BsBuilding,
+  BsPillbox,
+  BsMine
+} buildSelect;
+*/
+
+
+/*********************************************************
+*NAME:          getBuildCurrentSelect
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 10/05/2009
+*LAST MODIFIED: 10/05/2009
+*PURPOSE:
+*  Will get the currently selected build action.
+*
+*ARGUMENTS:
+*
+*********************************************************/
+buildSelect getBuildCurrentSelect() {
+	return BsCurrent;
+}
+
+
+/*********************************************************
+*NAME:          setBuildCurrentSelect
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 10/05/2009
+*LAST MODIFIED: 10/05/2009
+*PURPOSE:
+*  When passed in a type of build parameter, will set the
+*  BsCurrent variable, which holds the current build action.
+*
+*ARGUMENTS:
+*  bs - this should denote one of the build buttons
+*       on the left hand side of the screen.
+*
+*********************************************************/
+void setBuildCurrentSelect(buildSelect bs) {
+
+	/* Didn't send the right type of variable */
+	if ((bs != BsTrees) && (bs != BsRoad) && (bs != BsBuilding) && (bs != BsPillbox) && (bs != BsMine)) {
+		return;
+	} else {
+		BsCurrent = bs;
+	}
 }
 
 

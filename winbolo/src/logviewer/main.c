@@ -27,19 +27,22 @@
 #include <mmsystem.h>
 #include <time.h>
 #include "backend.h"
-#include "global.h"
 #include "clientmutex.h"
 #include "dialogwindowsize.h"
 #include "dialogfullscreensetup.h"
 #include "draw.h"
-#include "sound.h"
-#include "font.h"
 #include "dns.h"
+#include "font.h"
+#include "global.h"
+#include "players.h"
 #include "positions.h"
 #include "resource.h"
+#include "screen.h"
+#include "sound.h"
 
 
 #define UWM_ADDSTRING (WM_APP + 1)
+
 
 
 /* controlsEnable() paramters for enabling the control buttons */ 
@@ -71,8 +74,20 @@ void mainSavePrefernces();
 
 /* Team Colours array */
 BYTE tc[17]; // MAX_PLAYERS+1
+
 /* Window Handles */
-HWND hMainWnd, hGameEventsWnd, hControlsWnd, hGameInfoWnd, hItemInfoWnd;HMENU hPopupMenu;
+HWND hMainWnd;
+HWND hToolbar;
+HWND hTmp;
+HWND hGameEventsWnd;
+HWND hControlsWnd;
+HWND hGameInfoWnd;
+HWND hItemInfoWnd;
+HWND hTankInfoWnd;
+
+/* Popup Menus */
+HMENU hPopupMenu;
+
 /* Old Window Processing Handles */
 FARPROC oldWndProc;
 FARPROC oldURLLabelProc;
@@ -105,64 +120,78 @@ void frontEndPlaySound(sndEffects value) {
 }
 
 
-// itemTypes
-// 0 = clear
-// 1 = base
-// 2 = pillbox
+/*********************************************************
+*NAME:          updateItem
+*AUTHOR:        John Morrison
+*CREATION DATE: ??
+*LAST MODIFIED: ??
+*PURPOSE:
+*	Updates various dialog windows
+*
+*ARGUMENTS:
+*	itemType	- 0 = clear; 1 = base; 2 = pillbox
+*	itemNumber	- 
+*	owner		-
+*	x			-
+*	y			-
+*	armour		-
+*	shells		-
+*	mines		-
+*	inTank		-
+*********************************************************/
 void updateItem(BYTE itemType, BYTE itemNumber, BYTE owner, BYTE x, BYTE y, BYTE armour, BYTE shells, BYTE mines, bool inTank) {
-  static BYTE oldItemType = 5;  // Force this to be set on first call
-  static BYTE oldItemNumber = 0;
-  static BYTE oldOwner = 0;
-  static BYTE oldX = 0;
-  static BYTE oldY = 0;
-  static BYTE oldArmour = 0;
-  static BYTE oldShells = 0;
-  static BYTE oldMines = 0;
-  static bool oldInTank = 33; // Force to be set as well
-  char line[256];
-  char player[64];
+	static BYTE oldItemType = 5;  // Force this to be set on first call
+	static BYTE oldItemNumber = 0;
+	static BYTE oldOwner = 0;
+	static BYTE oldX = 0;
+	static BYTE oldY = 0;
+	static BYTE oldArmour = 0;
+	static BYTE oldShells = 0;
+	static BYTE oldMines = 0;
+	static bool oldInTank = 33; // Force to be set as well
+	char line[256];
+	char player[64];
 
-  if (itemType == 0) {
-    if (oldItemType != 0) {
-      oldItemType = 0;
-      oldX = 0;
-      oldY = 0;
-      oldArmour = 0;
-      oldShells = 0;
-      oldMines = 0;
-      oldInTank = 3;
-      oldOwner = 0;
-      oldItemNumber = 100;
-      SetDlgItemText(hItemInfoWnd, IDC_ITEM_TYPE, "");
-      SetDlgItemText(hItemInfoWnd, IDC_LOCATION, "");
-      SetDlgItemText(hItemInfoWnd, IDC_ITEM_OWNER, "");
-      SetDlgItemText(hItemInfoWnd, IDC_ITEM_ARMOUR, "");
-      SetDlgItemText(hItemInfoWnd, IDC_ITEM_SHELLS, "");
-      SetDlgItemText(hItemInfoWnd, IDC_ITEM_MINES, "");
-      SetDlgItemText(hItemInfoWnd, IDC_ITEM_INTANK, "");
-      EnableWindow(GetDlgItem(hItemInfoWnd, IDC_CENTRE_ON_MAP), FALSE);
-      ShowWindow(GetDlgItem(hItemInfoWnd, IDC_BASE), SW_HIDE);
-      ShowWindow(GetDlgItem(hItemInfoWnd, IDC_PILLBOX), SW_HIDE);
-    }
-  } else if (itemType != oldItemType) {
-    oldItemType = itemType;
-    if (itemType == 1) {
-      // Base
-      ShowWindow(GetDlgItem(hItemInfoWnd, IDC_BASE), SW_SHOW);
-      ShowWindow(GetDlgItem(hItemInfoWnd, IDC_PILLBOX), SW_HIDE);
-//      SetDlgItemText(hItemInfoWnd, IDC_ITEM_TYPE, "Base");
-    } else {
-      // Pillbox
-      ShowWindow(GetDlgItem(hItemInfoWnd, IDC_BASE), SW_HIDE);
-      ShowWindow(GetDlgItem(hItemInfoWnd, IDC_PILLBOX), SW_SHOW);
-   //   SetDlgItemText(hItemInfoWnd, IDC_ITEM_TYPE, "Pillbox");
-      SetDlgItemText(hItemInfoWnd, IDC_ITEM_SHELLS, "");
-      SetDlgItemText(hItemInfoWnd, IDC_ITEM_MINES, "");
-
-      oldMines = 0;
-      oldShells = 0;
-    }
-  }
+	/* There is no item selected */
+	if (itemType == 0) {
+		/* But there was something selected the last time, clear out the data */
+		if (oldItemType != 0) {
+			oldItemType = 0;
+			oldX = 0;
+			oldY = 0;
+			oldArmour = 0;
+			oldShells = 0;
+			oldMines = 0;
+			oldInTank = 3;
+			oldOwner = 0;
+			oldItemNumber = 100;
+			SetDlgItemText(hItemInfoWnd, IDC_ITEM_TYPE, "");
+			SetDlgItemText(hItemInfoWnd, IDC_LOCATION, "");
+			SetDlgItemText(hItemInfoWnd, IDC_ITEM_OWNER, "");
+			SetDlgItemText(hItemInfoWnd, IDC_ITEM_ARMOUR, "");
+			SetDlgItemText(hItemInfoWnd, IDC_ITEM_SHELLS, "");
+			SetDlgItemText(hItemInfoWnd, IDC_ITEM_MINES, "");
+			SetDlgItemText(hItemInfoWnd, IDC_ITEM_INTANK, "");
+			EnableWindow(GetDlgItem(hItemInfoWnd, IDC_CENTRE_ON_MAP), FALSE);
+			ShowWindow(GetDlgItem(hItemInfoWnd, IDC_BASE), SW_HIDE);
+			ShowWindow(GetDlgItem(hItemInfoWnd, IDC_PILLBOX), SW_HIDE);
+		}
+	} else if (itemType != oldItemType) {
+		oldItemType = itemType;
+		if (itemType == 1) {
+			/* Base */
+			ShowWindow(GetDlgItem(hItemInfoWnd, IDC_BASE), SW_SHOW);
+			ShowWindow(GetDlgItem(hItemInfoWnd, IDC_PILLBOX), SW_HIDE);
+		} else {
+			/* Pillbox */
+			ShowWindow(GetDlgItem(hItemInfoWnd, IDC_BASE), SW_HIDE);
+			ShowWindow(GetDlgItem(hItemInfoWnd, IDC_PILLBOX), SW_SHOW);
+			SetDlgItemText(hItemInfoWnd, IDC_ITEM_SHELLS, "");
+			SetDlgItemText(hItemInfoWnd, IDC_ITEM_MINES, "");
+			oldMines = 0;
+			oldShells = 0;
+		}
+	}
 
 
   if (oldItemNumber != itemNumber && itemType != 0) {
@@ -216,6 +245,151 @@ void updateItem(BYTE itemType, BYTE itemNumber, BYTE owner, BYTE x, BYTE y, BYTE
     }
   }
 
+
+}
+
+
+/*********************************************************
+*NAME:          setupTankInfo
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 05/2/09
+*LAST MODIFIED: 05/2/09
+*PURPOSE:
+*	This will setup the step and ranges of each
+*	of the progress bars.  Should only be called once
+*	per game.
+*
+*ARGUMENTS:
+*
+*********************************************************/
+void setupTankInfo() {
+	HWND hControl;
+
+	/* Setup the progress bar for the shells */
+	hControl = GetDlgItem(hTankInfoWnd, IDC_TANKINFO_PROGRESS_SHELLS);
+	SendMessage(hControl, PBM_SETSTEP, (WPARAM) 1, (LPARAM) 0);
+	SendMessage(hControl, PBM_SETRANGE, (WPARAM) 0, (LPARAM) MAKELPARAM(0, 40));
+
+	/* Setup the progress bar for the mines */
+	hControl = GetDlgItem(hTankInfoWnd, IDC_TANKINFO_PROGRESS_MINES);
+	SendMessage(hControl, PBM_SETSTEP, (WPARAM) 1, (LPARAM) 0);
+	SendMessage(hControl, PBM_SETRANGE, (WPARAM) 0, (LPARAM) MAKELPARAM(0, 40));
+
+	/* Setup the progress bar for the armour */
+	hControl = GetDlgItem(hTankInfoWnd, IDC_TANKINFO_PROGRESS_ARMOUR);
+	SendMessage(hControl, PBM_SETSTEP, (WPARAM) 1, (LPARAM) 0);
+	SendMessage(hControl, PBM_SETRANGE, (WPARAM) 0, (LPARAM) MAKELPARAM(0, 40));
+
+	/* Setup the progress bar for the resources */
+	hControl = GetDlgItem(hTankInfoWnd, IDC_TANKINFO_PROGRESS_RESOURCES);
+	SendMessage(hControl, PBM_SETSTEP, (WPARAM) 1, (LPARAM) 0);
+	SendMessage(hControl, PBM_SETRANGE, (WPARAM) 0, (LPARAM) MAKELPARAM(0, 40));
+}
+
+
+/*********************************************************
+*NAME:          clearTankInfo
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 05/2/09
+*LAST MODIFIED: 05/2/09
+*PURPOSE:
+*	This clears/resets all the status data back to nothing.
+*	Should happen when the mouse is clicked on something
+*	other than a pillbox, base, or tank.
+*
+*ARGUMENTS:
+*
+*********************************************************/
+void clearTankInfo() {
+	HWND hControl;
+
+	/* Clear the progress bars */
+	hControl = GetDlgItem(hTankInfoWnd, IDC_TANKINFO_PROGRESS_SHELLS);
+	SendMessage(hControl, PBM_SETPOS, (WPARAM) 0, (LPARAM) 0);
+
+	hControl = GetDlgItem(hTankInfoWnd, IDC_TANKINFO_PROGRESS_MINES);
+	SendMessage(hControl, PBM_SETPOS, (WPARAM) 0, (LPARAM) 0);
+
+	hControl = GetDlgItem(hTankInfoWnd, IDC_TANKINFO_PROGRESS_ARMOUR);
+	SendMessage(hControl, PBM_SETPOS, (WPARAM) 0, (LPARAM) 0);
+
+	hControl = GetDlgItem(hTankInfoWnd, IDC_TANKINFO_PROGRESS_RESOURCES);
+	SendMessage(hControl, PBM_SETPOS, (WPARAM) 0, (LPARAM) 0);
+
+	/* Zero the stats */
+	SetDlgItemText(hTankInfoWnd, IDC_TANKINFO_TANKDEATHS, "0");
+	SetDlgItemText(hTankInfoWnd, IDC_TANKINFO_TANKKILLS, "0");
+	SetDlgItemText(hTankInfoWnd, IDC_TANKINFO_LGMDEATHS, "0");
+	SetDlgItemText(hTankInfoWnd, IDC_TANKINFO_LGMKILLS, "0");
+
+}
+
+
+/*********************************************************
+*NAME:          updateTankInfoDialog
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 05/2/09
+*LAST MODIFIED: 05/2/09
+*PURPOSE:
+*	Updates the tank info dialog.  For info on working with
+*	progress bars see: http://msdn.microsoft.com/en-us/library/bb760818(VS.85).aspx
+*
+*ARGUMENTS:
+*	playerNum - the number of the tank that was clicked
+*	shells    - the number of shells the tank has
+*	mines     - the number of mines the tank has
+*	armour    - the amount of armour the tank has
+*	resources - the amount of resources the tank has
+*   tankDeaths - how many times the tank has died
+*   tankKills  - how many aces the tank has
+*	lgmDeaths  - how many times has his LGM died
+*   lgmKills   - how many LGMs has this player killed
+*   baseCaptures - how many neutral or hostile bases has this tank captured
+*   pillCaptures - how many neutral or hostile bases has this tank captured
+*
+*********************************************************/
+void updateTankInfoDialog(BYTE playerNum, BYTE shells, BYTE mines, BYTE armour, BYTE resources, int tankDeaths, int tankKills, BYTE lgmDeaths, BYTE lgmKills, BYTE baseCaptures, BYTE pillCaptures) {
+	/* This we'll use to get the handle to the control on the dialog we want to manipulate */
+	HWND hControl;
+	char line[256];
+
+	/* Update the shells */
+	hControl = GetDlgItem(hTankInfoWnd, IDC_TANKINFO_PROGRESS_SHELLS);
+	SendMessage(hControl, PBM_SETPOS, (WPARAM) shells, (LPARAM) 0);
+
+	/* Update the shells */
+	hControl = GetDlgItem(hTankInfoWnd, IDC_TANKINFO_PROGRESS_MINES);
+	SendMessage(hControl, PBM_SETPOS, (WPARAM) mines, (LPARAM) 0);
+	
+	/* Update the shells */
+	hControl = GetDlgItem(hTankInfoWnd, IDC_TANKINFO_PROGRESS_ARMOUR);
+	SendMessage(hControl, PBM_SETPOS, (WPARAM) armour, (LPARAM) 0);
+	
+	/* Update the shells */
+	hControl = GetDlgItem(hTankInfoWnd, IDC_TANKINFO_PROGRESS_RESOURCES);
+	SendMessage(hControl, PBM_SETPOS, (WPARAM) resources, (LPARAM) 0);
+
+	/* Update the number of times the tank has died */
+	sprintf(line, "%d", tankDeaths);
+	SetDlgItemText(hTankInfoWnd,IDC_TANKINFO_TANKDEATHS,line);
+	
+	/* Update the number of tank kills the tank has */
+	sprintf(line, "%d", tankKills);
+	SetDlgItemText(hTankInfoWnd,IDC_TANKINFO_TANKKILLS,line);
+	
+	/* Update the number of LGM losses the tank has */
+	sprintf(line, "%d", lgmDeaths);
+	SetDlgItemText(hTankInfoWnd,IDC_TANKINFO_LGMDEATHS,line);
+	
+	/* Update the number of LGM kills the tank has */
+	sprintf(line, "%d", lgmKills);
+	SetDlgItemText(hTankInfoWnd,IDC_TANKINFO_LGMKILLS,line);
+
+	sprintf(line, "%d", baseCaptures);
+	SetDlgItemText(hTankInfoWnd,IDC_TANKINFO_BASECAPTURES,line);
+
+	sprintf(line, "%d", pillCaptures);
+	SetDlgItemText(hTankInfoWnd,IDC_TANKINFO_PILLCAPTURES,line);
 
 }
 
@@ -362,6 +536,9 @@ void frontEndSetGameInformation(bool clear, BYTE versionMajor, BYTE versionMinor
   }
 }
 
+/*
+ * Callback for Item info window
+ */
 BOOL CALLBACK dialogItemInfoCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LPARAM lParam) {
   switch ( uMsg ) {
   case WM_PAINT:
@@ -388,6 +565,39 @@ BOOL CALLBACK dialogItemInfoCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LP
   return FALSE;
 }
 
+
+/*
+ * Callback for Tank info window
+ */
+BOOL CALLBACK dialogTankInfoCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LPARAM lParam) {
+  switch ( uMsg ) {
+  case WM_PAINT:
+    break;
+  case WM_CLOSE:
+    CheckMenuItem(GetMenu(hMainWnd), ID_WINDOWS_TANKINFORMATION, MF_UNCHECKED);
+    ShowWindow(hWnd, SW_HIDE);
+    break;
+  case WM_COMMAND:
+    switch (LOWORD (wParam)) {
+      case IDC_CENTRE_ON_MAP:
+        screenCentreOnSelectedItem();
+        break;
+    }
+    break;
+  case WM_DESTROY:
+    ShowWindow(hWnd, SW_HIDE);
+    if (isQuitting == TRUE) {
+      return EndDialog(hWnd, TRUE);
+    }
+    break;
+  }
+  return FALSE;
+}
+
+
+/*
+ * Callback for Events window
+ */
 BOOL CALLBACK dialogEventsCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LPARAM lParam) {
   char *mem;
   int len;
@@ -538,7 +748,9 @@ BOOL CALLBACK copyClipboardCallback(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM 
 }
 
 
-
+/*
+ * Callback for Game info window
+ */
 BOOL CALLBACK dialogGameInfoCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LPARAM lParam) {
   HDC hDC;
   HWND HDlgItemWnd;
@@ -973,10 +1185,10 @@ void controlsEnable(int state) {
 *  keyCode - The key code of the button that was pressed
 *********************************************************/
 void windowKeyPressed(int keyCode) {
-#define DKS_VK_LEFT 37
-#define DKS_VK_RIGHT 39
-#define DKS_VK_UP 38
-#define DKS_VK_DOWN 40
+  #define DKS_VK_LEFT 37
+  #define DKS_VK_RIGHT 39
+  #define DKS_VK_UP 38
+  #define DKS_VK_DOWN 40
   clientMutexWaitFor();
   if (keyCode == DKS_VK_UP) {
      screenUpdate(up);
@@ -1021,6 +1233,18 @@ void frontEndDrawMainScreen(screen *value, screenMines *mineView, screenTanks *t
   }
 }
 
+
+/*********************************************************
+*NAME:          
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*  cmdLine is NULL if to show dialog otherwise call the aplication
+*
+*ARGUMENTS:
+*  
+*********************************************************/
 void CALLBACK windowFrameTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWORD dw2) {
   clientMutexWaitFor();
   screenUpdate(redraw);
@@ -1029,6 +1253,18 @@ void CALLBACK windowFrameTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWO
   }
 }
 
+
+/*********************************************************
+*NAME:          
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*  cmdLine is NULL if to show dialog otherwise call the aplication
+*
+*ARGUMENTS:
+*  
+*********************************************************/
 void CALLBACK windowTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWORD dw2) {
   clientMutexWaitFor();
   screenLogTick();
@@ -1042,6 +1278,18 @@ void CALLBACK windowTimer(UINT uID, UINT uMsg, DWORD dwUser, DWORD dw1, DWORD dw
   }
 }
 
+
+/*********************************************************
+*NAME:          
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*  cmdLine is NULL if to show dialog otherwise call the aplication
+*
+*ARGUMENTS:
+*  
+*********************************************************/
 void windowNeedRedraw(HWND hWnd) {
   clientMutexWaitFor();
   if (isLoaded == TRUE) {
@@ -1061,7 +1309,18 @@ void windowNeedRedraw(HWND hWnd) {
 #define OPEN_FILE_TITLE "Open File...\0"
 #define DEFAULT_FILE_EXTENSION "wbv\0"
 
-/* cmdLine is NULL if to show dialog otherwise call the aplication */
+
+/*********************************************************
+*NAME:          
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*  cmdLine is NULL if to show dialog otherwise call the aplication
+*
+*ARGUMENTS:
+*  
+*********************************************************/
 void windowOpenFile(char *cmdLine) {
   OPENFILENAME ofn;              /* File name to be saved */
   char fileName[FILENAME_MAX];  /* The filename and path that should be opened */
@@ -1132,7 +1391,18 @@ BOOL CALLBACK saveDialogProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 }
 
 
-// Saves the map file
+
+/*********************************************************
+*NAME:          
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*  Saves the map file
+*
+*ARGUMENTS:
+*  
+*********************************************************/
 void windowSaveMap() {
   OPENFILENAME ofn;              /* File name to be saved */
   char fileName[FILENAME_MAX];  /* The filename and path that should be opened */
@@ -1196,6 +1466,17 @@ void windowSaveMap() {
 
 }
 
+/*********************************************************
+*NAME:          
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*  Define the purpose
+*
+*ARGUMENTS:
+*  
+*********************************************************/
 BOOL CALLBACK dialogAboutCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, LPARAM lParam ) {
   switch ( uMsg ) {
   case WM_INITDIALOG:
@@ -1217,6 +1498,7 @@ BOOL CALLBACK dialogAboutCallback( HWND hWnd, unsigned uMsg, WPARAM wParam, LPAR
   }
   return FALSE;
 }
+
 
 /*********************************************************
 *NAME:          dialogMemoryBufferCallback
@@ -1271,6 +1553,17 @@ BOOL CALLBACK dialogMemoryBufferCallback( HWND hWnd, unsigned uMsg, WPARAM wPara
 }
 
 
+/*********************************************************
+*NAME:          
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*  Define the purpose
+*
+*ARGUMENTS:
+*  
+*********************************************************/
 void setWindowVisible(HWND hWnd, HMENU hMenu, UINT menuItem) {
   if (GetMenuState(hMenu, menuItem, MF_BYCOMMAND) == MF_CHECKED) {
     CheckMenuItem(hMenu, menuItem, MF_UNCHECKED);
@@ -1340,6 +1633,17 @@ bool winUtilWBSubDirExist(char *subDirName) {
 }
 
 
+/*********************************************************
+*NAME:          
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*  Define the purpose
+*
+*ARGUMENTS:
+*  
+*********************************************************/
 void winUtilOpenHelpFile(HINSTANCE appInst, HWND hWnd) {
   char path[MAX_PATH]; /* The path to open */
   char file[MAX_PATH]; /* The file to open */
@@ -1413,10 +1717,17 @@ LRESULT CALLBACK ExWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     yPos = HIWORD(lParam);  // vertical position of cursor 
 
     clientMutexWaitFor();
-    if (GetMenuState(GetMenu(hWnd), ID_OPTIONS_MODE_SELECTTEAM, MF_BYCOMMAND) == MF_CHECKED) {
-      screenMouseClick(xPos, yPos);
+
+	/* Update the tank info dialog.. */
+	screenMouseClick(xPos, yPos);
+
+	
+	if (GetMenuState(GetMenu(hWnd), ID_OPTIONS_MODE_SELECTTEAM, MF_BYCOMMAND) == MF_CHECKED) {
+		/* User has the "Select Team" option checked.. */
+		screenMouseClick(xPos, yPos);
     } else {
-      screenMouseInformationClick(xPos, yPos);
+		/* User has the "Information" option checked.. */
+		screenMouseInformationClick(xPos, yPos);
     }
     if (playIsPlaying == FALSE && isLoaded == TRUE) {
       windowNeedRedraw(hWnd);
@@ -1581,7 +1892,10 @@ LRESULT CALLBACK ExWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case ID_WINDOWS_ITEMINFORMATION:
       setWindowVisible(hItemInfoWnd, GetMenu(hWnd), ID_WINDOWS_ITEMINFORMATION);
       break;
-    case ID_WINDOWS_EVENTS:
+	case ID_WINDOWS_TANKINFORMATION:
+	  setWindowVisible(hTankInfoWnd, GetMenu(hWnd), ID_WINDOWS_TANKINFORMATION);
+	  break;
+	case ID_WINDOWS_EVENTS:
       setWindowVisible(hGameEventsWnd, GetMenu(hWnd), ID_WINDOWS_EVENTS);
       break;
 	case ID_HELP_HELP:
@@ -1607,6 +1921,17 @@ void windowPlay() {
 }
 
 
+/*********************************************************
+*NAME:          windowStop
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*	Is called when..
+*
+*ARGUMENTS:
+*	corruptLog	- bool value if log file is corrupt or not
+*********************************************************/
 void windowStop(bool corruptLog) {
   HWND hCtlWnd;
 
@@ -1623,6 +1948,7 @@ void windowStop(bool corruptLog) {
   }
   frontEndSetGameInformation(TRUE, 0, 0, 0, NULL, 0, 0, 0, 0, 0, NULL, 0);
   updateItem(0, 0, 0,0,0,0,0,0, FALSE);
+  updateTankInfoDialog(SELECTED_NO_TANK, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   screenCloseLog();
   isLoaded = FALSE;
   controlsEnable(STATE_STOPPED);
@@ -1634,6 +1960,18 @@ void windowStop(bool corruptLog) {
   SendMessage(hCtlWnd, LB_RESETCONTENT, 0, 0);
 }
 
+
+/*********************************************************
+*NAME:          windowPause
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*	Is called when..
+*
+*ARGUMENTS:
+*	
+*********************************************************/
 void windowPause() {
   clientMutexWaitFor();
   if (playIsPlaying == TRUE) {
@@ -1643,6 +1981,95 @@ void windowPause() {
   playIsPlaying = FALSE;
   clientMutexRelease();
   controlsEnable(STATE_PAUSED);
+}
+
+
+/*********************************************************
+*NAME:          toolbarCreate
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 03/05/09
+*LAST MODIFIED: 03/05/09
+*PURPOSE:
+*  Sets up the toolbar
+*
+*ARGUMENTS:
+*  hInst     - Handle to the app instance
+*  nCmdShow  - Window State on start up
+*********************************************************/
+#define TOOLBAR_NUM_BUTTONS 10
+HWND toolbarCreate(HINSTANCE hInst, HWND hMainWnd)
+{
+	/* http://in.geocities.com/pravinparatey/win32tut/lesson3.htm */
+
+	HWND hTmp; // Temporary HWND
+	INITCOMMONCONTROLSEX icx;
+	TBADDBITMAP tbAddBitmap;
+	UINT iImageOffset;
+	int i;
+
+	TBBUTTON tbButton[TOOLBAR_NUM_BUTTONS] =
+	{
+		{STD_FILENEW,  0, TBSTATE_ENABLED, TBSTYLE_BUTTON, 0, 0, 0},
+		{STD_FILEOPEN, 0, TBSTATE_ENABLED, TBSTYLE_BUTTON, 0, 0, 0},
+		{STD_FILESAVE, 0, TBSTATE_ENABLED, TBSTYLE_BUTTON, 0, 0, 0},
+		
+		{15, 0, TBSTATE_ENABLED, TBSTYLE_SEP, 0, 0, 0}, // Note: First item for a seperator is its width in pixels
+
+		{STD_CUT,   0, TBSTATE_ENABLED, TBSTYLE_BUTTON, 0, 0, 0},
+		{STD_COPY,  0, TBSTATE_ENABLED, TBSTYLE_BUTTON, 0, 0, 0},
+		{STD_PASTE, 0, TBSTATE_ENABLED, TBSTYLE_BUTTON, 0, 0, 0},
+		{STD_UNDO,  0, TBSTATE_ENABLED, TBSTYLE_BUTTON, 0, 0, 0},
+
+		{15, 0, TBSTATE_ENABLED, TBSTYLE_SEP, 0, 0, 0},
+
+		{IDB_TB_EVENTS,  0,  TBSTATE_ENABLED, TBSTYLE_BUTTON, 0, 0, 0} // Events
+	};
+
+
+	/* Ensure common control DLL is loaded */
+    icx.dwSize = sizeof(INITCOMMONCONTROLSEX);
+    icx.dwICC = ICC_BAR_CLASSES; /* Specify BAR classes */
+    InitCommonControlsEx(&icx); /* Load the common control DLL */
+    
+    /* Create the toolbar window */
+    hTmp = CreateWindowEx(
+				0,
+				TOOLBARCLASSNAME,
+				(LPSTR) NULL, 
+				WS_CHILD | WS_VISIBLE,
+				0,
+				0,
+				0,
+				0,
+				hMainWnd, 
+				(HMENU) NULL,
+				NULL,
+				NULL);
+
+	/* Send the TB_BUTTONSTRUCTSIZE message, which is required for backward compatibility */
+	SendMessage(hTmp, TB_BUTTONSTRUCTSIZE, (WPARAM) sizeof(TBBUTTON), 0);
+	
+	/* Prevent text from displaying under buttons */
+	SendMessage(hTmp, TB_SETMAXTEXTROWS, 0, 0);
+
+	// Add standard image list 
+	tbAddBitmap.hInst = HINST_COMMCTRL;
+	tbAddBitmap.nID = IDB_STD_SMALL_COLOR;
+	tbButton[9].iBitmap = IDB_TB_EVENTS;
+	SendMessage(hTmp, TB_ADDBITMAP, (WPARAM) 0, (LPARAM) &tbAddBitmap);
+
+
+
+	// Add custom images 
+	tbAddBitmap.hInst = NULL;
+	tbAddBitmap.nID = IDB_TB_EVENTS;
+	tbButton[9].iBitmap = IDB_TB_EVENTS; // Events button
+	SendMessage(hTmp, TB_ADDBITMAP, (WPARAM) 1, (LPARAM) &tbAddBitmap);
+
+	// Add buttons
+	SendMessage(hTmp, TB_ADDBUTTONS, TOOLBAR_NUM_BUTTONS, (LPARAM) &tbButton);
+
+	return hTmp;
 }
 
 
@@ -1696,17 +2123,19 @@ HWND windowCreate(HINSTANCE hInst, int nCmdShow) {
 
 
   if (RegisterClass(&wc)) {
-    returnValue = CreateWindow(
-     "LOGVIEW",                 /* Class name */
-     "Log Viewer",                     /* Caption */ 
-    (WS_OVERLAPPED + WS_CAPTION + WS_SYSMENU + WS_MINIMIZEBOX), /* Style */
-     CW_USEDEFAULT, CW_USEDEFAULT,   /* Position */
-     sizeX* 16 + 4, sizeY * 16 + 42,   /* Size */
-     NULL,							             /* No parent */
-     LoadMenu(hInst, MAKEINTRESOURCE(IDR_MENU1)),          /* Menu */
-     hInst,                          /* inst handle */
-     0                               /* no params */
-     );
+    returnValue = 
+		CreateWindow(
+			"LOGVIEW",			/* Class name */
+			"Log Viewer",		/* Window name */ 
+			(WS_OVERLAPPED + WS_CAPTION + WS_SYSMENU + WS_MINIMIZEBOX), /* Styles */
+			CW_USEDEFAULT, CW_USEDEFAULT,	/* Position */
+			sizeX* 16 + 4, sizeY * 16 + 42,	/* Size */
+			NULL,							/* No parent */
+			LoadMenu(hInst, MAKEINTRESOURCE(IDR_MENU1)),	/* Menu */
+			hInst,							/* inst handle */
+			0								/* no params */
+		);
+
   } else {
     returnValue = NULL;
   }
@@ -1944,6 +2373,7 @@ void mainSavePrefernces() {
   mainSaveWindowPreference(hMenu, ID_WINDOWS_EVENTS, hGameEventsWnd, "Window.Events", TRUE);
   mainSaveWindowPreference(hMenu, ID_WINDOWS_GAMEINFORMATION, hGameInfoWnd, "Window.GameInformation", TRUE);
   mainSaveWindowPreference(hMenu, ID_WINDOWS_ITEMINFORMATION, hItemInfoWnd, "Window.ItemInformation", TRUE);
+  mainSaveWindowPreference(hMenu, ID_WINDOWS_TANKINFORMATION, hTankInfoWnd, "Window.TankInformation", TRUE);
   mainSaveWindowPreference(hMenu, 0, hMainWnd, "Window.LogViewer", FALSE);
 
   // Write team colours
@@ -2049,30 +2479,42 @@ void placeWindows(int nCmdShow) {
 
     GetWindowRect(hMainWnd, &pos);
     x = pos.right;
+
     GetWindowRect(hControlsWnd, &size);
     SetWindowPos(hControlsWnd, NULL, pos.right, pos.top, size.right - size.left, size.bottom - size.top, 0);
     ShowWindow(hControlsWnd, SW_SHOW);
     GetWindowRect(hControlsWnd, &pos);
+
     GetWindowRect(hGameEventsWnd, &size);
     SetWindowPos(hGameEventsWnd, NULL, x, pos.bottom, size.right - size.left, size.bottom - size.top, 0);
     GetWindowRect(hControlsWnd, &pos);
+
     GetWindowRect(hGameInfoWnd, &size);
     SetWindowPos(hGameInfoWnd, NULL, x, pos.bottom, size.right - size.left, size.bottom - size.top, 0);
     ShowWindow(hGameInfoWnd, SW_SHOW);  
     GetWindowRect(hGameInfoWnd, &pos);
+
     GetWindowRect(hItemInfoWnd, &size);
     SetWindowPos(hItemInfoWnd, NULL, x, pos.bottom, size.right - size.left, size.bottom - size.top, 0);
     ShowWindow(hItemInfoWnd, SW_SHOW);
     GetWindowRect(hItemInfoWnd, &pos);
+
     GetWindowRect(hGameEventsWnd, &size);
     SetWindowPos(hGameEventsWnd, NULL, x, pos.bottom, size.right - size.left, size.bottom - size.top, 0);
     ShowWindow(hGameEventsWnd, SW_SHOW);
+    GetWindowRect(hGameEventsWnd, &pos);
+
+    GetWindowRect(hTankInfoWnd, &size);
+    SetWindowPos(hTankInfoWnd, NULL, x, pos.bottom, size.right - size.left, size.bottom - size.top, 0);
+    ShowWindow(hTankInfoWnd, SW_SHOW);
+
   } else {
     // Controls Window
     placeWindow(hMenu, hControlsWnd, ID_WINDOWS_CONTROLS, "Window.Controls");
     placeWindow(hMenu, hGameEventsWnd, ID_WINDOWS_EVENTS, "Window.Events");
     placeWindow(hMenu, hGameInfoWnd, ID_WINDOWS_GAMEINFORMATION, "Window.GameInformation");
     placeWindow(hMenu, hItemInfoWnd, ID_WINDOWS_ITEMINFORMATION, "Window.ItemInformation");
+	placeWindow(hMenu, hTankInfoWnd, ID_WINDOWS_TANKINFORMATION, "Window.TankInformation");
   }
 }
 
@@ -2124,14 +2566,21 @@ int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, LPSTR szCmdLine, int nC
     exit(0);
   }
 
+  /* Create the main window */
   hMainWnd = windowCreate(hInst, nCmdShow);
+
+  /* Create the toolbar */
+  hToolbar = toolbarCreate(hInst, hMainWnd);
+
+  /* Create the dialogs*/
   hGameEventsWnd = CreateDialog(hInst, MAKEINTRESOURCE(IDD_GAMEEVENTS), hMainWnd, dialogEventsCallback);
   hControlsWnd = CreateDialog(hInst, MAKEINTRESOURCE(IDD_CONTROLS), hMainWnd, dialogControlsCallback);
   hGameInfoWnd = CreateDialog(hInst, MAKEINTRESOURCE(IDD_GAMEINFO), hMainWnd, dialogGameInfoCallback);
   hItemInfoWnd = CreateDialog(hInst, MAKEINTRESOURCE(IDD_ITEMINFO), hMainWnd, dialogItemInfoCallback);
+  hTankInfoWnd = CreateDialog(hInst, MAKEINTRESOURCE(IDD_TANKINFO), hMainWnd, dialogTankInfoCallback);
   
 
-  if (hMainWnd == NULL || hGameEventsWnd == NULL || hControlsWnd == NULL || hItemInfoWnd == NULL) {
+  if (hMainWnd == NULL || hGameEventsWnd == NULL || hControlsWnd == NULL || hItemInfoWnd == NULL || hTankInfoWnd == NULL) {
     MessageBox(NULL, "Error creating windows", "Log Viewer", MB_OK);
     exit(0);
   }
@@ -2175,7 +2624,11 @@ int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, LPSTR szCmdLine, int nC
 
   /* Load Preferences */
   mainLoadPreferences();
-  
+
+  /* Initialize the tank info dialog */
+  setupTankInfo();
+  clearTankInfo();
+
   placeWindows(nCmdShow);
   SetFocus(hMainWnd);
 
@@ -2184,18 +2637,20 @@ int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, LPSTR szCmdLine, int nC
     windowOpenFile(szCmdLine);
   }
 
+
   
 
-  /* Start up messaging */
-  while (done == FALSE) {
-    if (GetMessage(&msg, NULL, 0, 0) == 0) {
-    /* If it's a quit message, we're outta here */
-       done = TRUE;
-    } else if (!TranslateAccelerator (hMainWnd, hAccel, &msg)) {
-       TranslateMessage (&msg);
-       DispatchMessage (&msg);
-    }
-  }
+	/* Start up messaging */
+	while (done == FALSE) {
+		if (GetMessage(&msg, NULL, 0, 0) == 0) {
+			/* If it's a quit message, we're outta here */
+			done = TRUE;
+		} else if (!TranslateAccelerator (hMainWnd, hAccel, &msg)) {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+
   windowStop(FALSE);
   isQuitting = TRUE;
 
@@ -2205,6 +2660,7 @@ int PASCAL WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, LPSTR szCmdLine, int nC
   DestroyWindow(hControlsWnd);
   DestroyWindow(hGameInfoWnd);
   DestroyWindow(hItemInfoWnd);
+  DestroyWindow(hTankInfoWnd);
   DestroyWindow(hMainWnd);
   DestroyMenu(hPopupMenu);
   DestroyAcceleratorTable(hAccel);

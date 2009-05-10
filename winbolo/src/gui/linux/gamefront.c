@@ -940,6 +940,8 @@ void gameFrontPutPrefs(keyItems *keys) {
   WritePrivateProfileString("KEYS", "Scroll Left", buff, PREFERENCE_FILE);
   itoa(keys->kiScrollRight, buff, 10);
   WritePrivateProfileString("KEYS", "Scroll Right", buff, PREFERENCE_FILE);
+  keys->kiMouseScrollHorz = 30; /* CJL add */
+
   /* Remember */
   WritePrivateProfileString("SETTINGS", "Remember Player Name", TRUEFALSE_TO_STR(gameFrontRemeber), PREFERENCE_FILE);
 

@@ -29,12 +29,13 @@
 
 #include <windows.h>
 #include <dinput.h>
-#include "..\..\bolo\global.h"
-#include "..\..\bolo\backend.h"
-#include "..\winbolo.h"
+#include "..\input.h"
 #include "..\lang.h"
 #include "..\resource.h"
-#include "..\input.h"
+#include "..\winbolo.h"
+#include "..\..\bolo\backend.h"
+#include "..\..\bolo\global.h"
+
 
 #define KEY_STATES 256
 
@@ -43,6 +44,7 @@ tankButton tb;
 LPDIRECTINPUT lpDI = NULL;
 LPDIRECTINPUTDEVICE lpDIDKeyboard = NULL;
 static BYTE scrollKeyCount = 0; /* Used for screen scrolling */
+
 
 /*********************************************************
 *NAME:          inputSetup
@@ -135,7 +137,11 @@ tankButton inputGetKeys(HWND hWnd, keyItems *setKeys, bool isMenu) {
   HRESULT res;            /* DI Function returns */
   char keys[KEY_STATES];  /* Keyboard states */
   bool proceed;           /* Ok to proceed */
-
+  buildSelect curSelect;  /* The current build selection */
+  RECT rcWindow;          /* This is a structure that holds the corners of the window.
+                           * It will be used if the player selects a quick key so that we
+						   * can change the selector buttons on the left hand side.
+                           */
   proceed = TRUE;
 
   /* Check message window doesn't have focus */
@@ -159,7 +165,7 @@ tankButton inputGetKeys(HWND hWnd, keyItems *setKeys, bool isMenu) {
   }
 
 
-  /* Get the tabkButtons here if it is OK to proceed */
+  /* Get the tankButtons here if it is OK to proceed */
   if (proceed == TRUE) {
     /* Add the Right Shift and control to left as well if required */
     if (keys[DIK_RSHIFT] & PRESSED) {
@@ -198,6 +204,86 @@ tankButton inputGetKeys(HWND hWnd, keyItems *setKeys, bool isMenu) {
     if (keys[(setKeys->kiLayMine)] & PRESSED) {
       screenTankLayMine();
     }
+
+/*
+  RECT rcWindow; // This is a structure that holds the corners of the window
+
+	if (GetClientRect(hWnd, &rcWindow)) {
+		if (ClientToScreen(hWnd, (LPPOINT)&rcWindow)) {
+			drawSelectIndentsOff(BsCurrent, rcWindow.left, rcWindow.top);
+			drawSelectIndentsOn(newSelect, rcWindow.left, rcWindow.top);
+      }
+    }
+*/
+
+	/* Did the user press any of the quick keys? */
+	if (keys[(setKeys->kiQuickTree)] & PRESSED) {
+		curSelect = getBuildCurrentSelect();
+		if (curSelect != BsTrees) {
+			setBuildCurrentSelect(BsTrees);
+			if (GetClientRect(hWnd, &rcWindow)) {
+				if (ClientToScreen(hWnd, (LPPOINT)&rcWindow)) {
+					drawSelectIndentsOff(curSelect, rcWindow.left, rcWindow.top);
+					drawSelectIndentsOn(getBuildCurrentSelect(), rcWindow.left, rcWindow.top);
+				}
+			}
+		}
+	} else if (keys[(setKeys->kiQuickRoad)] & PRESSED) {
+		curSelect = getBuildCurrentSelect();
+		if (curSelect != BsRoad) {
+			setBuildCurrentSelect(BsRoad);
+			if (GetClientRect(hWnd, &rcWindow)) {
+				if (ClientToScreen(hWnd, (LPPOINT)&rcWindow)) {
+					drawSelectIndentsOff(curSelect, rcWindow.left, rcWindow.top);
+					drawSelectIndentsOn(getBuildCurrentSelect(), rcWindow.left, rcWindow.top);
+				}
+			}
+		}
+	} else if (keys[(setKeys->kiQuickWall)] & PRESSED) {
+		curSelect = getBuildCurrentSelect();
+		if (curSelect != BsBuilding) {
+			setBuildCurrentSelect(BsBuilding);
+			if (GetClientRect(hWnd, &rcWindow)) {
+				if (ClientToScreen(hWnd, (LPPOINT)&rcWindow)) {
+					drawSelectIndentsOff(curSelect, rcWindow.left, rcWindow.top);
+					drawSelectIndentsOn(getBuildCurrentSelect(), rcWindow.left, rcWindow.top);
+				}
+			}
+		}
+		
+	} else if (keys[(setKeys->kiQuickPillbox)] & PRESSED) {
+		curSelect = getBuildCurrentSelect();
+		if (curSelect != BsPillbox) {
+			setBuildCurrentSelect(BsPillbox);
+			if (GetClientRect(hWnd, &rcWindow)) {
+				if (ClientToScreen(hWnd, (LPPOINT)&rcWindow)) {
+					drawSelectIndentsOff(curSelect, rcWindow.left, rcWindow.top);
+					drawSelectIndentsOn(getBuildCurrentSelect(), rcWindow.left, rcWindow.top);
+				}
+			}
+		}
+		
+	} else if (keys[(setKeys->kiQuickMine)] & PRESSED) {
+		curSelect = getBuildCurrentSelect();
+		if (curSelect != BsMine) {
+			setBuildCurrentSelect(BsMine);
+			if (GetClientRect(hWnd, &rcWindow)) {
+				if (ClientToScreen(hWnd, (LPPOINT)&rcWindow)) {
+					drawSelectIndentsOff(curSelect, rcWindow.left, rcWindow.top);
+					drawSelectIndentsOn(getBuildCurrentSelect(), rcWindow.left, rcWindow.top);
+				}
+			}
+		}
+		
+	}
+/*
+    if (newSelect != NO_SELECT && newSelect != BsCurrent) {
+      tick = winboloTimer();
+
+      BsCurrent = newSelect;
+      dwSysFrame += (winboloTimer() - tick);
+    }
+*/
 
     scrollKeyCount++;
     if (scrollKeyCount >= INPUT_SCROLL_WAIT_TIME && isMenu == FALSE) {

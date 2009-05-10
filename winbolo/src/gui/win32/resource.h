@@ -134,6 +134,7 @@
 #define STR_DLGKEYSETUP_TANKVIEW        236
 #define STR_DLGKEYSETUP_PILLVIEW        237
 #define STR_DLGKEYSETUP_SCROLLUP        238
+#define STR_DLGKEYSETUP_ALLYVIEW        239
 #define STR_DLGKEYSETUP_SCROLLDOWN      240
 #define STR_DLGKEYSETUP_SCROLLLEFT      241
 #define STR_DLGKEYSETUP_SCROLLRIGHT     242
@@ -315,9 +316,15 @@
 #define LGM_INSUFFICIENT_MINES          418
 #define LGM_BUILDTANK                   419
 #define LGM_NO_TREE                     420
+#define STR_DLGKEYSETUP_BASEVIEW        421
+#define STR_DLGKEYSETUP_LGMVIEW         422
+#define STR_DLGKEYSETUP_QUICKTREE       423
+#define STR_DLGKEYSETUP_QUICKROAD       424
+#define STR_DLGKEYSETUP_QUICKWALL       425
+#define STR_DLGKEYSETUP_QUICKPILLBOX    426
+#define STR_DLGKEYSETUP_QUICKMINE       427
 #define LGM_PILL_NO_NEED_REPAIR         430
 #define LGM_PILL_NO_BUILD_ON_MINE       431
-#define LGM_NO_BUILD_UNDER_BOAT         465
 #define MESSAGE_ASSISTANT               432
 #define MESSAGE_NEWSWIRE                433
 #define MESSAGE_AI                      434
@@ -351,6 +358,7 @@
 #define STRERR_HELPFILE                 462
 #define STR_DLGSKIN_TITLE               463
 #define STR_DLGSKIN_DEFAULTNOTE         464
+#define LGM_NO_BUILD_UNDER_BOAT         465
 #define STR_DLGGAMEFINDER_PLAYERWRONG   466
 #define IDC_STATIC1                     1003
 #define IDC_FPSS                        1003
@@ -419,11 +427,19 @@
 #define IDC_SCROLLLEFT                  1058
 #define IDC_SCROLLRIGHT                 1059
 #define IDC_AUTOGUNSIGHT                1060
+#define IDC_ALLYVIEW                    1061
+#define IDC_LGMVIEW                     1062
+#define IDC_BASEVIEW                    1063
 #define IDC_EDITNAME                    1064
+#define IDC_QUICKTREE                   1064
 #define ID_SEND                         1065
+#define IDC_QUICKROAD                   1065
 #define IDC_EDITSEND                    1066
+#define IDC_QUICKWALL                   1066
 #define ID_JOIN                         1067
+#define IDC_QUICKPILLBOX                1067
 #define ID_NEW                          1068
+#define IDC_QUICKMINE                   1068
 #define IDC_EDITIP                      1069
 #define IDC_UDP                         1070
 #define IDC_MYUDP                       1071
@@ -555,6 +571,16 @@
 #define IDC_BTN_TCP                     1166
 #define IDC_BTN_PRACTICE                1167
 #define IDC_BTN_TUTORIAL                1168
+#define IDC_TABS                        1171
+#define IDC_CUSTOM1                     1172
+#define IDC_CALLYVIEW                   1175
+#define IDC_CLGMVIEW                    1176
+#define IDC_CBASEVIEW                   1177
+#define IDC_CQTREE                      1178
+#define IDC_CQROAD                      1179
+#define IDC_CQWALL                      1180
+#define IDC_CQPILLBOX                   1181
+#define IDC_CQMINE                      1182
 #define IDR_MENU2                       32000
 #define ID_FG_SDF                       32001
 #define ID_HELP_ABOUT                   40001
@@ -630,9 +656,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        201
+#define _APS_NEXT_RESOURCE_VALUE        203
 #define _APS_NEXT_COMMAND_VALUE         40081
-#define _APS_NEXT_CONTROL_VALUE         1166
+#define _APS_NEXT_CONTROL_VALUE         1183
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

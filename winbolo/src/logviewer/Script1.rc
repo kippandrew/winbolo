@@ -1,21 +1,4 @@
-/*
- * $Id$
- *
- * Copyright (c) 1998-2008 John Morrison.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- */
-
-
-// Microsoft Visual C++ generated resource script.
+//Microsoft Developer Studio generated resource script.
 //
 #include "resource.h"
 
@@ -30,6 +13,66 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_BASEINFO DIALOG DISCARDABLE  0, 0, 186, 95
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Base Information"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Progress1",IDC_BASEINFO_SHELLS,"msctls_progress32",
+                    PBS_SMOOTH | WS_BORDER,38,9,80,9
+    CONTROL         "Progress2",IDC_BASEINFO_MINES,"msctls_progress32",
+                    PBS_SMOOTH | WS_BORDER,38,22,80,9
+    CONTROL         "Progress3",IDC_BASEINFO_ARMOUR,"msctls_progress32",
+                    PBS_SMOOTH | WS_BORDER,38,35,80,9
+    LTEXT           "Shells:",IDC_STATIC,12,9,22,8
+    LTEXT           "Mines:",IDC_STATIC,12,22,22,8
+    LTEXT           "Armour:",IDC_STATIC,9,35,25,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_BASEINFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_TB_EVENTS           BITMAP  DISCARDABLE     "btn_events.bmp"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
 // English (Australia) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENA)
@@ -40,162 +83,50 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_AUS
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Bitmap
-//
-
-IDB_TILE                BITMAP                  "Tile.bmp"
-IDB_LOGO                BITMAP                  "logo.bmp"
-IDB_BASE                BITMAP                  "base.bmp"
-IDB_PILLBOX             BITMAP                  "pillbox.bmp"
-IDB_TANKS               BITMAP                  "tanks.bmp"
-IDB_BOATS               BITMAP                  "boats.bmp"
-IDB_ITEMS               BITMAP                  "items.bmp"
-IDB_SPLASH              BITMAP                  "splash.bmp"
-
-#ifdef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// TEXTINCLUDE
-//
-
-1 TEXTINCLUDE 
-BEGIN
-    "resource.h\0"
-END
-
-2 TEXTINCLUDE 
-BEGIN
-    "#include ""afxres.h""\r\n"
-    "\0"
-END
-
-3 TEXTINCLUDE 
-BEGIN
-    "\r\n"
-    "\0"
-END
-
-#endif    // APSTUDIO_INVOKED
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Version
-//
-
-VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
- FILEFLAGSMASK 0x3fL
-#ifdef _DEBUG
- FILEFLAGS 0x1L
-#else
- FILEFLAGS 0x0L
-#endif
- FILEOS 0x40004L
- FILETYPE 0x1L
- FILESUBTYPE 0x0L
-BEGIN
-    BLOCK "StringFileInfo"
-    BEGIN
-        BLOCK "0c0904b0"
-        BEGIN
-            VALUE "Comments", "WinBolo Log Viewer 1.01"
-            VALUE "CompanyName", " "
-            VALUE "FileDescription", "WinBolo Log Viewer 1.01"
-            VALUE "FileVersion", "1, 0, 0, 1"
-            VALUE "InternalName", "Log Viewer"
-            VALUE "LegalCopyright", "Copyright © 2004-2006 John Morrison"
-            VALUE "OriginalFilename", "Log Viewer.exe"
-            VALUE "ProductName", "WinBolo Log Viewer"
-            VALUE "ProductVersion", "1, 0, 0, 1"
-        END
-    END
-    BLOCK "VarFileInfo"
-    BEGIN
-        VALUE "Translation", 0xc09, 1200
-    END
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Menu
-//
-
-IDR_MENU1 MENU 
-BEGIN
-    POPUP "&File"
-    BEGIN
-        MENUITEM "&Open\tCtrl+O",               ID_FILE_OPEN1
-        MENUITEM "&Save Map",                   ID_FILE_SAVEMAP, GRAYED
-        MENUITEM SEPARATOR
-        MENUITEM "E&xit",                       ID_FILE_EXIT
-    END
-    POPUP "&Action"
-    BEGIN
-        MENUITEM "&Play\tCtrl+P",               ID_ACTION_PLAY
-        MENUITEM "&Pause\tCtrl+U",              ID_ACTION_PAUSE
-        MENUITEM "&Stop\tCtrl+S",               ID_ACTION_STOP
-        MENUITEM SEPARATOR
-        MENUITEM "&Fast Forward\tCtrl+F",       ID_ACTION_FASTFORWARD
-        MENUITEM "&Rewind\tCtrl+R",             ID_ACTION_REWIND
-        MENUITEM SEPARATOR
-        MENUITEM "Fullscreen",                  ID_ACTION_FULLSCREEN, GRAYED
-    END
-    POPUP "&Options"
-    BEGIN
-        POPUP "&Mode"
-        BEGIN
-            MENUITEM "&Information\tCtrl+I",        ID_OPTIONS_MODE_INFORMATION
-
-            MENUITEM "&Select Team\tCtrl+C",        ID_OPTIONS_MODE_SELECTTEAM
-
-        END
-        MENUITEM "&Use Team Colours",           ID_OPTIONS_USETEAMCOLOURS
-        MENUITEM "&Tank Centred\tCtrl+T",       ID_OPTIONS_TANK_CENTRED
-        MENUITEM "&Sound Effects",              ID_OPTIONS_SOUNDEFFECTS
-        MENUITEM "&DNS Lookups",                ID_OPTIONS_DNSLOOKUPS
-        MENUITEM SEPARATOR
-        MENUITEM "&Window Size",                ID_OPTIONS_WINDOWSIZE
-        MENUITEM "&Memory Buffer",              ID_OPTIONS_MEMORYBUFFER
-        MENUITEM "Team &Colours",               ID_OPTIONS_TEAMCOLOURS
-        MENUITEM "Full Screen Settings",        ID_OPTIONS_MODE_FULLSCREEN
-        , GRAYED
-    END
-    POPUP "&Windows"
-    BEGIN
-        MENUITEM "&Control\tCtrl+1",            ID_WINDOWS_CONTROLS, CHECKED
-        MENUITEM "&Events\tCtrl+2",             ID_WINDOWS_EVENTS, CHECKED
-        MENUITEM "&Game Information\tCtrl+3",   ID_WINDOWS_GAMEINFORMATION
-        , CHECKED
-        MENUITEM "&Item Information\tCtrl+4",   ID_WINDOWS_ITEMINFORMATION
-        , CHECKED
-    END
-    POPUP "&Help"
-    BEGIN
-        MENUITEM "&Help",                       ID_HELP_HELP
-        MENUITEM "&About",                      ID_HELP_ABOUT
-    END
-END
-
-IDR_COPYMENU MENU 
-BEGIN
-    POPUP "Copy"
-    BEGIN
-        MENUITEM "Select &All",                 ID_COPY_SELECTALL
-        MENUITEM "&Copy",                       ID_COPY_COPY
-    END
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
 // Dialog
 //
 
+IDD_TANKINFO DIALOGEX 0, 0, 182, 132
+STYLE WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Tank Information"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CTEXT           "Shells",IDC_SHELLS,4,115,26,10
+    CTEXT           "Mines",IDC_MINES,29,115,25,10
+    CTEXT           "Armor",IDC_ARMOR,53,115,25,10
+    CTEXT           "Trees",IDC_RESOURCES,77,115,27,10
+    CONTROL         "Progress1",IDC_TANKINFO_PROGRESS_RESOURCES,
+                    "msctls_progress32",PBS_VERTICAL | PBS_SMOOTH,85,11,11,
+                    97
+    CONTROL         "Progress1",IDC_TANKINFO_PROGRESS_ARMOUR,
+                    "msctls_progress32",PBS_VERTICAL | PBS_SMOOTH,60,11,11,
+                    97
+    CONTROL         "Progress1",IDC_TANKINFO_PROGRESS_MINES,
+                    "msctls_progress32",PBS_VERTICAL | PBS_SMOOTH,36,11,11,
+                    97
+    CONTROL         "Progress1",IDC_TANKINFO_PROGRESS_SHELLS,
+                    "msctls_progress32",PBS_VERTICAL | PBS_SMOOTH,12,11,11,
+                    97
+    LTEXT           "Deaths:",IDC_STATIC,121,19,26,8
+    LTEXT           "Kills:",IDC_STATIC,132,31,15,8
+    GROUPBOX        "Tank",IDC_STATIC,110,7,65,38
+    LTEXT           "734",IDC_TANKINFO_TANKDEATHS,156,19,13,8
+    LTEXT           "313",IDC_TANKINFO_TANKKILLS,156,31,13,8
+    LTEXT           "Deaths:",IDC_STATIC,121,59,26,8
+    LTEXT           "Kills:",IDC_STATIC,132,71,15,8
+    GROUPBOX        "LGM",IDC_STATIC,110,48,65,38
+    LTEXT           "703",IDC_TANKINFO_LGMDEATHS,156,59,13,8
+    LTEXT           "291",IDC_TANKINFO_LGMKILLS,156,71,13,8
+    GROUPBOX        "Captures",IDC_STATIC,110,89,65,36
+    LTEXT           "Bases:",IDC_STATIC,125,100,22,8
+    LTEXT           "Pills:",IDC_STATIC,132,111,15,8
+    LTEXT           "248",IDC_TANKINFO_BASECAPTURES,155,100,13,8
+    LTEXT           "801",IDC_TANKINFO_PILLCAPTURES,155,111,13,8
+END
+
 IDD_GAMEEVENTS DIALOGEX 0, 0, 312, 182
-STYLE DS_SETFONT | WS_CAPTION | WS_SYSMENU
+STYLE WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_TOOLWINDOW
 CAPTION "Game Events"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
@@ -204,9 +135,9 @@ BEGIN
                     LBS_EXTENDEDSEL | WS_VSCROLL | WS_TABSTOP
 END
 
-IDD_WINDOWSIZE DIALOG  0, 0, 170, 106
-STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | 
-    WS_CAPTION | WS_SYSMENU
+IDD_WINDOWSIZE DIALOG DISCARDABLE  0, 0, 170, 106
+STYLE DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
 CAPTION "Set Window Size"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -221,7 +152,7 @@ BEGIN
 END
 
 IDD_CONTROLS DIALOGEX 0, 0, 253, 74
-STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_TOOLWINDOW
 CAPTION "Controls"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
@@ -239,9 +170,9 @@ BEGIN
 END
 
 IDD_ABOUT DIALOGEX 0, 0, 173, 84
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About WinBolo Log Viewer"
-FONT 8, "MS Sans Serif", 0, 0, 0x0
+FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,59,63,50,14
     ICON            IDI_ICON1,IDC_LOGO,7,7,20,20
@@ -250,7 +181,7 @@ BEGIN
 END
 
 IDD_GAMEINFO DIALOGEX 0, 0, 280, 134
-STYLE DS_SETFONT | WS_CAPTION | WS_SYSMENU
+STYLE WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_TOOLWINDOW
 CAPTION "Game Information"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
@@ -277,9 +208,9 @@ BEGIN
     LTEXT           "Game Start Time:",IDC_PLAYERSS2,7,113,91,8
 END
 
-IDD_MEMORY DIALOG  0, 0, 186, 108
-STYLE DS_SYSMODAL | DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | 
-    WS_CAPTION | WS_SYSMENU
+IDD_MEMORY DIALOG DISCARDABLE  0, 0, 186, 108
+STYLE DS_SYSMODAL | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
 CAPTION "Memory Buffer Setting"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -295,7 +226,7 @@ BEGIN
 END
 
 IDD_ITEMINFO DIALOGEX 0, 0, 186, 100
-STYLE DS_SETFONT | WS_CAPTION | WS_SYSMENU
+STYLE WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_TOOLWINDOW
 CAPTION "Item Information"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
@@ -323,8 +254,7 @@ BEGIN
 END
 
 IDD_COMDLG32 DIALOGEX 0, 0, 274, 158
-STYLE DS_SETFONT | DS_3DLOOK | DS_CONTROL | DS_CENTER | WS_CHILD | 
-    WS_CLIPSIBLINGS
+STYLE DS_3DLOOK | DS_CONTROL | DS_CENTER | WS_CHILD | WS_CLIPSIBLINGS
 EXSTYLE WS_EX_CONTROLPARENT
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
@@ -334,9 +264,9 @@ BEGIN
 END
 
 IDD_TEAMCOLOURS DIALOGEX 0, 0, 334, 214
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Team Colours"
-FONT 8, "MS Sans Serif", 0, 0, 0x0
+FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,107,192,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,175,192,50,14
@@ -394,8 +324,7 @@ BEGIN
 END
 
 IDD_DIALOG_FULLSCREEN DIALOGEX 0, 0, 263, 147
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Set Fullscreen Settings"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
@@ -417,8 +346,16 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO MOVEABLE PURE 
 BEGIN
+    IDD_TANKINFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 175
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 125
+    END
+
     IDD_GAMEEVENTS, DIALOG
     BEGIN
         LEFTMARGIN, 6
@@ -504,25 +441,182 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Bitmap
+//
+
+IDB_TILE                BITMAP  MOVEABLE PURE   "Tile.bmp"
+IDB_LOGO                BITMAP  MOVEABLE PURE   "logo.bmp"
+IDB_BASE                BITMAP  MOVEABLE PURE   "base.bmp"
+IDB_PILLBOX             BITMAP  MOVEABLE PURE   "pillbox.bmp"
+IDB_TANKS               BITMAP  MOVEABLE PURE   "tanks.bmp"
+IDB_BOATS               BITMAP  MOVEABLE PURE   "boats.bmp"
+IDB_ITEMS               BITMAP  MOVEABLE PURE   "items.bmp"
+IDB_SPLASH              BITMAP  MOVEABLE PURE   "splash.bmp"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE MOVEABLE PURE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE MOVEABLE PURE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE MOVEABLE PURE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "0c0904b0"
+        BEGIN
+            VALUE "Comments", "WinBolo Log Viewer 1.01\0"
+            VALUE "CompanyName", " \0"
+            VALUE "FileDescription", "WinBolo Log Viewer 1.01\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Log Viewer\0"
+            VALUE "LegalCopyright", "Copyright © 2004-2006 John Morrison\0"
+            VALUE "OriginalFilename", "Log Viewer.exe\0"
+            VALUE "ProductName", "WinBolo Log Viewer\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0xc09, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Open\tCtrl+O",               ID_FILE_OPEN1
+        MENUITEM "&Save Map",                   ID_FILE_SAVEMAP, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_FILE_EXIT
+    END
+    POPUP "&Action"
+    BEGIN
+        MENUITEM "&Play\tCtrl+P",               ID_ACTION_PLAY
+        MENUITEM "&Pause\tCtrl+U",              ID_ACTION_PAUSE
+        MENUITEM "&Stop\tCtrl+S",               ID_ACTION_STOP
+        MENUITEM SEPARATOR
+        MENUITEM "&Fast Forward\tCtrl+F",       ID_ACTION_FASTFORWARD
+        MENUITEM "&Rewind\tCtrl+R",             ID_ACTION_REWIND
+        MENUITEM SEPARATOR
+        MENUITEM "Fullscreen",                  ID_ACTION_FULLSCREEN, GRAYED
+    END
+    POPUP "&Options"
+    BEGIN
+        POPUP "&Mode"
+        BEGIN
+            MENUITEM "&Information\tCtrl+I",        ID_OPTIONS_MODE_INFORMATION
+
+            MENUITEM "&Select Team\tCtrl+C",        ID_OPTIONS_MODE_SELECTTEAM
+
+        END
+        MENUITEM "&Use Team Colours",           ID_OPTIONS_USETEAMCOLOURS
+        MENUITEM "&Tank Centred\tCtrl+T",       ID_OPTIONS_TANK_CENTRED
+        MENUITEM "&Sound Effects",              ID_OPTIONS_SOUNDEFFECTS
+        MENUITEM "&DNS Lookups",                ID_OPTIONS_DNSLOOKUPS
+        MENUITEM SEPARATOR
+        MENUITEM "&Window Size",                ID_OPTIONS_WINDOWSIZE
+        MENUITEM "&Memory Buffer",              ID_OPTIONS_MEMORYBUFFER
+        MENUITEM "Team &Colours",               ID_OPTIONS_TEAMCOLOURS
+        MENUITEM "Full Screen Settings",        ID_OPTIONS_MODE_FULLSCREEN
+        , GRAYED
+    END
+    POPUP "&Windows"
+    BEGIN
+        MENUITEM "&Control\t(Ctrl+1)",          ID_WINDOWS_CONTROLS, CHECKED
+        MENUITEM "&Events\t(Ctrl+2)",           ID_WINDOWS_EVENTS, CHECKED
+        MENUITEM "&Game Information\t(Ctrl+3)", ID_WINDOWS_GAMEINFORMATION
+        , CHECKED
+        MENUITEM "&Item Information\t(Ctrl+4)", ID_WINDOWS_ITEMINFORMATION
+        , CHECKED
+        MENUITEM "&Tank Information\t(Ctrl+5)", ID_WINDOWS_TANKINFORMATION
+        , CHECKED
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&Help",                       ID_HELP_HELP
+        MENUITEM "&About",                      ID_HELP_ABOUT
+    END
+END
+
+IDR_COPYMENU MENU DISCARDABLE 
+BEGIN
+    POPUP "Copy"
+    BEGIN
+        MENUITEM "Select &All",                 ID_COPY_SELECTALL
+        MENUITEM "&Copy",                       ID_COPY_COPY
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // Icon
 //
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "logo.ico"
-IDI_ICON2               ICON                    "icon2.ico"
+IDI_ICON1               ICON    DISCARDABLE     "logo.ico"
+IDI_ICON2               ICON    DISCARDABLE     "icon2.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Accelerator
 //
 
-IDR_ACCELERATOR1 ACCELERATORS 
+IDR_ACCELERATOR1 ACCELERATORS MOVEABLE PURE 
 BEGIN
     "1",            ID_WINDOWS_CONTROLS,    VIRTKEY, CONTROL, NOINVERT
     "2",            ID_WINDOWS_EVENTS,      VIRTKEY, CONTROL, NOINVERT
     "3",            ID_WINDOWS_GAMEINFORMATION, VIRTKEY, CONTROL, NOINVERT
     "4",            ID_WINDOWS_ITEMINFORMATION, VIRTKEY, CONTROL, NOINVERT
+    "5",            ID_WINDOWS_TANKINFORMATION, VIRTKEY, CONTROL, NOINVERT
     "F",            ID_ACTION_FASTFORWARD,  VIRTKEY, CONTROL, NOINVERT
     "O",            ID_FILE_OPEN1,          VIRTKEY, CONTROL, NOINVERT
     "P",            ID_ACTION_PLAY,         VIRTKEY, CONTROL, NOINVERT

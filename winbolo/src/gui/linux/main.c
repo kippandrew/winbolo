@@ -1477,7 +1477,7 @@ Updates the Window View
 *  edgeX      - X Offset for smooth scrolling
 *  edgeY      - Y Offset for smooth scrolling
 *********************************************************/
-void frontEndDrawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, screenGunsight *gs, screenBullets *sBullet, screenLgm *lgms, long srtDelay, bool isPillView, int edgeX, int edgeY) {
+void frontEndDrawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, screenGunsight *gs, screenBullets *sBullet, screenLgm *lgms, long srtDelay, bool isPillView, tank *tank, int edgeX, int edgeY) {
   BYTE cursorX;
   BYTE cursorY;
   bool showCursor;

@@ -34,6 +34,7 @@
 #include "..\lang.h"
 #include "..\dialogkeysetup.h"
 #include "..\clientmutex.h"
+#include "resource.h"
 
 nextKey nk;            /* The next key to be set */
 keyItems keySetupKeys; /* Copy of the keys for use by the dialog box */
@@ -124,14 +125,25 @@ BOOL CALLBACK dialogKeySetupCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LP
       dialogKeySetupClick(hWnd, nkLayMine);
       return TRUE;
       break;
-    case IDC_CTANKVIEW:
-      dialogKeySetupClick(hWnd, nkTankView);
-      return TRUE;
-      break;
+	/* Views */
+	case IDC_CTANKVIEW:
+		dialogKeySetupClick(hWnd, nkTankView);
+		return TRUE;
+		break;
     case IDC_CPILLVIEW:
-      dialogKeySetupClick(hWnd, nkPillView);
-      return TRUE;
-      break;
+		dialogKeySetupClick(hWnd, nkPillView);
+		return TRUE;
+		break;
+	case IDC_CLGMVIEW:
+		dialogKeySetupClick(hWnd, nkLGMView);
+		break;
+	case IDC_CALLYVIEW:
+		dialogKeySetupClick(hWnd, nkAllyView);
+		break;
+	case IDC_CBASEVIEW:
+		dialogKeySetupClick(hWnd, nkBaseView);
+		break;
+	/* Scrolling */
     case IDC_CSCROLLUP:
       dialogKeySetupClick(hWnd, nkUp);
       return TRUE;
@@ -148,7 +160,27 @@ BOOL CALLBACK dialogKeySetupCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LP
       dialogKeySetupClick(hWnd, nkRight);
       return TRUE;
       break;
-
+	/* Quick keys */
+	case IDC_CQTREE:
+		dialogKeySetupClick(hWnd, nkQuickTree);
+		return TRUE;
+		break;
+	case IDC_CQROAD:
+		dialogKeySetupClick(hWnd, nkQuickRoad);
+		return TRUE;
+		break;
+	case IDC_CQWALL:
+		dialogKeySetupClick(hWnd, nkQuickWall);
+		return TRUE;
+		break;
+	case IDC_CQPILLBOX:
+		dialogKeySetupClick(hWnd, nkQuickPillbox);
+		return TRUE;
+		break;
+	case IDC_CQMINE:
+		dialogKeySetupClick(hWnd, nkQuickMine);
+		return TRUE;
+		break;
     }
     return FALSE;
     break;
@@ -177,7 +209,6 @@ BOOL CALLBACK dialogKeySetupCallback(HWND hWnd, unsigned uMsg, WPARAM wParam, LP
 void dialogKeySetupInit(HWND hWnd) {
   char str[FILENAME_MAX]; /* String to output */
 
-
   /* Setup languages */
   SetWindowTextA(hWnd, langGetText(STR_DLGKEYSETUP_TITLE));
   SetDlgItemTextA(hWnd, IDC_BLURB, langGetText(STR_DLGKEYSETUP_BLURB));
@@ -189,12 +220,24 @@ void dialogKeySetupInit(HWND hWnd) {
   SetDlgItemTextA(hWnd, IDC_CDECREASE, langGetText(STR_DLGKEYSETUP_DECREASE));
   SetDlgItemTextA(hWnd, IDC_CSHOOT, langGetText(STR_DLGKEYSETUP_SHOOT));
   SetDlgItemTextA(hWnd, IDC_CLAYMINE, langGetText(STR_DLGKEYSETUP_LAYMINE));
+  /* Views */
   SetDlgItemTextA(hWnd, IDC_CTANKVIEW, langGetText(STR_DLGKEYSETUP_TANKVIEW));
   SetDlgItemTextA(hWnd, IDC_CPILLVIEW, langGetText(STR_DLGKEYSETUP_PILLVIEW));
+  SetDlgItemTextA(hWnd, IDC_CALLYVIEW, langGetText(STR_DLGKEYSETUP_ALLYVIEW));
+  SetDlgItemTextA(hWnd, IDC_CLGMVIEW, langGetText(STR_DLGKEYSETUP_LGMVIEW));
+  SetDlgItemTextA(hWnd, IDC_CBASEVIEW, langGetText(STR_DLGKEYSETUP_BASEVIEW));
+  /* Scroll */
   SetDlgItemTextA(hWnd, IDC_CSCROLLUP, langGetText(STR_DLGKEYSETUP_SCROLLUP));
   SetDlgItemTextA(hWnd, IDC_CSCROLLDOWN, langGetText(STR_DLGKEYSETUP_SCROLLDOWN));
   SetDlgItemTextA(hWnd, IDC_CSCROLLLEFT, langGetText(STR_DLGKEYSETUP_SCROLLLEFT));
   SetDlgItemTextA(hWnd, IDC_CSCROLLRIGHT, langGetText(STR_DLGKEYSETUP_SCROLLRIGHT));
+  /* Quick keys */
+  SetDlgItemTextA(hWnd, IDC_CQTREE, langGetText(STR_DLGKEYSETUP_QUICKTREE));
+  SetDlgItemTextA(hWnd, IDC_CQROAD, langGetText(STR_DLGKEYSETUP_QUICKROAD));
+  SetDlgItemTextA(hWnd, IDC_CQWALL, langGetText(STR_DLGKEYSETUP_QUICKWALL));
+  SetDlgItemTextA(hWnd, IDC_CQPILLBOX, langGetText(STR_DLGKEYSETUP_QUICKPILLBOX));
+  SetDlgItemTextA(hWnd, IDC_CQMINE, langGetText(STR_DLGKEYSETUP_QUICKMINE));
+
   SetDlgItemTextA(hWnd, IDC_LEFTS, langGetText(STR_DLGKEYSETUP_LEFT));
   SetDlgItemTextA(hWnd, IDC_RIGHTS, langGetText(STR_DLGKEYSETUP_RIGHT));
   SetDlgItemTextA(hWnd, IDC_AUTOSLOWDOWN, langGetText(STR_DLGKEYSETUP_AUTOSLOWDOWN));
@@ -231,6 +274,7 @@ void dialogKeySetupInit(HWND hWnd) {
   dialogKeySetupDisplayString(hWnd, nkTurnRight, str);
   winUtilDIKeyToString(keySetupKeys.kiShoot, str);
   dialogKeySetupDisplayString(hWnd, nkShoot, str);
+
   winUtilDIKeyToString(keySetupKeys.kiLayMine, str);
   dialogKeySetupDisplayString(hWnd, nkLayMine, str);
 
@@ -238,10 +282,20 @@ void dialogKeySetupInit(HWND hWnd) {
   dialogKeySetupDisplayString(hWnd, nkIncrease, str);
   winUtilDIKeyToString(keySetupKeys.kiGunDecrease, str);
   dialogKeySetupDisplayString(hWnd, nkDecrease, str);
+
+  /* Views */
   winUtilVirtKeyToString(keySetupKeys.kiTankView, str);
   dialogKeySetupDisplayString(hWnd, nkTankView, str);
   winUtilVirtKeyToString(keySetupKeys.kiPillView, str);
   dialogKeySetupDisplayString(hWnd, nkPillView, str);
+  winUtilVirtKeyToString(keySetupKeys.kiAllyView, str);
+  dialogKeySetupDisplayString(hWnd, nkAllyView, str);
+  winUtilVirtKeyToString(keySetupKeys.kiLGMView, str);
+  dialogKeySetupDisplayString(hWnd, nkLGMView, str);
+  winUtilVirtKeyToString(keySetupKeys.kiBaseView, str);
+  dialogKeySetupDisplayString(hWnd, nkBaseView, str);
+
+  /* Scrolling */
   winUtilDIKeyToString(keySetupKeys.kiScrollUp, str);
   dialogKeySetupDisplayString(hWnd, nkUp, str);
   winUtilDIKeyToString(keySetupKeys.kiScrollDown, str);
@@ -250,6 +304,18 @@ void dialogKeySetupInit(HWND hWnd) {
   dialogKeySetupDisplayString(hWnd, nkLeft, str);
   winUtilDIKeyToString(keySetupKeys.kiScrollRight, str);
   dialogKeySetupDisplayString(hWnd, nkRight, str);
+
+  /* Quick keys */
+  winUtilDIKeyToString(keySetupKeys.kiQuickTree, str);
+  dialogKeySetupDisplayString(hWnd, nkQuickTree, str);
+  winUtilDIKeyToString(keySetupKeys.kiQuickRoad, str);
+  dialogKeySetupDisplayString(hWnd, nkQuickRoad, str);
+  winUtilDIKeyToString(keySetupKeys.kiQuickWall, str);
+  dialogKeySetupDisplayString(hWnd, nkQuickWall, str);
+  winUtilDIKeyToString(keySetupKeys.kiQuickPillbox, str);
+  dialogKeySetupDisplayString(hWnd, nkQuickPillbox, str);
+  winUtilDIKeyToString(keySetupKeys.kiQuickMine, str);
+  dialogKeySetupDisplayString(hWnd, nkQuickMine, str);
 
   winUtilCenterWindow(hWnd);
 }
@@ -293,12 +359,23 @@ void dialogKeySetupDisplayString(HWND hWnd, nextKey value, char *str) {
   case nkLayMine:
     SendDlgItemMessageA(hWnd, IDC_LAYMINE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
+  /* Views */
   case nkTankView:
     SendDlgItemMessageA(hWnd, IDC_TANKVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   case nkPillView:
     SendDlgItemMessageA(hWnd, IDC_PILLVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
+  case nkAllyView:
+    SendDlgItemMessageA(hWnd, IDC_ALLYVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    break;
+  case nkLGMView:
+    SendDlgItemMessageA(hWnd, IDC_LGMVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    break;
+  case nkBaseView:
+    SendDlgItemMessageA(hWnd, IDC_BASEVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    break;
+  /* Scrolling */
   case nkUp:
     SendDlgItemMessageA(hWnd, IDC_SCROLLUP, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
@@ -310,6 +387,22 @@ void dialogKeySetupDisplayString(HWND hWnd, nextKey value, char *str) {
     break;
   case nkRight:
     SendDlgItemMessageA(hWnd, IDC_SCROLLRIGHT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    break;
+  /* Quick Keys */
+  case nkQuickTree:
+    SendDlgItemMessageA(hWnd, IDC_QUICKTREE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    break;
+  case nkQuickRoad:
+    SendDlgItemMessageA(hWnd, IDC_QUICKROAD, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    break;
+  case nkQuickWall:
+    SendDlgItemMessageA(hWnd, IDC_QUICKWALL, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    break;
+  case nkQuickPillbox:
+    SendDlgItemMessageA(hWnd, IDC_QUICKPILLBOX, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    break;
+  case nkQuickMine:
+    SendDlgItemMessageA(hWnd, IDC_QUICKMINE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     break;
   default:
     break;
@@ -417,6 +510,7 @@ void dialogKeySetupClick(HWND hWnd, nextKey newKey) {
         CheckDlgButton(hWnd, IDC_CLAYMINE, BST_CHECKED);
       }
       break;
+	/* Views */
     case nkTankView:
       if (nk == nkTankView) {
         newKey = nkNone;
@@ -435,6 +529,34 @@ void dialogKeySetupClick(HWND hWnd, nextKey newKey) {
         CheckDlgButton(hWnd, IDC_CPILLVIEW, BST_CHECKED);
       }
       break;
+	case nkAllyView:
+      if (nk == nkAllyView) {
+        newKey = nkNone;
+        CheckDlgButton(hWnd, IDC_CALLYVIEW, BST_UNCHECKED);    
+      } else {
+        strcat(strWndTitle, langGetText(STR_DLGKEYSETUP_ALLYVIEW));
+        CheckDlgButton(hWnd, IDC_CALLYVIEW, BST_CHECKED);
+      }
+      break;
+	case nkBaseView:
+      if (nk == nkBaseView) {
+        newKey = nkNone;
+        CheckDlgButton(hWnd, IDC_CBASEVIEW, BST_UNCHECKED);    
+      } else {
+        strcat(strWndTitle, langGetText(STR_DLGKEYSETUP_BASEVIEW));
+        CheckDlgButton(hWnd, IDC_CBASEVIEW, BST_CHECKED);
+      }
+      break;
+	case nkLGMView:
+      if (nk == nkLGMView) {
+        newKey = nkNone;
+        CheckDlgButton(hWnd, IDC_CLGMVIEW, BST_UNCHECKED);    
+      } else {
+        strcat(strWndTitle, langGetText(STR_DLGKEYSETUP_LGMVIEW));
+        CheckDlgButton(hWnd, IDC_CLGMVIEW, BST_CHECKED);
+      }
+      break;
+	/* Scroll */
     case nkUp:
       if (nk == nkUp) {
         newKey = nkNone;
@@ -471,8 +593,55 @@ void dialogKeySetupClick(HWND hWnd, nextKey newKey) {
         CheckDlgButton(hWnd, IDC_CSCROLLRIGHT, BST_CHECKED);
       }
       break;
-    default:
+	/* Quick Keys */
+    case nkQuickTree:
+      if (nk == nkQuickTree) {
+        newKey = nkNone;
+        CheckDlgButton(hWnd, IDC_CQTREE, BST_UNCHECKED);    
+      } else {
+        strcat(strWndTitle, langGetText(STR_DLGKEYSETUP_QUICKTREE));
+        CheckDlgButton(hWnd, IDC_CQTREE, BST_CHECKED);
+      }
       break;
+    case nkQuickRoad:
+      if (nk == nkQuickRoad) {
+        newKey = nkNone;
+        CheckDlgButton(hWnd, IDC_CQROAD, BST_UNCHECKED);    
+      } else {
+        strcat(strWndTitle, langGetText(STR_DLGKEYSETUP_QUICKROAD));
+        CheckDlgButton(hWnd, IDC_CQROAD, BST_CHECKED);
+      }
+      break;
+    case nkQuickWall:
+      if (nk == nkQuickWall) {
+        newKey = nkNone;
+        CheckDlgButton(hWnd, IDC_CQWALL, BST_UNCHECKED);    
+      } else {
+        strcat(strWndTitle, langGetText(STR_DLGKEYSETUP_QUICKWALL));
+        CheckDlgButton(hWnd, IDC_CQWALL, BST_CHECKED);
+      }
+      break;
+    case nkQuickPillbox:
+      if (nk == nkQuickPillbox) {
+        newKey = nkNone;
+        CheckDlgButton(hWnd, IDC_CQPILLBOX, BST_UNCHECKED);    
+      } else {
+        strcat(strWndTitle, langGetText(STR_DLGKEYSETUP_QUICKPILLBOX));
+        CheckDlgButton(hWnd, IDC_CQPILLBOX, BST_CHECKED);
+      }
+      break;
+    case nkQuickMine:
+      if (nk == nkQuickMine) {
+        newKey = nkNone;
+        CheckDlgButton(hWnd, IDC_CQMINE, BST_UNCHECKED);    
+      } else {
+        strcat(strWndTitle, langGetText(STR_DLGKEYSETUP_QUICKMINE));
+        CheckDlgButton(hWnd, IDC_CQMINE, BST_CHECKED);
+      }
+      break;
+	/* Default */
+	default:
+		break;
     }
   }
 
@@ -566,6 +735,7 @@ void dialogKeySetupProcess(HWND hWnd, int keyCode) {
     SendDlgItemMessageA(hWnd, IDC_LAYMINE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CLAYMINE, BST_UNCHECKED);
     break;
+  /* Views */
   case nkTankView:
     keySetupKeys.kiTankView = keyCode;
     winUtilVirtKeyToString(keySetupKeys.kiTankView, str);
@@ -578,6 +748,25 @@ void dialogKeySetupProcess(HWND hWnd, int keyCode) {
     SendDlgItemMessageA(hWnd, IDC_PILLVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CPILLVIEW, BST_UNCHECKED);
     break;
+  case nkAllyView:
+    keySetupKeys.kiAllyView = keyCode;
+    winUtilVirtKeyToString(keySetupKeys.kiPillView, str);
+    SendDlgItemMessageA(hWnd, IDC_PILLVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    CheckDlgButton(hWnd, IDC_CPILLVIEW, BST_UNCHECKED);
+    break;
+  case nkLGMView:
+    keySetupKeys.kiLGMView = keyCode;
+    winUtilVirtKeyToString(keySetupKeys.kiPillView, str);
+    SendDlgItemMessageA(hWnd, IDC_PILLVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    CheckDlgButton(hWnd, IDC_CPILLVIEW, BST_UNCHECKED);
+    break;
+  case nkBaseView:
+    keySetupKeys.kiBaseView = keyCode;
+    winUtilVirtKeyToString(keySetupKeys.kiPillView, str);
+    SendDlgItemMessageA(hWnd, IDC_PILLVIEW, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    CheckDlgButton(hWnd, IDC_CPILLVIEW, BST_UNCHECKED);
+    break;
+  /* Scroll */
   case nkUp:
     keySetupKeys.kiScrollUp = winUtilVirtKeyToDI(keyCode);
     winUtilDIKeyToString(keySetupKeys.kiScrollUp, str);
@@ -601,6 +790,37 @@ void dialogKeySetupProcess(HWND hWnd, int keyCode) {
     winUtilDIKeyToString(keySetupKeys.kiScrollRight, str);
     SendDlgItemMessageA(hWnd, IDC_SCROLLRIGHT, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
     CheckDlgButton(hWnd, IDC_CSCROLLRIGHT, BST_UNCHECKED);
+    break;
+  /* Quick keys */
+  case nkQuickTree:
+    keySetupKeys.kiQuickTree = winUtilVirtKeyToDI(keyCode);
+    winUtilDIKeyToString(keySetupKeys.kiQuickTree, str);
+    SendDlgItemMessageA(hWnd, IDC_QUICKTREE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    CheckDlgButton(hWnd, IDC_CQTREE, BST_UNCHECKED);
+    break;
+  case nkQuickRoad:
+    keySetupKeys.kiQuickRoad = winUtilVirtKeyToDI(keyCode);
+    winUtilDIKeyToString(keySetupKeys.kiQuickRoad, str);
+    SendDlgItemMessageA(hWnd, IDC_QUICKROAD, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    CheckDlgButton(hWnd, IDC_CQROAD, BST_UNCHECKED);
+    break;
+  case nkQuickWall:
+    keySetupKeys.kiQuickWall = winUtilVirtKeyToDI(keyCode);
+    winUtilDIKeyToString(keySetupKeys.kiQuickWall, str);
+    SendDlgItemMessageA(hWnd, IDC_QUICKWALL, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    CheckDlgButton(hWnd, IDC_CQWALL, BST_UNCHECKED);
+    break;
+  case nkQuickPillbox:
+    keySetupKeys.kiQuickPillbox = winUtilVirtKeyToDI(keyCode);
+    winUtilDIKeyToString(keySetupKeys.kiQuickPillbox, str);
+    SendDlgItemMessageA(hWnd, IDC_QUICKPILLBOX, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    CheckDlgButton(hWnd, IDC_CQPILLBOX, BST_UNCHECKED);
+    break;
+  case nkQuickMine:
+    keySetupKeys.kiQuickMine = winUtilVirtKeyToDI(keyCode);
+    winUtilDIKeyToString(keySetupKeys.kiQuickMine, str);
+    SendDlgItemMessageA(hWnd, IDC_QUICKMINE, WM_SETTEXT, 0, (LPARAM)(LPCTSTR) str);
+    CheckDlgButton(hWnd, IDC_CQMINE, BST_UNCHECKED);
     break;
   case nkNone:
   default:
@@ -649,12 +869,23 @@ void dialogKeySetupUnCheck(HWND hWnd) {
   case nkLayMine:
     CheckDlgButton(hWnd, IDC_CLAYMINE, BST_UNCHECKED);
     break;
+  /* Views */
   case nkTankView:
     CheckDlgButton(hWnd, IDC_CTANKVIEW, BST_UNCHECKED);
     break;
   case nkPillView:
     CheckDlgButton(hWnd, IDC_CPILLVIEW, BST_UNCHECKED);
     break;
+  case nkAllyView:
+    CheckDlgButton(hWnd, IDC_CALLYVIEW, BST_UNCHECKED);
+    break;
+  case nkLGMView:
+    CheckDlgButton(hWnd, IDC_CLGMVIEW, BST_UNCHECKED);
+    break;
+  case nkBaseView:
+    CheckDlgButton(hWnd, IDC_CBASEVIEW, BST_UNCHECKED);
+    break;
+  /* Scrolling */
   case nkUp:
     CheckDlgButton(hWnd, IDC_CSCROLLUP, BST_UNCHECKED);
     break;
@@ -666,6 +897,22 @@ void dialogKeySetupUnCheck(HWND hWnd) {
     break;
   case nkRight:
     CheckDlgButton(hWnd, IDC_CSCROLLRIGHT, BST_UNCHECKED);
+    break;
+  /* Quick Keys */
+  case nkQuickTree:
+    CheckDlgButton(hWnd, IDC_CQTREE, BST_UNCHECKED);
+    break;
+  case nkQuickRoad:
+    CheckDlgButton(hWnd, IDC_CQROAD, BST_UNCHECKED);
+    break;
+  case nkQuickWall:
+    CheckDlgButton(hWnd, IDC_CQWALL, BST_UNCHECKED);
+    break;
+  case nkQuickPillbox:
+    CheckDlgButton(hWnd, IDC_CQPILLBOX, BST_UNCHECKED);
+    break;
+  case nkQuickMine:
+    CheckDlgButton(hWnd, IDC_CQMINE, BST_UNCHECKED);
     break;
   default:
     break;

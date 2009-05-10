@@ -77,9 +77,6 @@ int frameRate = FRAME_RATE_30;
 /* Time between frame updates based on Frame rate */
 int frameRateTime = (int) (MILLISECONDS / FRAME_RATE_30) - 1;
 
-/* Current building item selected */
-buildSelect BsCurrent = BsTrees;
-
 /* Whether the Gunsight is shown or not */
 bool showGunsight = FALSE;
 
@@ -349,78 +346,79 @@ LRESULT CALLBACK ExWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
   
   appWnd = hWnd;
   switch (msg) {
-  case WM_ACTIVATE:
-    if (LOWORD(wParam) == WA_ACTIVE || LOWORD(wParam) == WA_CLICKACTIVE) {
-      drawRestore();
-      if (GetClientRect( appWnd, &rcWindow )) {
-        if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
-          cursorAcquireCursor(appInst, rcWindow);
-          if (doneInitTutorial == FALSE && isTutorial == TRUE) {
-            doneInitTutorial = TRUE;
-            windowStartTutorial();
+    case WM_ACTIVATE:
+      if (LOWORD(wParam) == WA_ACTIVE || LOWORD(wParam) == WA_CLICKACTIVE) {
+        drawRestore();
+        if (GetClientRect( appWnd, &rcWindow )) {
+          if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
+            cursorAcquireCursor(appInst, rcWindow);
+            if (doneInitTutorial == FALSE && isTutorial == TRUE) {
+              doneInitTutorial = TRUE;
+              windowStartTutorial();
+            }
           }
         }
+      } else {
+        cursorLeaveWindow();
       }
-    } else {
+      break;
+    case WM_KILLFOCUS:
       cursorLeaveWindow();
-    }
-    break;
-  case WM_KILLFOCUS:
-    cursorLeaveWindow();
-    break;
-  case WM_MOUSEWHEEL:
+      break;
+    case WM_MOUSEWHEEL:
 		if((short) HIWORD(wParam)< 0){
 			screenGunsightRange(FALSE);
-		} else {
+        } else {
 			screenGunsightRange(TRUE);
-		}
-	break;
-  case WM_PAINT:
-    /* Redraw the window */
-    if (GetClientRect( appWnd, &rcWindow )) {
-      if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
-        cursorMove(appInst, appWnd, rcWindow);
-        clientMutexWaitFor();
-        drawRedrawAll(appInst, appWnd, BsCurrent, &rcWindow, showPillLabels, showBaseLabels);
-        clientMutexRelease();
-      }
-    }
-    break;
-  case WM_KEYDOWN:
-    /* Keys Pressed - Test for scroll keys*/
-     windowKeyPressed((int) wParam);
-     break;
-  case WM_CLOSE:
-    winboloQuit=TRUE;
-    PostQuitMessage(0);
-	break;
-  case WM_DESTROY:
-    /* Quit time */
-    winboloQuit=TRUE;
-    PostQuitMessage(0);
-    break;
-  case WM_ENTERMENULOOP:
-    isInMenu = TRUE;
-    break;
-  case WM_EXITMENULOOP:
-    isInMenu = FALSE;
-    break;
-  case WM_MOUSEMOVE:
-    {
-    BYTE cursorX, cursorY;
-    if (GetClientRect(appWnd, &rcWindow )) {
-      if (ClientToScreen(appWnd, ( LPPOINT )&rcWindow )) {
-        if (cursorPos(&rcWindow, &cursorX, &cursorY) == TRUE) {
-          if (cursorX >16  || cursorY > 16) {
-            cursorX = 100;
-          }
-
-          screenSetCursorPos(cursorX, cursorY);
+        }
+      break;
+    case WM_PAINT:
+      /* Redraw the window */
+      if (GetClientRect( appWnd, &rcWindow )) {
+        if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
+          cursorMove(appInst, appWnd, rcWindow);
+          clientMutexWaitFor();
+          drawRedrawAll(appInst, appWnd, getBuildCurrentSelect(), &rcWindow, showPillLabels, showBaseLabels);
+          clientMutexRelease();
         }
       }
-    }
-    }
-    break;
+      break;
+    case WM_KEYDOWN:
+      /* Keys Pressed - Test for scroll keys*/
+      windowKeyPressed((int) wParam);
+      break;
+    case WM_CLOSE:
+      winboloQuit=TRUE;
+      PostQuitMessage(0);
+	    break;
+    case WM_DESTROY:
+      /* Quit time */
+      winboloQuit=TRUE;
+      PostQuitMessage(0);
+      break;
+    case WM_ENTERMENULOOP:
+      isInMenu = TRUE;
+      break;
+    case WM_EXITMENULOOP:
+      isInMenu = FALSE;
+      break;
+    case WM_MOUSEMOVE:
+      {
+        BYTE cursorX, cursorY;
+        if (GetClientRect(appWnd, &rcWindow )) {
+          if (ClientToScreen(appWnd, ( LPPOINT )&rcWindow )) {
+            if (cursorPos(&rcWindow, &cursorX, &cursorY) == TRUE) {
+              if (cursorX >16  || cursorY > 16) {
+                cursorX = 100;
+              }
+
+              screenSetCursorPos(cursorX, cursorY);
+            }
+          }
+        }
+      }
+      break;
+  /* Executed when the users left-clicks the screen */
   case WM_LBUTTONDOWN:
     xPos = LOWORD(lParam);  // horizontal position of cursor 
     yPos = HIWORD(lParam);  // vertical position of cursor 
@@ -439,7 +437,7 @@ LRESULT CALLBACK ExWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     if (GetClientRect( appWnd, &rcWindow )) {
       if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
         clientMutexWaitFor();
-        drawRedrawAll(appInst, appWnd, BsCurrent, &rcWindow, showPillLabels, showBaseLabels);
+        drawRedrawAll(appInst, appWnd, getBuildCurrentSelect(), &rcWindow, showPillLabels, showBaseLabels);
         clientMutexRelease();
       }
     }
@@ -450,7 +448,7 @@ LRESULT CALLBACK ExWindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     if (GetClientRect( appWnd, &rcWindow )) {
       if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
         clientMutexWaitFor();
-        drawRedrawAll(appInst, appWnd, BsCurrent, &rcWindow, showPillLabels, showBaseLabels);
+        drawRedrawAll(appInst, appWnd, getBuildCurrentSelect(), &rcWindow, showPillLabels, showBaseLabels);
         clientMutexRelease();
       }
     }
@@ -1041,7 +1039,7 @@ void windowMouseClick(int xWin, int yWin, int xPos, int yPos) {
   /* Check for inside Main View */
   if ((cursorPos(&rcWindow, &xValue, &yValue)) == TRUE) {
     clientMutexWaitFor();
-    screenManMove(BsCurrent);
+    screenManMove(getBuildCurrentSelect());
     clientMutexRelease();
   } else {
     newSelect = NO_SELECT;
@@ -1057,11 +1055,11 @@ void windowMouseClick(int xWin, int yWin, int xPos, int yPos) {
       newSelect = BsMine;
     } 
 
-    if (newSelect != NO_SELECT && newSelect != BsCurrent) {
+    if (newSelect != NO_SELECT && newSelect != getBuildCurrentSelect()) {
       tick = winboloTimer();
-      drawSelectIndentsOff(BsCurrent, xWin, yWin);
+      drawSelectIndentsOff(getBuildCurrentSelect(), xWin, yWin);
       drawSelectIndentsOn(newSelect, xWin, yWin);
-      BsCurrent = newSelect;
+      setBuildCurrentSelect(newSelect);
       dwSysFrame += (winboloTimer() - tick);
     }
   }
@@ -1847,7 +1845,7 @@ void windowZoomChange(BYTE amount) {
     if (GetClientRect( appWnd, &rcWindow )) {
       if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
         clientMutexWaitFor();
-        drawRedrawAll(appInst, appWnd, BsCurrent, &rcWindow, showPillLabels, showBaseLabels);
+        drawRedrawAll(appInst, appWnd, getBuildCurrentSelect(), &rcWindow, showPillLabels, showBaseLabels);
         clientMutexRelease();
       }
     }
@@ -1989,7 +1987,8 @@ int windowGetSimTime(void) {
 *CREATION DATE: 31/1/99
 *LAST MODIFIED: 31/1/99
 *PURPOSE:
-* Gets a copy of the keys
+* Gets a copy of the keys.  This is executed when the
+* user opens the Set Keys dialog from in-game.
 *
 *ARGUMENTS:
 *  value - Pointer to hold the copy of the keys
@@ -2003,12 +2002,23 @@ void windowGetKeys(keyItems *value) {
   value->kiLayMine = keys.kiLayMine;
   value->kiGunIncrease = keys.kiGunIncrease;
   value->kiGunDecrease = keys.kiGunDecrease;
+  /* Views */
   value->kiTankView = keys.kiTankView;
   value->kiPillView = keys.kiPillView;
+  value->kiAllyView = keys.kiAllyView;
+  value->kiLGMView = keys.kiLGMView;
+  value->kiBaseView = keys.kiBaseView;
+  /* Scrolling */
   value->kiScrollUp = keys.kiScrollUp;
   value->kiScrollDown = keys.kiScrollDown;
   value->kiScrollLeft = keys.kiScrollLeft;
   value->kiScrollRight = keys.kiScrollRight;
+  /* Quick keys */
+  value->kiQuickTree = keys.kiQuickTree;
+  value->kiQuickRoad = keys.kiQuickRoad;
+  value->kiQuickWall = keys.kiQuickWall;
+  value->kiQuickPillbox = keys.kiQuickPillbox;
+  value->kiQuickMine = keys.kiQuickMine;
 }
 
 /*********************************************************
@@ -2031,12 +2041,23 @@ void windowSetKeys(keyItems *value) {
   keys.kiLayMine = value->kiLayMine;
   keys.kiGunIncrease = value->kiGunIncrease;
   keys.kiGunDecrease = value->kiGunDecrease;
+  /* Views */
   keys.kiTankView = value->kiTankView;
   keys.kiPillView = value->kiPillView;
+  keys.kiAllyView = value->kiAllyView;
+  keys.kiLGMView = value->kiLGMView;
+  keys.kiBaseView = value->kiBaseView;
+  /* Scrolling */
   keys.kiScrollUp = value->kiScrollUp;
   keys.kiScrollDown = value->kiScrollDown;
   keys.kiScrollLeft = value->kiScrollLeft;
   keys.kiScrollRight = value->kiScrollRight;
+  /* Quick keys */
+  keys.kiQuickTree = value->kiQuickTree;
+  keys.kiQuickRoad = value->kiQuickRoad;
+  keys.kiQuickWall = value->kiQuickWall;
+  keys.kiQuickPillbox = value->kiQuickPillbox;
+  keys.kiQuickMine = value->kiQuickMine;
 }
 
 /*********************************************************
@@ -2591,7 +2612,7 @@ void windowRedrawAll(void) {
   if (GetClientRect( appWnd, &rcWindow )) {
     if (ClientToScreen( appWnd, ( LPPOINT )&rcWindow )) {
       clientMutexWaitFor();
-      drawRedrawAll(appInst, appWnd, BsCurrent, &rcWindow, showPillLabels, showBaseLabels);
+      drawRedrawAll(appInst, appWnd, getBuildCurrentSelect(), &rcWindow, showPillLabels, showBaseLabels);
       clientMutexRelease();
     }
   }
@@ -3346,4 +3367,5 @@ int winboloCC() {
   }
   return 0;
 }
+
 

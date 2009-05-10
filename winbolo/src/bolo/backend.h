@@ -1410,4 +1410,20 @@ void initWinboloTimer(void);
 DWORD winboloTimer(void);
 void endWinboloTimer(void);
 
+
+/*
+typedef enum {
+  BsTrees,
+  BsRoad,
+  BsBuilding,
+  BsPillbox,
+  BsMine
+} buildSelect;
+*/
+buildSelect getBuildCurrentSelect();
+void setBuildCurrentSelect(buildSelect);
+
+
 #endif /* _BACKEND_H */
+
+

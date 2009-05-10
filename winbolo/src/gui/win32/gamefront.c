@@ -822,7 +822,7 @@ bool gameFrontGetPrefs(keyItems *keys, bool *useAutoslow, bool *useAutohide) {
   GetPrivateProfileStringA("SETTINGS", "UDP Port", def, buff, FILENAME_MAX, PREFERENCE_FILE);
   gameFrontMyUdp = atoi(buff);
 
-  /* Keys */
+  /* Driving */
   itoa(DEFAULT_FORWARD, def, 10);
   GetPrivateProfileStringA("KEYS", "Forward", def, buff, FILENAME_MAX, PREFERENCE_FILE);
   keys->kiForward = atoi(buff);
@@ -835,6 +835,8 @@ bool gameFrontGetPrefs(keyItems *keys, bool *useAutoslow, bool *useAutohide) {
   itoa(DEFAULT_RIGHT, def, 10);
   GetPrivateProfileStringA("KEYS", "Right", def, buff, FILENAME_MAX, PREFERENCE_FILE);
   keys->kiRight = atoi(buff);
+
+  /* Shooting, mines, gunsights */
   itoa(DEFAULT_SHOOT, def, 10);
   GetPrivateProfileStringA("KEYS", "Shoot", def, buff, FILENAME_MAX, PREFERENCE_FILE);
   keys->kiShoot = atoi(buff);
@@ -847,12 +849,25 @@ bool gameFrontGetPrefs(keyItems *keys, bool *useAutoslow, bool *useAutohide) {
   itoa(DEFAULT_SCROLL_GUNDECREASE, def, 10);
   GetPrivateProfileStringA("KEYS", "Decrease Range", def, buff, FILENAME_MAX, PREFERENCE_FILE);
   keys->kiGunDecrease = atoi(buff);
+
+  /* Views */
   itoa(DEFAULT_TANKVIEW, def, 10);
   GetPrivateProfileStringA("KEYS", "Tank View", def, buff, FILENAME_MAX, PREFERENCE_FILE);
   keys->kiTankView = atoi(buff);
   itoa(DEFAULT_PILLVIEW, def, 10);
   GetPrivateProfileStringA("KEYS", "Pill View", def, buff, FILENAME_MAX, PREFERENCE_FILE);
   keys->kiPillView = atoi(buff);
+  itoa(DEFAULT_ALLYVIEW, def, 10);
+  GetPrivateProfileStringA("KEYS", "Ally View", def, buff, FILENAME_MAX, PREFERENCE_FILE);
+  keys->kiAllyView = atoi(buff);
+  itoa(DEFAULT_LGMVIEW, def, 10);
+  GetPrivateProfileStringA("KEYS", "LGM View", def, buff, FILENAME_MAX, PREFERENCE_FILE);
+  keys->kiLGMView = atoi(buff);
+  itoa(DEFAULT_BASEVIEW, def, 10);
+  GetPrivateProfileStringA("KEYS", "Base View", def, buff, FILENAME_MAX, PREFERENCE_FILE);
+  keys->kiBaseView = atoi(buff);
+
+  /* Scrolling */
   itoa(DEFAULT_SCROLLUP, def, 10);
   GetPrivateProfileStringA("KEYS", "Scroll Up", def, buff, FILENAME_MAX, PREFERENCE_FILE);
   keys->kiScrollUp = atoi(buff);
@@ -865,6 +880,23 @@ bool gameFrontGetPrefs(keyItems *keys, bool *useAutoslow, bool *useAutohide) {
   itoa(DEFAULT_SCROLLRIGHT, def, 10);
   GetPrivateProfileStringA("KEYS", "Scroll Right", def, buff, FILENAME_MAX, PREFERENCE_FILE);
   keys->kiScrollRight = atoi(buff);
+
+  /* Views */
+  itoa(DEFAULT_QUICKTREE, def, 10);
+  GetPrivateProfileStringA("KEYS", "Quick Tree", def, buff, FILENAME_MAX, PREFERENCE_FILE);
+  keys->kiQuickTree = atoi(buff);
+  itoa(DEFAULT_QUICKROAD, def, 10);
+  GetPrivateProfileStringA("KEYS", "Quick Road", def, buff, FILENAME_MAX, PREFERENCE_FILE);
+  keys->kiQuickRoad = atoi(buff);
+  itoa(DEFAULT_QUICKWALL, def, 10);
+  GetPrivateProfileStringA("KEYS", "Quick Wall", def, buff, FILENAME_MAX, PREFERENCE_FILE);
+  keys->kiQuickWall = atoi(buff);
+  itoa(DEFAULT_QUICKPILLBOX, def, 10);
+  GetPrivateProfileStringA("KEYS", "Quick Pillbox", def, buff, FILENAME_MAX, PREFERENCE_FILE);
+  keys->kiQuickPillbox = atoi(buff);
+  itoa(DEFAULT_QUICKMINE, def, 10);
+  GetPrivateProfileStringA("KEYS", "Quick Mine", def, buff, FILENAME_MAX, PREFERENCE_FILE);
+  keys->kiQuickMine = atoi(buff);
 
   /* Remeber */
   GetPrivateProfileStringA("SETTINGS", "Remember Player Name", "Yes", buff, FILENAME_MAX, PREFERENCE_FILE);
@@ -1025,10 +1057,20 @@ void gameFrontPutPrefs(keyItems *keys) {
   WritePrivateProfileStringA("KEYS", "Increase Range", buff, PREFERENCE_FILE);
   itoa(keys->kiGunDecrease, buff, 10);
   WritePrivateProfileStringA("KEYS", "Decrease Range", buff, PREFERENCE_FILE);
+
+  /* Views */
   itoa(keys->kiTankView, buff, 10);
   WritePrivateProfileStringA("KEYS", "Tank View", buff, PREFERENCE_FILE);
   itoa(keys->kiPillView, buff, 10);
   WritePrivateProfileStringA("KEYS", "Pill View", buff, PREFERENCE_FILE);
+  itoa(keys->kiAllyView, buff, 10);
+  WritePrivateProfileStringA("KEYS", "Ally View", buff, PREFERENCE_FILE);
+  itoa(keys->kiLGMView, buff, 10);
+  WritePrivateProfileStringA("KEYS", "LGM View", buff, PREFERENCE_FILE);
+  itoa(keys->kiBaseView, buff, 10);
+  WritePrivateProfileStringA("KEYS", "Base View", buff, PREFERENCE_FILE);
+
+  /* Scrolling */
   itoa(keys->kiScrollUp, buff, 10);
   WritePrivateProfileStringA("KEYS", "Scroll Up", buff, PREFERENCE_FILE);
   itoa(keys->kiScrollDown, buff, 10);
@@ -1037,6 +1079,20 @@ void gameFrontPutPrefs(keyItems *keys) {
   WritePrivateProfileStringA("KEYS", "Scroll Left", buff, PREFERENCE_FILE);
   itoa(keys->kiScrollRight, buff, 10);
   WritePrivateProfileStringA("KEYS", "Scroll Right", buff, PREFERENCE_FILE);
+
+  /* Quick keys */
+  itoa(keys->kiQuickTree, buff, 10);
+  WritePrivateProfileStringA("KEYS", "Quick Tree", buff, PREFERENCE_FILE);
+  itoa(keys->kiQuickRoad, buff, 10);
+  WritePrivateProfileStringA("KEYS", "Quick Road", buff, PREFERENCE_FILE);
+  itoa(keys->kiQuickWall, buff, 10);
+  WritePrivateProfileStringA("KEYS", "Quick Wall", buff, PREFERENCE_FILE);
+  itoa(keys->kiQuickPillbox, buff, 10);
+  WritePrivateProfileStringA("KEYS", "Quick Pillbox", buff, PREFERENCE_FILE);
+  itoa(keys->kiQuickMine, buff, 10);
+  WritePrivateProfileStringA("KEYS", "Quick Mine", buff, PREFERENCE_FILE);
+
+  
   /* Remember */
   WritePrivateProfileStringA("SETTINGS", "Remember Player Name", TRUEFALSE_TO_STR(gameFrontRemeber), PREFERENCE_FILE);
 

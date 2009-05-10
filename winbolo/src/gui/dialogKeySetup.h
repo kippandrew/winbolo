@@ -50,7 +50,15 @@ typedef enum {
   nkUp,
   nkDown,
   nkLeft,
-  nkRight
+  nkRight,
+  nkLGMView,
+  nkAllyView,
+  nkBaseView,
+  nkQuickTree,
+  nkQuickRoad,
+  nkQuickWall,
+  nkQuickPillbox,
+  nkQuickMine
 } nextKey;
 
 /*********************************************************

@@ -27,24 +27,29 @@
 
 /* Includes */
 #include <math.h>
-#include "global.h"
 #include <winsock.h>
 #include "backend.h"
-#include "bolo_map.h"
-#include "pillbox.h"
 #include "bases.h"
-#include "screencalc.h"
-#include "screentank.h"
-#include "screenlgm.h"
+#include "blocks.h"
+#include "bolo_map.h"
+#include "dns.h"
+#include "global.h"
+#include "log.h"
+#include "main.h"
+#include "pillbox.h"
+#include "players.h"
+#include "screen.h"
 #include "screenbullet.h"
+#include "screencalc.h"
+#include "screenlgm.h"
+#include "screentank.h"
+#include "shells.h"
+#include "snapshot.h"
+#include "sounddist.h"
 #include "starts.h"
 #include "util.h"
-#include "shells.h"
-#include "sounddist.h"
-#include "players.h"
-#include "snapshot.h"
-#include "blocks.h"
-#include "dns.h"
+
+
 
 /* Module Level Variables */
 screen view = NULL;
@@ -94,8 +99,10 @@ BYTE versionRevision;
 
 BYTE selectedItem = 0; 
 BYTE selectedItemType = 0;
+BYTE selectedTankNum = SELECTED_NO_TANK;
 
-// Some prototypes to cleanup and document
+
+/* Some prototypes to cleanup and document */
 
 bool logIsEOF();
 
@@ -108,6 +115,40 @@ bool logLoad(char *fileName, int memoryBufferSize);
 void frontEndSetGameInformation(bool clear, BYTE versionMajor, BYTE versionMinor, BYTE versionRevision, char *mapName, BYTE gameType, bool hiddenMines, BYTE aiType, long startDelay, long timeLimit, BYTE *wbnKey, long startTime);
 void startOfLog();
 void windowRemoveEvents();
+
+
+/*********************************************************
+*NAME:          getSelectedTankNum
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 06/05/09
+*LAST MODIFIED: 06/05/09
+*PURPOSE:
+*  Returns the number of the tank that the player has
+*  clicked on - and thus selected.
+*
+*ARGUMENTS:
+*
+*********************************************************/
+BYTE getSelectedTankNum() {
+	return selectedTankNum;
+}
+
+
+/*********************************************************
+*NAME:          getSelectedTankNum
+*AUTHOR:        Chris Lesnieski
+*CREATION DATE: 06/05/09
+*LAST MODIFIED: 06/05/09
+*PURPOSE:
+*  Sets the tank number that the player has clicked on.
+*
+*ARGUMENTS:
+*
+*********************************************************/
+BYTE setSelectedTankNum(BYTE num) {
+	selectedTankNum = num;
+}
+
 
 /*********************************************************
 *NAME:          screenCalcSquare
@@ -493,7 +534,7 @@ BYTE screenGetPos(screen *value,BYTE xValue, BYTE yValue) {
   return returnValue;
 }
 
-#include "log.h"
+
 void windowAddEvent(int eventType, char *msg);
 typedef enum {
   lr_start,
@@ -505,15 +546,28 @@ typedef enum {
 lrStates state;
 unsigned short waitLen;
 
-
+/*********************************************************
+*NAME:          screenProcessLog
+*AUTHOR:        John Morrison
+*CREATION DATE: 28/10/98
+*LAST MODIFIED: 05/05/09
+*PURPOSE:
+*  Reads in log data and decides how to process it
+*
+*ARGUMENTS:
+*  numEvents -
+*********************************************************/
 void screenProcessLog(unsigned short numEvents) {
-  unsigned short count = 0;
-  BYTE code;
-  BYTE opt1, opt2, opt3, opt4, opt5, px, py, frame, onBoat;
-  BYTE mem[4096];
-  char str[4096];
-  char name[256];
-  char name2[256];
+	unsigned short count;
+	BYTE code;
+	BYTE opt1, opt2, opt3, opt4, opt5, px, py, frame, onBoat;
+	BYTE mem[4096];
+	char str[4096];
+	char name[256];
+	char name2[256];
+
+	count = 0;
+	code = 0;
 
   while (count < numEvents) {
     logReadBytes(&code, 1);
@@ -538,7 +592,12 @@ void screenProcessLog(unsigned short numEvents) {
       break;
     case log_LostMan:
       logReadBytes(&opt1, 1);
+	  logReadBytes(&opt2, 1);
       playersGetPlayerName(opt1, str);
+	  playersLgmDied(opt1);
+	  if (opt2 != 255) {
+		playersKilledLgm(opt2);
+	  }
       strcat(str, " just lost his builder.");
       windowAddEvent(0, str);
       break;
@@ -621,146 +680,191 @@ void screenProcessLog(unsigned short numEvents) {
       soundDist(opt3, opt1, opt2);
       break;
     case log_PlayerLocation:
-      logReadBytes(&opt1, 1);
-      logReadBytes(&opt2, 1);
-      logReadBytes(&opt3, 1);
-      logReadBytes(&opt4, 1);
-      logReadBytes(&opt5, 1);
-      utilGetNibbles(opt4, &px, &py);
-      utilGetNibbles(opt5, &frame, &onBoat);
-      if (opt2 != 0) {
-        playersUpdateTank(opt1, opt2, opt3, px, py, frame, onBoat);
-      }
-      break;
+		logReadBytes(&opt1, 1);
+		logReadBytes(&opt2, 1);
+		logReadBytes(&opt3, 1);
+		logReadBytes(&opt4, 1);
+		logReadBytes(&opt5, 1);
+		utilGetNibbles(opt4, &px, &py);
+		utilGetNibbles(opt5, &frame, &onBoat);
+		if (opt2 != 0) {
+		playersUpdateTank(opt1, opt2, opt3, px, py, frame, onBoat);
+		}
+		break;
     case log_Shell:
-      logReadBytes(&opt1, 1);
-      logReadBytes(&opt2, 1);
-      logReadBytes(&opt3, 1);
-      logReadBytes(&opt4, 1);
-      utilGetNibbles(opt3, &px, &py);
-      shellsAddItem(&shs, opt1, opt2, px, py, opt4);
-      break;
+		logReadBytes(&opt1, 1);
+		logReadBytes(&opt2, 1);
+		logReadBytes(&opt3, 1);
+		logReadBytes(&opt4, 1);
+		utilGetNibbles(opt3, &px, &py);
+		shellsAddItem(&shs, opt1, opt2, px, py, opt4);
+		break;
     case log_LgmLocation:
-      logReadBytes(&opt1, 1);
-      logReadBytes(&opt2, 1);
-      logReadBytes(&opt3, 1);
-      logReadBytes(&opt4, 1);
-      utilGetNibbles(opt1, &onBoat, &frame);
-      utilGetNibbles(opt4, &px, &py);
-      playersUpdateLgm(onBoat, opt2, opt3, px, py, frame);
-      break;
+		logReadBytes(&opt1, 1);
+		logReadBytes(&opt2, 1);
+		logReadBytes(&opt3, 1);
+		logReadBytes(&opt4, 1);
+		utilGetNibbles(opt1, &onBoat, &frame);
+		utilGetNibbles(opt4, &px, &py);
+		playersUpdateLgm(onBoat, opt2, opt3, px, py, frame);
+		break;
     case log_MessageAll:
-      logReadBytes(&opt1, 1);
-      logReadBytes(mem, 1);
-      logReadBytes(mem+1, mem[0]);
-      utilPtoCString(mem, str);
-      playersGetPlayerName(opt1, name);
-      sprintf(mem, "Message to all from %s: %s", name, str);
-      windowAddEvent(0, mem);
-      break;
+		logReadBytes(&opt1, 1);
+		logReadBytes(mem, 1);
+		logReadBytes(mem+1, mem[0]);
+		utilPtoCString(mem, str);
+		playersGetPlayerName(opt1, name);
+		sprintf(mem, "Message to all from %s: %s", name, str);
+		windowAddEvent(0, mem);
+		break;
     case log_MessagePlayers:
-      logReadBytes(&opt1, 1);
-      logReadBytes(&opt2, 1);
-      logReadBytes(mem, 1);
-      logReadBytes(mem+1, mem[0]);
-      utilPtoCString(mem, str);
-      playersGetPlayerName(opt1, name);
-      playersGetPlayerName(opt2, name2);
-      sprintf(mem, "Message from %s to %s: %s", name, name2, str);
-      windowAddEvent(0, mem);
-      break;
+		logReadBytes(&opt1, 1);
+		logReadBytes(&opt2, 1);
+		logReadBytes(mem, 1);
+		logReadBytes(mem+1, mem[0]);
+		utilPtoCString(mem, str);
+		playersGetPlayerName(opt1, name);
+		playersGetPlayerName(opt2, name2);
+		sprintf(mem, "Message from %s to %s: %s", name, name2, str);
+		windowAddEvent(0, mem);
+		break;
     case log_MessageServer:
-      logReadBytes(mem, 1);
-      logReadBytes(mem+1, mem[0]);
-      utilPtoCString(mem, str);
-      sprintf(mem, "Server Message: %s", str);
-      windowAddEvent(0, mem);
-      break;   
+		logReadBytes(mem, 1);
+		logReadBytes(mem+1, mem[0]);
+		utilPtoCString(mem, str);
+		sprintf(mem, "Server Message: %s", str);
+		windowAddEvent(0, mem);
+		break;
     case log_BaseSetOwner:
-      logReadBytes(&opt1, 1);
-      logReadBytes(&opt2, 1);
-      logReadBytes(&opt3, 1);
-      basesSetOwner(&bs, opt1, opt2, opt3);
-      break;
+		logReadBytes(&opt1, 1);
+		logReadBytes(&opt2, 1);
+		logReadBytes(&opt3, 1);
+		basesSetOwner(&bs, opt1, opt2, opt3);
+		break;
     case log_BaseSetStock:
-      logReadBytes(&opt1, 1);
-      logReadBytes(&opt2, 1);
-      logReadBytes(&opt3, 1);
-      logReadBytes(&opt4, 1);
-      basesSetStock(&bs, opt1, opt2, opt3, opt4);
-      break;
+		logReadBytes(&opt1, 1);
+		logReadBytes(&opt2, 1);
+		logReadBytes(&opt3, 1);
+		logReadBytes(&opt4, 1);
+		basesSetStock(&bs, opt1, opt2, opt3, opt4);
+		break;
     case log_PillSetOwner:
-      logReadBytes(&opt1, 1);
-      logReadBytes(&opt2, 1);
-      logReadBytes(&opt3, 1);
-      pillsSetPillOwner(&pb, opt1, opt2, opt3);
-      break;
+		logReadBytes(&opt1, 1);
+		logReadBytes(&opt2, 1);
+		logReadBytes(&opt3, 1);
+		pillsSetPillOwner(&pb, opt1, opt2, opt3);
+		break;
     case log_PillSetPlace:
-      logReadBytes(&opt1, 1);
-      logReadBytes(&opt2, 1);
-      logReadBytes(&opt3, 1);
-      pillsSetPos(&pb, opt1, opt2, opt3);
-      break;
+		logReadBytes(&opt1, 1);
+		logReadBytes(&opt2, 1);
+		logReadBytes(&opt3, 1);
+		pillsSetPos(&pb, opt1, opt2, opt3);
+		break;
     case log_PillSetHealth:
-      logReadBytes(&opt1, 1);
-      utilGetNibbles(opt1, &opt2, &opt3);
-      pillsSetHealth(&pb, opt2, opt3);
-      break;
+		logReadBytes(&opt1, 1);
+		utilGetNibbles(opt1, &opt2, &opt3);
+		pillsSetHealth(&pb, opt2, opt3);
+		break;
     case log_PillSetInTank:
-      logReadBytes(&opt1, 1);
-      utilGetNibbles(opt1, &opt2, &opt3);
-      pillsSetInTank(&pb, opt2, opt3);
-      break;
+		logReadBytes(&opt1, 1);
+		utilGetNibbles(opt1, &opt2, &opt3);
+		pillsSetInTank(&pb, opt2, opt3);
+		break;
     case log_KillPlayer:
-      logReadBytes(&opt1, 1);
-      logReadBytes(&opt2, 1);
-      playersGetPlayerName(opt1, mem);
-      playersGetPlayerName(opt2, str);
-      strcat(str, " just killed player ");
-      strcat(str, mem);
-      windowAddEvent(0, str);
-      playersUpdateTank(opt1, 0, 0, 0, 0, 0, TRUE);
-      break;
+		logReadBytes(&opt1, 1);
+		logReadBytes(&opt2, 1);
+		playersGetPlayerName(opt1, mem);
+		playersGetPlayerName(opt2, str);
+		strcat(str, " just killed player ");
+		strcat(str, mem);
+		windowAddEvent(0, str);
+		playersUpdateTank(opt1, 0, 0, 0, 0, 0, TRUE);
+		break;
     case log_PlayerRejoin:
-      logReadBytes(&opt1, 1);
-      playersGetPlayerName(opt1, str);
-      sprintf(mem, "%s just rejoined game.", str);
-      windowAddEvent(0, mem);
-      break;
+		logReadBytes(&opt1, 1);
+		playersGetPlayerName(opt1, str);
+		sprintf(mem, "%s just rejoined game.", str);
+		windowAddEvent(0, mem);
+		break;
     case log_PlayerLeaving:
-      logReadBytes(&opt1, 1);
-      playersGetPlayerName(opt1, str);
-      sprintf(mem, "%s is leaving game.", str);
-      windowAddEvent(0, mem);
-      break;
+		logReadBytes(&opt1, 1);
+		playersGetPlayerName(opt1, str);
+		sprintf(mem, "%s is leaving game.", str);
+		windowAddEvent(0, mem);
+		break;
     case log_PlayerDied:
-      logReadBytes(&opt1, 1);
-      playersUpdateTank(opt1, 0, 0, 0, 0, 0, TRUE);
-      break;
+		logReadBytes(&opt1, 1);
+		playersUpdateTank(opt1, 0, 0, 0, 0, 0, TRUE);
+		playersTankDied(opt1);
+		break;
+	/*
+	 * There's a problem with the armour in that it doesn't get sent
+	 * updated every tick on the game/logging side.
+	 */
+	case log_PlayerResources:
+		logReadBytes(&opt1, 1); /* player number */
+		logReadBytes(&opt2, 1); /* shells in tank */
+		logReadBytes(&opt3, 1); /* mines in tank */
+		logReadBytes(&opt4, 1); /* armour of tank */
+		logReadBytes(&opt5, 1); /* resources in tank*/
+		playersUpdateResources(opt1, opt2, opt3, opt4, opt5);
+		break;
     default:
-      windowStop(TRUE);
-      count = numEvents;
-      break;
-
+		windowStop(TRUE);
+		count = numEvents;
+		break;
     }
     blocksSetKey(code);
     count++;
   }
 }
 
+
+/*********************************************************
+*NAME:          screenRequestUpdate
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*	This will update the dialog info boxes.
+*
+*ARGUMENTS:
+*
+*********************************************************/
 void screenRequestUpdate() {
-  /* Finally lets update our item in the frontend */
   //void updateItem(BYTE itemType, BYTE itemNumber, BYTE owner, BYTE x, BYTE y, BYTE armour, BYTE shells, BYTE mines, bool inTank)
-  if (isPlaying == TRUE && fastForwarding == FALSE) {
-    if (selectedItemType == 0) {
-      updateItem(0, 0, 0, 0, 0, 0, 0, 0, 0);
-    } else if (selectedItemType == 1) {
-      updateItem(1, selectedItem, bs->item[selectedItem].owner, bs->item[selectedItem].x, bs->item[selectedItem].y, bs->item[selectedItem].armour, bs->item[selectedItem].shells, bs->item[selectedItem].mines, FALSE);
-    } else {
-      updateItem(2, selectedItem, pb->item[selectedItem].owner, pb->item[selectedItem].x, pb->item[selectedItem].y, pb->item[selectedItem].armour, 0, 0, pb->item[selectedItem].inTank);
-    }
-  }  
+	BYTE playerNum;
+	players plrs;
+
+	playerNum = playersGetSelf();
+	plrs = playersGetPlayerObject();
+
+	if (isPlaying == TRUE && fastForwarding == FALSE) {
+		if (selectedItemType == 0) {
+			/* Nothing is selected */
+			updateItem(0, 0, 0, 0, 0, 0, 0, 0, 0);
+		} else if (selectedItemType == 1) {
+			/* Update a base's info */
+			updateItem(1, selectedItem, bs->item[selectedItem].owner, bs->item[selectedItem].x, bs->item[selectedItem].y, bs->item[selectedItem].armour, bs->item[selectedItem].shells, bs->item[selectedItem].mines, FALSE);
+		} else {
+			/* Update a pillboxes info */
+			updateItem(2, selectedItem, pb->item[selectedItem].owner, pb->item[selectedItem].x, pb->item[selectedItem].y, pb->item[selectedItem].armour, 0, 0, pb->item[selectedItem].inTank);
+		}
+		
+		/* A tank is selected for viewing */
+		if (getSelectedTankNum() != SELECTED_NO_TANK)
+		{
+			updateTankInfoDialog(getSelectedTankNum(), plrs.item[playerNum].shells, plrs.item[playerNum].mines, plrs.item[playerNum].armour, plrs.item[playerNum].resources, plrs.item[playerNum].deaths, plrs.item[playerNum].kills, plrs.item[playerNum].lgmDeaths, plrs.item[playerNum].lgmKills, plrs.item[playerNum].baseCaptures, plrs.item[playerNum].pillCaptures);
+		}
+		/* No tank is selected, so we need to clear out the tank info dialog */
+		else if (getSelectedTankNum() == SELECTED_NO_TANK)
+		{
+			clearTankInfo();
+		}
+	}  
 }
+
+
 
 /* Returns TRUE on log end or snapshot */
 bool screenLogTick() {
@@ -1332,43 +1436,75 @@ void screenMouseCentreClick(int xPos, int yPos) {
   screenUpdate(redraw);
 }
 
+
+/*********************************************************
+*NAME:          screenMouseInformationClick
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*	Is called when a left mouse button click is executed
+*	and the "Information" option is selected.
+*
+*ARGUMENTS:
+*	xPos - 
+*	yPos - 
+*********************************************************/
 void screenMouseInformationClick(int xPos, int yPos) {
-  div_t dt;        /* Used for integer division */
-  int xClick;
-  int yClick;
+	div_t dt;        /* Used for integer division */
+	int xClick;
+	int yClick;
 
-  if (logLoaded == FALSE) {
-    return;
-  }
-  dt = div(xPos, (16)); //screenSizeX
-  xClick = (int) (dt.quot);
-  dt = div(yPos, (16)); //screenSizeY
-  yClick = (int) (dt.quot);
-  // Item info
-  if (pillsExistPos(&pb, (BYTE) (xOffset + xClick), (BYTE) (yOffset + yClick)) == TRUE) {
-    selectedItem = pillsItemNumAt(&pb, (BYTE) (xOffset + xClick), (BYTE) (yOffset + yClick));
-    selectedItemType = 2;
-  } else if (basesExistPos(&bs, (BYTE) (xOffset + xClick), (BYTE) (yOffset + yClick)) == TRUE) {
-    selectedItem = basesItemNumAt(&bs, (BYTE) (xOffset + xClick), (BYTE) (yOffset + yClick));    
-    selectedItemType = 1;
-  } else {
-    // Dont deselect anything
-//    selectedItemType = 0;
-  }
+	if (logLoaded == FALSE) {
+		return;
+	}
+
+	dt = div(xPos, (16)); /* screenSizeX */
+	xClick = (int) (dt.quot);
+	dt = div(yPos, (16)); /* screenSizeY */
+	yClick = (int) (dt.quot);
+
+	/* Item info */
+	if (pillsExistPos(&pb, (BYTE) (xOffset + xClick), (BYTE) (yOffset + yClick)) == TRUE) {
+		selectedItem = pillsItemNumAt(&pb, (BYTE) (xOffset + xClick), (BYTE) (yOffset + yClick));
+		selectedItemType = 2;
+	} else if (basesExistPos(&bs, (BYTE) (xOffset + xClick), (BYTE) (yOffset + yClick)) == TRUE) {
+		selectedItem = basesItemNumAt(&bs, (BYTE) (xOffset + xClick), (BYTE) (yOffset + yClick));    
+		selectedItemType = 1;
+	} else {
+		/* Dont deselect anything */
+		/*    selectedItemType = 0; */
+	}
 
 
-  if (fastForwarding == FALSE) {
-    if (selectedItemType == 0) {
-      updateItem(0, 0, 0, 0, 0, 0, 0, 0, 0);
-    } else if (selectedItemType == 1) {
-      updateItem(1, selectedItem, bs->item[selectedItem].owner, bs->item[selectedItem].x, bs->item[selectedItem].y, bs->item[selectedItem].armour, bs->item[selectedItem].shells, bs->item[selectedItem].mines, FALSE);
-    } else {
-      updateItem(2, selectedItem, pb->item[selectedItem].owner, pb->item[selectedItem].x, pb->item[selectedItem].y, pb->item[selectedItem].armour, 0, 0, pb->item[selectedItem].inTank);
-    }
-  }  
-
+	if (fastForwarding == FALSE) {
+		if (selectedItemType == 0) {
+			/* Nothing is selected */
+			updateItem(0, 0, 0, 0, 0, 0, 0, 0, 0);
+		} else if (selectedItemType == 1) {
+			/* Update base info */
+			updateItem(1, selectedItem, bs->item[selectedItem].owner, bs->item[selectedItem].x, bs->item[selectedItem].y, bs->item[selectedItem].armour, bs->item[selectedItem].shells, bs->item[selectedItem].mines, FALSE);
+		} else {
+			/* Update pill info */
+			updateItem(2, selectedItem, pb->item[selectedItem].owner, pb->item[selectedItem].x, pb->item[selectedItem].y, pb->item[selectedItem].armour, 0, 0, pb->item[selectedItem].inTank);
+		}
+	}  
 }
 
+
+/*********************************************************
+*NAME:          screenMouseClick
+*AUTHOR:        John Morrison
+*CREATION DATE: ??/??/??
+*LAST MODIFIED: ??/??/??
+*PURPOSE:
+*	Is called when a left mouse button click is executed
+*	and the "Select Team" option is selected.
+*
+*ARGUMENTS:
+*	xPos - 
+*	yPos - 
+*********************************************************/
 void screenMouseClick(int xPos, int yPos) {
   div_t dt;        /* Used for integer division */
   int xClick;
@@ -1377,16 +1513,21 @@ void screenMouseClick(int xPos, int yPos) {
   if (logLoaded == FALSE) {
     return;
   }
-  dt = div(xPos, (16)); //screenSizeX
+  dt = div(xPos, (16)); /* screenSizeX */
   xClick = (int) (dt.quot);
-  dt = div(yPos, (16)); //screenSizeY
+  dt = div(yPos, (16)); /* screenSizeY */
   yClick = (int) (dt.quot);
 
-  // Who am I viewing?
+  /* Who am I viewing? */
   if (playersChooseView(xOffset + xClick, yOffset + yClick) == TRUE) {
+	  /* User clicked a tank */
   } else if (pillsChooseView(&pb, xOffset + xClick, yOffset + yClick) == TRUE) {
+	  /* User clicked a pillbox */
   } else if (basesChooseView(&bs, xOffset + xClick, yOffset + yClick) == TRUE) {
+	  /* User clicked a base */
   } else {
+	  /* User did not click a tank or pillbox or base */
+	  setSelectedTankNum((BYTE)SELECTED_NO_TANK);
   }
 }
 
