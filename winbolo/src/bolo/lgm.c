@@ -26,34 +26,36 @@
 *********************************************************/
 
 #include <string.h>
-#include "global.h"
-#include "types.h"
-#include "bolo_map.h"
-#include "tank.h"
 #include "bases.h"
-#include "pillbox.h"
-#include "messages.h"
-#include "screen.h"
-#include "frontend.h"
-#include "explosions.h"
+#include "bolo_map.h"
 #include "building.h"
-#include "grass.h"
-#include "rubble.h"
-#include "swamp.h"
+#include "explosions.h"
 #include "floodfill.h"
-#include "minesexp.h"
-#include "mines.h"
-#include "sounddist.h"
-#include "players.h"
+#include "frontend.h"
+#include "global.h"
+#include "grass.h"
 #include "labels.h"
-#include "netpnb.h"
-#include "netmt.h"
-#include "network.h"
-#include "log.h"
-#include "util.h"
-#include "../winbolonet/winbolonet.h"
-#include "../server/servernet.h"
 #include "lgm.h"
+#include "log.h"
+#include "messages.h"
+#include "mines.h"
+#include "minesexp.h"
+#include "netmt.h"
+#include "netpnb.h"
+#include "network.h"
+#include "players.h"
+#include "pillbox.h"
+#include "rubble.h"
+#include "screen.h"
+#include "sounddist.h"
+#include "swamp.h"
+#include "tank.h"
+#include "types.h"
+#include "util.h"
+#include "../server/servernet.h"
+#include "../winbolonet/winbolonet.h"
+
+
 
 /* Prototypes */
 
@@ -126,61 +128,73 @@ void lgmDestroy(lgm *value) {
 *  tnk    - Pointer to the tank structure
 *********************************************************/
 void lgmUpdate(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
-  BYTE pos = 0;
-  BYTE mx,my= 0;
-  if (netGetType() == netSingle || threadsGetContext() == TRUE) {
-    if ((*lgman)->isDead == TRUE) {
-      /* Man is parachuting in */
-      lgmParchutingIn(lgman);
-	  /* check to see if lgm will land ontop of a building/pillbox/or base */
-	  mx = lgmGetMX(lgman);
-	  my = lgmGetMY(lgman);
-	  pos = mapGetPos(mp, mx, my);
-      if (pos == BUILDING || pos == HALFBUILDING || pillsExistPos(pb, mx, my) == TRUE || basesExistPos(bs, mx, my) == TRUE) {
-		  (*lgman)->onTop = TRUE;
-		  // if base is owned by player, then, we're not ontop.
-		  if(basesAmOwner(bs,(*lgman)->playerNum, mx, my)==TRUE){
-			(*lgman)->onTop = FALSE;
-		  }
-	  } else {
-		  (*lgman)->onTop = FALSE;
-	  }
-    } else if ((*lgman)->state != LGM_STATE_IDLE) {
-      /* Man is out and about doing stuff */
-      /* Update frame */
-      (*lgman)->frame++;
-      if ((*lgman)->frame > LGM_MAX_FRAMES) {
-        (*lgman)->frame = 0;
-      }
-      /* Check his not waiting */
-      (*lgman)->obstructed = LGM_BRAIN_FREE;
-      if ((*lgman)->waitTime > 0) {
-        (*lgman)->waitTime--;
-      } else if ((*lgman)->state == LGM_STATE_GOING) {
-        lgmMoveAway(lgman, mp,pb,bs,tnk);
-      } else {
-        lgmReturn(lgman, mp,pb,bs,tnk);
-      }
-    } 
-  } else {
-    /* Not a single player game or a server */
-    if ((*lgman)->state != LGM_STATE_IDLE) {
-      /* Man is out and about doing stuff */
-      /* Update frame */
-      (*lgman)->frame++;
-      if ((*lgman)->frame > LGM_MAX_FRAMES) {
-        (*lgman)->frame = 0;
-      }
-    }
-    /* Update our location on screen */
-    if ((*lgman)->isDead == FALSE && (*lgman)->inTank == FALSE) {
-      WORLD wx, wy;
-      tankGetWorld(tnk, &wx, &wy);
-      if (threadsGetContext() == FALSE) {
-        frontEndManStatus(FALSE, utilCalcAngle((*lgman)->x, (*lgman)->y, wx, wy));
-      }
-    }
-  }
+	BYTE pos = 0;
+	BYTE mx = 0;
+	BYTE my= 0;
+	WORLD wx;
+	WORLD wy;
+
+	/* Single player or server instance */
+	if (netGetType() == netSingle || threadsGetContext() == TRUE) {
+
+		/* Man is parachuting in */
+		if ((*lgman)->isDead == TRUE) {
+			lgmParchutingIn(lgman);
+			/* check to see if lgm will land ontop of a building/pillbox/or base */
+			mx = lgmGetMX(lgman);
+			my = lgmGetMY(lgman);
+			pos = mapGetPos(mp, mx, my);
+			if (pos == BUILDING || pos == HALFBUILDING || pillsExistPos(pb, mx, my) == TRUE || basesExistPos(bs, mx, my) == TRUE) {
+				(*lgman)->onTop = TRUE;
+				// if base is owned by player, then, we're not ontop.
+				if(basesAmOwner(bs,(*lgman)->playerNum, mx, my)==TRUE){
+					(*lgman)->onTop = FALSE;
+				}
+			} else {
+				(*lgman)->onTop = FALSE;
+			}
+		} else if ((*lgman)->state != LGM_STATE_IDLE) {
+			/* LGM is either going to a destination or returning to the tank */
+			/* Update frame */
+			(*lgman)->frame++;
+			if ((*lgman)->frame > LGM_MAX_FRAMES) {
+				(*lgman)->frame = 0;
+			}
+			/* Check his not waiting */
+			(*lgman)->obstructed = LGM_BRAIN_FREE;
+
+			if ((*lgman)->waitTime > 0) {
+				/* LGM is currently building something (at a destination) */
+				(*lgman)->waitTime--;
+			} else if ((*lgman)->state == LGM_STATE_GOING) {
+				/* LGM is going to a destination */
+				lgmMoveAway(lgman, mp,pb,bs,tnk);
+			} else if (((*lgman)->state == LGM_STATE_RETURN) && ((*tnk)->deathWait == 0)) {
+				/* LGM is returning to a non-dead tank */
+				lgmReturn(lgman, mp,pb,bs,tnk);
+			} else if (((*lgman)->state == LGM_STATE_RETURN) && ((*tnk)->deathWait > 0)) {
+				/* LGM should sit and wait until tank is alive again */
+			}
+		} 
+	} else {
+		/* Not a single player game or a server */
+		if ((*lgman)->state != LGM_STATE_IDLE) {
+			/* Man is out and about doing stuff */
+			/* Update frame */
+			(*lgman)->frame++;
+			if ((*lgman)->frame > LGM_MAX_FRAMES) {
+				(*lgman)->frame = 0;
+			}
+		}
+		/* LGM isn't dead and he's not in the tank */
+		if ((*lgman)->isDead == FALSE && (*lgman)->inTank == FALSE) {
+			tankGetWorld(tnk, &wx, &wy);
+			/* Multiplayer game but just a client */
+			if (threadsGetContext() == FALSE) {
+				frontEndManStatus(FALSE, utilCalcAngle((*lgman)->x, (*lgman)->y, wx, wy));
+			}
+		}
+	}
 }
 
 bool lgmCheckNewRequest(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk, BYTE mapX, BYTE mapY, BYTE *action, BYTE *pillNum, bool *isMine, BYTE *trees, BYTE *mines, bool perform);
