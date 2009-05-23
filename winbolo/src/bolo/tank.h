@@ -55,6 +55,15 @@
 #define TANK_SLIDE 16 
 /* the number of times to update the tank slide, this is in world coordinates, the actual number is this +1 becuase it activates tank slide once right away */
 #define TANK_SLIDE_TICKS 7
+
+/* How many world coordinates to move per tank bump update */
+#define TANK_BUMP 7
+/* The number of times to update the tank slide, in ticks.
+ * The actual number is this + 1 because it activates tank slide once right away */
+#define TANK_BUMP_TICKS 7
+
+#define TANK_DEATH_WAIT 255
+
 /*
 Wharf-Rat explains Acceleration
 

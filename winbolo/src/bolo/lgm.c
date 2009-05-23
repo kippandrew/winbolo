@@ -29,6 +29,7 @@
 #include "bases.h"
 #include "bolo_map.h"
 #include "building.h"
+#include "debug_file_output.h"
 #include "explosions.h"
 #include "floodfill.h"
 #include "frontend.h"
@@ -133,6 +134,8 @@ void lgmUpdate(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
 	BYTE my= 0;
 	WORLD wx;
 	WORLD wy;
+	char test[2048];
+	WORLD t;
 
 	/* Single player or server instance */
 	if (netGetType() == netSingle || threadsGetContext() == TRUE) {
@@ -160,8 +163,26 @@ void lgmUpdate(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
 			if ((*lgman)->frame > LGM_MAX_FRAMES) {
 				(*lgman)->frame = 0;
 			}
+
 			/* Check his not waiting */
 			(*lgman)->obstructed = LGM_BRAIN_FREE;
+
+
+			/* The deathWait indicator is not reaching us properly here
+			 * the tank's x and y will sometimes be around 65528 or 65533
+			 * while it's tankDeath will be zero, which isn't right.
+			 */
+			
+			sprintf(streamText,"Tank Coords: (%u,%u) ... ",(*tnk)->x,(*tnk)->y);
+			writeDebugFile(streamText);
+			streamText[0] = '\0';
+			sprintf(streamText,"LGM State: %d ... ", (*lgman)->state);
+			writeDebugFile(streamText);
+			streamText[0] = '\0';
+			sprintf(streamText,"DeathWait: %d ... \n", (*tnk)->deathWait);
+			writeDebugFile(streamText);
+			streamText[0] = '\0';
+
 
 			if ((*lgman)->waitTime > 0) {
 				/* LGM is currently building something (at a destination) */
@@ -174,10 +195,11 @@ void lgmUpdate(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
 				lgmReturn(lgman, mp,pb,bs,tnk);
 			} else if (((*lgman)->state == LGM_STATE_RETURN) && ((*tnk)->deathWait > 0)) {
 				/* LGM should sit and wait until tank is alive again */
+				(*lgman)->waitTime = 1;
 			}
 		} 
 	} else {
-		/* Not a single player game or a server */
+		/* We do the following if we are a client only */
 		if ((*lgman)->state != LGM_STATE_IDLE) {
 			/* Man is out and about doing stuff */
 			/* Update frame */
@@ -770,6 +792,7 @@ void lgmReturn(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
   onBoat = lgmCheckTankBoat(lgman, tnk, LGM_TANKBOAT_RETURN);
   
   angle = utilCalcAngle((*lgman)->x, (*lgman)->y, newmx, newmy);
+
   if (threadsGetContext() == FALSE) {
     frontEndManStatus(FALSE, angle);
   }

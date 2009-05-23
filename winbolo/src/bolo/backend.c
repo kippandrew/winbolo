@@ -644,7 +644,7 @@ void screenSetInStartFind(bool entering) {
 *CREATION DATE: 28/11/99
 *LAST MODIFIED: 28/11/99
 *PURPOSE:
-*  Gets if we are entering of leaving the find a start
+*  Gets if we are entering or leaving the find a start
 *  position
 *
 *ARGUMENTS:

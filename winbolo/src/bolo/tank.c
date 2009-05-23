@@ -31,6 +31,7 @@
 #include <time.h>
 #include "crc.h"
 #include "backend.h"
+#include "debug_file_output.h"
 #include "explosions.h"
 #include "frontend.h"
 #include "gametype.h"
@@ -253,8 +254,7 @@ void tankUpdate(tank *value, map *mp, bases *bs, pillboxes *pb, shells *shs, sta
 	  tankDeath(value, sts);
     }
   } else if ((*value)->onBoat == FALSE && (mapGetPos(mp,bmx, bmy)) == DEEP_SEA && threadsGetContext() == FALSE) {
-    /* Check for death by drowning */
-/*    if (threadsGetContext() == FALSE) { */
+      /* Check for death by drowning - client instance */
 	  tankSetLastTankDeath(value,LAST_DEATH_BY_DEEPSEA);
       soundDist(tankSinkNear, bmx, bmy);
       messageAdd(assistantMessage, langGetText(MESSAGE_ASSISTANT), langGetText2(MESSAGE_TANKSUNK));
@@ -262,9 +262,16 @@ void tankUpdate(tank *value, map *mp, bases *bs, pillboxes *pb, shells *shs, sta
       tankDropPills(value, mp, pb, bs);
       (*value)->armour = TANK_FULL_ARMOUR+1;
       tankRegisterChangeByte(value, CRC_ARMOUR_OFFSET, (*value)->armour);
-      (*value)->deathWait = 255;
-      tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, 255);
-/*    } */
+      (*value)->deathWait = TANK_DEATH_WAIT;
+      tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, TANK_DEATH_WAIT);
+  } else if ((*value)->onBoat == FALSE && (mapGetPos(mp,bmx, bmy)) == DEEP_SEA && threadsGetContext() == TRUE) {
+      /* Check for death by drowning - server instance */
+	  tankSetLastTankDeath(value,LAST_DEATH_BY_DEEPSEA);
+      soundDist(tankSinkNear, bmx, bmy);
+      (*value)->armour = TANK_FULL_ARMOUR+1;
+      tankRegisterChangeByte(value, CRC_ARMOUR_OFFSET, (*value)->armour);
+      (*value)->deathWait = TANK_DEATH_WAIT;
+      tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, TANK_DEATH_WAIT);
   } else if ((*value)->onBoat == TRUE) {
     /* Tank Movement on Boat */
     (*value)->newTank = FALSE;
@@ -929,8 +936,8 @@ tankHit tankIsTankHit(tank *value, map *mp, pillboxes *pb, bases *bs, WORLD x, W
 			}
 
 			tankSetLastTankDeath(value,LAST_DEATH_BY_SHELL);
-			(*value)->deathWait = 255;
-			tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, 255);
+			(*value)->deathWait = TANK_DEATH_WAIT;
+			tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, TANK_DEATH_WAIT);
 
 			/*      netSendNow = TRUE; */
 			tankDropPills(value, mp, pb, bs);
@@ -940,7 +947,6 @@ tankHit tankIsTankHit(tank *value, map *mp, pillboxes *pb, bases *bs, WORLD x, W
 			(*value)->tankSlideAngle = angle;
 
 			utilCalcDistance(&newX, &newY, angle, TANK_SLIDE); //MAP_SQUARE_MIDDLE
-			/*	  utilCalcTankSlide((*value)->tankSlideTimer, angle, &newX, &newY, MAP_SQUARE_MIDDLE); */
 
 			/* Check for Colisions */
 			conv = (*value)->x;  
@@ -1075,14 +1081,16 @@ void tankDeath(tank *value, starts *sts) {
   BYTE y;
   TURNTYPE dir;
 
+  /* Single player game or client */
   if (netGetType() == netSingle || threadsGetContext() == FALSE) { 
     logAddEvent(log_PlayerLocation, screenGetTankPlayer(value), 0, 0, 0, 0, NULL); 
     lgmTankDied(screenGetLgmFromPlayerNum(screenGetTankPlayer(value)));
+	/* Playing on a client */
     if (threadsGetContext() == FALSE) {
         if (netGetType() == netUdp && screenGetInStartFind() == FALSE) {
           screenSetInStartFind(TRUE);
           netRequestStartPosition();
-        } else {
+        } else { /* if we are a server, this code will never get executed */
           gameTypeGetItems(screenGetGameType(), &shellAmount, &minesAmount, &armourAmount, &treesAmount);
           (*value)->armour = armourAmount;
           tankRegisterChangeByte(value, CRC_ARMOUR_OFFSET, (*value)->armour);
@@ -1094,6 +1102,7 @@ void tankDeath(tank *value, starts *sts) {
           (*value)->trees = treesAmount;        
           tankRegisterChangeByte(value, CRC_TREES_OFFSET, (*value)->trees);
           screenSetInStartFind(TRUE);
+		  /* Get a new start */
           startsGetStart(sts, &x, &y, &dir, screenGetTankPlayer(value));
           (*value)->x = x;
           (*value)->x <<= TANK_SHIFT_MAPSIZE;
@@ -1529,7 +1538,6 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
         (*value)->onBoat = TRUE;
         tankRegisterChangeByte(value, CRC_ONBOAT_OFFSET, TRUE);
       }
-
       screenReCalc();
     }
 
@@ -1542,44 +1550,43 @@ void tankMoveOnLand(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE bmx, BY
     }
   }
 
-  /* Was the tank hit by a shell recently? */
-  if ((*value)->tankSlideTimer > 0) {
-	//utilCalcTankSlide((*value)->tankSlideTimer, (*value)->tankSlideAngle, &xAmount, &yAmount, (int)(*value)->speed);
-	utilCalcDistance(&xslideAmount, &yslideAmount, (TURNTYPE)(*value)->tankSlideAngle, TANK_SLIDE);
-//	(*value)->x = (WORLD) ((*value)->x + xslideAmount);
-//	(*value)->y = (WORLD) ((*value)->y + yslideAmount);
-	(*value)->tankSlideTimer--;
-      /* Check for Colisions */
-      conv = (*value)->x;  
-      conv >>= TANK_SHIFT_MAPSIZE;
-      bmx = (BYTE) conv;
-      conv = (*value)->y;
-      conv >>= TANK_SHIFT_MAPSIZE;
-      bmy = (BYTE) conv;
+	/* Was the tank hit by a shell recently? */
+	if ((*value)->tankSlideTimer > 0) {
+		utilCalcDistance(&xslideAmount, &yslideAmount, (TURNTYPE)(*value)->tankSlideAngle, TANK_SLIDE);
+		(*value)->tankSlideTimer--;
 
-      newmx = (WORLD) ((*value)->x + xslideAmount);
-      newmy = (WORLD) ((*value)->y + yslideAmount);
+		/* Check for Colisions */
+		conv = (*value)->x;  
+		conv >>= TANK_SHIFT_MAPSIZE;
+		bmx = (BYTE) conv;
+		conv = (*value)->y;
+		conv >>= TANK_SHIFT_MAPSIZE;
+		bmy = (BYTE) conv;
+
+		newmx = (WORLD) ((*value)->x + xslideAmount);
+		newmy = (WORLD) ((*value)->y + yslideAmount);
 
 
-      newmx >>= TANK_SHIFT_MAPSIZE;
-      newmy >>= TANK_SHIFT_MAPSIZE;
-      newbmx = (BYTE) newmx;
-      newbmy = (BYTE) newmy;
+		newmx >>= TANK_SHIFT_MAPSIZE;
+		newmy >>= TANK_SHIFT_MAPSIZE;
+		newbmx = (BYTE) newmx;
+		newbmy = (BYTE) newmy;
 
-      if ((mapGetSpeed(mp,pb,bs,bmx,newbmy,(*value)->onBoat, screenGetTankPlayer(value))) > 0) {
-        (*value)->y = (WORLD) ((*value)->y + yslideAmount);
-        tankRegisterChangeWorld(value, CRC_WORLDY_OFFSET, (*value)->y);
-        bmy = newbmy;
-      }
-      if ((mapGetSpeed(mp,pb,bs,newbmx,bmy,(*value)->onBoat, screenGetTankPlayer(value))) > 0) {
-        (*value)->x = (WORLD) ((*value)->x + xslideAmount);
-        tankRegisterChangeWorld(value, CRC_WORLDX_OFFSET, (*value)->x);
-        bmx = newbmx;
-      }
-      /* Check for scroll of screen */
-      screenTankScroll();
-  
+		if ((mapGetSpeed(mp,pb,bs,bmx,newbmy,(*value)->onBoat, screenGetTankPlayer(value))) > 0) {
+			(*value)->y = (WORLD) ((*value)->y + yslideAmount);
+			tankRegisterChangeWorld(value, CRC_WORLDY_OFFSET, (*value)->y);
+			bmy = newbmy;
+		}
+		if ((mapGetSpeed(mp,pb,bs,newbmx,bmy,(*value)->onBoat, screenGetTankPlayer(value))) > 0) {
+			(*value)->x = (WORLD) ((*value)->x + xslideAmount);
+			tankRegisterChangeWorld(value, CRC_WORLDX_OFFSET, (*value)->x);
+			bmx = newbmx;
+		}
+		/* Check for scroll of screen */
+		screenTankScroll();
   }
+
+
   /* Check for tank in water */
   if (((mapGetPos(mp, bmx, bmy)) == RIVER) && (*value)->speed <= MAP_SPEED_TRIVER && (*value)->onBoat == FALSE) {
     if (basesExistPos(bs, bmx, bmy) == FALSE) {
@@ -2268,8 +2275,8 @@ void tankMineDamage(tank *value, map *mp, pillboxes *pb, bases *bs, BYTE mx, BYT
       } else {
         tkExplosionAddItem(screenGetTankExplosions(), (*value)->x, (*value)->y, (TURNTYPE) ((*value)->angle), (BYTE) ((*value)->speed), (BYTE) TH_KILL_SMALL);
       }
-      (*value)->deathWait = 255;
-      tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, 255);
+      (*value)->deathWait = TANK_DEATH_WAIT;
+      tankRegisterChangeByte(value, CRC_DEATHWAIT_OFFSET, TANK_DEATH_WAIT);
       tankDropPills(value, mp, pb, bs);
     }
     if ((*value)->onBoat == TRUE) {
@@ -2386,7 +2393,7 @@ void tankCheckGroundClear(tank *value, map *mp, pillboxes *pb, bases *bs) {
   BYTE py;
   BYTE terrain; /* The terrain we are on */
   bool needFix; /* True if location is obstructed and we must move the tank */
-  int leftPos;     /* Used in checking for tank collisions */
+  int leftPos;  /* Used in checking for tank collisions */
   int downPos;
 
   needFix = FALSE;
@@ -2428,77 +2435,81 @@ void tankCheckGroundClear(tank *value, map *mp, pillboxes *pb, bases *bs) {
     }
   }
 
-  /* Fix if required */
-  if (needFix == TRUE) {
-    (*value)->obstructed = TRUE;
-    tankRegisterChangeByte(value, CRC_OBSTRUCTED_OFFSET, TRUE);
-    conv = (*value)->x;
-    conv <<= TANK_SHIFT_MAPSIZE;
-    conv >>= TANK_SHIFT_PIXELSIZE;
-    px = (BYTE) conv;
-    conv = (*value)->y;
-    conv <<= TANK_SHIFT_MAPSIZE;
-    conv >>= TANK_SHIFT_PIXELSIZE;
-    py = (BYTE) conv;
-    if (px >= MIDDLE_PIXEL) {
-      (*value)->x += 1;
-    } else {
-      (*value)->x -= 1;
-    }
-    tankRegisterChangeWorld(value, CRC_WORLDX_OFFSET, (*value)->x);
-    if (py >= MIDDLE_PIXEL) {
-      (*value)->y += 1;
-    } else {
-      (*value)->y -= 1;
-    }
-    tankRegisterChangeWorld(value, CRC_WORLDY_OFFSET, (*value)->y);
-    (*value)->speed--;
-    if ((*value)->speed < 0) {
-      (*value)->speed = 0;
-    }
-    tankRegisterChangeFloat(value, CRC_SPEED_OFFSET, (*value)->speed);
-  }
+	/* Fix if required */
+	if (needFix == TRUE) {
+		(*value)->obstructed = TRUE;
+		tankRegisterChangeByte(value, CRC_OBSTRUCTED_OFFSET, TRUE);
+
+		conv = (*value)->x;
+		conv <<= TANK_SHIFT_MAPSIZE;
+		conv >>= TANK_SHIFT_PIXELSIZE;
+		px = (BYTE) conv;
+		conv = (*value)->y;
+		conv <<= TANK_SHIFT_MAPSIZE;
+		conv >>= TANK_SHIFT_PIXELSIZE;
+		py = (BYTE) conv;
+		
+		if (px >= MIDDLE_PIXEL) {
+			(*value)->x += 1;
+		} else {
+			(*value)->x -= 1;
+		}
+		tankRegisterChangeWorld(value, CRC_WORLDX_OFFSET, (*value)->x);
+		if (py >= MIDDLE_PIXEL) {
+			(*value)->y += 1;
+		} else {
+			(*value)->y -= 1;
+		}
+		tankRegisterChangeWorld(value, CRC_WORLDY_OFFSET, (*value)->y);
+		(*value)->speed--;
+		
+		if ((*value)->speed < 0) {
+			(*value)->speed = 0;
+		}
+		tankRegisterChangeFloat(value, CRC_SPEED_OFFSET, (*value)->speed);
+	}
   /* Check for tanks */
   if (needFix == FALSE && playersCheckCollision(screenGetPlayers(), screenGetTankPlayer(value), (*value)->x, (*value)->y, &leftPos, &downPos) == TRUE) { //&& threadsGetContext() == FALSE 
-    (*value)->obstructed = TRUE;
-    tankRegisterChangeByte(value, CRC_OBSTRUCTED_OFFSET, TRUE);
+		(*value)->obstructed = TRUE;
+		tankRegisterChangeByte(value, CRC_OBSTRUCTED_OFFSET, TRUE);
     (*value)->speed =0;
-    tankRegisterChangeFloat(value, CRC_SPEED_OFFSET, (*value)->speed);
-    if (leftPos > 0) {
+		tankRegisterChangeFloat(value, CRC_SPEED_OFFSET, (*value)->speed);
+		if (leftPos > 0) {
       (*value)->x += 8;
       tankRegisterChangeWorld(value, CRC_WORLDX_OFFSET, (*value)->x);
-    } else if (leftPos < 0) {
+		} else if (leftPos < 0) {
       (*value)->x -= 8;
       tankRegisterChangeWorld(value, CRC_WORLDX_OFFSET, (*value)->x);
-    } else {
+		} else {
       int rnd = rand() % 6;
 //      srand((unsigned int) (rand() * time(NULL)));
-      if (rnd < 3 ) {
-        (*value)->x = (WORLD) ((*value)->x + rand() % modAmount);
-      } else {
-        (*value)->x = (WORLD) ((*value)->x - rand() % modAmount);
-      }
+			if (rnd < 3 ) {
+				(*value)->x = (WORLD) ((*value)->x + rand() % modAmount);
+			} else {
+				(*value)->x = (WORLD) ((*value)->x - rand() % modAmount);
+			}
       tankRegisterChangeWorld(value, CRC_WORLDX_OFFSET, (*value)->x);
-      modAmount++;
-    }
-    if (downPos > 0) {
+			modAmount++;
+		}
+		if (downPos > 0) {
       (*value)->y = (WORLD) ((*value)->y - rand() % modAmount);
-    } else if (downPos < 0) {
+		} else if (downPos < 0) {
       (*value)->y = (WORLD) ((*value)->y + rand() % modAmount);
-    } else {
+		} else {
       int rnd = rand() % 6;
 //      srand((unsigned int) (rand() * time(NULL)));
-      if (rnd < 3 ) {
-        (*value)->y = (WORLD) ((*value)->y + rand() % modAmount);
-      } else {
-        (*value)->y = (WORLD) ((*value)->y - rand() % modAmount);
-      }
-      modAmount++;
-    }
-    tankRegisterChangeWorld(value, CRC_WORLDY_OFFSET, (*value)->y);
-  } else {
-    modAmount = 1;
-  }
+			if (rnd < 3 ) {
+				(*value)->y = (WORLD) ((*value)->y + rand() % modAmount);
+			} else {
+				(*value)->y = (WORLD) ((*value)->y - rand() % modAmount);
+			}
+			modAmount++;
+		}
+		tankRegisterChangeWorld(value, CRC_WORLDY_OFFSET, (*value)->y);
+
+	} else {
+		modAmount = 1;
+	}
 
 }
 

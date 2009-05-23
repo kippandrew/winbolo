@@ -35,6 +35,7 @@
   #include "../gui/linresource.h"
 #endif
 
+#include "../bolo/debug_file_output.h"
 #include "../bolo/global.h"
 #include "../bolo/backend.h"
 #include "servercore.h"
@@ -156,37 +157,38 @@ void printHelp() {
 
 #ifdef _WIN32
 void processKeys(bool isQuiet) {
-  char keyBuff[256] = "\0";
-  char saveBuff[256] = "\0";
-  
-  if (isQuiet == TRUE || isNoInput == TRUE) {
-    while (serverCoreRunning() == TRUE && isGameOver == FALSE) {
-      Sleep(1000);
-   }
-  } else {
-    while (strncmp(keyBuff, "quit", 4) != 0 && isGameOver == FALSE && serverCoreRunning()) {
-      if (strncmp(keyBuff, "help", 4) == 0) {
-        /* Help */
-        printHelp();
-      } else if (strncmp(keyBuff, "lock", 4) == 0) {
-        serverNetSetLock(TRUE);
-      } else if (strncmp(keyBuff, "unlock", 6) == 0) {
-        serverNetSetLock(FALSE);
-      } else if (strncmp(keyBuff, "info", 4) == 0) {
-        serverCoreInformation();
-      } else if (strncmp(keyBuff, "savemap", 7) == 0) {
-        saveMap(saveBuff);
-      } else if (strncmp(keyBuff, "say ", 4) == 0) {
-        serverNetSendServerMessageAllPlayers((char *) keyBuff+4);
-      } else if (strncmp(keyBuff, "\n", 1) != 0 && strncmp(keyBuff, "\0", 1) != 0) {
-        fprintf(stderr, "Unknown command - Type \"help\" for help\n");
-      }
-      
-      fgets(keyBuff, 256, stdin);
-      strcpy(saveBuff, keyBuff);
-      strlower(keyBuff);
-    }
-  }
+	char keyBuff[256] = "\0";
+	char saveBuff[256] = "\0";
+
+	if (isQuiet == TRUE || isNoInput == TRUE) {
+		while (serverCoreRunning() == TRUE && isGameOver == FALSE) {
+			Sleep(1000);
+		}
+	} else {
+		while (strncmp(keyBuff, "quit", 4) != 0 && isGameOver == FALSE && serverCoreRunning()) {
+			if (strncmp(keyBuff, "help", 4) == 0) {
+				/* Help */
+				printHelp();
+			} else if (strncmp(keyBuff, "lock", 4) == 0) {
+				serverNetSetLock(TRUE);
+			} else if (strncmp(keyBuff, "unlock", 6) == 0) {
+				serverNetSetLock(FALSE);
+			} else if (strncmp(keyBuff, "info", 4) == 0) {
+				serverCoreInformation();
+			} else if (strncmp(keyBuff, "savemap", 7) == 0) {
+				saveMap(saveBuff);
+			} else if (strncmp(keyBuff, "say ", 4) == 0) {
+				serverNetSendServerMessageAllPlayers((char *) keyBuff+4);
+			} else if (strncmp(keyBuff, "\n", 1) != 0 && strncmp(keyBuff, "\0", 1) != 0) {
+				fprintf(stderr, "Unknown command - Type \"help\" for help\n");
+			}
+			fgets(keyBuff, 256, stdin);
+			strcpy(saveBuff, keyBuff);
+			strlower(keyBuff);
+		}
+
+		closeDebugFile();
+	}
 }
 
 #else
@@ -633,8 +635,18 @@ int main(int argc, char **argv) {
   unsigned short trackerPort;
   bool trackerUse;
   char *useAddr;
+  char debugFileName[2048];
   int maxPlayers;
   BYTE key[32]; /* WBN Key */
+
+  strcpy(debugFileName,"server_test.txt");
+
+  /* Debugging file stuff */
+  setWriteToDebugFileStream(-1);
+  setFileName(&debugFileName);
+  if (openDebugFile() == -1) {
+	setWriteToDebugFileStream(-1);
+  }
 
   threadsSetContext(TRUE);
   serverCoreSetQuietMode(FALSE);
