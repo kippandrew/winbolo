@@ -27,9 +27,11 @@ REM = rm
 
 # Flags for gcc and rm
 REMFLAGS = -f
-SDLFLAGS = -g `sdl-config --libs`
-CFLAGS = -g `sdl-config --cflags`
-BDFLAGS = -std=c99 -pedantic -Wall -Wpointer-arith -Wstrict-prototypes -O2
+SDLFLAGS = `sdl-config --libs`
+#SDLFLAGS = -g `sdl-config --libs`
+#CFLAGS = -g `sdl-config --cflags`
+CFLAGS = `sdl-config --cflags`
+BDFLAGS = -std=c99 -pedantic -Wall -Wpointer-arith -Wstrict-prototypes #-O2
 
 # directories
 BOLODIR = ../bolo/
@@ -58,7 +60,7 @@ b: global.o bases.o util.o crc.o pillbox.o lgm.o shells.o tank.o \
 	screentank.o scroll.o sounddist.o starts.o swamp.o \
 	tankexp.o treegrow.o dcodlzw.o ecodlzw.o playersrejoin.o \
 	lang.o winbolonetevents.o winbolonetthread.o backend.o \
-	mathWinbolo.o
+	mathWinbolo.o debug_file_output.o
 
 server: servercore.o servermessages.o serverfrontend.o servermain.o \
 	servernet.o servertransport.o threads.o log.o udppackets.o \
@@ -83,7 +85,7 @@ $(SERVERNAME): zlib b server bigdigits
 	backend.o adler32.o compress.o crc32.o deflate.o gzio.o  \
 	inffast.o inflate.o inftrees.o trees.o ioapi.o uncompr.o \
 	unzip.o zip.o zutil.o bigd.o bigdigits.o bigdigitsRand.o bigdRand.o \
-	mathWinbolo.o
+	mathWinbolo.o debug_file_output.o
 
 tidy: 
 	$(REM) $(REMFLAGS) *.o
@@ -277,7 +279,8 @@ udppackets.o: ${BOLODIR}udppackets.c ${BOLODIR}udppackets.h
 	${CC} ${CFLAGS} -c ${BOLODIR}udppackets.c
 util.o:	${BOLODIR}util.c ${BOLODIR}util.h
 	${CC} ${CFLAGS} -c ${BOLODIR}util.c
-
+debug_file_output.o: ${BOLODIR}debug_file_output.c ${BOLODIR}debug_file_output.h
+	${CC} ${CFLAGS} -c ${BOLODIR}debug_file_output.c
 
 #
 # LZW
