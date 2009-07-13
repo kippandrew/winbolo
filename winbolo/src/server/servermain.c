@@ -160,12 +160,22 @@ void processKeys(bool isQuiet) {
 	char keyBuff[256] = "\0";
 	char saveBuff[256] = "\0";
 
+	char kickMsg[256] = "\0";
+	char name[255] = "\0";
+	char playerKick[255] = "\0";
+	char tempBuffer[255] = "\0";
+
+	int i=0;
+	size_t newbuflen;
+
 	if (isQuiet == TRUE || isNoInput == TRUE) {
 		while (serverCoreRunning() == TRUE && isGameOver == FALSE) {
 			Sleep(1000);
 		}
 	} else {
 		while (strncmp(keyBuff, "quit", 4) != 0 && isGameOver == FALSE && serverCoreRunning()) {
+
+
 			if (strncmp(keyBuff, "help", 4) == 0) {
 				/* Help */
 				printHelp();
@@ -179,6 +189,32 @@ void processKeys(bool isQuiet) {
 				saveMap(saveBuff);
 			} else if (strncmp(keyBuff, "say ", 4) == 0) {
 				serverNetSendServerMessageAllPlayers((char *) keyBuff+4);
+			} else if (strncmp(keyBuff, "kick ", 5) == 0) {
+
+/*				strcpy(playerKick, (char *) keyBuff+5);	*/
+				sprintf(playerKick, "%.*s", 20, keyBuff+5);
+
+				newbuflen = strlen(playerKick);
+				playerKick[newbuflen - 1] = '\0';
+
+/*wsprintf(tempBuffer, "name: [%s], len: %d\n\n", playerKick, strlen(playerKick)); */
+fprintf(stderr, tempBuffer);
+
+				for(i=0;i<=15;i++){
+					playersGetPlayerName(screenGetPlayers(), i, name);
+
+/*wsprintf(tempBuffer, "name: [%s], len: %d\n", name, strlen(name)); */
+fprintf(stderr, tempBuffer);
+
+
+					if(strcmp(playerKick, name) == 0){
+
+						sprintf(kickMsg, "%s has been server kicked.", playerKick);
+						serverNetSendServerMessageAllPlayers(kickMsg);
+						serverNetPlayerLeave(i, TRUE);
+
+					}
+				}
 			} else if (strncmp(keyBuff, "\n", 1) != 0 && strncmp(keyBuff, "\0", 1) != 0) {
 				fprintf(stderr, "Unknown command - Type \"help\" for help\n");
 			}
@@ -199,6 +235,14 @@ void processKeys() {
   fd_set fdmask; /* for our select               */
   struct timeval timer; /*select timer */
   int ret;
+
+  	char kickMsg[256] = "\0";
+	char name[255] = "\0";
+	char playerKick[255] = "\0";
+	char tempBuffer[255] = "\0";
+
+	int i=0;
+	size_t newbuflen;
 
   timer.tv_sec = 1;
   timer.tv_usec = 0;
@@ -235,7 +279,32 @@ void processKeys() {
         saveMap(saveBuff);
       } else if (strncmp(keyBuff, "say ", 4) == 0) {
         serverNetSendServerMessageAllPlayers((char *) keyBuff+4);
-      } else if (strncmp(keyBuff, "\n", 1) != 0 && strncmp(keyBuff, "\0", 1) != 0) {
+      } else if (strncmp(keyBuff, "kick ", 5) == 0) {
+
+				sprintf(playerKick, "%.*s", 20, keyBuff+5);
+
+				newbuflen = strlen(playerKick);
+				playerKick[newbuflen - 1] = '\0';
+
+				sprintf(tempBuffer, "name: [%s], len: %d\n\n", playerKick, strlen(playerKick));
+				fprintf(stderr, tempBuffer);
+
+				for(i=0;i<=15;i++){
+					playersGetPlayerName(screenGetPlayers(), i, name);
+
+					sprintf(tempBuffer, "name: [%s], len: %d\n", name, strlen(name));
+					fprintf(stderr, tempBuffer);
+
+
+					if(strcmp(playerKick, name) == 0){
+
+						sprintf(kickMsg, "%s has been server kicked.", playerKick);
+						serverNetSendServerMessageAllPlayers(kickMsg);
+						serverNetPlayerLeave(i, TRUE);
+
+					}
+				}
+	  } else if (strncmp(keyBuff, "\n", 1) != 0 && strncmp(keyBuff, "\0", 1) != 0) {
         fprintf(stderr, "Unknown command - Type \"help\" for help\n");
       }
     
