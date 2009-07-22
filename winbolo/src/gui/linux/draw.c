@@ -78,7 +78,7 @@ SDL_Color white = {0xFF, 0xFF, 0xFF, 0};
 SDL_Color green = {0, 0xFF, 0, 0};
 SDL_Color black = {0,0,0,0};
 
-typedef int DWORD;
+/* typedef int DWORD; */
 /* Used for drawing the man status */
 /* FIXME HBRUSH hManBrush = NULL;
 HBRUSH hNarrowBrush = NULL;

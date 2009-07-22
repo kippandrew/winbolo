@@ -42,7 +42,7 @@
   extern char messageBody[16*1024];
   extern char messageTitle[256];
   extern bool hasMessage;
-  typedef int DWORD;
+/*  typedef int DWORD; */
 #endif
 
 #include "../gui/dnsLookups.h"
@@ -231,8 +231,10 @@ bool netSetup(netType value, unsigned short myPort, char *targetIp, unsigned sho
 *********************************************************/
 void netDestroy(void) {
   bool windowDestroyed = FALSE; /* Variable to see if the window has been closed properly */
+#ifdef _WIN32
   WPARAM wParam = MAKEWPARAM(IDCANCEL,IDCANCEL); /* Create a WPARAM variable that will tell the window to close */
   LPARAM lParam = MAKELPARAM(0,0); /* Create a WPARAM variable that will tell the window to close */
+#endif
   if (dlgAllianceWnd != NULL) {
 #ifdef _WIN32
 	/* Should return nonzero if successful.  Was not working so let's just close it instead. */

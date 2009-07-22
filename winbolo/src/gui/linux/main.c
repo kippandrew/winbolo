@@ -68,7 +68,7 @@ linuxLgmFix llf;
 
 #define DIALOG_BOX_TITLE "LinBolo"
 
-typedef int DWORD;
+/* typedef int DWORD; */
 /* The size of the main window EXCLUDING Menus and Toolbar */
 #define SCREEN_SIZE_X 515
 #define SCREEN_SIZE_Y 325
@@ -134,7 +134,7 @@ DWORD dwSysBrain = 0;
 
 bool doingTutorial = FALSE;
 /* Current building item selected */
-buildSelect BsCurrent = BsTrees;
+buildSelect BsLinuxCurrent = BsTrees;
 
 /* Whether the Gunsight is shown or not */
 bool showGunsight = FALSE;
@@ -216,6 +216,29 @@ int frameRateTime = (int) (MILLISECONDS / FRAME_RATE_30) - 1;
 extern int timerGameInfo;
 extern int sysInfoTimer;
 extern int timerNetworkInfo;
+
+/* To be implemented by someone... */
+int moveMousePointer(updateType value) {
+	return 0;
+}
+
+/** FIXME THIS ENTIRE SECTION NEEDS TO BE BROUGHT UP TO LATEST VERSION.... Added to enable compilation */
+bool screenLoadCompressedMap() {
+	return FALSE;
+}
+
+/** FIXME THIS ENTIRE SECTION NEEDS TO BE BROUGHT UP TO LATEST VERSION.... Added to enable compilation */
+int serverMainGetTicks() {
+return 0;
+}
+
+/** FIXME THIS ENTIRE SECTION NEEDS TO BE BROUGHT UP TO LATEST VERSION.... Added to enable compilation */
+void frontEndRedrawAll() {
+}
+/** FIXME THIS ENTIRE SECTION NEEDS TO BE BROUGHT UP TO LATEST VERSION.... Added to enable compilation */
+int windowsGetTicks() {
+	return 0;
+}
 
 gint windowclose(GtkWidget *widget, gpointer gdata) {
   isInMenu = TRUE;
@@ -353,7 +376,7 @@ gint windowGetFocus(GtkWidget *widget, gpointer data) {
   }
   clientMutexWaitFor();
   frameMutexWaitFor();
-   drawRedrawAll(SCREEN_SIZE_X, SCREEN_SIZE_Y, BsCurrent, FALSE, FALSE);
+   drawRedrawAll(SCREEN_SIZE_X, SCREEN_SIZE_Y, BsLinuxCurrent, FALSE, FALSE);
    frameMutexRelease();
    clientMutexRelease();
   gdk_key_repeat_disable();
@@ -581,7 +604,7 @@ gboolean windowMouseClick(GtkWidget *widget,  GdkEventButton *event, gpointer us
   yPos = event->y;
   yPos -= req.height;
   if (cursorPos(xPos, yPos, &xValue, &yValue) == TRUE) {
-    llf.bs = BsCurrent;
+    llf.bs = BsLinuxCurrent;
     llf.used = TRUE;
   } else {
     newSelect = NO_SELECT;
@@ -597,11 +620,11 @@ gboolean windowMouseClick(GtkWidget *widget,  GdkEventButton *event, gpointer us
       newSelect = BsMine;
     }
 
-    if (newSelect != NO_SELECT && newSelect != BsCurrent) {
+    if (newSelect != NO_SELECT && newSelect != BsLinuxCurrent) {
       llf.changeUsed = TRUE;
-      llf.old = BsCurrent;
+      llf.old = BsLinuxCurrent;
       llf.new = newSelect;
-      BsCurrent = newSelect;
+      BsLinuxCurrent = newSelect;
     }
   }
 

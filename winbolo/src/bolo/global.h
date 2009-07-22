@@ -38,7 +38,7 @@ typedef unsigned char u_char;
 #undef FALSE
 #define FALSE 0
 typedef BYTE bool;
-typedef BYTE Bool;
+/*typedef BYTE Bool; */
 
 
 /* The world co-ordinate for tank - It is a 16 bit number*/

@@ -45,11 +45,12 @@
 #include "BigDigits/bigd.h"
 #include "BigDigits/bigdRand.h"
 
+#ifdef _WIN32
 static void pr_msg(const char *msg, BIGD b)
 /* Display a message followed by a BIGD value */
 {
 	printf("%s", msg);
 	bdPrint(b, BD_PRINT_NL);
 }
-
+#endif
 #endif /* RSAALGORITHM_H */
