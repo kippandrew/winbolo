@@ -51,6 +51,7 @@ LPDIRECTDRAW lpDD = NULL;
 LPDIRECTDRAWSURFACE lpDDSPrimary = NULL;
 LPDIRECTDRAWSURFACE lpDDSBackBuffer = NULL;
 LPDIRECTDRAWSURFACE lpDDSTiles = NULL;
+LPDIRECTDRAWSURFACE lpDDSBackground = NULL;
 LPDIRECTDRAWSURFACE lpDDSMessages = NULL;
 LPDIRECTDRAWSURFACE lpDDSManStatus = NULL;
 LPDIRECTDRAWSURFACE lpDDSPillsStatus = NULL;
@@ -59,7 +60,11 @@ LPDIRECTDRAWSURFACE lpDDSBasesStatusBars = NULL;
 LPDIRECTDRAWSURFACE lpDDSTankStatus = NULL;
 LPDIRECTDRAWSURFACE lpDDSTankStatusBars = NULL;
 LPDIRECTDRAWSURFACE lpDDSTankLabels = NULL;
+LPDIRECTDRAWSURFACE lpDDSLGMButtons = NULL;
+
 LPDIRECTDRAWCLIPPER lpDDClipper = NULL;
+
+
 
 /* Used for drawing the man status */
 HBRUSH hManBrush = NULL;
@@ -94,21 +99,24 @@ int drawPlayerLens[MAX_TANKS][3];
 * appWnd  - Main Window Handle (Required for clipper)
 *********************************************************/
 bool drawSetup(HINSTANCE appInst, HWND appWnd) {
-  bool returnValue;       /* Value to return */
-  BYTE zoomFactor;        /* scaling factor */
-  HRESULT res;            /* Direct Draw Function returns */
-  DDSURFACEDESC primDesc; /* Surface description */
-  HBITMAP hTiles = NULL;  /* The tile file bitmap resource */
-  HDC hTilesDC = NULL;    /* The tile file resource DC */
-  HDC hDDSTilesDC = NULL; /* Temp DC of a DDS use to copy tile file into */
-  DDPIXELFORMAT ddpf;     /* DD Pixel Format to get green */
-  DDBLTFX fx;             /* FX for the colour fills */
-  LOGBRUSH lb;            /* Used in creation of the brush */
-  RECT src;               /* Used for copying the bases & pills icon in */
-  char fileName[MAX_PATH]; /* Used to load the external files */
-  RECT dest;              /* Used for copying the bases & pills icon in */
+  bool returnValue;				/* Value to return */
+  BYTE zoomFactor;				/* scaling factor */
+  HRESULT res;					/* Direct Draw Function returns */
+  DDSURFACEDESC primDesc;		/* Surface description */
+  HBITMAP hTiles = NULL;		/* The tile file bitmap resource */
+  HDC hTilesDC = NULL;			/* The tile file resource DC */
+  HDC hDDSTilesDC = NULL;		/* Temp DC of a DDS use to copy tile file into */
+  HBITMAP hBackground = NULL;	/* The tile file bitmap resource */
+  HDC hBackgroundDC = NULL;		/* The tile file resource DC */
+  HDC hDDSBackgroundDC = NULL;	/* Temp DC of a DDS use to copy tile file into */
+  DDPIXELFORMAT ddpf;			/* DD Pixel Format to get green */
+  DDBLTFX fx;					/* FX for the colour fills */
+  LOGBRUSH lb;					/* Used in creation of the brush */
+  RECT src;						/* Used for copying the bases & pills icon in */
+  char fileName[MAX_PATH];		/* Used to load the external files */
+  RECT dest;					/* Used for copying the bases & pills icon in */
   BYTE count;
-  bool usingDoubleSkin;    /* Are we using the double sized skin */
+  bool usingDoubleSkin;			/* Are we using the double sized skin */
 
   /* Palette Checking */
   DDSURFACEDESC   ddsd;
@@ -262,6 +270,73 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
       }
     }
   }
+
+
+    /* Create the background buffer and copy the bitmap into it */
+  if (returnValue == TRUE) {
+    /* Create the buffer */
+    ZeroMemory(&primDesc, sizeof (primDesc));
+    primDesc.dwSize = sizeof (primDesc);
+    primDesc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH | DDSD_CKSRCBLT;
+    primDesc.ddckCKSrcBlt.dwColorSpaceLowValue = ddpf.dwGBitMask;
+    primDesc.ddckCKSrcBlt.dwColorSpaceHighValue = ddpf.dwGBitMask;
+    primDesc.dwWidth = SCREEN_SIZE_X;
+    primDesc.dwHeight = SCREEN_SIZE_Y;
+    primDesc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
+    res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSBackground, NULL);
+    if (FAILED(res)) {
+      MessageBoxA(NULL, "Creating DD background buffer and copying resource into it Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      returnValue = FALSE;
+    } else {
+      /* Copy the bitmap into it */
+      hBackground = NULL;
+      /* Try to load from skins file First first */
+      if (skinsIsLoaded() == TRUE) {
+        /* Try double size skin file */
+        if (zoomFactor == 2) {
+          skinsGetSkinDirectory(fileName);
+          if (fileName[strlen(fileName)-1] != '\\') {
+            strcat(fileName, "\\");
+          }
+          strcat(fileName, DRAW_SKINS_BGFILE);
+          hBackground = (HBITMAP) LoadImage(NULL, fileName, IMAGE_BITMAP, SCREEN_SIZE_X, SCREEN_SIZE_Y, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+          if (hBackground != NULL) {
+            usingDoubleSkin = TRUE;
+          }
+        }
+        if (hBackground == NULL) {
+          /* Try single size skin file */
+          skinsGetSkinDirectory(fileName);
+          if (fileName[strlen(fileName)-1] != '\\') {
+            strcat(fileName, "\\");
+          }
+          strcat(fileName, DRAW_SKINS_BGFILE);
+          hBackground = (HBITMAP) LoadImage(NULL, fileName, IMAGE_BITMAP, SCREEN_SIZE_X , SCREEN_SIZE_Y, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+        }
+      } 
+      if (hBackground == NULL) {
+        hBackground = (HBITMAP) LoadImage(appInst, MAKEINTRESOURCE(IDB_BACKGROUND), IMAGE_BITMAP, SCREEN_SIZE_X , SCREEN_SIZE_Y, LR_CREATEDIBSECTION);
+      }
+      if (hBackground !=NULL) {
+        hBackgroundDC = CreateCompatibleDC(NULL);
+        SelectObject(hBackgroundDC, hBackground);
+        lpDDSBackground->lpVtbl->Restore(lpDDSBackground);
+        res = lpDDSBackground->lpVtbl->GetDC(lpDDSBackground, &hDDSBackgroundDC);
+        if (res != DD_OK) {
+          MessageBoxA(NULL, langGetText(STR_DRAWERROR_GETDCFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+        }
+		BitBlt(hDDSBackgroundDC, 0, 0, SCREEN_SIZE_X, SCREEN_SIZE_Y, hBackgroundDC, 0, 0, SRCCOPY);
+        res = lpDDSBackground->lpVtbl->ReleaseDC(lpDDSBackground, hDDSBackgroundDC);
+        DeleteDC(hBackgroundDC);
+        DeleteObject(hBackground);
+      } else {
+        MessageBoxA(NULL, "Creating DD background buffer and copying resource into it Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+        returnValue = FALSE;
+      }
+    }
+  }
+
+
 
   /* Create the tank label back buffer */
   if (returnValue == TRUE) {
@@ -478,6 +553,29 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     }
   }
 
+    /* Create the LGM button buffer */
+  if (returnValue == TRUE) {
+    ZeroMemory(&primDesc, sizeof (primDesc));
+    primDesc.dwSize = sizeof (primDesc);
+    primDesc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH | DDSD_CKSRCBLT;
+    primDesc.ddckCKSrcBlt.dwColorSpaceLowValue = ddpf.dwGBitMask;
+    primDesc.ddckCKSrcBlt.dwColorSpaceHighValue = ddpf.dwGBitMask;
+    primDesc.dwWidth = zoomFactor * BS_ITEM_SIZE_X;
+    primDesc.dwHeight = zoomFactor * BS_ITEM_SIZE_Y;
+    primDesc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
+
+    res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSLGMButtons, NULL);
+    if (FAILED(res)) {
+      MessageBoxA(NULL, "Creating DD LGM button backbuffer Failed", DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
+      returnValue = FALSE;
+    } else {
+      /* Fill the surface black */
+      ZeroMemory(&fx, sizeof(fx));
+      fx.dwSize = sizeof(fx);
+      fx.dwFillColor =  0;
+      lpDDSPillsStatus->lpVtbl->Blt(lpDDSLGMButtons, NULL, NULL, NULL, DDBLT_WAIT | DDBLT_KEYSRC, &fx);
+    }
+  }
 
   /* Create the clipper */
   if (returnValue == TRUE) {
@@ -600,6 +698,14 @@ void drawCleanup(void) {
   if (lpDDSMessages != NULL) {
     lpDDSMessages->lpVtbl->Release(lpDDSMessages);
     lpDDSMessages = NULL;
+  }
+  if (lpDDSLGMButtons != NULL) {
+    lpDDSLGMButtons->lpVtbl->Release(lpDDSLGMButtons);
+    lpDDSLGMButtons = NULL;
+  }
+  if (lpDDSBackground!= NULL) {
+    lpDDSBackground->lpVtbl->Release(lpDDSBackground);
+    lpDDSBackground = NULL;
   }
   if (lpDDSTiles != NULL) {
     lpDDSTiles->lpVtbl->Release(lpDDSTiles);
@@ -965,45 +1071,18 @@ bool drawBackground(HINSTANCE appInst, HWND appWnd, int xValue, int yValue) {
   HDC hBgDC = NULL;   /* The background resource DC */
   HDC hDC = NULL;     /* Temp DC of the window */
   BYTE zoomFactor;    /* Scaling Factor */
-  char fileName[MAX_PATH]; /* Filename to load */
+  RECT dest;
 
   hBg = NULL;
   returnValue = FALSE;
   zoomFactor = windowGetZoomFactor();
+  
+  dest.top = yValue;
+  dest.left = xValue;
+  dest.right = dest.left + (zoomFactor * SCREEN_SIZE_X);
+  dest.bottom = dest.top + (zoomFactor * SCREEN_SIZE_Y);
 
-
-  /* Try to load from skins file First first */
-  if (skinsIsLoaded() == TRUE) {
-    skinsGetSkinDirectory(fileName);
-    if (fileName[strlen(fileName)-1] != '\\') {
-      strcat(fileName, "\\");
-    }
-    strcat(fileName, DRAW_SKINS_BGFILE);
-    hBg = (HBITMAP) LoadImage(NULL, fileName, IMAGE_BITMAP, SCREEN_SIZE_X , SCREEN_SIZE_Y, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-  } 
-
-
-  if (hBg == NULL) {
-    hBg = (HBITMAP) LoadImage(appInst, MAKEINTRESOURCE(IDB_BACKGROUND), IMAGE_BITMAP, SCREEN_SIZE_X , SCREEN_SIZE_Y, LR_CREATEDIBSECTION);
-  }
-
-  if (hBg != NULL) {
-    hBgDC = CreateCompatibleDC(NULL);
-    SelectObject(hBgDC, hBg);
-    hDC = GetDC(appWnd);
-    if (hDC != NULL) {
-      if (zoomFactor == ZOOM_FACTOR_NORMAL) {
-        BitBlt(hDC, 0, 0, SCREEN_SIZE_X, SCREEN_SIZE_Y, hBgDC, 0, 0, SRCCOPY);
-      } else {
-        StretchBlt(hDC, 0, 0, (zoomFactor * SCREEN_SIZE_X), (zoomFactor * SCREEN_SIZE_Y), hBgDC, 0, 0, SCREEN_SIZE_X, SCREEN_SIZE_Y, SRCCOPY);
-      }
-      DeleteDC(hBgDC);
-      DeleteObject(hBg);
-      ReleaseDC(appWnd, hDC);
-      returnValue = TRUE;
-    }
-  } 
-
+  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, lpDDSBackground, NULL, DDBLT_WAIT, NULL);
   return returnValue;
 }
 
@@ -1032,11 +1111,12 @@ void drawBuildSelectRefresh(buildSelect value) {
   char fileName[MAX_PATH]; /* Filename to load */
   HWND hWnd;          /* Main window handle */
   int top;            /* Top build select y co-ord to copy from */
-  
+
   hWnd = windowWnd();
   hBg = NULL;
   zoomFactor = windowGetZoomFactor();
   
+
   switch (value) {
     case BsTrees:
       top = DRAW_BUILDSELECT_TREES_Y;
@@ -1056,7 +1136,6 @@ void drawBuildSelectRefresh(buildSelect value) {
       break;
   }
 
-  /* Try to load from skins file First first */
   if (skinsIsLoaded() == TRUE) {
     skinsGetSkinDirectory(fileName);
     if (fileName[strlen(fileName)-1] != '\\') {
@@ -1079,12 +1158,12 @@ void drawBuildSelectRefresh(buildSelect value) {
         BitBlt(hDC, DRAW_BUILDSELECT_X, top, DRAW_BUILDSELECT_WIDTH, DRAW_BUILDSELECT_HEIGHT, hBgDC, DRAW_BUILDSELECT_X, top, SRCCOPY);
       } else {
         StretchBlt(hDC, DRAW_BUILDSELECT_X * zoomFactor, top * zoomFactor, zoomFactor * DRAW_BUILDSELECT_WIDTH, (zoomFactor * DRAW_BUILDSELECT_HEIGHT), hBgDC, DRAW_BUILDSELECT_X, top, DRAW_BUILDSELECT_WIDTH, DRAW_BUILDSELECT_HEIGHT, SRCCOPY);
-      }
+	  }
       DeleteDC(hBgDC);
       DeleteObject(hBg);
       ReleaseDC(hWnd, hDC);
     }
-  } 
+  }
 }
 
 /*********************************************************
@@ -1103,9 +1182,12 @@ void drawBuildSelectRefresh(buildSelect value) {
 *  yValue  - The top position of the window
 *********************************************************/
 void drawSelectIndentsOn(buildSelect value, int xValue, int yValue) {
+	
   RECT src;        /* The src square on the tile file to retrieve */
   RECT dest;       /* The dest square to draw it */
+  RECT dest2;
   BYTE zoomFactor; /* Scaling factor */
+  int top;
 
   zoomFactor = windowGetZoomFactor();
 
@@ -1120,40 +1202,71 @@ void drawSelectIndentsOn(buildSelect value, int xValue, int yValue) {
   dest.top = yValue;
   switch (value) {
   case BsTrees:
-    dest.left += (zoomFactor * BS_TREE_OFFSET_X);
-    dest.top += (zoomFactor * BS_TREE_OFFSET_Y);
-    break;
+	dest.left += (zoomFactor * BS_TREE_OFFSET_X);
+	dest.top += (zoomFactor * BS_TREE_OFFSET_Y);
+	break;
   case BsRoad:
-    dest.left += (zoomFactor * BS_ROAD_OFFSET_X);
-    dest.top += (zoomFactor * BS_ROAD_OFFSET_Y);
-    break;
+	dest.left += (zoomFactor * BS_ROAD_OFFSET_X);
+	dest.top += (zoomFactor * BS_ROAD_OFFSET_Y);
+	break;
   case BsBuilding:
-    dest.left += (zoomFactor * BS_BUILDING_OFFSET_X);
-    dest.top += (zoomFactor * BS_BUILDING_OFFSET_Y);
-    break;
+	dest.left += (zoomFactor * BS_BUILDING_OFFSET_X);
+	dest.top += (zoomFactor * BS_BUILDING_OFFSET_Y);
+	break;
   case BsPillbox:
-    dest.left += (zoomFactor * BS_PILLBOX_OFFSET_X);
-    dest.top+= (zoomFactor * BS_PILLBOX_OFFSET_Y);
-    break;
+	dest.left += (zoomFactor * BS_PILLBOX_OFFSET_X);
+	dest.top+= (zoomFactor * BS_PILLBOX_OFFSET_Y);
+	break;
   default: 
    /* BsMine:*/
-    dest.left += (zoomFactor * BS_MINE_OFFSET_X);
-    dest.top += (zoomFactor * BS_MINE_OFFSET_Y);
-    break;
+	dest.left += (zoomFactor * BS_MINE_OFFSET_X);
+	dest.top += (zoomFactor * BS_MINE_OFFSET_Y);
+	break;
   }
   dest.right = dest.left + (zoomFactor * BS_ITEM_SIZE_X);
   dest.bottom = dest.top + (zoomFactor * BS_ITEM_SIZE_Y);
   
-  /* Perform the drawing */
-  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , lpDDSTiles ,&src, DDBLT_WAIT | DDBLT_KEYSRC, NULL);
 
+
+
+/* draw lgm button */
+  switch (value) {
+    case BsTrees:
+      top = DRAW_BUILDSELECT_TREES_Y;
+      break;
+    case BsRoad:
+      top = DRAW_BUILDSELECT_ROAD_Y;
+      break;
+    case BsBuilding:
+      top = DRAW_BUILDING_ROAD_Y;
+      break;
+    case BsPillbox:
+      top = DRAW_BUILDING_PILLBOX_Y;
+      break;
+    default: 
+     /* BsMine:*/
+      top = DRAW_BUILDING_MINE_Y;
+      break;
+  }
+
+  /* draw indent */
+  src.top = zoomFactor * 48;
+  src.left = zoomFactor * 320;
+  src.right = src.left + (zoomFactor * BS_ITEM_SIZE_X);
+  src.bottom = src.top + (zoomFactor * BS_ITEM_SIZE_Y);
+  lpDDSLGMButtons->lpVtbl->Blt(lpDDSLGMButtons, NULL, lpDDSTiles, &src, DDBLT_WAIT | DDBLT_KEYSRC, NULL);
+
+	/* draw back buffer onto primary buffer */
+  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, lpDDSLGMButtons, NULL, DDBLT_WAIT, NULL);
+ 
+  
+  /* Draw the dot */
   /* Set the co-ords of the tile file to get */
   src.left = zoomFactor * INDENT_DOT_ON_X;
   src.top = zoomFactor * INDENT_DOT_ON_Y;
   src.right = zoomFactor * INDENT_DOT_ON_X + zoomFactor * BS_DOT_ITEM_SIZE_X;
   src.bottom = zoomFactor * INDENT_DOT_ON_Y + zoomFactor * BS_DOT_ITEM_SIZE_Y;
 
-  /* Draw the dot */
   /* Modify the offset to allow for the indents */
   dest.left = xValue;
   dest.top = yValue;
@@ -1186,6 +1299,7 @@ void drawSelectIndentsOn(buildSelect value, int xValue, int yValue) {
   
   /* Perform the drawing */
   lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , lpDDSTiles ,&src, DDBLT_WAIT, NULL);
+
   drawBuildSelectRefresh(value);
 }
 
@@ -1217,45 +1331,53 @@ void drawSelectIndentsOff(buildSelect value, int xValue, int yValue) {
   src.right = zoomFactor * INDENT_OFF_X + zoomFactor * BS_ITEM_SIZE_X;
   src.bottom = zoomFactor * INDENT_OFF_Y + zoomFactor * BS_ITEM_SIZE_Y;
 
-  /* Modify the offset to allow for the indents */
   dest.left = xValue;
   dest.top = yValue;
   switch (value) {
   case BsTrees:
-    dest.left += (zoomFactor * BS_TREE_OFFSET_X);
-    dest.top += (zoomFactor * BS_TREE_OFFSET_Y);
-    break;
+	dest.left += (zoomFactor * BS_TREE_OFFSET_X);
+	dest.top += (zoomFactor * BS_TREE_OFFSET_Y);
+	break;
   case BsRoad:
-    dest.left += (zoomFactor * BS_ROAD_OFFSET_X);
-    dest.top += (zoomFactor * BS_ROAD_OFFSET_Y);
-    break;
+	dest.left += (zoomFactor * BS_ROAD_OFFSET_X);
+	dest.top += (zoomFactor * BS_ROAD_OFFSET_Y);
+	break;
   case BsBuilding:
-    dest.left += (zoomFactor * BS_BUILDING_OFFSET_X);
-    dest.top += (zoomFactor * BS_BUILDING_OFFSET_Y);
-    break;
+	dest.left += (zoomFactor * BS_BUILDING_OFFSET_X);
+	dest.top += (zoomFactor * BS_BUILDING_OFFSET_Y);
+	break;
   case BsPillbox:
-    dest.left += (zoomFactor * BS_PILLBOX_OFFSET_X);
-    dest.top+= (zoomFactor * BS_PILLBOX_OFFSET_Y);
-    break;
+	dest.left += (zoomFactor * BS_PILLBOX_OFFSET_X);
+	dest.top+= (zoomFactor * BS_PILLBOX_OFFSET_Y);
+	break;
   default: 
    /* BsMine:*/
-    dest.left += (zoomFactor * BS_MINE_OFFSET_X);
-    dest.top += (zoomFactor * BS_MINE_OFFSET_Y);
-    break;
+	dest.left += (zoomFactor * BS_MINE_OFFSET_X);
+	dest.top += (zoomFactor * BS_MINE_OFFSET_Y);
+	break;
   }
   dest.right = dest.left + (zoomFactor * BS_ITEM_SIZE_X);
   dest.bottom = dest.top + (zoomFactor * BS_ITEM_SIZE_Y);
   
-  /* Perform the drawing */
-  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , lpDDSTiles ,&src, DDBLT_WAIT | DDBLT_KEYSRC, NULL);
-
+  src.top = zoomFactor * 48;
+  src.left = zoomFactor * 374;
+  src.right = src.left + (zoomFactor * BS_ITEM_SIZE_X);
+  src.bottom = src.top + (zoomFactor * BS_ITEM_SIZE_Y);
+  lpDDSPrimary->lpVtbl->Blt(lpDDSLGMButtons, NULL, lpDDSTiles, &src, DDBLT_WAIT | DDBLT_KEYSRC, NULL);
+  
+  src.top = 0;
+  src.left = 0;
+  src.right = 128;
+  src.bottom = 128;
+  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, lpDDSLGMButtons, NULL, DDBLT_WAIT, NULL);
+  
+  /* Draw the dot */
   /* Set the co-ords of the tile file to get */
   src.left = zoomFactor * INDENT_DOT_OFF_X;
   src.top = zoomFactor * INDENT_DOT_OFF_Y;
   src.right = zoomFactor * INDENT_DOT_OFF_X + zoomFactor * BS_DOT_ITEM_SIZE_X;
   src.bottom = zoomFactor * INDENT_DOT_OFF_Y + zoomFactor * BS_DOT_ITEM_SIZE_Y;
 
-  /* Draw the dot */
   /* Modify the offset to allow for the indents */
   dest.left = xValue;
   dest.top = yValue;
@@ -1287,7 +1409,8 @@ void drawSelectIndentsOff(buildSelect value, int xValue, int yValue) {
   dest.bottom = dest.top + (zoomFactor * BS_DOT_ITEM_SIZE_Y);
   
   /* Perform the drawing */
-  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , lpDDSTiles ,&src, DDBLT_WAIT, NULL);
+  lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , lpDDSTiles ,&src, DDBLT_WAIT, NULL); 
+
   drawBuildSelectRefresh(value);
 }
 
@@ -2612,7 +2735,7 @@ void drawKillsDeaths(int xValue, int yValue, int kills, int deaths) {
     dest.bottom = dest.top + textRect.bottom;
     dest.left = xValue + (zf * STATUS_KILLS_LEFT);
     dest.right = dest.left + textRect.right;
-    lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, lpDDSTankLabels, &textRect, DDBLT_WAIT | DDBLT_KEYSRC, NULL);
+    lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, lpDDSTankLabels, &textRect, DDBLT_WAIT , NULL);
   }
 
   res = lpDDSTankLabels->lpVtbl->GetDC(lpDDSTankLabels, &hDC);
@@ -2634,7 +2757,7 @@ void drawKillsDeaths(int xValue, int yValue, int kills, int deaths) {
     dest.left = xValue + (zf * STATUS_DEATHS_LEFT);
     dest.right = dest.left + textRect.right;
 
-    lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, lpDDSTankLabels, &textRect, DDBLT_WAIT | DDBLT_KEYSRC, NULL);
+    lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, lpDDSTankLabels, &textRect, DDBLT_WAIT, NULL);
   }
 }
 
