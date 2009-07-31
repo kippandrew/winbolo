@@ -269,10 +269,8 @@ void processKeys() {
 				sprintf(playerKick, "%.*s", 32, keyBuff+5);
 				newbuflen = strlen(playerKick);
 				playerKick[newbuflen - 1] = '\0';
-				sprintf(tempBuffer, "name: [%s], len: %d\n\n", playerKick, strlen(playerKick));
 				for(i=0;i<=15;i++){
 					playersGetPlayerName(screenGetPlayers(), i, name);
-					sprintf(tempBuffer, "name: [%s], len: %d\n", name, strlen(name));
 					if(strcmp(playerKick, name) == 0){
 						sprintf(kickMsg, "%s has been server kicked.", playerKick);
 						serverNetSendServerMessageAllPlayers(kickMsg);
@@ -736,13 +734,18 @@ int main(int argc, char **argv) {
   }
 #endif
   if (strcmp(mapName, "-inbuilt") == 0) {
+
+
     /* Use the inbuilt map */
 #ifdef _WIN32
     HGLOBAL hGlobal;  /* Resource handle */
     BYTE *buff;       /* Byte buffer     */
     HRSRC res;        /* FindResource return */
 
-    res = FindResource(NULL, MAKEINTRESOURCE(IDR_EVERARD), "MAPS");
+	char tempPath[MAX_PATH]; /* Temp Path for writing out map from resource to read back in */
+
+/*
+ res = FindResource(NULL, MAKEINTRESOURCE(IDR_EVERARD), "MAPS");
     if (res != NULL) {
       hGlobal = LoadResource(NULL, res);
       if (hGlobal != NULL) {
@@ -752,6 +755,14 @@ int main(int argc, char **argv) {
         }
       }
     }
+
+*/
+	GetModuleFileName(NULL, sizeof(tempPath) - 1, tempPath);
+	fprintf(stderr, "\npath");
+	fprintf(stderr, tempPath);
+	fprintf(stderr, "\n");
+	serverCoreCreate("/maps/chew toy 3.map", game, hiddenMines, srtDelay, gmeLen);
+
 #else
   BYTE emap[6000] = E_MAP;
   serverCoreCreateCompressed(emap, 5097, "Everard Island", game, hiddenMines, srtDelay, gmeLen);
