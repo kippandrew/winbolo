@@ -271,7 +271,7 @@ void processKeys() {
 				playerKick[newbuflen - 1] = '\0';
 				for(i=0;i<=15;i++){
 					playersGetPlayerName(screenGetPlayers(), i, name);
-					if(strcasecmp(playerKick, name, strlen(name)) == 0){
+					if(strcasecmp(playerKick, name) == 0){
 						sprintf(kickMsg, "%s has been server kicked.", playerKick);
 						serverNetSendServerMessageAllPlayers(kickMsg);
 						serverNetPlayerLeave(i, TRUE);
