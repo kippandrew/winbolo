@@ -134,7 +134,6 @@ void lgmUpdate(lgm *lgman, map *mp, pillboxes *pb, bases *bs, tank *tnk) {
 	BYTE my= 0;
 	WORLD wx;
 	WORLD wy;
-	char test[2048];
 	WORLD t;
 
 	/* Single player or server instance */

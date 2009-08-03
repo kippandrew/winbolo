@@ -2165,8 +2165,6 @@ bool playersCheckSameSquare(players *plrs, BYTE playerNum, BYTE xValue, BYTE yVa
   WORLD conv;   /* Used for conversions */
   WORLD mx;     /* Tank map offsets */
   WORLD my;
-  WORLD testX;
-  WORLD testY;
 
   count = 0;
   returnValue = FALSE;
@@ -2182,8 +2180,7 @@ bool playersCheckSameSquare(players *plrs, BYTE playerNum, BYTE xValue, BYTE yVa
       conv <<= TANK_SHIFT_MAPSIZE;
       my = conv;
 
-	  if(xValue == mx && yValue == my)
-	  {
+	  if(xValue == mx && yValue == my) {
 		  returnValue = TRUE;
 	  }
     }

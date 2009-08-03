@@ -359,10 +359,10 @@ void messageAddItem(char *top, char *bottom) {
   message q;     /* temp Pointer */
   message prev;  /* temp pointer */
   message add;   /* Item to add */
-  unsigned int lenTop;    /* Lengths of the item */
-  unsigned int lenBottom; /* Length of the bottom string */
-  unsigned int count;     /* Looping variable */
-  unsigned int longest;   /* Longest item */
+  int lenTop;    /* Lengths of the item */
+  int lenBottom; /* Length of the bottom string */
+  int count;     /* Looping variable */
+  int longest;   /* Longest item */
   bool newQ;     /* Denotes a new queue */
 
   /* Get the location to add it to */

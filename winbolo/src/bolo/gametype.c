@@ -103,7 +103,7 @@ void gameTypeGetItems(gameType *gmeType, BYTE *shellsAmount, BYTE *mines, BYTE *
     if (numBases == 0) {
       numBases = 1;
     }
-    percent = screenGetNumNeutralBases();
+    percent = (double) screenGetNumNeutralBases();
     percent /= numBases;
     percent *= BASE_MAX_DOUBLE;
     *shellsAmount = (BYTE) (TWO * percent);
