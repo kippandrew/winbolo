@@ -1629,3 +1629,110 @@ void serverNetGetUs(BYTE *buff, unsigned short *port) {
   current = strtok(NULL, ".");
   buff[3] = (BYTE) atoi(current);
 }
+
+
+
+/*********************************************************
+*NAME:          serverNetGetLockStatus
+*AUTHOR:        jhood
+*CREATION DATE: 3/08/09
+*LAST MODIFIED: 3/08/09
+*PURPOSE:
+* Returns list of unlocked players. A bit hacked together.
+* TODO: grab winbolos install path
+*
+*ARGUMENTS:
+* value - netPlayers structure
+*********************************************************/
+void serverNetGetLockStatus(netPlayers *value, bool statusFile){
+	int i;
+	char name[33];
+	char temp[564];
+	char output[565];
+	char fileName[2048];
+	bool needOutput;
+	FILE *fStream;
+	INFO_PACKET p;
+
+	needOutput = FALSE;
+
+    serverTransportGetUs(&p.gameid.serveraddress, &p.gameid.serverport);
+	strcpy(temp, "");
+
+	for(i=0;i<=15;i++){
+		if(playersIsInUse(screenGetPlayers(), i) == TRUE){
+			if(!(*value).locked[i]){
+				playersGetPlayerName(screenGetPlayers(), i, name);
+				strcat(temp, name);
+				strcat(temp, ", ");
+				needOutput = TRUE;
+			}
+		}
+	}
+	
+	if(needOutput){
+		strncpy(output, temp, strlen(temp) - 2);
+		output[strlen(temp) - 2]='\0';
+		if(statusFile == TRUE){
+
+#ifdef _WIN32 
+	sprintf(fileName, "c:/winbolo/%d.txt", p.gameid.serverport);
+#else
+	sprintf(fileName, "%d.txt", p.gameid.serverport);
+#endif
+
+	printf(stderr, fileName);
+	printf(stderr, "\n");
+
+			fStream = fopen(fileName, "w");
+			fputs(output, fStream);
+			fclose(fStream);
+		}
+		fprintf(stderr, output);
+		fprintf(stderr, "\n");
+	}
+	
+}
+
+/*********************************************************
+*NAME:          serverNetReturnLockStatus
+*AUTHOR:        jhood
+*CREATION DATE: 3/08/09
+*LAST MODIFIED: 3/08/09
+*PURPOSE:
+* Calls serverNetGetLockStatus() with netPlayers structure.
+*
+*ARGUMENTS:
+* none
+*********************************************************/
+void serverNetReturnLockStatus(bool statusFile){
+	serverNetGetLockStatus(&np, statusFile);
+}
+
+
+/*********************************************************
+*NAME:          serverNetKickPlayer
+*AUTHOR:        jhood
+*CREATION DATE: 3/08/09
+*LAST MODIFIED: 3/08/09
+*PURPOSE:
+* Kicks a single player out of the game.
+*
+*ARGUMENTS:
+* none
+*********************************************************/
+void serverNetKickPlayer(char *player){
+	int i;
+	char kickMsg[128] = "\0";
+	char name[32] = "\0";
+	char playerKick[33] = "\0";
+
+	for(i=0;i<=15;i++){
+		playersGetPlayerName(screenGetPlayers(), i, name);
+		if(strcmp(player, name) == 0){
+			sprintf(kickMsg, "%s has been server kicked.", player);
+			serverNetSendServerMessageAllPlayers(kickMsg);
+			serverNetPlayerLeave(i, TRUE);
+		}
+	}
+}

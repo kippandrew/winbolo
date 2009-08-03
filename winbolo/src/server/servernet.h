@@ -990,6 +990,32 @@ void serverNetGetUs(BYTE *buff, unsigned short *port);
 *********************************************************/
 void serverNetSendManReturnMessge(BYTE playerNum, BYTE numTrees, BYTE numMines, BYTE pillNum);
 
+/*********************************************************
+*NAME:          serverNetReturnLockStatus
+*AUTHOR:        jhood
+*CREATION DATE: 3/08/09
+*LAST MODIFIED: 3/08/09
+*PURPOSE:
+* Calls serverNetGetLockStatus() with netPlayers structure.
+*
+*ARGUMENTS:
+* none
+*********************************************************/
+void serverNetReturnLockStatus(bool statusFile);
+
+/*********************************************************
+*NAME:          serverNetKickPlayer
+*AUTHOR:        jhood
+*CREATION DATE: 3/08/09
+*LAST MODIFIED: 3/08/09
+*PURPOSE:
+* Kicks a single player out of the game.
+*
+*ARGUMENTS:
+* none
+*********************************************************/
+void serverNetKickPlayer(char *player);
+
 #pragma pack(pop)
 
 #endif /* _NETSERVER_H */

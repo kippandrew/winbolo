@@ -65,6 +65,8 @@ char fileName[MAX_PATH]; /* Log file Name */
 bool isLogging = FALSE;
 bool dontSendLog = FALSE;
 
+bool statusFile = FALSE;
+
 time_t ticks = 0;
 
 /* Game Tick */
@@ -151,7 +153,7 @@ void saveMap(char *line) {
 bool serverCoreRunning();
 
 void printHelp() {
-  fprintf(stderr, "Help:\n Lock - Locks the server and stops new players from joining.\n Unlock - Unlocks the server and allows new players to join.\n savemap <map file> - Save the map file to path and file <map file>\n Say <text> - Sends this message to all players in the game unless they have turned off server messages.\n Quit - Exits the server.\n Info - Provide information about the current game\n");
+  fprintf(stderr, "Help:\n Lock - Locks the server and stops new players from joining.\n Unlock - Unlocks the server and allows new players to join.\n savemap <map file> - Save the map file to path and file <map file>\n Say <text> - Sends this message to all players in the game unless they have turned off server messages.\n Quit - Exits the server.\n Info - Provide information about the current game\n Kick - Kicks a player. Case insensitive, prefix a * for WBN players.\n Status - Returns list of players who aren't locked.");
 }
 
 
@@ -189,18 +191,13 @@ void processKeys(bool isQuiet) {
 				saveMap(saveBuff);
 			} else if (strncmp(keyBuff, "say ", 4) == 0) {
 				serverNetSendServerMessageAllPlayers((char *) keyBuff+4);
+			} else if(strncmp(keyBuff, "status", 6) == 0){
+				serverNetReturnLockStatus(statusFile);
 			} else if (strncmp(keyBuff, "kick ", 5) == 0) {
 				sprintf(playerKick, "%.*s", 32, keyBuff+5);
 				newbuflen = strlen(playerKick);
 				playerKick[newbuflen - 1] = '\0';
-				for(i=0;i<=15;i++){
-					playersGetPlayerName(screenGetPlayers(), i, name);
-					if(stricmp(playerKick, name) == 0){
-						sprintf(kickMsg, "%s has been server kicked.", playerKick);
-						serverNetSendServerMessageAllPlayers(kickMsg);
-						serverNetPlayerLeave(i, TRUE);
-					}
-				}
+				serverNetKickPlayer(playerKick);
 			} else if (strncmp(keyBuff, "\n", 1) != 0 && strncmp(keyBuff, "\0", 1) != 0) {
 				fprintf(stderr, "Unknown command - Type \"help\" for help\n");
 			}
@@ -222,10 +219,7 @@ void processKeys() {
   struct timeval timer; /*select timer */
   int ret;
 
-	char kickMsg[128] = "\0";
-	char name[32] = "\0";
 	char playerKick[33] = "\0";
-	char tempBuffer[128] = "\0";
 
 	int i=0;
 	size_t newbuflen;
@@ -247,7 +241,6 @@ void processKeys() {
       alarmRaised = alarmNone;
     }
 
-
     sleep(1);
     }
   } else {
@@ -265,18 +258,13 @@ void processKeys() {
         saveMap(saveBuff);
       } else if (strncmp(keyBuff, "say ", 4) == 0) {
         serverNetSendServerMessageAllPlayers((char *) keyBuff+4);
-      } else if (strncmp(keyBuff, "kick ", 5) == 0) {
+      } else if(strncmp(keyBuff, "status", 6) == 0){
+		  serverNetReturnLockStatus(statusFile);
+	  } else if (strncmp(keyBuff, "kick ", 5) == 0) {
 				sprintf(playerKick, "%.*s", 32, keyBuff+5);
 				newbuflen = strlen(playerKick);
 				playerKick[newbuflen - 1] = '\0';
-				for(i=0;i<=15;i++){
-					playersGetPlayerName(screenGetPlayers(), i, name);
-					if(strcasecmp(playerKick, name) == 0){
-						sprintf(kickMsg, "%s has been server kicked.", playerKick);
-						serverNetSendServerMessageAllPlayers(kickMsg);
-						serverNetPlayerLeave(i, TRUE);
-					}
-				}
+				serverNetKickPlayer(playerKick);
 	  } else if (strncmp(keyBuff, "\n", 1) != 0 && strncmp(keyBuff, "\0", 1) != 0) {
         fprintf(stderr, "Unknown command - Type \"help\" for help\n");
       }
@@ -447,6 +435,7 @@ void printArgs() {
   fprintf(stderr, "                server.\n");
   fprintf(stderr, "-log          - Create game log file (filename optional)\n");
   fprintf(stderr, "-dontsendlog  - Don't upload game log to winbolo.net\n");
+  fprintf(stderr, "-statusFile	 - Save list of unlocked players to a file.\n");
 }
 
 
@@ -578,7 +567,7 @@ bool processArgs(int numArgs, char **argv, char *mapName, unsigned short *port, 
   }
 
   /* Option Arguments */
-  
+
   /* Tracker */
   *trackerUse = FALSE;
   argNum = findArg(numArgs, argv, "tracker");
@@ -744,7 +733,7 @@ int main(int argc, char **argv) {
 
 	char tempPath[MAX_PATH]; /* Temp Path for writing out map from resource to read back in */
 
-/*
+
  res = FindResource(NULL, MAKEINTRESOURCE(IDR_EVERARD), "MAPS");
     if (res != NULL) {
       hGlobal = LoadResource(NULL, res);
@@ -756,12 +745,7 @@ int main(int argc, char **argv) {
       }
     }
 
-*/
-	GetModuleFileName(NULL, sizeof(tempPath) - 1, tempPath);
-	fprintf(stderr, "\npath");
-	fprintf(stderr, tempPath);
-	fprintf(stderr, "\n");
-	serverCoreCreate("/maps/chew toy 3.map", game, hiddenMines, srtDelay, gmeLen);
+
 
 #else
   BYTE emap[6000] = E_MAP;
@@ -784,6 +768,7 @@ int main(int argc, char **argv) {
 	httpSetAltIpAddress(useAddr);
   }
 
+  statusFile = argExist(argc, argv, "statusFile");
   quitOnWinFlag = argExist(argc,argv, "quitonwin");
   autoClose = argExist(argc, argv, "autoclose");
   printGameWinners = argExist(argc, argv, "printwinners");
