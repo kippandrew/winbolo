@@ -1646,7 +1646,7 @@ void serverNetGetUs(BYTE *buff, unsigned short *port) {
 *********************************************************/
 void serverNetGetLockStatus(netPlayers *value, bool statusFile){
 	int i;
-	char name[33];
+	char name[PLAYER_NAME_LEN];
 	char temp[564];
 	char output[565];
 	char fileName[2048];
@@ -1659,7 +1659,7 @@ void serverNetGetLockStatus(netPlayers *value, bool statusFile){
     serverTransportGetUs(&p.gameid.serveraddress, &p.gameid.serverport);
 	strcpy(temp, "");
 
-	for(i=0;i<=15;i++){
+	for(i=0;i < MAX_PLAYERS;i++){
 		if(playersIsInUse(screenGetPlayers(), i) == TRUE){
 			if(!(*value).locked[i]){
 				playersGetPlayerName(screenGetPlayers(), i, name);
@@ -1724,10 +1724,10 @@ void serverNetReturnLockStatus(bool statusFile){
 void serverNetKickPlayer(char *player){
 	int i;
 	char kickMsg[128] = "\0";
-	char name[32] = "\0";
-	char playerKick[33] = "\0";
+	char name[PLAYER_NAME_LEN] = "\0";
+	char playerKick[PLAYER_NAME_LEN] = "\0";
 
-	for(i=0;i<=15;i++){
+	for(i=0;i < MAX_PLAYERS;i++){
 		playersGetPlayerName(screenGetPlayers(), i, name);
 		if(strcmp(player, name) == 0){
 			sprintf(kickMsg, "%s has been server kicked.", player);
