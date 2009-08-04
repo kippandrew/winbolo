@@ -1659,7 +1659,7 @@ void serverNetGetLockStatus(netPlayers *value, bool statusFile){
     serverTransportGetUs(&p.gameid.serveraddress, &p.gameid.serverport);
 	strcpy(temp, "");
 
-	for(i=0;i < MAX_PLAYERS;i++){
+	for(i=0;i < MAX_TANKS;i++){
 		if(playersIsInUse(screenGetPlayers(), i) == TRUE){
 			if(!(*value).locked[i]){
 				playersGetPlayerName(screenGetPlayers(), i, name);
@@ -1727,7 +1727,7 @@ void serverNetKickPlayer(char *player){
 	char name[PLAYER_NAME_LEN] = "\0";
 	char playerKick[PLAYER_NAME_LEN] = "\0";
 
-	for(i=0;i < MAX_PLAYERS;i++){
+	for(i=0;i < MAX_TANKS;i++){
 		playersGetPlayerName(screenGetPlayers(), i, name);
 		if(strcmp(player, name) == 0){
 			sprintf(kickMsg, "%s has been server kicked.", player);
