@@ -777,7 +777,7 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
     /* randomstring doesn't match so, disconnect them*/
 	/* Name in use  - Just send back a incorrect packet */
 	serverNetMakePacketHeader(&(rsap.h), BOLOPACKET_RSAFAIL);
-	printf("RSA Authorization Failed\r\n");
+	screenServerConsoleMessage("RSA Authorization Failed\n");
 	/* Send reply */
     memcpy(info, &rsap, sizeof(rsap));
     serverTransportSendUDPLast(info, sizeof(rsap), TRUE);
@@ -1674,22 +1674,15 @@ void serverNetGetLockStatus(netPlayers *value, bool statusFile){
 		strncpy(output, temp, strlen(temp) - 2);
 		output[strlen(temp) - 2]='\0';
 		if(statusFile == TRUE){
-
-#ifdef _WIN32 
-	sprintf(fileName, "c:/winbolo/%d.txt", p.gameid.serverport);
-#else
-	sprintf(fileName, "%d.txt", p.gameid.serverport);
-#endif
-
-	printf(stderr, fileName);
-	printf(stderr, "\n");
-
+			sprintf(fileName, "%d.txt", p.gameid.serverport);
 			fStream = fopen(fileName, "w");
-			fputs(output, fStream);
-			fclose(fStream);
+			if (fStream) {
+				fputs(output, fStream);
+				fclose(fStream);
+			}
 		}
-		fprintf(stderr, output);
-		fprintf(stderr, "\n");
+		screenServerConsoleMessage(output);
+		screenServerConsoleMessage("\n");
 	}
 	
 }
