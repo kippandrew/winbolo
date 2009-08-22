@@ -1702,6 +1702,8 @@ void serverNetReturnLockStatus(bool statusFile){
 	serverNetGetLockStatus(&np, statusFile);
 }
 
+/* FIXME: Prototype */
+void strlower(char *str);
 
 /*********************************************************
 *NAME:          serverNetKickPlayer
@@ -1722,7 +1724,9 @@ void serverNetKickPlayer(char *player){
 
 	for(i=0;i < MAX_TANKS;i++){
 		playersGetPlayerName(screenGetPlayers(), i, name);
+		strlower(name);
 		if(strcmp(player, name) == 0){
+			playersGetPlayerName(screenGetPlayers(), i, name); /* Reget so it has correct case */
 			sprintf(kickMsg, "%s has been server kicked.", player);
 			serverNetSendServerMessageAllPlayers(kickMsg);
 			serverNetPlayerLeave(i, TRUE);
