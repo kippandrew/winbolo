@@ -280,8 +280,8 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
     primDesc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH | DDSD_CKSRCBLT;
     primDesc.ddckCKSrcBlt.dwColorSpaceLowValue = ddpf.dwGBitMask;
     primDesc.ddckCKSrcBlt.dwColorSpaceHighValue = ddpf.dwGBitMask;
-    primDesc.dwWidth = SCREEN_SIZE_X;
-    primDesc.dwHeight = SCREEN_SIZE_Y;
+    primDesc.dwWidth = zoomFactor * SCREEN_SIZE_X;
+    primDesc.dwHeight = zoomFactor * SCREEN_SIZE_Y;
     primDesc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
     res = lpDD->lpVtbl->CreateSurface(lpDD, &primDesc, &lpDDSBackground, NULL);
     if (FAILED(res)) {
@@ -325,7 +325,14 @@ bool drawSetup(HINSTANCE appInst, HWND appWnd) {
         if (res != DD_OK) {
           MessageBoxA(NULL, langGetText(STR_DRAWERROR_GETDCFAILED), DIALOG_BOX_TITLE, MB_ICONEXCLAMATION);
         }
-		BitBlt(hDDSBackgroundDC, 0, 0, SCREEN_SIZE_X, SCREEN_SIZE_Y, hBackgroundDC, 0, 0, SRCCOPY);
+        if (zoomFactor > 1) {
+          StretchBlt(hDDSBackgroundDC, 0, 0, zoomFactor * SCREEN_SIZE_X, zoomFactor * SCREEN_SIZE_Y, hBackgroundDC, 0, 0, SCREEN_SIZE_X, SCREEN_SIZE_Y, SRCCOPY);
+        } else {
+          BitBlt(hDDSBackgroundDC, 0, 0, zoomFactor * SCREEN_SIZE_X, zoomFactor * SCREEN_SIZE_Y, hBackgroundDC, 0, 0, SRCCOPY);
+        }
+
+
+
         res = lpDDSBackground->lpVtbl->ReleaseDC(lpDDSBackground, hDDSBackgroundDC);
         DeleteDC(hBackgroundDC);
         DeleteObject(hBackground);
