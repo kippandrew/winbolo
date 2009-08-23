@@ -60,6 +60,8 @@
 #define BS_DOT_MINE_OFFSET_X BS_DOT_TREE_OFFSET_X
 #define BS_DOT_MINE_OFFSET_Y 235
 
+#define BS_ITEM_START 4 /* used to place lgm items on primary surface */
+
 /* The status items on the right of the main view */
 
 /* Size of the tanks, base and pills windows */

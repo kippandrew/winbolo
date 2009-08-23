@@ -1110,20 +1110,13 @@ bool drawBackground(HINSTANCE appInst, HWND appWnd, int xValue, int yValue) {
 *ARGUMENTS:
 *  value - The build select item to redraw
 *********************************************************/
-void drawBuildSelectRefresh(buildSelect value) { 
-  HBITMAP hBg = NULL; /* The background bitmap resource */
-  HDC hBgDC = NULL;   /* The background resource DC */
-  HDC hDC = NULL;     /* Temp DC of the window */
+void drawBuildSelectRefresh(buildSelect value, int xValue, int yValue) { 
   BYTE zoomFactor;    /* Scaling Factor */
-  char fileName[MAX_PATH]; /* Filename to load */
-  HWND hWnd;          /* Main window handle */
   int top;            /* Top build select y co-ord to copy from */
+  RECT dest, src;
 
-  hWnd = windowWnd();
-  hBg = NULL;
   zoomFactor = windowGetZoomFactor();
   
-
   switch (value) {
     case BsTrees:
       top = DRAW_BUILDSELECT_TREES_Y;
@@ -1142,35 +1135,18 @@ void drawBuildSelectRefresh(buildSelect value) {
       top = DRAW_BUILDING_MINE_Y;
       break;
   }
+  
+  dest.left = BS_ITEM_START * zoomFactor;
+  dest.top = BS_ITEM_START * zoomFactor;
+  dest.right = dest.left + (zoomFactor * DRAW_BUILDSELECT_WIDTH) + (zoomFactor);
+  dest.bottom = dest.top + (zoomFactor * DRAW_BUILDSELECT_HEIGHT) + (zoomFactor);
+  
+  src.left = DRAW_BUILDSELECT_X * zoomFactor;
+  src.top = top * zoomFactor;
+  src.right = src.left + (DRAW_BUILDSELECT_WIDTH * zoomFactor) + (zoomFactor);
+  src.bottom = src.top + (DRAW_BUILDSELECT_HEIGHT * zoomFactor) + (zoomFactor);
 
-  if (skinsIsLoaded() == TRUE) {
-    skinsGetSkinDirectory(fileName);
-    if (fileName[strlen(fileName)-1] != '\\') {
-      strcat(fileName, "\\");
-    }
-    strcat(fileName, DRAW_SKINS_BGFILE);
-    hBg = (HBITMAP) LoadImage(NULL, fileName, IMAGE_BITMAP, SCREEN_SIZE_X , SCREEN_SIZE_Y, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-  } 
-
-  if (hBg == NULL) {
-    hBg = (HBITMAP) LoadImage(windowGetInstance(), MAKEINTRESOURCE(IDB_BACKGROUND), IMAGE_BITMAP, SCREEN_SIZE_X , SCREEN_SIZE_Y, LR_CREATEDIBSECTION);
-  }
-
-  if (hBg != NULL) {
-    hBgDC = CreateCompatibleDC(NULL);
-    SelectObject(hBgDC, hBg);
-    hDC = GetDC(hWnd);
-    if (hDC != NULL) {
-      if (zoomFactor == ZOOM_FACTOR_NORMAL) {
-        BitBlt(hDC, DRAW_BUILDSELECT_X, top, DRAW_BUILDSELECT_WIDTH, DRAW_BUILDSELECT_HEIGHT, hBgDC, DRAW_BUILDSELECT_X, top, SRCCOPY);
-      } else {
-        StretchBlt(hDC, DRAW_BUILDSELECT_X * zoomFactor, top * zoomFactor, zoomFactor * DRAW_BUILDSELECT_WIDTH, (zoomFactor * DRAW_BUILDSELECT_HEIGHT), hBgDC, DRAW_BUILDSELECT_X, top, DRAW_BUILDSELECT_WIDTH, DRAW_BUILDSELECT_HEIGHT, SRCCOPY);
-	  }
-      DeleteDC(hBgDC);
-      DeleteObject(hBg);
-      ReleaseDC(hWnd, hDC);
-    }
-  }
+  lpDDSLGMButtons->lpVtbl->Blt(lpDDSLGMButtons, &dest, lpDDSBackground, &src, DDBLT_WAIT, NULL);
 }
 
 /*********************************************************
@@ -1189,10 +1165,8 @@ void drawBuildSelectRefresh(buildSelect value) {
 *  yValue  - The top position of the window
 *********************************************************/
 void drawSelectIndentsOn(buildSelect value, int xValue, int yValue) {
-	
   RECT src;        /* The src square on the tile file to retrieve */
   RECT dest;       /* The dest square to draw it */
-  RECT dest2;
   BYTE zoomFactor; /* Scaling factor */
   int top;
 
@@ -1232,9 +1206,7 @@ void drawSelectIndentsOn(buildSelect value, int xValue, int yValue) {
   }
   dest.right = dest.left + (zoomFactor * BS_ITEM_SIZE_X);
   dest.bottom = dest.top + (zoomFactor * BS_ITEM_SIZE_Y);
-  
-
-
+ 
 
 /* draw lgm button */
   switch (value) {
@@ -1264,6 +1236,7 @@ void drawSelectIndentsOn(buildSelect value, int xValue, int yValue) {
   lpDDSLGMButtons->lpVtbl->Blt(lpDDSLGMButtons, NULL, lpDDSTiles, &src, DDBLT_WAIT | DDBLT_KEYSRC, NULL);
 
 	/* draw back buffer onto primary buffer */
+  drawBuildSelectRefresh(value, xValue, yValue);
   lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, lpDDSLGMButtons, NULL, DDBLT_WAIT, NULL);
  
   
@@ -1306,8 +1279,6 @@ void drawSelectIndentsOn(buildSelect value, int xValue, int yValue) {
   
   /* Perform the drawing */
   lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , lpDDSTiles ,&src, DDBLT_WAIT, NULL);
-
-  drawBuildSelectRefresh(value);
 }
 
 /*********************************************************
@@ -1372,12 +1343,9 @@ void drawSelectIndentsOff(buildSelect value, int xValue, int yValue) {
   src.bottom = src.top + (zoomFactor * BS_ITEM_SIZE_Y);
   lpDDSPrimary->lpVtbl->Blt(lpDDSLGMButtons, NULL, lpDDSTiles, &src, DDBLT_WAIT | DDBLT_KEYSRC, NULL);
   
-  src.top = 0;
-  src.left = 0;
-  src.right = 128;
-  src.bottom = 128;
   lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest, lpDDSLGMButtons, NULL, DDBLT_WAIT, NULL);
   
+
   /* Draw the dot */
   /* Set the co-ords of the tile file to get */
   src.left = zoomFactor * INDENT_DOT_OFF_X;
@@ -1417,8 +1385,6 @@ void drawSelectIndentsOff(buildSelect value, int xValue, int yValue) {
   
   /* Perform the drawing */
   lpDDSPrimary->lpVtbl->Blt(lpDDSPrimary, &dest , lpDDSTiles ,&src, DDBLT_WAIT, NULL); 
-
-  drawBuildSelectRefresh(value);
 }
 
 /*********************************************************
