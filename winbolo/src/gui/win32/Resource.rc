@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -26,7 +26,7 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 // MAPS
 //
 
-IDR_EVERARD MAPS MOVEABLE PURE 
+IDR_EVERARD MAPS 
 BEGIN
     0x4d42, 0x5041, 0x4f42, 0x4f4c, 0x1001, 0x100b, 0x915b, 0x0fff, 0x6365, 
     0xff6e, 0x650f, 0x745f, 0x0fff, 0x5465, 0xff75, 0x650f, 0x6c70, 0x0fff, 
@@ -139,7 +139,7 @@ BEGIN
     0xf1f1, 0xf1f1, 0x91f1, 0xff04, 0xffff
 END
 
-IDR_TUTORIAL MAPS MOVEABLE PURE 
+IDR_TUTORIAL MAPS 
 BEGIN
     0x4d42, 0x5041, 0x4f42, 0x4f4c, 0x0c01, 0x0105, 0xa474, 0x0fff, 0x8465, 
     0xff96, 0x650f, 0x957c, 0x0fff, 0x8465, 0xff94, 0x650f, 0x8779, 0x0fff, 
@@ -336,7 +336,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // Menu
 //
 
-IDR_MENU1 MENU DISCARDABLE 
+IDR_MENU1 MENU 
 BEGIN
     POPUP "&File"
     BEGIN
@@ -368,16 +368,12 @@ BEGIN
             MENUITEM "Quad",                        ID_WINDOWSIZE_QUAD
         END
         MENUITEM SEPARATOR
-        MENUITEM "&Automatic Scrolling\tCtrl+A", 
-                                                ID_EDITMENU_AUTOMATICSCROLLING
-
+        MENUITEM "&Automatic Scrolling\tCtrl+A", ID_EDITMENU_AUTOMATICSCROLLING
         MENUITEM "Show &Gunsight\tCtrl+G",      ID_EDITMENU_GUNSIGHT
         POPUP "Message Sender Names"
         BEGIN
             MENUITEM "Short",                       ID_EDIT_MESSAGESENDERNAMES_SHORT
-
             MENUITEM "Long",                        ID_EDIT_MESSAGESENDERNAMES_LONG
-
         END
         POPUP "Tank Labels"
         BEGIN
@@ -385,7 +381,6 @@ BEGIN
             MENUITEM "Short\tCtrl+2",               ID_EDIT_TANKLABELS_SHORT
             MENUITEM "Long\tCtrl+3",                ID_EDIT_TANKLABELS_LONG
             MENUITEM "Don't label own tank",        ID_EDIT_TANKLABELS_DONTLABELOWNTANK
-
         END
         MENUITEM "Pillbox Labels\tCtrl+P",      ID_EDITMENU_PILLLABELS
         MENUITEM "Refuelling Base Labels\tCtrl+B", ID_EDITMENU_BASELABELS
@@ -394,10 +389,8 @@ BEGIN
     END
     POPUP "&WinBolo"
     BEGIN
-        MENUITEM "&Allow New Players",          ID_BOLOMENU_ALLOWNEWPLAYERS
-        , CHECKED
-        MENUITEM "Allow Alliance Requests",     ID_BOLOMENU_REQUESTALLIANCE
-        , CHECKED
+        MENUITEM "&Allow New Players",          ID_BOLOMENU_ALLOWNEWPLAYERS, CHECKED
+        MENUITEM "Allow Alliance Requests",     ID_BOLOMENU_REQUESTALLIANCE, CHECKED
         MENUITEM "Set &Keys\tCtrl-K",           ID_BOLOMENU_SETKEYS
         MENUITEM "&Change Player Name",         ID_BOLOMENU_CHANGENAME
         MENUITEM SEPARATOR
@@ -405,20 +398,14 @@ BEGIN
         MENUITEM "Background Sound",            ID_BOLOMENU_BACKGROUNDSOUND
         MENUITEM "&ISA Sound Card",             ID_BOLOMENU_ISASOUNDCARD
         MENUITEM SEPARATOR
-        MENUITEM "Newswire Messages",           ID_BOLOMENU_NEWSWIREMESSAGES
-        , CHECKED
+        MENUITEM "Newswire Messages",           ID_BOLOMENU_NEWSWIREMESSAGES, CHECKED
         MENUITEM "Assistant Messages",          ID_BOLOMENU_ASSISTANTMESSAGES
-
         MENUITEM "AI Brain Messages",           ID_BOLOMENU_AIBRAINMESSAGES
         MENUITEM "Network Status Messages",     ID_BOLOMENU_NETWORKSTATUSMESSAGES
-
         MENUITEM "Network Debug Messages",      ID_BOLOMENU_NETWORKDEBUGMESSAGES
-
         MENUITEM SEPARATOR
-        MENUITEM "&Request Alliance\tCtrl-R",   ID_BOLOMENU_REQUESTALLIENCE
-        , GRAYED
-        MENUITEM "&Leave Alliance",             ID_BOLOMENU_LEAVEALLIENCE
-        , GRAYED
+        MENUITEM "&Request Alliance\tCtrl-R",   ID_BOLOMENU_REQUESTALLIENCE, GRAYED
+        MENUITEM "&Leave Alliance",             ID_BOLOMENU_LEAVEALLIENCE, GRAYED
     END
     POPUP "&Players"
     BEGIN
@@ -428,7 +415,6 @@ BEGIN
         MENUITEM "Select &None",                ID_PLAYERSMENU_SELECTNONE
         MENUITEM "&Select Allies",              ID_PLAYERSMENU_SELECTALLIES
         MENUITEM "Select Nearby &Tanks",        ID_PLAYERSMENU_SELECTNEARBYTANKS
-
         MENUITEM SEPARATOR
         MENUITEM "1",                           ID_PLAYERSMENU_01, GRAYED
         MENUITEM "2",                           ID_PLAYERSMENU_02, GRAYED
@@ -449,8 +435,7 @@ BEGIN
     END
     POPUP "&Brains"
     BEGIN
-        MENUITEM "&Manual",                     ID_BRAINSMENU_MANUAL
-        , CHECKED
+        MENUITEM "&Manual",                     ID_BRAINSMENU_MANUAL, CHECKED
         MENUITEM SEPARATOR
     END
     POPUP "&Help"
@@ -467,18 +452,18 @@ END
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE MOVEABLE PURE 
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE MOVEABLE PURE 
+2 TEXTINCLUDE 
 BEGIN
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE MOVEABLE PURE 
+3 TEXTINCLUDE 
 BEGIN
     "\r\n"
     "\0"
@@ -487,7 +472,6 @@ END
 #endif    // APSTUDIO_INVOKED
 
 
-#ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -510,15 +494,15 @@ BEGIN
     BEGIN
         BLOCK "0c0904b0"
         BEGIN
-            VALUE "Comments", "WinBolo\0"
-            VALUE "CompanyName", "John Morrison\0"
-            VALUE "FileDescription", "WinBolo\0"
-            VALUE "FileVersion", "1.16\0"
-            VALUE "InternalName", "WinBolo\0"
-            VALUE "LegalCopyright", "WinBolo © 1998-2009 John Morrison - Bolo © 1987-1995 Stuart Cheshire\0"
-            VALUE "OriginalFilename", "WinBolo.exe\0"
-            VALUE "ProductName", "WinBolo\0"
-            VALUE "ProductVersion", "1.16\0"
+            VALUE "Comments", "WinBolo"
+            VALUE "CompanyName", "John Morrison"
+            VALUE "FileDescription", "WinBolo"
+            VALUE "FileVersion", "1.16"
+            VALUE "InternalName", "WinBolo"
+            VALUE "LegalCopyright", "WinBolo © 1998-2009 John Morrison - Bolo © 1987-1995 Stuart Cheshire"
+            VALUE "OriginalFilename", "WinBolo.exe"
+            VALUE "ProductName", "WinBolo"
+            VALUE "ProductVersion", "1.16"
         END
     END
     BLOCK "VarFileInfo"
@@ -527,28 +511,26 @@ BEGIN
     END
 END
 
-#endif    // !_MAC
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Bitmap
 //
 
-IDB_BACKGROUND          BITMAP  MOVEABLE PURE   "background.bmp"
-IDB_TILE                BITMAP  MOVEABLE PURE   "tiles.bmp"
-IDB_BTN_INTERNET        BITMAP  MOVEABLE PURE   "button_internet.bmp"
-IDB_BTN_TUTORIAL        BITMAP  MOVEABLE PURE   "button_tutorial.bmp"
-IDB_BTN_LAN             BITMAP  MOVEABLE PURE   "button_lan.bmp"
-IDB_BTN_PRACTICE        BITMAP  MOVEABLE PURE   "button_practice.bmp"
-IDB_BTN_TCP             BITMAP  MOVEABLE PURE   "button_tcp.bmp"
+IDB_BACKGROUND          BITMAP                  "background.bmp"
+IDB_TILE                BITMAP                  "tiles.bmp"
+IDB_BTN_INTERNET        BITMAP                  "button_internet.bmp"
+IDB_BTN_TUTORIAL        BITMAP                  "button_tutorial.bmp"
+IDB_BTN_LAN             BITMAP                  "button_lan.bmp"
+IDB_BTN_PRACTICE        BITMAP                  "button_practice.bmp"
+IDB_BTN_TCP             BITMAP                  "button_tcp.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Cursor
 //
 
-IDC_POINTER             CURSOR  DISCARDABLE     "arrow.cur"
+IDC_POINTER             CURSOR                  "arrow.cur"
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -567,14 +549,14 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_AUS
 // Bitmap
 //
 
-IDB_LOGOSMALL           BITMAP  MOVEABLE PURE   "smalllogo.bmp"
+IDB_LOGOSMALL           BITMAP                  "smalllogo.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Cursor
 //
 
-IDC_BOLOCURSOR          CURSOR  DISCARDABLE     "Cursor.cur"
+IDC_BOLOCURSOR          CURSOR                  "Cursor.cur"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -583,18 +565,18 @@ IDC_BOLOCURSOR          CURSOR  DISCARDABLE     "Cursor.cur"
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_BOLO                ICON    DISCARDABLE     "Bolo.ico"
-IDI_BSOUNDS             ICON    DISCARDABLE     "BoloSounds.ico"
-IDI_BMAP                ICON    DISCARDABLE     "Map.ico"
-IDI_BRAIN               ICON    DISCARDABLE     "Brain.ico"
+IDI_BOLO                ICON                    "Bolo.ico"
+IDI_BSOUNDS             ICON                    "BoloSounds.ico"
+IDI_BMAP                ICON                    "Map.ico"
+IDI_BRAIN               ICON                    "Brain.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Dialog
 //
 
-IDD_SYSTEM_INFO DIALOG DISCARDABLE  0, 0, 225, 109
-STYLE DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
+IDD_SYSTEM_INFO DIALOG  0, 0, 225, 109
+STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
 CAPTION "WinBolo System Information"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -613,8 +595,8 @@ BEGIN
     LTEXT           "",IDC_TOTAL,173,66,34,8
 END
 
-IDD_GAME_INFO DIALOG DISCARDABLE  0, 0, 241, 86
-STYLE DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
+IDD_GAME_INFO DIALOG  0, 0, 241, 86
+STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
 CAPTION "WinBolo Game Info"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -632,47 +614,37 @@ BEGIN
     LTEXT           "",IDC_GAME_TIMELIMIT,130,61,104,14
 END
 
-IDD_GAME_SETUP DIALOG DISCARDABLE  0, 0, 239, 206
-STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_GAME_SETUP DIALOG  0, 0, 239, 206
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Game Setup"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "OK",IDC_OK,64,185,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,125,185,50,14
-    LTEXT           "Please select the options you want for your new game:",
-                    IDC_BLURB,7,7,225,14
+    LTEXT           "Please select the options you want for your new game:",IDC_BLURB,7,7,225,14
     PUSHBUTTON      "Choose Map",IDC_CHOOSE_MAP,13,22,67,13
     LTEXT           "Selected Map: None",IDC_SELECTEDMAP,87,24,128,8
     CONTROL         "Open Game (each new tank comes pre-armed)",IDC_RADIO1,
                     "Button",BS_AUTORADIOBUTTON | WS_TABSTOP,7,49,201,10
-    CONTROL         "Tournament (free ammunition early in the game)",
-                    IDC_RADIO2,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,7,61,
-                    165,10
-    CONTROL         "Strict Tournament (no free ammunition at all)",
-                    IDC_RADIO3,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,7,73,
-                    154,10
-    CONTROL         "Allow Hidden Mines",IDC_HIDDEN_MINES,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,7,91,133,10
-    CONTROL         "Allow Computer Tanks",IDC_ALLOWCOMP1,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,7,103,100,10
-    CONTROL         "and give them an advantage",IDC_ALLOWCOMP2,"Button",
-                    BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,111,102,109,
-                    10
-    CONTROL         "Game Password",IDC_CHECKPASS,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,7,122,103,10
+    CONTROL         "Tournament (free ammunition early in the game)",IDC_RADIO2,
+                    "Button",BS_AUTORADIOBUTTON | WS_TABSTOP,7,61,165,10
+    CONTROL         "Strict Tournament (no free ammunition at all)",IDC_RADIO3,
+                    "Button",BS_AUTORADIOBUTTON | WS_TABSTOP,7,73,154,10
+    CONTROL         "Allow Hidden Mines",IDC_HIDDEN_MINES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,91,133,10
+    CONTROL         "Allow Computer Tanks",IDC_ALLOWCOMP1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,103,100,10
+    CONTROL         "and give them an advantage",IDC_ALLOWCOMP2,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,111,102,109,10
+    CONTROL         "Game Password",IDC_CHECKPASS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,122,103,10
     EDITTEXT        IDC_EDITPASS,115,119,101,15,ES_PASSWORD | WS_DISABLED
-    CONTROL         "Game start delay",IDC_GAMESTART,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,7,142,102,10
+    CONTROL         "Game start delay",IDC_GAMESTART,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,142,102,10
     EDITTEXT        IDC_EDITSTART,115,140,34,12,ES_NUMBER | WS_DISABLED
     LTEXT           "seconds",IDC_SECONDS,164,142,68,8
-    CONTROL         "Game time limit",IDC_CHECKTIME_LIMIT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,7,161,103,13
+    CONTROL         "Game time limit",IDC_CHECKTIME_LIMIT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,161,103,13
     EDITTEXT        IDC_EDITTIMELIMIT,115,161,34,12,ES_NUMBER | WS_DISABLED
     LTEXT           "minutes",IDC_MINUTES,164,163,55,8
 END
 
 IDD_OPENING DIALOGEX 0, 0, 186, 316
-STYLE DS_CENTER | WS_POPUP | WS_CAPTION
+STYLE DS_SETFONT | DS_CENTER | WS_POPUP | WS_CAPTION
 CAPTION "WinBolo Game Selection"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
@@ -688,100 +660,64 @@ BEGIN
     PUSHBUTTON      "Quit",IDCANCEL,32,294,120,14
     CONTROL         143,IDC_STATIC,"Static",SS_BITMAP | SS_SUNKEN,7,7,172,78
     LTEXT           "v1.16",IDC_STATIC,160,300,20,9
-    CONTROL         190,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,219,25,
-                    23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
-    CONTROL         196,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,189,25,
-                    23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
-    CONTROL         198,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,159,25,
-                    23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
-    CONTROL         197,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,129,25,
-                    23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
-    CONTROL         195,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,100,25,
-                    23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
+    CONTROL         190,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,219,25,23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
+    CONTROL         196,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,189,25,23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
+    CONTROL         198,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,159,25,23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
+    CONTROL         197,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,129,25,23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
+    CONTROL         195,IDC_STATIC,"Static",SS_BITMAP | WS_BORDER,32,100,25,23,WS_EX_DLGMODALFRAME | WS_EX_TRANSPARENT
 END
 
-
-
-
-
-
-IDD_KEY_SETUP DIALOG DISCARDABLE 0, 0, 397, 311
-STYLE DS_MODALFRAME | DS_SETFOREGROUND | WS_CAPTION | WS_SYSMENU
+IDD_KEY_SETUP DIALOG  0, 0, 306, 247
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | WS_CAPTION | WS_SYSMENU
 CAPTION "Choose Key Settings"
-LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_AUS
 FONT 8, "MS Sans Serif"
 BEGIN
-   CONTROL "OK", 1, BUTTON, BS_PUSHBUTTON | WS_CHILD | WS_VISIBLE, 305, 270, 85, 14 
-   CONTROL "Cancel", 2, BUTTON, BS_PUSHBUTTON | WS_CHILD | WS_VISIBLE, 305, 290, 85, 14 
-   CONTROL "Click on the option you wish to change then the next key pressed will be assigned to it. The keys ALT, PRINT SCREEN and PAUSE can not be assigned to anything.", 1088, STATIC, SS_LEFT | WS_CHILD | WS_VISIBLE | WS_GROUP, 159, 20, 136, 39 
-   CONTROL "Accelerate", 1031, BUTTON, BS_AUTOCHECKBOX | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 10, 20, 91, 15 
-   CONTROL "Decelerate", 1032, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 10, 40, 91, 15 
-   CONTROL "Anti-clockwise", 1033, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 10, 60, 91, 15 
-   CONTROL "Clockwise", 1034, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 10, 80, 91, 15 
-   CONTROL "Auto slowdown", 1035, BUTTON, BS_AUTOCHECKBOX | BS_VCENTER | WS_CHILD | WS_VISIBLE, 305, 80, 81, 25 
-   CONTROL "Increase Gun-Range", 1036, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 10, 160, 91, 15 
-   CONTROL "Decrease Gun-Range", 1037, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 10, 180, 91, 15 
-   CONTROL "", 1038, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 112, 21, 25, 12 
-   CONTROL "", 1039, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 112, 41, 25, 12 
-   CONTROL "", 1040, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 112, 61, 25, 12 
-   CONTROL "", 1041, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 112, 81, 25, 12 
-   CONTROL "", 1042, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 111, 161, 25, 12 
-   CONTROL "", 1043, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 111, 181, 25, 12 
-   CONTROL "Shoot", 1044, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 10, 120, 91, 15 
-   CONTROL "Lay mine", 1045, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 10, 140, 91, 15 
-   CONTROL "", 1046, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 111, 121, 25, 12 
-   CONTROL "", 1047, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 111, 141, 25, 12 
-   CONTROL "Tank", 1048, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 160, 86, 91, 15 
-   CONTROL "Pillbox", 1049, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 160, 105, 91, 15 
-   CONTROL "", 1050, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 260, 86, 25, 12 
-   CONTROL "", 1051, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 260, 106, 25, 12 
-   CONTROL "Up", 1052, BUTTON, BS_AUTOCHECKBOX | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 10, 225, 91, 15 
-   CONTROL "Down", 1053, BUTTON, BS_AUTOCHECKBOX | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 10, 244, 91, 15 
-   CONTROL "", 1054, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 111, 226, 25, 12 
-   CONTROL "", 1055, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 111, 246, 25, 12 
-   CONTROL "Left", 1056, BUTTON, BS_AUTOCHECKBOX | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 10, 265, 91, 15 
-   CONTROL "Right", 1057, BUTTON, BS_AUTOCHECKBOX | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE, 10, 284, 91, 15 
-   CONTROL "", 1058, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 111, 266, 25, 12 
-   CONTROL "", 1059, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 111, 286, 25, 12 
-   CONTROL "Enable Automatic show and hide of gunsight", 1060, BUTTON, BS_AUTOCHECKBOX | BS_MULTILINE | WS_CHILD | WS_VISIBLE, 305, 115, 82, 36 
-   CONTROL "Movement ", -1, BUTTON, BS_GROUPBOX | BS_LEFT | WS_CHILD | WS_VISIBLE, 5, 5, 140, 95 
-   CONTROL "Weapons ", -1, BUTTON, BS_GROUPBOX | WS_CHILD | WS_VISIBLE, 5, 105, 140, 95 
-   CONTROL "Scrolling ", -1, BUTTON, BS_GROUPBOX | WS_CHILD | WS_VISIBLE, 5, 210, 140, 95 
-   CONTROL "Views", -1, BUTTON, BS_GROUPBOX | WS_CHILD | WS_VISIBLE, 155, 75, 140, 110 
-   CONTROL "Ally", 1175, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_TABSTOP, 160, 125, 91, 15 
-   CONTROL "LGM", 1176, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_TABSTOP, 160, 145, 91, 15 
-   CONTROL "Base", 1177, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_TABSTOP, 160, 165, 91, 15 
-   CONTROL "", 1061, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 260, 126, 25, 12 
-   CONTROL "", 1062, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 260, 146, 25, 12 
-   CONTROL "", 1063, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 260, 166, 25, 12 
-   CONTROL "Quick Keys", -1, BUTTON, BS_GROUPBOX | WS_CHILD | WS_VISIBLE, 155, 195, 140, 110 
-   CONTROL "Tree", 1178, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 160, 205, 91, 15 
-   CONTROL "Road", 1179, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 160, 225, 91, 15 
-   CONTROL "Wall", 1180, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 160, 245, 91, 15 
-   CONTROL "Pillbox", 1181, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 160, 265, 91, 15 
-   CONTROL "Mine", 1182, BUTTON, BS_AUTOCHECKBOX | BS_CENTER | BS_VCENTER | BS_PUSHLIKE | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 160, 285, 91, 15 
-   CONTROL "", 1064, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 260, 206, 25, 12 
-   CONTROL "", 1065, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 260, 226, 25, 12 
-   CONTROL "", 1066, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 260, 246, 25, 12 
-   CONTROL "", 1067, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 260, 266, 25, 12 
-   CONTROL "", 1068, STATIC, SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_CHILD | WS_VISIBLE | WS_GROUP, 260, 286, 25, 12 
-   CONTROL "", -1, BUTTON, BS_GROUPBOX | WS_CHILD | WS_VISIBLE, 155, 5, 140, 65 
+    PUSHBUTTON      "OK",IDOK,249,205,50,14,NOT WS_TABSTOP
+    PUSHBUTTON      "Cancel",IDCANCEL,249,226,50,14,NOT WS_TABSTOP
+    LTEXT           "Click on the option you wish to change then the next key pressed will be assigned to it. The key ALT, PRINT SCREEN and PAUSE can not be assigned to anything.",IDC_BLURB,7,7,292,27
+    CONTROL         "Drive Tank:",IDC_DRIVES,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,7,39,65,8
+    CONTROL         "Accelerate",IDC_CACCEL,"Button",BS_AUTOCHECKBOX,80,38,91,10
+    CONTROL         "Decelerate",IDC_CDECEL,"Button",BS_AUTOCHECKBOX,80,50,91,10
+    CONTROL         "Rotate Tank: ",IDC_ROTATES,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,7,67,68,8
+    CONTROL         "Anti-clockwise",IDC_CLEFT,"Button",BS_AUTOCHECKBOX,80,66,91,10
+    CONTROL         "Clockwise",IDC_CRIGHT,"Button",BS_AUTOCHECKBOX,80,79,91,10
+    LTEXT           "(left)",IDC_LEFTS,218,66,81,8
+    LTEXT           "(right)",IDC_RIGHTS,218,78,81,8
+    CONTROL         "Auto slowdown",IDC_AUTOSLOWDOWN,"Button",BS_AUTOCHECKBOX | BS_VCENTER,218,37,81,25
+    CONTROL         "Gun Range: ",IDC_GUNRANGES,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,7,98,67,8
+    CONTROL         "Increase",IDC_CINCREASE,"Button",BS_AUTOCHECKBOX,80,97,91,10
+    CONTROL         "Decrease",IDC_CDECREASE,"Button",BS_AUTOCHECKBOX,79,110,91,10
+    CONTROL         "",IDC_ACCEL,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,36,25,12
+    CONTROL         "",IDC_DECEL,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,49,25,12
+    CONTROL         "",IDC_LEFT,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,65,25,12
+    CONTROL         "",IDC_RIGHT,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,78,25,12
+    CONTROL         "",IDC_INCREASE,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,95,25,12
+    CONTROL         "",IDC_DECREASE,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,108,25,12
+    CONTROL         "Weapons:",IDC_WEAPONS,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,7,127,69,8
+    CONTROL         "Shoot",IDC_CSHOOT,"Button",BS_AUTOCHECKBOX,80,126,91,10
+    CONTROL         "Lay mine",IDC_CLAYMINE,"Button",BS_AUTOCHECKBOX,80,139,91,10
+    CONTROL         "",IDC_SHOOT,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,124,25,12
+    CONTROL         "",IDC_LAYMINE,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,137,25,12
+    CONTROL         "Change Views:",IDC_VIEWS,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,7,156,67,8
+    CONTROL         "Tank view",IDC_CTANKVIEW,"Button",BS_AUTOCHECKBOX,80,155,91,13
+    CONTROL         "Pillbox",IDC_CPILLVIEW,"Button",BS_AUTOCHECKBOX,80,167,91,10
+    CONTROL         "",IDC_TANKVIEW,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,153,25,12
+    CONTROL         "",IDC_PILLVIEW,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,166,25,12
+    CONTROL         "Scroll:",IDC_SCROLLS,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,7,185,67,8
+    CONTROL         "Up",IDC_CSCROLLUP,"Button",BS_AUTOCHECKBOX,80,184,91,10
+    CONTROL         "Down",IDC_CSCROLLDOWN,"Button",BS_AUTOCHECKBOX,80,196,91,10
+    CONTROL         "",IDC_SCROLLUP,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,182,25,12
+    CONTROL         "",IDC_SCROLLDOWN,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,194,25,12
+    CONTROL         "Left",IDC_CSCROLLLEFT,"Button",BS_AUTOCHECKBOX,80,208,91,10
+    CONTROL         "Right",IDC_CSCROLLRIGHT,"Button",BS_AUTOCHECKBOX,80,220,91,10
+    CONTROL         "",IDC_SCROLLLEFT,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,206,25,12
+    CONTROL         "",IDC_SCROLLRIGHT,"Static",SS_LEFTNOWORDWRAP | SS_SUNKEN | WS_GROUP,177,218,25,12
+    CONTROL         "Enable Automatic show and hide of gunsight",IDC_AUTOGUNSIGHT,
+                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE,217,89,82,36
 END
 
-
-
-
-
-
-
-
-
-
-
-
-
-IDD_SETPLAYERNAME DIALOG DISCARDABLE  0, 0, 191, 57
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_SETPLAYERNAME DIALOG  0, 0, 191, 57
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,134,25,50,14
@@ -790,70 +726,56 @@ BEGIN
 END
 
 IDD_MESSAGES DIALOGEX 0, 0, 186, 108
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Compose Message"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "&Send",IDOK,129,84,50,14
-    EDITTEXT        IDC_EDITSEND,7,85,117,12,ES_AUTOHSCROLL | ES_NOHIDESEL,
-                    WS_EX_NOPARENTNOTIFY
-    LTEXT           "Sending message to %d players",IDC_NUM_PLAYERS,7,72,172,
-                    11
-    CONTROL         "All players",IDC_ALL_PLAYERS,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,7,7,172,13
-    CONTROL         "All allies",IDC_ALL_ALLIES,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,7,23,172,13
-    CONTROL         "All nearby tanks",IDC_ALL_NEARBY,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,7,39,172,13
-    CONTROL         "Selection on Players menu",IDC_ALL_SELECTION,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,7,55,172,13
+    EDITTEXT        IDC_EDITSEND,7,85,117,12,ES_AUTOHSCROLL | ES_NOHIDESEL,WS_EX_NOPARENTNOTIFY
+    LTEXT           "Sending message to %d players",IDC_NUM_PLAYERS,7,72,172,11
+    CONTROL         "All players",IDC_ALL_PLAYERS,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,7,7,172,13
+    CONTROL         "All allies",IDC_ALL_ALLIES,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,7,23,172,13
+    CONTROL         "All nearby tanks",IDC_ALL_NEARBY,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,7,39,172,13
+    CONTROL         "Selection on Players menu",IDC_ALL_SELECTION,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,7,55,172,13
 END
 
-IDD_TCPIP_SETUP DIALOG DISCARDABLE  0, 0, 266, 246
-STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_TCPIP_SETUP DIALOG  0, 0, 266, 246
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "UDP (Internet) Setup"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "&Join",ID_JOIN,148,185,56,14
     PUSHBUTTON      "Cancel",IDCANCEL,209,162,50,14
-    LTEXT           "To join an internet Bolo game, you must give the name (or IP address) of a host machine running Bolo, and the UDP port number of the Bolo process on that machine.",
-                    IDC_BLURB,7,7,252,33
+    LTEXT           "To join an internet Bolo game, you must give the name (or IP address) of a host machine running Bolo, and the UDP port number of the Bolo process on that machine.",IDC_BLURB,7,7,252,33
     PUSHBUTTON      "&New",ID_NEW,148,162,56,14
-    LTEXT           "Click to ""join"" an existing game",IDC_JOINS,13,188,
-                    130,21
+    LTEXT           "Click to ""join"" an existing game",IDC_JOINS,13,188,130,21
     LTEXT           "Click ""New"" to begin a game",IDC_NEWS,13,164,128,8
-    LTEXT           "Machine Name (or IP adrress):",IDC_ADDRESSS,7,39,102,20,
-                    SS_CENTERIMAGE
+    LTEXT           "Machine Name (or IP adrress):",IDC_ADDRESSS,7,39,102,20,SS_CENTERIMAGE
     EDITTEXT        IDC_EDITIP,118,42,141,14,ES_AUTOHSCROLL
-    LTEXT           "UDP port of the Bolo on that machine:",IDC_THEREUDPS,7,
-                    70,132,8
+    LTEXT           "UDP port of the Bolo on that machine:",IDC_THEREUDPS,7,70,132,8
     EDITTEXT        IDC_UDP,147,65,112,14,ES_AUTOHSCROLL | ES_NUMBER
-    LTEXT           "UDP port for the Bolo on this machine:",IDC_OURUDPS,7,
-                    90,130,8
+    LTEXT           "UDP port for the Bolo on this machine:",IDC_OURUDPS,7,90,130,8
     EDITTEXT        IDC_MYUDP,147,87,112,14,ES_AUTOHSCROLL | ES_NUMBER
-    LTEXT           "Your player name for the game:",IDC_PLAYERNAMES,7,111,
-                    130,8
+    LTEXT           "Your player name for the game:",IDC_PLAYERNAMES,7,111,130,8
     EDITTEXT        IDC_PLAYERNAME,147,108,112,14,ES_AUTOHSCROLL
-    CONTROL         "Remember player name",IDC_CHECK_REMEMBER,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,157,126,102,11
+    CONTROL         "Remember player name",IDC_CHECK_REMEMBER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,157,126,102,11
     PUSHBUTTON      "&Tracker Setup",IDC_TRACKER,148,143,112,13
     PUSHBUTTON      "&Rejoin",ID_REJOIN,149,211,56,14
     LTEXT           "Rejoin",IDC_REJOINS,13,212,128,26
 END
 
-IDD_PASSWORD DIALOG DISCARDABLE  0, 0, 186, 65
-STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_PASSWORD DIALOG  0, 0, 186, 65
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Password"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,129,34,50,14
-    LTEXT           "This game is password protected. Enter the correct password to join:",
-                    IDC_BLURB,7,7,172,21
+    LTEXT           "This game is password protected. Enter the correct password to join:",IDC_BLURB,7,7,172,21
     EDITTEXT        IDC_PASSWORD,7,33,112,13,ES_PASSWORD | ES_AUTOHSCROLL
 END
 
-IDD_NETWORK_INFO DIALOG DISCARDABLE  0, 0, 231, 100
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_NETWORK_INFO DIALOG  0, 0, 231, 100
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "WinBolo Network Information"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -872,20 +794,18 @@ BEGIN
 END
 
 IDD_ABOUT DIALOGEX 0, 0, 279, 137
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About WinBolo"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,114,116,50,14
-    LTEXT           "WinBolo v1.16 © 1998-2009 John Morrison\nBolo © 1987-1995 Stuart Cheshire",
-                    IDC_STATIC,35,9,226,21
+    LTEXT           "WinBolo v1.16 © 1998-2009 John Morrison\nBolo © 1987-1995 Stuart Cheshire",IDC_STATIC,35,9,226,21
     ICON            IDI_BOLO,IDC_STATIC,7,7,21,20
-    LTEXT           "WinBolo is free software released under the GNU GPL version 2,\nVisit:\nGame Information - www.winbolo.com\nForums and community - www.winbolo.net\nDevelopment and source code - www.winbolo.org\n\nYou may donate to the project via the www.winbolo.org website.",
-                    IDC_BLURB,7,33,254,76
+    LTEXT           "WinBolo is free software released under the GNU GPL version 2,\nVisit:\nGame Information - www.winbolo.com\nForums and community - www.winbolo.net\nDevelopment and source code - www.winbolo.org\n\nYou may donate to the project via the www.winbolo.org website.",IDC_BLURB,7,33,254,76
 END
 
-IDD_TRACKERSETUP DIALOG DISCARDABLE  0, 0, 186, 79
-STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_TRACKERSETUP DIALOG  0, 0, 186, 79
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Tracker Config"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -893,16 +813,13 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,96,58,50,14
     LTEXT           "Tracker Address: ",IDC_TRACKERADDRESSS,7,7,64,8
     RTEXT           "Tracker Port: ",IDC_TRACKERPORTS,7,23,63,8
-    EDITTEXT        IDC_TRACKERADDRESS,73,7,106,12,ES_AUTOHSCROLL | 
-                    WS_DISABLED
-    EDITTEXT        IDC_TRACKERPORT,73,23,106,12,ES_AUTOHSCROLL | ES_NUMBER | 
-                    WS_DISABLED
-    CONTROL         "Use Tracker",IDC_USETRACKER,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,65,39,114,8
+    EDITTEXT        IDC_TRACKERADDRESS,73,7,106,12,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        IDC_TRACKERPORT,73,23,106,12,ES_AUTOHSCROLL | ES_NUMBER | WS_DISABLED
+    CONTROL         "Use Tracker",IDC_USETRACKER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,65,39,114,8
 END
 
-IDD_GAMEFINDER DIALOG DISCARDABLE  0, 0, 370, 254
-STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_GAMEFINDER DIALOG  0, 0, 370, 254
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Game Finder"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -911,8 +828,7 @@ BEGIN
     PUSHBUTTON      "Join &By Address",IDC_JOINADDRESS,235,183,57,15
     PUSHBUTTON      "&Refresh",IDC_REFRESH,235,204,57,15
     PUSHBUTTON      "&Tracker Setup",IDC_TRACKER,27,183,74,15
-    LISTBOX         IDC_LIST,7,13,126,157,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         IDC_LIST,7,13,126,157,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Selected Game Information",IDC_FRAME,139,7,224,143
     RTEXT           "Server Address:",IDC_SADRESS,142,18,84,10
     RTEXT           "Server Port:",IDC_SPORT,142,31,67,10
@@ -944,15 +860,14 @@ BEGIN
     PUSHBUTTON      "Rej&oin",IDC_REJOIN,311,203,52,15,WS_DISABLED
 END
 
-IDD_LANGUAGES DIALOG DISCARDABLE  0, 0, 273, 170
-STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_LANGUAGES DIALOG  0, 0, 273, 170
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,79,149,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,147,149,50,14
-    LISTBOX         IDC_LIST1,7,19,114,83,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         IDC_LIST1,7,19,114,83,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Information",IDC_INFO,128,15,138,99
     RTEXT           "Name: ",IDC_LANGNAMES,131,23,45,9
     LTEXT           "Name: ",IDC_LANGNAME,180,23,77,9
@@ -963,8 +878,8 @@ BEGIN
     CTEXT           "Default",IDC_DEFAULT,7,120,259,25
 END
 
-IDD_ALLIANCE DIALOG DISCARDABLE  0, 0, 186, 65
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ALLIANCE DIALOG  0, 0, 186, 65
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -973,45 +888,39 @@ BEGIN
     CTEXT           "Static",IDC_LABEL,7,14,172,13
 END
 
-IDD_COMDLG32 DIALOG DISCARDABLE  0, 0, 380, 171
-STYLE DS_3DLOOK | DS_CONTROL | DS_CENTER | WS_CHILD | WS_CLIPSIBLINGS
+IDD_COMDLG32 DIALOG  0, 0, 380, 171
+STYLE DS_SETFONT | DS_3DLOOK | DS_CONTROL | DS_CENTER | WS_CHILD | WS_CLIPSIBLINGS
 FONT 8, "MS Sans Serif"
 BEGIN
     CONTROL         "",IDC_MAP,"Static",SS_ETCHEDFRAME,7,7,170,157
     LTEXT           "",1119,212,7,161,156
 END
 
-IDD_WINBOLONET DIALOG DISCARDABLE  0, 0, 271, 118
-STYLE DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+IDD_WINBOLONET DIALOG  0, 0, 271, 118
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "WinBolo.net Login"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,72,97,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,149,97,50,14
-    CONTROL         "Use WinBolo.net",IDC_USEWBN,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,89,46,69,10
+    CONTROL         "Use WinBolo.net",IDC_USEWBN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,89,46,69,10
     LTEXT           "WinBolo.net Username: ",IDC_STATIC,7,7,78,8
     LTEXT           "WinBolo.net Password: ",IDC_STATIC,7,29,76,8
     EDITTEXT        IDC_WBNPASS,89,26,87,14,ES_PASSWORD | ES_AUTOHSCROLL
     PUSHBUTTON      "More Information",IDC_WBNMORE,197,7,60,14
     LTEXT           "Static",IDC_WBNNAME,88,7,90,12
-    LTEXT           "Winbolo.net is a free real time game tracking and player statisitics website. To signup or for more informaton please visit http://www.winbolo.net",
-                    IDC_STATIC,7,74,257,21
-    CONTROL         "Save WinBolo.net Password",IDC_SAVEPASS,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,89,60,106,10
+    LTEXT           "Winbolo.net is a free real time game tracking and player statisitics website. To signup or for more informaton please visit http://www.winbolo.net",IDC_STATIC,7,74,257,21
+    CONTROL         "Save WinBolo.net Password",IDC_SAVEPASS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,89,60,106,10
 END
 
-IDD_SKINS DIALOG DISCARDABLE  0, 0, 293, 154
-STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
-    WS_SYSMENU
+IDD_SKINS DIALOG  0, 0, 293, 154
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,81,134,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,149,134,50,14
-    LISTBOX         IDC_SKINLIST,9,4,114,83,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_SKINLIST,9,4,114,83,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Information",IDC_INFO,130,0,138,99
     RTEXT           "Name: ",IDC_SKINNAMES,133,8,45,9
     LTEXT           "Name: ",IDC_SKINNAME,182,8,77,9
@@ -1029,7 +938,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO MOVEABLE PURE 
+GUIDELINES DESIGNINFO 
 BEGIN
     IDD_SYSTEM_INFO, DIALOG
     BEGIN
@@ -1066,9 +975,9 @@ BEGIN
     IDD_KEY_SETUP, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 522
+        RIGHTMARGIN, 299
         TOPMARGIN, 7
-        BOTTOMMARGIN, 286
+        BOTTOMMARGIN, 240
     END
 
     IDD_SETPLAYERNAME, DIALOG
@@ -1183,13 +1092,12 @@ END
 // Accelerator
 //
 
-IDR_ACCELERATOR ACCELERATORS MOVEABLE PURE 
+IDR_ACCELERATOR ACCELERATORS 
 BEGIN
     "1",            ID_EDIT_TANKLABELS_NONE, VIRTKEY, CONTROL, NOINVERT
     "2",            ID_EDIT_TANKLABELS_SHORT, VIRTKEY, CONTROL, NOINVERT
     "3",            ID_EDIT_TANKLABELS_LONG, VIRTKEY, CONTROL, NOINVERT
-    "A",            ID_EDITMENU_AUTOMATICSCROLLING, VIRTKEY, CONTROL, 
-                                                    NOINVERT
+    "A",            ID_EDITMENU_AUTOMATICSCROLLING, VIRTKEY, CONTROL, NOINVERT
     "B",            ID_EDITMENU_BASELABELS, VIRTKEY, CONTROL, NOINVERT
     "G",            ID_EDITMENU_GUNSIGHT,   VIRTKEY, CONTROL, NOINVERT
     "H",            ID_EDITMENU_HIDEMAINVIEW, VIRTKEY, CONTROL, NOINVERT
@@ -1207,7 +1115,7 @@ END
 // String Table
 //
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_DLGOPENING_TITLE    "WinBolo Game Selection"
     STR_DLGOPENING_TEXT     "Welcome to WinBolo, the multiplayer tank game.\nPlease choose a game type from the list below:"
@@ -1220,7 +1128,7 @@ BEGIN
     STR_DLGLANG_TITLE       "Language Select"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_DLGLANG_NAME_CAPTION "Name:"
     STR_DLGLANG_NAME        "English (Default)"
@@ -1240,12 +1148,13 @@ BEGIN
     STR_DLGGAMEFINDER_REFRESHFIRST "Try hitting refresh first."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_DLGGAMEFINDER_MESSAGEOFTHEDAY "Message of the Day"
     STR_DLGGAMEFINDER_WRONGVERSION 
                             "The game you tried to join is a different version of WinBolo. Try joining a different game"
-    STR_DLGGAMEFINDER_NOGAMESINPROGRESS "No games in progress (Start one!)"
+    STR_DLGGAMEFINDER_PLAYERWRONG "Sorry, but your player name is blank, you must have a player name"
+	STR_DLGGAMEFINDER_NOGAMESINPROGRESS "No games in progress (Start one!)"
     STR_YES                 "Yes"
     STR_NO                  "No"
     STR_DLGGAMEFINDER_YESADV "Yes (Adv)"
@@ -1261,15 +1170,7 @@ BEGIN
     STR_DLGGAMEINFO_TIMELIMIT "Game Time Limit: "
 END
 
-STRINGTABLE DISCARDABLE 
-BEGIN
-    STR_DLGSKIN_DEFAULTNOTE "If not all skin items are present then the default built in skin/sounds are used."
-    LGM_NO_BUILD_UNDER_BOAT "The man cannot build under your boat"
-    STR_DLGGAMEFINDER_PLAYERWRONG 
-                            "Sorry, but your player name is blank, you must have a player name"
-END
-
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_DLGGAMESETUP_BLURB  "Please select the options you want for your new game:"
     STR_CANCEL              "Cancel"
@@ -1290,7 +1191,7 @@ BEGIN
     STR_DLGGAMESETUP_STARTDELAY "Game start delay"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_DLGGAMESETUP_TIMELIMIT "Game time limit"
     STR_DLGGAMESETUP_ERROROPENINGMAP "Error Opening Map."
@@ -1310,7 +1211,7 @@ BEGIN
     STR_DLGKEYSETUP_SCROLL  "Scroll:"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_DLGKEYSETUP_LEFT    "(left)"
     STR_DLGKEYSETUP_RIGHT   "(right)"
@@ -1329,7 +1230,7 @@ BEGIN
     STR_DLGKEYSETUP_SCROLLUP "Up"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_DLGKEYSETUP_SCROLLDOWN "Down"
     STR_DLGKEYSETUP_SCROLLLEFT "Left"
@@ -1349,7 +1250,7 @@ BEGIN
     STR_DLGKEYSETUP_SETSCROLLDOWN "scroll down"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_DLGKEYSETUP_SETSCROLLLEFT "scroll left"
     STR_DLGKEYSETUP_SETSCROLLRIGHT "scroll right"
@@ -1369,7 +1270,7 @@ BEGIN
     STR_DLGNETINFO_ERRORS   "Network errors:"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     NETERR_JOININIT         "There was no response from the game you tried to contact.\nThis usually means 1 of 3 things:\n1. You have the address and port fields incorrect.\n2. You are behind some kind of firewall preventing UDP access.\n3. Check that your version of WinBolo is the same as the game"
     NETERR_GAMEFULL         "This game is currently full"
@@ -1389,7 +1290,7 @@ BEGIN
     STR_DLGSKIN_TITLE       "Skin Selection"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_DLGPASSWORD_TITLE   "Password"
     STR_DLGPASSWORD_BLURB   "This game is password protected. Enter the correct password to join:"
@@ -1409,7 +1310,7 @@ BEGIN
     STR_DLGSYSINFO_GRAPHICSFPS "Graphics frames per second"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_DLGTCP_TITLE        "UDP (Internet) Setup"
     STR_DLGTCP_BLURB        "To join an internet Bolo game, you must give the name (or IP address) of a host machine running Bolo, and the UDP port number of the Bolo process on that machine."
@@ -1429,7 +1330,7 @@ BEGIN
     STR_ERR_DLGTCP_NOTRIGHT "Something isn't correct here..."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_ERR_DLGTCP_SUBCLASS "Can't set the window subclass for copying!"
     STR_DLGGAMEFINDER_JOINADDRESS "Join &By Address"
@@ -1449,7 +1350,7 @@ BEGIN
     STR_DLGGAMEFINDER_PORT  "Server Port:"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_DLGGAMEFINDER_ADDRESS "Server Address:"
     STR_BRAINERR_BRAINDIR   "Brains Directory does not exist.\nNot going to load brains!"
@@ -1470,7 +1371,7 @@ BEGIN
     STR_DRAWERROR_BRUSH     "Error Creating Drawing Brush"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_DRAWERROR_PEN       "Error Creating Drawing Pen"
     STR_DRAW_GAMESTARTSIN   "Game Starts in "
@@ -1492,7 +1393,7 @@ BEGIN
                             "An error occured trying to spawn the server process.\n Is the program ""WinBoloDS"" in the same directory as WinBolo?"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_GAMEFRONTERR_NETSINGLEPLAYER 
                             "Something really bizzare happened in the networking subsystems which is strange since you selected a single player game. Lucky you..."
@@ -1520,7 +1421,7 @@ BEGIN
     STR_NETCLIENT_TRACKERPROCESSRESPONSE "Processing tracker data..."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_NETCLIENTERR_TRACKERNODATA "Error: Tracker sent no data"
     STR_NETCLIENT_TRACKERCONNECT "Connecting: "
@@ -1543,7 +1444,7 @@ BEGIN
     STR_WBTIMELIMIT_END     "Timelimit has expired. The Game has ended."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_WBERR_SAVEMAP       "Error Saving Map (Disk full?)"
     STR_TUTORIAL01          "Ahead of you is a short river leading inland. Hold\ndown the ""E"" to drive your boat to the end of the\nriver.\n\nWhen you get there, keep holding ""E"". The tank will\ndisembark from the boat and the boat will be left\nmoored at the end of the river"
@@ -1563,7 +1464,7 @@ BEGIN
     STR_TUTORIAL15          "Ahead is another minefield. Do the same trick again:\nDrive onto the refuelling base, shoot through the\nwall, and land a shell in the middle of the minefield to\ndetonate it.\n\nThis time though, the minefield is adjacent to a large\nriver, and water will flood into the craters. You can\ndrive the tank through the water like you can through\ncraters and marsh."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     STR_TUTORIAL16          "WinBolo automatically scrolls the window to show you\nthe area around your tank but you can use the arrow keys\non the keypad to the manually override the view WinBolo\nchooses.\n\nPress the Up-Arrow key on the keypad now to get a\nbetter view of the river ahead of you."
     STR_TUTORIAL17          "As well as being very slow, driving through water has\nanother disadvantage: It will also deplete your tank's\nsupplies of shells and mines.\n\n\nWhen you get to the other side your tank will still be\nin working condition, but you will have lost all\noffensive capability."
@@ -1583,7 +1484,7 @@ BEGIN
     LGM_NO_BUILD            "You cannot build that there"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     LGM_INSUFFICIENT_TREES  "You don't have the trees you require to build that"
     LGM_NO_PILLS            "You have no pillbox to place"
@@ -1595,7 +1496,13 @@ BEGIN
                             "The man cannot build on a mine. It would kill him."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
+BEGIN
+    STR_DLGSKIN_DEFAULTNOTE "If not all skin items are present then the default built in skin/sounds are used."
+    LGM_NO_BUILD_UNDER_BOAT "The man cannot build under your boat"
+END
+
+STRINGTABLE 
 BEGIN
     MESSAGE_ASSISTANT       "Online Assistant"
     MESSAGE_NEWSWIRE        "Newswire"
