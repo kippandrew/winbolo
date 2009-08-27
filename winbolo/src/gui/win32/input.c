@@ -217,7 +217,7 @@ tankButton inputGetKeys(HWND hWnd, keyItems *setKeys, bool isMenu) {
 */
 
 	/* Did the user press any of the quick keys? */
-	if (keys[(setKeys->kiQuickTree)] & PRESSED) {
+/*	if (keys[(setKeys->kiQuickTree)] & PRESSED) {
 		curSelect = getBuildCurrentSelect();
 		if (curSelect != BsTrees) {
 			setBuildCurrentSelect(BsTrees);
@@ -276,6 +276,7 @@ tankButton inputGetKeys(HWND hWnd, keyItems *setKeys, bool isMenu) {
 		}
 		
 	}
+	*/
 /*
     if (newSelect != NO_SELECT && newSelect != BsCurrent) {
       tick = winboloTimer();
