@@ -238,7 +238,7 @@ void efree(Generic object);
 #define M_W_SHIFT_SIZE 8
 
 /* Version number */
-#define STRVER "1.16"
+#define STRVER "1.17"
 
 /* Used to bitmask with a key code to see if it's pressed or not */
 #define PRESSED 0x80
