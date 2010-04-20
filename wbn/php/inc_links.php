@@ -44,9 +44,9 @@ Official Sites <a href="#top"><img src="images/arrowup.gif" width="15" height="1
 <tr> 
 <td><div class="bodytext">
 
-<br><a href="http://www.winbolo.com/downloads/winbolo115-setup.exe" target="_Blank">Download WinBolo setup</a> - Version 1.15 (1.2Mb exe)
+<br><a href="http://www.winbolo.com/downloads/winbolo117-setup.exe" target="_Blank">Download WinBolo setup</a> - Version 1.17 (1.2Mb exe)
 
-<br><a href="http://www.winbolo.com/downloads/linbolo115-server.tar.gz" target="_Blank">Download LinBolo server</a> (100K gz tar)
+<br><a href="http://www.winbolo.com/downloads/linbolo117-server.tar.gz" target="_Blank">Download LinBolo server</a> (100K gz tar)
 
 <br><a href="http://www.lgm.com/bolo/" target="_Blank">Bolo Homepage</a>
 
@@ -62,72 +62,21 @@ Official Sites <a href="#top"><img src="images/arrowup.gif" width="15" height="1
 
 <br><a href="http://www.lgm.com/bolo/guides/bl-guide.html" target="_Blank">Black Lighting's Bolo Strategy Page</a>
 
-<br><a href="http://winbolo.netfirms.com/keysetup.shtml" target="_Blank">FireIce's Key Setup Example</a>
-
-<br><a href="http://winbolo.netfirms.com/netiquette.shtml" target="_Blank">FireIce's WinBolo Etiquette Page</a>
- 
-<br><a href="http://winbolo.netfirms.com/terms.shtml" target="_Blank">FireIce's WinBolo Terms Page</a>
-
-<br><a href="http://www.cablelan.net/924/strategy.shtml" target="_Blank">Min's Winbolo Strategy Page</a>
-
 <br><a href="http://www.lgm.com/bolo/guides/samhain.html" target="_Blank">Samhain's Strategy Guide</a>
-
-<br><a href="http://mywebpages.comcast.net/sticks86/ethics.html" target="_Blank">Sticks's Ethics Page</a>
 
 <p><div class="subheading">Player Pages</div>
 
-<br><a href="http://www.geocities.com/nanaki227/winbolo.html" target="_Blank">Ace / Nanaki's Site</a>
-
-<br><a href="http://fermat.winbolo.us/bolo/" target="_Blank">Fermat's WinBolo Logs Site</a>
-
-<br><a href="http://winbolo.netfirms.com/" target="_Blank">FireIce's Site</a>
-
-<br><a href="http://canuck.kimenet.com/" target="_Blank">Indiana's Site</a>
-
-<br><a href="http://winbolo.cjb.net/" target="_Blank">Jackel's Site</a>
-
-<br><a href="http://www.lordaries.kz/fire.shtml?winbolo" target="_Blank">LordAries Site</a>
-
-<br><a href="http://www.geocities.com/maxrocks_1/Tutorial.html" target="_Blank">Madd Maxx's IRC Tutorial</a>
-
-<br><a href="http://www.cablelan.net/924/winbolo.shtml" target="_Blank">Min's WinBolo Page</a>
-
 <br><a href="http://www.angelfire.com/extreme3/nananovace/winbolodownloads/" target="_Blank">Nanaki's Site</a>
-
-<br><a href="http://www.geocities.com/ren_nanaki/" target="_Blank">Ren / Nanaki's Site</a>
 
 <br><a href="http://www.lindstein.se/bolo/" target="_Blank">Oscar's Bolo Site</a>
 
-<br><a href="http://www.renbot.winbolo.us/" target="_Blank">Renbot's Site</a>
-
-<br><a href="http://ryan2.servehttp.com/" target="_Blank">Ryan's Ryan2 Brain Site</a>
-
 <br><a href="http://www.angelfire.com/blog/comp0/home.html" target="_Blank">Suicide's Site</a>
 
-<br><a href="http://www.sheeps.winbolo.us/" target="_Blank">Sheeps' Site</a>
-
-<br><a href="http://mywebpages.comcast.net/sticks86/" target="_Blank">Stick's WinBolo Maps Page</a>
-
-<br><a href="http://underdog.winbolo.us/" target="_Blank">Underdog's Map Contest Site</a>
-
-<br><a href="http://www.winbolo.us/~wonka" target="_Blank">Wonka's Site</a>
-
-
 <p><div class="subheading">Tools & Community</div>
-
-<br><a href="http://winbolo.netfirms.com/skin.shtml" target="_Blank">FireIce's Skin Contest Site</a>
-
-<br><a href="http://underdog.winbolo.us/" target="_Blank">Underdog's Map Contest Site</a> and <a href="http://winbolo.netfirms.com/mapcontest.shtml" target="_Blank">FireIce's Winners Page</a>
 
 <br><a href="http://www.lgm.com/winbolo/mail.cgi" target="_Blank">WinBolo Bug Reporting</a>
 
 <br><a href="http://tracker.winbolo.com:50005/" target="_Blank">WinBolo Game Tracker</a>
-
-<br><a href="http://www.winbolo.us/" target="_Blank">WinBolo.us Site</a>
-
-<br><a href="ftp://ftp.winbolo.us/" target="_Blank">WinBolo.us FTP Site</a>
-
-<br><a href="http://cgiirc.winbolo.us/" target="_Blank">Winbolo.us Webpage Chat</a>
 
 </div></td>  </tr>
 </table>
