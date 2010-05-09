@@ -1,5 +1,22 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 1998-2008 John Morrison.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
+// Microsoft Visual C++ generated include file.
 // Used by Script1.rc
 //
 #define IDB_BITMAP1                     101
@@ -28,9 +45,6 @@
 #define IDD_DIALOG_FULLSCREEN           135
 #define IDB_BITMAP2                     137
 #define IDB_SPLASH                      137
-#define IDD_TANKINFO                    140
-#define IDB_TB_EVENTS                   150
-#define IDD_BASEINFO                    151
 #define IDC_LIST1                       1000
 #define IDC_LIST                        1000
 #define IDC_WIDTH                       1003
@@ -76,33 +90,16 @@
 #define IDC_SS_X                        1031
 #define IDC_TEAM7                       1032
 #define IDC_SS_Y                        1032
-#define IDC_SHELLS                      1032
 #define IDC_TEAM8                       1033
-#define IDC_MINES                       1033
 #define IDC_TEAM9                       1034
-#define IDC_ARMOR                       1034
 #define IDC_TEAM10                      1035
-#define IDC_RESOURCES                   1035
 #define IDC_TEAM11                      1036
-#define IDC_TANKINFO_PROGRESS_RESOURCES 1036
 #define IDC_TEAM12                      1037
-#define IDC_TANKINFO_PROGRESS_ARMOUR    1037
 #define IDC_TEAM13                      1038
-#define IDC_TANKINFO_PROGRESS_MINES     1038
 #define IDC_TEAM14                      1039
-#define IDC_TANKINFO_PROGRESS_SHELLS    1039
 #define IDC_TEAM15                      1040
 #define IDC_TEAM16                      1041
 #define IDC_NEUTRAL                     1042
-#define IDC_TANKINFO_TANKDEATHS         1046
-#define IDC_TANKINFO_TANKKILLS          1047
-#define IDC_TANKINFO_LGMDEATHS          1048
-#define IDC_BASEINFO_SHELLS             1048
-#define IDC_TANKINFO_LGMKILLS           1049
-#define IDC_BASEINFO_MINES              1049
-#define IDC_TANKINFO_BASECAPTURES       1050
-#define IDC_BASEINFO_ARMOUR             1050
-#define IDC_TANKINFO_PILLCAPTURES       1051
 #define IDC_MAPS                        1089
 #define IDC_PLAYERSS                    1090
 #define IDC_GAMETS                      1091
@@ -144,15 +141,14 @@
 #define ID_ACTION_FULLSCREEN            40034
 #define ID_OPTIONS_MODE_FULLSCREEN      40035
 #define ID_HELP_HELP                    40036
-#define ID_WINDOWS_TANKINFORMATION      40037
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        152
-#define _APS_NEXT_COMMAND_VALUE         40041
-#define _APS_NEXT_CONTROL_VALUE         1051
+#define _APS_NEXT_RESOURCE_VALUE        140
+#define _APS_NEXT_COMMAND_VALUE         40037
+#define _APS_NEXT_CONTROL_VALUE         1032
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

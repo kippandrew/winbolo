@@ -26,17 +26,16 @@
 *********************************************************/
 
 #include <string.h>
-#include "allience.h"
-#include "backend.h"
-#include "bolo_map.h"
 #include "global.h"
+#include "allience.h"
 #include "labels.h"
-#include "players.h"
-#include "screen.h"
-#include "screenlgm.h"
 #include "screentank.h"
+#include "screenlgm.h"
+#include "backend.h"
 #include "tilenum.h"
 #include "util.h"
+#include "players.h"
+#include "bolo_map.h"
 
 
 players plrs;
@@ -214,10 +213,6 @@ void playersSetPlayer(BYTE playerNum, char *playerName, char *location, BYTE mx,
 //  frontEndStatusTank((BYTE) (playerNum+1), playersScreenAllience(playerNum));
 }
 
-
-
-
-
 /*********************************************************
 *NAME:          playersUpdate
 *AUTHOR:        John Morrison
@@ -249,59 +244,6 @@ void playersUpdateTank(BYTE playerNum, BYTE mx, BYTE my, BYTE px, BYTE py, BYTE 
     plrs.item[playerNum].frame = frame;
     plrs.item[playerNum].onBoat = onBoat;
   }
-}
-
-
-/*********************************************************
-*NAME:          playersSetPlayer
-*AUTHOR:        John Morrison
-*CREATION DATE: 18/2/99
-*LAST MODIFIED: 26/11/99
-*PURPOSE:
-*	Stores information about the tank so that when the
-*	tank is clicked, you can view what resources it has.
-*	TODO: zero out the shells, mines, armour, and resources
-*	until the tank actually pops on the screen.
-*
-*ARGUMENTS:
-*	playerNum	- The player number to set
-*	shells		- Quantity of shells in tank
-*	mines		- Quantity of mines in tank
-*	armour		- Quantity of armour in tank
-*	resources	- Quantity of trees in tank
-*
-*********************************************************/
-void playersUpdateResources(BYTE playerNum, BYTE shells, BYTE mines, BYTE armour, BYTE resources) {
-	if (plrs.item[playerNum].inUse == TRUE) {
-		plrs.item[playerNum].shells = shells;
-		plrs.item[playerNum].mines = mines;
-		plrs.item[playerNum].armour = armour;
-		plrs.item[playerNum].resources = resources;
-	}
-}
-
-void playersTankDied(BYTE playerNum) {
-	if (plrs.item[playerNum].inUse == TRUE) {
-		plrs.item[playerNum].deaths++;
-	}
-}
-
-void playersKilledTank(BYTE playerNum) {
-	if (plrs.item[playerNum].inUse == TRUE) {
-		plrs.item[playerNum].kills++;
-	}
-}
-
-void playersLgmDied(BYTE playerNum) {
-	if (plrs.item[playerNum].inUse == TRUE) {
-		plrs.item[playerNum].lgmDeaths++;
-	}
-}
-
-void playersKilledLgm(BYTE playerNum) {
-	if (plrs.item[playerNum].inUse == TRUE) {
-		plrs.item[playerNum].lgmKills++;
-	}
 }
 
 
@@ -792,7 +734,6 @@ unsigned long playersGetAlliesBitMap(BYTE playerNum) {
   return returnValue;
 }
 
-
 /*********************************************************
 *NAME:          playersAcceptAlliance
 *AUTHOR:        John Morrison
@@ -883,39 +824,20 @@ void playersAcceptAlliance(BYTE acceptedBy, BYTE newMember) {
   }
 }
 
-
-/*********************************************************
-*NAME:          playersChooseView
-*AUTHOR:        John Morrison
-*CREATION DATE: ??/??/??
-*LAST MODIFIED: ??/??/??
-*PURPOSE:
-*	Is called when a left mouse button click is executed
-*	and the "Select Team" option is selected.
-*
-*ARGUMENTS:
-*	x - map x-coordinate the mouse clicked on
-*	y - map y-coordinate the mouse clicked on
-*********************************************************/
 bool playersChooseView(int x, int y) {
-	BYTE count = 0;
-	bool done = FALSE;
-	while (count < MAX_TANKS && done == FALSE) {
-		if (plrs.item[count].inUse == TRUE) {
-			if (plrs.item[count].mapX == x && plrs.item[count].mapY == y) {
-				/* User clicked on an actual tank */
-				done = TRUE;
-				myPlayerNum = count;
-				/* Set the tank number that we've clicked */
-				setSelectedTankNum(myPlayerNum);
-				/* Send information to the tank info dialog */
-				updateTankInfoDialog(myPlayerNum, plrs.item[count].shells, plrs.item[count].mines, plrs.item[count].armour, plrs.item[count].resources, plrs.item[count].deaths, plrs.item[count].kills, plrs.item[count].lgmDeaths, plrs.item[count].lgmKills, plrs.item[count].baseCaptures, plrs.item[count].pillCaptures);
-				return TRUE;
-			}
-		}
-		count++;
-	}
-	return FALSE;
+  BYTE count = 0;
+  bool done = FALSE;
+  while (count < MAX_TANKS && done == FALSE) {
+    if (plrs.item[count].inUse == TRUE) {
+      if (plrs.item[count].mapX == x && plrs.item[count].mapY == y) {
+        done = TRUE;
+        myPlayerNum = count;
+        return TRUE;
+      }
+    }
+    count++;
+  }
+  return FALSE;
 }
 
 BYTE playersGetCentredX() {
@@ -984,10 +906,4 @@ void playersCopyPTeams(BYTE *dest) {
     dest[count] = plrs.item[count].team;
     count++;
   }
-}
-
-
-players playersGetPlayerObject()
-{
-	return plrs;
 }

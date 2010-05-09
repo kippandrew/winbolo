@@ -240,14 +240,5 @@ void efree(Generic object);
 /** Player teams are 0-15 : 16 is neutral */
 #define NEUTRAL_TEAM 16
 
-/* Selected item types */
-#define SELECTED_NOTHING 0
-#define SELECTED_BASE 1
-#define SELECTED_PILL 2
-#define SELECTED_TANK 3
-#define SELECTED_NO_TANK 255
-
-#define TANK_STAT_NO_UPDATE 255
-
 #endif /* GLOBAL_H */ 
 

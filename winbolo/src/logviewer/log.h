@@ -88,8 +88,7 @@ log_LostMan,
 log_KillPlayer,
 log_PlayerRejoin,
 log_PlayerLeaving,
-log_PlayerDied,
-log_PlayerResources
+log_PlayerDied
 } logitem;
 
 /*********************************************************
@@ -174,7 +173,7 @@ bool logIsRecording();
 *  short1  - Short optional argument
 *  words   - Char* optional argument
 *********************************************************/
-void logAddEvent(logitem itemNum, BYTE opt1, BYTE opt2, BYTE opt3, BYTE opt4, BYTE opt5, unsigned short short1, char *words);
+void logAddEvent(logitem itemNum, BYTE opt1, BYTE opt2, BYTE opt3, BYTE opt4, unsigned short short1, char *words);
 
 /*********************************************************
 *NAME:          logDestroy
