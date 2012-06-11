@@ -1410,7 +1410,7 @@ function doLatestPosts($PostNumber) {
 	$res = mysql_query("select count(*) from posts");
 	$num = mysql_result($res, 0, 0) - 10;
 	mysql_free_result($res);
-	$sql = "SELECT p.post_id, t.topic_title, t.topic_id, u.username, f.forum_id FROM topics t, forums f, posts p, users u WHERE t.topic_id = p.topic_id AND f.forum_id = t.forum_id AND u.user_id = p.poster_id and t.forum_id != 11  and t.forum_id != 7 and t.forum_id != 14 and p.post_id > $num order by post_time DESC LIMIT $PostNumber";
+	$sql = "SELECT p.post_id, t.topic_title, t.topic_id, u.username, f.forum_id FROM topics t, forums f, posts p, users u WHERE t.topic_id = p.topic_id AND f.forum_id = t.forum_id AND u.user_id = p.poster_id and t.forum_id != 11 and t.forum_id != 14 and p.post_id > $num order by post_time DESC LIMIT $PostNumber";
 	# original
 #	 $sql = "SELECT p.post_id, t.topic_title, t.topic_id, u.username, f.forum_id FROM topics t, forums f, posts p, users u WHERE t.topic_id = p.topic_id AND f.forum_id = t.forum_id AND u.user_id = p.poster_id and t.forum_id != 11 order by post_id DESC LIMIT $PostNumber";
 	if ($r = mysql_query($sql)) {
