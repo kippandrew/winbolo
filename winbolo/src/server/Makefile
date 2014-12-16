@@ -27,11 +27,9 @@ REM = rm
 
 # Flags for gcc and rm
 REMFLAGS = -f
-SDLFLAGS = `sdl-config --libs`
-#SDLFLAGS = -g `sdl-config --libs`
-#CFLAGS = -g `sdl-config --cflags`
-CFLAGS = `sdl-config --cflags`
-BDFLAGS = -std=c99 -pedantic -Wall -Wpointer-arith -Wstrict-prototypes #-O2
+LDFLAGS = `sdl-config --libs`
+CFLAGS = `sdl-config --cflags` -DHAVE_C99INCLUDES -DHAVE_SYS_TYPES
+BDFLAGS = -DHAVE_C99INCLUDES -std=c99 -pedantic -Wall -Wpointer-arith -Wstrict-prototypes -O2
 
 # directories
 BOLODIR = ../bolo/
@@ -73,7 +71,7 @@ zlib: 	adler32.o compress.o crc32.o deflate.o gzio.o \
 bigdigits: bigd.o bigdigits.o bigdigitsRand.o bigdRand.o
 	
 $(SERVERNAME): zlib b server bigdigits
-	$(CC) $(SDLFLAGS) -o $(SERVERNAME) \
+	$(CC) $(LDFLAGS) \
 	global.o bases.o util.o crc.o pillbox.o lgm.o shells.o tank.o \
 	allience.o bolo_map.o building.o explosions.o floodfill.o \
 	gametype.o grass.o labels.o mines.o minesexp.o  netmt.o netplayers.o \
@@ -85,7 +83,7 @@ $(SERVERNAME): zlib b server bigdigits
 	backend.o adler32.o compress.o crc32.o deflate.o gzio.o  \
 	inffast.o inflate.o inftrees.o trees.o ioapi.o uncompr.o \
 	unzip.o zip.o zutil.o bigd.o bigdigits.o bigdigitsRand.o bigdRand.o \
-	mathWinbolo.o debug_file_output.o
+	mathWinbolo.o debug_file_output.o -o $(SERVERNAME)
 
 tidy: 
 	$(REM) $(REMFLAGS) *.o

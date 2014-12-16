@@ -53,7 +53,7 @@
 
 #ifndef UCHAR36_DEFINED
 #define UCHAR36_DEFINED
-typedef struct { u_char c[36]; } u_char36;
+typedef struct { unsigned char c[36]; } u_char36;
 #endif
 
 typedef struct playersObj *players;
