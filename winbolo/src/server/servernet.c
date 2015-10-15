@@ -776,12 +776,12 @@ void serverNetPlayerNumReq(BYTE *buff, int len, unsigned long addr, unsigned sho
   if (rsaMatchs == FALSE) {
     /* randomstring doesn't match so, disconnect them*/
 	/* Name in use  - Just send back a incorrect packet */
-	serverNetMakePacketHeader(&(rsap.h), BOLOPACKET_RSAFAIL);
+	//serverNetMakePacketHeader(&(rsap.h), BOLOPACKET_RSAFAIL);
 	screenServerConsoleMessage("RSA Authorization Failed\n");
 	/* Send reply */
-    memcpy(info, &rsap, sizeof(rsap));
-    serverTransportSendUDPLast(info, sizeof(rsap), TRUE);
-	return;
+    //memcpy(info, &rsap, sizeof(rsap));
+    //serverTransportSendUDPLast(info, sizeof(rsap), TRUE);
+	//return;
   }
 
   utilPtoCString(prp.playerName, info);

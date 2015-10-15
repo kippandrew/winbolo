@@ -64,8 +64,8 @@ unsigned int serverTimerGameID = 1;
 char fileName[MAX_PATH]; /* Log file Name */
 bool isLogging = FALSE;
 bool dontSendLog = FALSE;
-
 bool statusFile = FALSE;
+bool noRSA = FALSE;
 
 time_t ticks = 0;
 
@@ -436,6 +436,7 @@ void printArgs() {
   fprintf(stderr, "-log          - Create game log file (filename optional)\n");
   fprintf(stderr, "-dontsendlog  - Don't upload game log to winbolo.net\n");
   fprintf(stderr, "-statusFile	 - Save list of unlocked players to a file.\n");
+  fprintf(stderr, "-norsa        - Don't perform RSA check.\n");
 }
 
 
