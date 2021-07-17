@@ -32,7 +32,7 @@ int uncompressLen; /* Length of the data to compress */
 int compressUpto; /* Where we are up to in the compression */
 
 /* Pseudo procedures */
-__inline int conend_of_data() {
+int conend_of_data() {
   if (compressUpto >= uncompressLen) {
     return TRUE;
   } else {
@@ -41,13 +41,13 @@ __inline int conend_of_data() {
 }
 
 
-__inline char conread_byte() {
+char conread_byte() {
   compressUpto++;
   return compressSrc[compressUpto-1];
 }
 
 
-__inline void conwrite_byte(char c) {
+void conwrite_byte(char c) {
   compressDest[compressLen] = c;
   compressLen++;
 }
