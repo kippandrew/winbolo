@@ -30,7 +30,7 @@
 #define _SOUND_H
 
 #include "SDL.h"
-#include "SDL_mixer.h"
+//#include "SDL_mixer.h"
 #include "../../bolo/global.h"
 #include "../../bolo/backend.h"
 #include "bolosounds.h"

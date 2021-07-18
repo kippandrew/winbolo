@@ -15,9 +15,9 @@
 
 
 CC = gcc
-CFLAGS = -g `sdl-config --cflags` `gtk-config --cflags` 
+CFLAGS = -g `sdl-config --cflags` `pkg-config --cflags gtk+-3.0` 
 #-s
-#CFLAGS = -s -O3 -ffast-math -fomit-frame-pointer -mpentium -march=pentium `sdl-config --cflags` `gtk-config --cflags` `glib-config --cflags` 
+#CFLAGS = -s -O3 -ffast-math -fomit-frame-pointer -mpentium -march=pentium `sdl-config --cflags` `pkg-config --cflags gtk+-3.0` `glib-config --cflags` 
 BOLODIR = ../../bolo/
 GUIDIR = ../
 WBNETDIR = ../../winbolonet/

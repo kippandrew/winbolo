@@ -148,7 +148,7 @@ bool backgroundSound = TRUE;
 bool isISASoundCard = TRUE;
 bool doneInitTutorial = FALSE;
 
-/* 
+/*
  *  new players */
 bool allowNewPlayers = TRUE;
 bool allowAlianceRequest = TRUE;
@@ -251,7 +251,7 @@ gint windowclose(GtkWidget *widget, gpointer gdata) {
   }
   brainsHandlerManual(NULL);
   isInMenu = FALSE;
-  gameFrontCloseServer(); 
+  gameFrontCloseServer();
   if (timerGameID != NULL) {
    SDL_RemoveTimer(timerGameID);
    timerGameID = NULL;
@@ -409,7 +409,7 @@ Uint32 windowGameTimer (Uint32 interval, void *param) {
       if (doingTutorial == FALSE) {
         if (justKeys == TRUE) {
           if (brainRunning == FALSE) {
-            tb = inputGetKeys(FALSE); 
+            tb = inputGetKeys(FALSE);
           } else {
             inputScroll(FALSE);
           }
@@ -421,10 +421,10 @@ Uint32 windowGameTimer (Uint32 interval, void *param) {
           t2++;
           trackerTime++;
           if (brainRunning == FALSE) {
-            tb = inputGetKeys(FALSE); 
+            tb = inputGetKeys(FALSE);
             isShoot = inputIsFireKeyPressed(FALSE);
           } else {
-            inputScroll(FALSE); 
+            inputScroll(FALSE);
           }
           clientMutexWaitFor();
 	  frameMutexWaitFor();
@@ -489,7 +489,7 @@ bool hideMainView = FALSE;
 
 Uint32 windowFrameRateTimer(Uint32 interval, void *param) {
   DWORD tick;
- 
+
   if (hideMainView == FALSE) {
     tick = timeGetTime();
     if ( (int) (tick - oldFrameTick) >= frameRateTime) {
@@ -509,7 +509,7 @@ gboolean windowMouseMove(GtkWidget *widget, GdkEventMotion *event, gpointer user
   int x, y;
   GdkModifierType state;
   BYTE cursorX, cursorY;
-  
+
   if (event->is_hint && frameRateTime > 0) {
     gdk_window_get_pointer(event->window, &x, &y, &state);
     y -= req.height;
@@ -599,7 +599,7 @@ gboolean windowMouseClick(GtkWidget *widget,  GdkEventButton *event, gpointer us
   buildSelect newSelect; /* The new selection */
   BYTE xValue;           /* X & Y values if clicked inside main view*/
   BYTE yValue;
-    
+
   xPos = event->x;
   yPos = event->y;
   yPos -= req.height;
@@ -645,12 +645,12 @@ gtk_widget_set_app_paintable(ret, FALSE);
   gtk_signal_connect(GTK_OBJECT(ret), "key_press_event", GTK_SIGNAL_FUNC(press_event), 0);
   gtk_signal_connect(GTK_OBJECT(ret), "key_release_event", GTK_SIGNAL_FUNC(release_event), 0);
   gtk_signal_connect(GTK_OBJECT(ret), "focus_out_event", GTK_SIGNAL_FUNC(windowLoseFocus), 0);
-  gtk_timeout_add(500, windowMessageCheck, NULL); 
+  gtk_timeout_add(500, windowMessageCheck, NULL);
 
       menus(ret);
    gtk_widget_size_request(menu_bar, &req);
   gtk_widget_set_usize(ret, SCREEN_SIZE_X, SCREEN_SIZE_Y + req.height);
- gtk_window_set_title(GTK_WINDOW(ret), "LinBolo"); 
+ gtk_window_set_title(GTK_WINDOW(ret), "LinBolo");
   gtk_widget_realize(ret);
   gtk_widget_realize(drawingarea1);
   return ret;
@@ -670,9 +670,9 @@ void sendBackendMenuOptions() {
   screenShowMessages(MSG_AI, showAIMessages);
   screenShowMessages(MSG_NETSTATUS, showNetworkStatusMessages);
   screenShowMessages(MSG_NETWORK, showNetworkDebugMessages);
- 
-  
-  isInMenu = TRUE; 
+
+
+  isInMenu = TRUE;
   if (soundIsPlayable() == FALSE) {
     /* Disable windows */
     windowDisableSound();
@@ -774,7 +774,7 @@ bool gameFrontSetupServer() {
   char cmdLine[1024]; /* Command Line                   */
   char tmp[FILENAME_MAX];     /* Temp String */
   long l;
-  
+
   MessageBox(langGetText(STR_GAMEFRONT_SERVERSTARTMSG), DIALOG_BOX_TITLE);
 
   returnValue = TRUE;
@@ -840,9 +840,9 @@ bool gameFrontSetupServer() {
     l /= GAME_NUMGAMETICKS_SEC;
   } else {
     l = timeLen;
-  } 
+  }
   sprintf(tmp, "%d ", l);
-  strcat(cmdLine, tmp); 
+  strcat(cmdLine, tmp);
   if (gameFrontTrackerEnabled == TRUE && dlgState != openLanSetup) {
     /* Add on the tracker info */
     strcat(cmdLine, "-tracker ");
@@ -926,7 +926,7 @@ void gameFrontSetAIType(aiType ait) {
     brainsHandlerSet(NULL, FALSE);
   } else {
     brainsHandlerSet(NULL, TRUE);
-  } 
+  }
 }
 
 /*********************************************************
@@ -935,7 +935,7 @@ void gameFrontSetAIType(aiType ait) {
 *CREATION DATE: 24/2/99
 *LAST MODIFIED: 24/2/99
 *PURPOSE:
-* The network module has tried to join a game with a 
+* The network module has tried to join a game with a
 * password, request it here.
 *
 *ARGUMENTS:
@@ -1065,8 +1065,8 @@ void startTimers() {
   timerGameID = SDL_AddTimer(GAME_TICK_LENGTH, (SDL_NewTimerCallback) windowGameTimer, (void *) NULL);
 
   timerFrameID = SDL_AddTimer(frameRateTime, (SDL_NewTimerCallback) windowFrameRateTimer, (void *) NULL);
-  isQuiting = TRUE; 
-} 
+  isQuiting = TRUE;
+}
 
 /*********************************************************
 *NAME:          gameFrontSetTrackerOptions
@@ -1155,7 +1155,7 @@ void gameFrontSetGameOptions(char *pword, gameType gt, bool hm, aiType ai, long 
       brainsHandlerSet(NULL, FALSE);
     } else {
       brainsHandlerSet(NULL, TRUE);
-    } 
+    }
     startDelay = sd;
     timeLen = tlimit;
   }
@@ -1167,7 +1167,7 @@ void gameFrontSetGameOptions(char *pword, gameType gt, bool hm, aiType ai, long 
 *CREATION DATE: 1/5/00
 *LAST MODIFIED: 1/5/00
 *PURPOSE:
-* Attempts to load the built in tutorial by loading the 
+* Attempts to load the built in tutorial by loading the
 * compress resource. Returns Success
 *
 *ARGUMENTS:
@@ -1247,7 +1247,7 @@ bool gameFrontSetDlgState(GtkWidget *oldWindow, openingStates newState) {
       sendBackendMenuOptions();
       timerGameID = SDL_AddTimer(GAME_TICK_LENGTH, (SDL_NewTimerCallback) windowGameTimer, (void *) NULL);
       timerFrameID = SDL_AddTimer(frameRateTime, (SDL_NewTimerCallback) windowFrameRateTimer, (void *) NULL);
-      isQuiting = TRUE; 
+      isQuiting = TRUE;
       gtk_widget_show(window);
       gtk_widget_destroy(oldWindow);
     }
@@ -1281,7 +1281,7 @@ bool gameFrontSetDlgState(GtkWidget *oldWindow, openingStates newState) {
   } else {
     dlgState = newState;
   }
-  
+
 
  dlgState = newState;
  return TRUE;
@@ -1305,7 +1305,7 @@ int main(int argc, char **argv) {
   /* Linux LGM fix */
   llf.used = FALSE;
   llf.changeUsed = FALSE;
-  
+
   /* Make bolo preferences directory and brains directory */
   mkDirPath= g_strconcat(g_get_home_dir(), "/.linbolo", NULL);
   mkdir(mkDirPath, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
@@ -1313,7 +1313,7 @@ int main(int argc, char **argv) {
   mkDirPath= g_strconcat(g_get_home_dir(), "/.linbolo/brains", NULL);
   mkdir(mkDirPath, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
   g_free(mkDirPath);
- 
+
   g_thread_init(NULL);
   gtk_init(&argc, &argv);
 
@@ -1327,15 +1327,15 @@ int main(int argc, char **argv) {
   gameFrontUdpAddress[0] = '\0';
   wantRejoin = FALSE;
   gameFrontTrackerEnabled = 1;
-  gameFrontGetPrefs(&keys, &useAutoslow, &useAutohide);  
+  gameFrontGetPrefs(&keys, &useAutoslow, &useAutohide);
   window = windowCreate();
- 
+
   XSync(GDK_DISPLAY(), FALSE);
  /* Hack to get SDL to use GTK window */
     //sprintf(SDL_windowhack, "SDL_WINDOWID=%ld", GDK_WINDOW_XWINDOW(window->window));
     sprintf(SDL_windowhack, "SDL_WINDOWID=%ld", GDK_WINDOW_XWINDOW(drawingarea1->window));
-    putenv(SDL_windowhack); 
-    brainsHandlerLoadBrains(NULL);  
+    putenv(SDL_windowhack);
+    brainsHandlerLoadBrains(NULL);
 
     /* Initialize SDL */
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO) < 0 ) {
@@ -1343,7 +1343,7 @@ int main(int argc, char **argv) {
       gtk_main_quit();
       exit(0);
     }
-    
+
     isQuiting = soundSetup();
     if (isQuiting == TRUE) {
       isQuiting = drawSetup(drawingarea1);
@@ -1361,13 +1361,13 @@ int main(int argc, char **argv) {
     if (isQuiting == TRUE) {
       isQuiting = cursorSetup();
     }
-  
-    isQuiting ^= 1; 
+
+    isQuiting ^= 1;
 
     while (isQuiting == FALSE) {
 frameRateTime = (int) (MILLISECONDS / FRAME_RATE_30) - 1;
 
-  gameFrontGetPrefs(&keys, &useAutoslow, &useAutohide);  
+  gameFrontGetPrefs(&keys, &useAutoslow, &useAutohide);
     dialogOpening = dialogOpeningCreate();
     gtk_widget_show(dialogOpening);
     gdk_threads_enter();
@@ -1406,7 +1406,7 @@ bool startSinglePlayer() {
       screenLoadMap(fileName, gametype, hiddenMines, startDelay, timeLen, gameFrontName, FALSE);
     } else {
        BYTE emap[6000] = E_MAP;
-       screenLoadCompressedMap(emap, 5097, "Everard Island", gametype, hiddenMines, startDelay, timeLen, gameFrontName, FALSE); 
+       screenLoadCompressedMap(emap, 5097, "Everard Island", gametype, hiddenMines, startDelay, timeLen, gameFrontName, FALSE);
     }
   }
   if (returnValue == TRUE) {
@@ -1421,7 +1421,7 @@ bool startSinglePlayer() {
 *CREATION DATE: 30/1/99
 *LAST MODIFIED: 30/1/99
 *PURPOSE:
-*  Returns number of miliseconds spent drawing 
+*  Returns number of miliseconds spent drawing
 *  last second
 *
 *ARGUMENTS:
@@ -1515,7 +1515,7 @@ void frontEndDrawMainScreen(screen *value, screenMines *mineView, screenTanks *t
 *CREATION DATE: 28/12/98
 *LAST MODIFIED: 28/12/98
 *PURPOSE:
-* Function is called when the tanks status bars need to 
+* Function is called when the tanks status bars need to
 * be updated
 *
 *ARGUMENTS:
@@ -1586,7 +1586,7 @@ void frontEndStatusPillbox(BYTE pillNum, pillAlliance pb) {
 *********************************************************/
 void frontEndStatusTank(BYTE tankNum, tankAlliance ts) {
   DWORD tick;
-  
+
   tick = timeGetTime();
   drawStatusTank(tankNum, ts);
   drawCopyTanksStatus(req.height);
@@ -1661,7 +1661,7 @@ void frontEndStatusBase(BYTE baseNum, baseAlliance bs) {
 *CREATION DATE: 11/1/99
 *LAST MODIFIED: 11/1/99
 *PURPOSE:
-* Function is called when the tanks status bars need to 
+* Function is called when the tanks status bars need to
 * be updated
 *
 *ARGUMENTS:
@@ -1695,12 +1695,12 @@ void drawSetManStatus(bool isDead, TURNTYPE angle, bool needLocking);
 *********************************************************/
 void frontEndManStatus(bool isDead, TURNTYPE angle) {
   DWORD tick;
- 
+
   tick = timeGetTime();
   frameMutexWaitFor();
   drawSetManStatus(isDead, angle, TRUE);
   frameMutexRelease();
-  dwSysFrame += (timeGetTime() - tick); 
+  dwSysFrame += (timeGetTime() - tick);
 }
 
 /*********************************************************
@@ -1711,7 +1711,7 @@ void frontEndManStatus(bool isDead, TURNTYPE angle) {
 *PURPOSE:
 * A screen redraw request has been made but we are still
 * downloading network data. Draw progress line instead.
-* 
+*
 *ARGUMENTS:
 *  justBlack - TRUE if we want just a black screen
 *********************************************************/
@@ -1770,7 +1770,7 @@ void frontEndGameOver(void) {
 *LAST MODIFIED: 4/2/99
 *PURPOSE:
 * Sets a player name in the menu and enables it.
-* 
+*
 *ARGUMENTS:
 *  value - The player number to set
 *  str   - String identifier of the name
@@ -1779,68 +1779,68 @@ void frontEndSetPlayer(playerNumbers value, char *str) {
   isInMenu = TRUE;
   switch (value) {
    case player01:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player1)->child)), str);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player1)))), str);
     gtk_widget_set_sensitive(idc_player1, TRUE);
     break;
   case player02:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player2)->child)), str);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player2)))), str);
     gtk_widget_set_sensitive(idc_player2, TRUE);
     break;
  case player03:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player3)->child)), str);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player3)))), str);
     gtk_widget_set_sensitive(idc_player3, TRUE);
     break;
   case player04:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player4)->child)), str);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player4)))), str);
     gtk_widget_set_sensitive(idc_player4, TRUE);
     break;
-  case player05: 
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player5)->child)), str);
+  case player05:
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player5)))), str);
     gtk_widget_set_sensitive(idc_player5, TRUE);
     break;
   case player06:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player6)->child)), str);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player6)))), str);
     gtk_widget_set_sensitive(idc_player6, TRUE);
     break;
-  case player07: 
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player7)->child)), str);
+  case player07:
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player7)))), str);
     gtk_widget_set_sensitive(idc_player7, TRUE);
     break;
   case player08:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player8)->child)), str);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player8)))), str);
     gtk_widget_set_sensitive(idc_player8, TRUE);
     break;
   case player09:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player9)->child)), str);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player9)))), str);
     gtk_widget_set_sensitive(idc_player9, TRUE);
     break;
   case player10:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player10)->child)), str);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player10)))), str);
     gtk_widget_set_sensitive(idc_player10, TRUE);
     break;
  case player11:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player11)->child)), str);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player11)))), str);
     gtk_widget_set_sensitive(idc_player11, TRUE);
     break;
   case player12:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player12)->child)), str);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player12)))), str);
     gtk_widget_set_sensitive(idc_player12, TRUE);
     break;
-  case player13: 
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player13)->child)), str);
+  case player13:
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player13)))), str);
     gtk_widget_set_sensitive(idc_player13, TRUE);
     break;
   case player14:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player14)->child)), str);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player14)))), str);
     gtk_widget_set_sensitive(idc_player14, TRUE);
     break;
-  case player15: 
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player15)->child)), str);
+  case player15:
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player15)))), str);
     gtk_widget_set_sensitive(idc_player15, TRUE);
     break;
  default:
   /* case player16: */
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player16)->child)), str);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player16)))), str);
     gtk_widget_set_sensitive(idc_player16, TRUE);
     break;
   }
@@ -1854,7 +1854,7 @@ void frontEndSetPlayer(playerNumbers value, char *str) {
 *LAST MODIFIED: 4/2/99
 *PURPOSE:
 * Clears a player name from the menu and disables it.
-* 
+*
 *ARGUMENTS:
 *  value - The player number to clear
 *********************************************************/
@@ -1862,83 +1862,83 @@ void frontEndClearPlayer(playerNumbers value) {
  isInMenu = TRUE;
  switch (value) {
    case player01:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player1)->child)), STR_01);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player1)))), STR_01);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player1), FALSE);
     gtk_widget_set_sensitive(idc_player1, FALSE);
     break;
   case player02:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player2)->child)), STR_02);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player2)))), STR_02);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player2), FALSE);
     gtk_widget_set_sensitive(idc_player2, FALSE);
     break;
  case player03:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player3)->child)), STR_03);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player3)))), STR_03);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player3), FALSE);
     gtk_widget_set_sensitive(idc_player3, FALSE);
     break;
   case player04:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player4)->child)), STR_04);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player4)))), STR_04);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player4), FALSE);
     gtk_widget_set_sensitive(idc_player4, FALSE);
     break;
-  case player05: 
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player5)->child)), STR_05);
+  case player05:
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player5)))), STR_05);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player5), FALSE);
     gtk_widget_set_sensitive(idc_player5, FALSE);
     break;
   case player06:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player6)->child)), STR_06);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player6)))), STR_06);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player6), FALSE);
     gtk_widget_set_sensitive(idc_player6, FALSE);
     break;
-  case player07: 
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player7)->child)), STR_07);
+  case player07:
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player7)))), STR_07);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player7), FALSE);
     gtk_widget_set_sensitive(idc_player7, FALSE);
     break;
   case player08:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player8)->child)), STR_08);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player8)))), STR_08);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player8), FALSE);
     gtk_widget_set_sensitive(idc_player8, FALSE);
     break;
   case player09:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player9)->child)), STR_09);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player9)))), STR_09);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player9), FALSE);
     gtk_widget_set_sensitive(idc_player9, FALSE);
     break;
   case player10:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player10)->child)), STR_10);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player10)))), STR_10);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player10), FALSE);
     gtk_widget_set_sensitive(idc_player10, FALSE);
     break;
  case player11:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player11)->child)), STR_11);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player11)))), STR_11);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player11), FALSE);
     gtk_widget_set_sensitive(idc_player11, FALSE);
     break;
   case player12:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player12)->child)), STR_12);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player12)))), STR_12);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player12), FALSE);
     gtk_widget_set_sensitive(idc_player12, FALSE);
     break;
-  case player13: 
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player13)->child)), STR_13);
+  case player13:
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player13)))), STR_13);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player13), FALSE);
     gtk_widget_set_sensitive(idc_player13, FALSE);
     break;
   case player14:
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player14)->child)), STR_14);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player14)))), STR_14);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player14), FALSE);
     gtk_widget_set_sensitive(idc_player14, FALSE);
     break;
-  case player15: 
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player15)->child)), STR_15);
+  case player15:
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player15)))), STR_15);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player15), FALSE);
     gtk_widget_set_sensitive(idc_player15, FALSE);
     break;
  default:
   /* case player16: */
-    gtk_label_set_text((GTK_LABEL(GTK_BIN(idc_player16)->child)), STR_16);
+    gtk_label_set_text((GTK_LABEL(gtk_bin_get_child(GTK_BIN(idc_player16)))), STR_16);
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player16), FALSE);
     gtk_widget_set_sensitive(idc_player16, FALSE);
    break;
@@ -1953,7 +1953,7 @@ void frontEndClearPlayer(playerNumbers value) {
 *LAST MODIFIED: 27/3/99
 *PURPOSE:
 * Checks/unchecks a player
-* 
+*
 *ARGUMENTS:
 * value     - The player number
 * isChecked - Is the item checked
@@ -1973,13 +1973,13 @@ void frontEndSetPlayerCheckState(playerNumbers value, bool isChecked) {
   case player04:
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player4), isChecked);
     break;
-  case player05: 
+  case player05:
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player5), isChecked);
     break;
   case player06:
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player6), isChecked);
     break;
-  case player07: 
+  case player07:
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player7), isChecked);
     break;
   case player08:
@@ -1997,13 +1997,13 @@ void frontEndSetPlayerCheckState(playerNumbers value, bool isChecked) {
   case player12:
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player12), isChecked);
     break;
-  case player13: 
+  case player13:
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player13), isChecked);
     break;
   case player14:
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player14), isChecked);
     break;
-  case player15: 
+  case player15:
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(idc_player15), isChecked);
     break;
  default:
@@ -2022,7 +2022,7 @@ void frontEndSetPlayerCheckState(playerNumbers value, bool isChecked) {
 *PURPOSE:
 * Request to enable/disable the request alliance menu
 * item
-* 
+*
 *ARGUMENTS:
 *  enabled - TRUE for enabled/FALSE for diabled
 *********************************************************/
@@ -2037,7 +2037,7 @@ void frontEndEnableRequestAllyMenu(bool enabled) {
 *LAST MODIFIED: 1/11/99
 *PURPOSE:
 * Request to enable/disable the leave alliance menu item
-* 
+*
 *ARGUMENTS:
 *  enabled - TRUE for enabled/FALSE for diabled
 *********************************************************/
@@ -2055,7 +2055,7 @@ void frontEndEnableLeaveAllyMenu(bool enabled) {
 *PURPOSE:
 * Set the front end whether the gunsight is visible or not
 * (Called by auto show/hide gunsight being triggered)
-* 
+*
 *ARGUMENTS:
 *  isShown - Is the gunsight shown or not
 *********************************************************/
@@ -2083,17 +2083,17 @@ bool gameFrontGetPrefs(keyItems *keys, bool *useAutoslow, bool *useAutohide) {
   char buff[FILENAME_MAX]; /* Read Buffer               */
   char def[FILENAME_MAX];  /* The default value      */
   char prefs[FILENAME_MAX];
-  
+
   preferencesGetPreferenceFile(prefs);
 
   /* Player Name */
   strcpy(def, langGetText(STR_DLGGAMESETUP_DEFAULTNAME));
   GetPrivateProfileString("SETTINGS", "Player Name", def, gameFrontName, FILENAME_MAX, prefs);
- 
+
   /* Target Address */
   def[0] = '\0';
   GetPrivateProfileString("SETTINGS", "Target Address", def, gameFrontUdpAddress, FILENAME_MAX, prefs);
-  
+
   /* Target UDP Port */
   itoa(DEFAULT_UDP_PORT, def, 10);
   GetPrivateProfileString("SETTINGS", "Target UDP Port", def, buff, FILENAME_MAX, prefs);
@@ -2168,7 +2168,7 @@ bool gameFrontGetPrefs(keyItems *keys, bool *useAutoslow, bool *useAutohide) {
   *useAutoslow = YESNO_TO_TRUEFALSE(buff[0]);
   GetPrivateProfileString("GAME OPTIONS", "Auto Show-Hide Gunsight", "No", buff, FILENAME_MAX, prefs);
   *useAutohide = YESNO_TO_TRUEFALSE(buff[0]);
-    
+
     /* Tracker options */
   GetPrivateProfileString("TRACKER", "Address", TRACKER_ADDRESS, gameFrontTrackerAddr, FILENAME_MAX, prefs);
   itoa(TRACKER_PORT, def, 10);
@@ -2217,7 +2217,7 @@ bool gameFrontGetPrefs(keyItems *keys, bool *useAutoslow, bool *useAutohide) {
   labelMsg = atoi(buff);
   GetPrivateProfileString("MENU", "Tank Label Size", "1", buff, FILENAME_MAX, prefs);
   labelTank = atoi(buff);
-  
+
 
   /* Winbolo.net */
   GetPrivateProfileString("WINBOLO.NET", "Password", "", gameFrontWbnPass, FILENAME_MAX, prefs);
@@ -2259,7 +2259,7 @@ void gameFrontPutPrefs(keyItems *keys) {
   char playerName2[PLAYER_NAME_LEN]; /* Current player Name       */
   char buff[FILENAME_MAX];          /* Read Buffer               */
   char prefs[FILENAME_MAX];
-  
+
   preferencesGetPreferenceFile(prefs);
   /* Player Name */
   if ((netGetType() == netSingle || gameFrontRemeber == TRUE) && dlgState != openSetup) {
@@ -2276,7 +2276,7 @@ void gameFrontPutPrefs(keyItems *keys) {
 
   /* Target Address */
   WritePrivateProfileString("SETTINGS", "Target Address", gameFrontUdpAddress, prefs);
-  
+
   /* Target UDP Port */
   itoa(gameFrontTargetUdp, buff, 10);
   WritePrivateProfileString("SETTINGS", "Target UDP Port", buff, prefs);
@@ -2332,7 +2332,7 @@ void gameFrontPutPrefs(keyItems *keys) {
   WritePrivateProfileString("GAME OPTIONS", "Time Length", buff, prefs);
   WritePrivateProfileString("GAME OPTIONS", "Auto Slowdown", TRUEFALSE_TO_STR(useAutoslow), prefs);
   WritePrivateProfileString("GAME OPTIONS", "Auto Show-Hide Gunsight", TRUEFALSE_TO_STR(useAutohide), prefs);
-    
+
   /* Tracker */
   WritePrivateProfileString("TRACKER", "Address", gameFrontTrackerAddr, prefs);
   itoa(gameFrontTrackerPort, buff, 10);
@@ -2383,7 +2383,7 @@ BYTE upTo = 0;
 bool frontEndTutorial(BYTE pos) {
   bool returnValue; /* Value to return */
   bool flag;
-  
+
 
   flag = FALSE;
  // gdk_threads_enter();
@@ -2398,7 +2398,7 @@ bool frontEndTutorial(BYTE pos) {
         strcpy(messageBody, langGetText(STR_TUTORIAL01));
         hasMessage = TRUE;
         returnValue = TRUE;
-        upTo++; 
+        upTo++;
      }
       break;
     case 1:
@@ -2639,7 +2639,7 @@ bool frontEndTutorial(BYTE pos) {
   return returnValue;
 }
 
-void windowStartTutorial() { 
+void windowStartTutorial() {
   upTo = 0;
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(automatic_scrolling1), TRUE);
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(show_gunsight1), TRUE);
@@ -2673,11 +2673,17 @@ on_save_map1_activate                  (GtkMenuItem     *menuitem,
   /* Get the name of the map */
   screenGetMapName(saveFileName);
   strcat(saveFileName, ".map");
-  saveFileW = gtk_file_selection_new("Save Map File...");
-  gtk_signal_connect(GTK_OBJECT (saveFileW), "destroy", (GtkSignalFunc) saveFileDestroy, &saveFileW);
+	saveFileW = gtk_file_chooser_dialog_new("Save Map File...", NULL, GTK_FILE_CHOOSER_ACTION_SAVE,
+	 																		_("_Cancel"),
+                                      GTK_RESPONSE_CANCEL,
+                                      _("_Save"),
+                                      GTK_RESPONSE_ACCEPT,
+                                      NULL);
+  gtk_file_selection_new();
+  gtk_signal_connect(GTK_OBJECT (saveFileW), "destroy", saveFileDestroy, &saveFileW);
 
-  gtk_signal_connect(GTK_OBJECT (GTK_FILE_SELECTION (saveFileW)->ok_button), "clicked", (GtkSignalFunc) saveFileOK, saveFileW );
-  gtk_signal_connect(GTK_OBJECT (GTK_FILE_SELECTION (saveFileW)->cancel_button), "clicked", (GtkSignalFunc) saveFileCancel, saveFileW);
+  gtk_signal_connect(GTK_OBJECT (GTK_FILE_SELECTION (saveFileW)->ok_button), "clicked", saveFileOK, saveFileW );
+  gtk_signal_connect(GTK_OBJECT (GTK_FILE_SELECTION (saveFileW)->cancel_button), "clicked", saveFileCancel, saveFileW);
    gtk_file_selection_set_filename (GTK_FILE_SELECTION(saveFileW), saveFileName);
   gtk_widget_show (saveFileW);
 
@@ -2706,7 +2712,7 @@ on_game_information1_activate          (GtkMenuItem     *menuitem,
     gtk_widget_realize(windowGameInfo);
     gtk_widget_show(windowGameInfo);
   } else {
-    gdk_window_raise((windowGameInfo->window));
+    gdk_window_raise(gtk_widget_get_window(windowGameInfo));
   }
 }
 
@@ -2724,7 +2730,7 @@ on_system_information1_activate        (GtkMenuItem     *menuitem,
     gtk_widget_realize(windowSysInfo);
     gtk_widget_show(windowSysInfo);
   } else {
-    gdk_window_raise((windowSysInfo->window));
+    gdk_window_raise(gtk_widget_get_window(windowSysInfo));
   }
 }
 
@@ -2742,7 +2748,7 @@ on_network_information1_activate       (GtkMenuItem     *menuitem,
     gtk_widget_realize(windowNetInfo);
     gtk_widget_show(windowNetInfo);
   } else {
-    gdk_window_raise((windowNetInfo->window));
+    gdk_window_raise(gtk_widget_get_window(windowNetInfo));
   }
 }
 
@@ -2794,7 +2800,7 @@ on_11_activate                         (GtkMenuItem     *menuitem,
 /* 20 FPS */
   frameRate = FRAME_RATE_20;
   frameRateTime = (int) (MILLISECONDS / FRAME_RATE_20) - 1;
-    
+
 }
 
 
@@ -2805,7 +2811,7 @@ on_12_activate                         (GtkMenuItem     *menuitem,
 /* 15 FPS */
   frameRate = FRAME_RATE_15;
   frameRateTime = (int) (MILLISECONDS / FRAME_RATE_15) - 1;
-    
+
 }
 
 
@@ -2816,7 +2822,7 @@ on_13_activate                         (GtkMenuItem     *menuitem,
 /* 12 FPS */
   frameRate = FRAME_RATE_12;
   frameRateTime = (int) (MILLISECONDS / FRAME_RATE_12) - 1;
-    
+
 }
 
 
@@ -3290,7 +3296,7 @@ on_manual1_activate                    (GtkMenuItem     *menuitem,
     isInMenu = TRUE;
     brainsHandlerManual();
     isInMenu = FALSE;
-  } 
+  }
 }
 
 
@@ -3339,7 +3345,7 @@ on_quad1_activate                      (GtkMenuItem     *menuitem,
 
 
 
-void menus(GtkWidget *window) { 
+void menus(GtkWidget *window) {
   GtkWidget *vbox1;
   GtkWidget *file1;
   GtkWidget *file1_menu;
@@ -3425,7 +3431,7 @@ GtkWidget *background_sound1;
   GtkWidget *help2;
   GtkWidget *about1;
   GtkAccelGroup *accel_group;
- 
+
   accel_group = gtk_accel_group_new ();
 
   vbox1 = gtk_vbox_new (FALSE, 0);
@@ -3445,7 +3451,7 @@ GtkWidget *background_sound1;
 
 
 
-  
+
   file1 = gtk_menu_item_new_with_label ("File");
   gtk_widget_ref (file1);
   gtk_object_set_data_full (GTK_OBJECT (window), "file1", file1,
@@ -3821,7 +3827,7 @@ GtkWidget *background_sound1;
   gtk_widget_show (allow_alliance_request1);
   gtk_container_add (GTK_CONTAINER (linbolo1_menu), allow_alliance_request1);
 
-  
+
   set_keys1 = gtk_menu_item_new_with_label ("Set Keys");
   gtk_widget_ref (set_keys1);
   gtk_object_set_data_full (GTK_OBJECT (window), "set_keys1", set_keys1,
@@ -4173,8 +4179,8 @@ GtkWidget *background_sound1;
   gtk_widget_show (about1);
   gtk_container_add (GTK_CONTAINER (help1_menu), about1);
 
-  
-  
+
+
   /* Apply check marks */
   switch (labelTank) {
   case lblNone:
@@ -4188,7 +4194,7 @@ GtkWidget *background_sound1;
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(long2), TRUE);
     break;
   }
- 
+
   switch (frameRate) {
   case FRAME_RATE_10:
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(_14), TRUE);
