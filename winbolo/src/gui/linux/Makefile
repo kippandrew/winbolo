@@ -15,7 +15,7 @@
 
 
 CC = gcc
-CFLAGS = -g `sdl-config --cflags` `pkg-config --cflags gtk+-3.0` 
+CFLAGS = -g `sdl-config --cflags` `pkg-config --cflags gtk+-3.0` -Wno-int-conversion 
 #-s
 #CFLAGS = -s -O3 -ffast-math -fomit-frame-pointer -mpentium -march=pentium `sdl-config --cflags` `pkg-config --cflags gtk+-3.0` `glib-config --cflags` 
 BOLODIR = ../../bolo/
@@ -106,7 +106,7 @@ debug_file_output.o: ${BOLODIR}debug_file_output.c ${BOLODIR}debug_file_output.h
 
 
 main.o: main.c 
-	${CC} ${CFLAGS} -c main.c
+	${CC} ${CFLAGS} -c main.c -Wno-int-conversion -Wno-implicit-function-declaration
 
 dialogkeysetup.o: dialogkeysetup.c dialogkeysetup.h 
 	${CC} ${CFLAGS} -c dialogkeysetup.c
