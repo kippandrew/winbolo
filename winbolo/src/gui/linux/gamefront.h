@@ -60,28 +60,28 @@
 #include <gtk/gtk.h>
 typedef int  HINSTANCE;
 typedef int HWND;
-typedef int HACCEL; 
+typedef int HACCEL;
 #include "../../bolo/global.h"
 #include "../../bolo/backend.h"
 #include "input.h"
 /* Default keys if loading preferences screws up */
-#define DEFAULT_FORWARD 'Q' 
-#define DEFAULT_BACKWARD 'A' 
+#define DEFAULT_FORWARD 'Q'
+#define DEFAULT_BACKWARD 'A'
 #define DEFAULT_LEFT 'O'
 #define DEFAULT_RIGHT 'P'
 #define DEFAULT_SHOOT ' '
-#define DEFAULT_LAY_MINE GDK_Shift_L
+#define DEFAULT_LAY_MINE GDK_KEY_Shift_L
 
 /* Values of the arrow keys, return */
-#define DEFAULT_SCROLLLEFT GDK_Left
-#define DEFAULT_SCROLLUP GDK_Up
-#define DEFAULT_SCROLLRIGHT GDK_Right
-#define DEFAULT_SCROLLDOWN GDK_Down
-#define DEFAULT_TANKVIEW GDK_Return
+#define DEFAULT_SCROLLLEFT GDK_KEY_Left
+#define DEFAULT_SCROLLUP GDK_KEY_Up
+#define DEFAULT_SCROLLRIGHT GDK_KEY_Right
+#define DEFAULT_SCROLLDOWN GDK_KEY_Down
+#define DEFAULT_TANKVIEW GDK_KEY_Return
 #define DEFAULT_PILLVIEW 'L'
 /* + and - Keys */
 #define DEFAULT_SCROLL_GUNINCREASE '='
-#define DEFAULT_SCROLL_GUNDECREASE GDK_minus
+#define DEFAULT_SCROLL_GUNDECREASE GDK_KEY_minus
 #define DEFAULT_SCROLL_PILLVIEW 'L'
 #endif
 
@@ -131,7 +131,7 @@ bool gameFrontSetDlgState(GtkWidget *window, openingStates newState);
 *ARGUMENTS:
 *  hInst    - Handle to the app instance
 *  cmdLine  - Command line
-*  nCmdShow - Window state 
+*  nCmdShow - Window state
 *  keys     - Structure that holds the keys
 *  isLoaded - Have we loaded before?
 *********************************************************/
@@ -149,7 +149,7 @@ HWND gameFrontStart(HINSTANCE hInst, char *cmdLine, int nCmdShow, keyItems *keys
 *  hInst      - Handle to the app instance
 *  hWnd       - Handle to the main window
 *  keys       - Pointer to hold Key Preferences
-*  gamePlayed - TRUE if we actually entered the main 
+*  gamePlayed - TRUE if we actually entered the main
 *               screen (ie played a game)
 *  isQuiting  - TRUE if we are quiting
 *********************************************************/
@@ -298,7 +298,7 @@ void gameFrontSetUdpOptions(char *pn, char *add, unsigned short theirUdp, unsign
 *CREATION DATE: 24/2/99
 *LAST MODIFIED: 24/2/99
 *PURPOSE:
-* The network module has tried to join a game with a 
+* The network module has tried to join a game with a
 * password, request it here.
 *
 *ARGUMENTS:
@@ -489,7 +489,7 @@ bool gameFrontPreferencesExist();
 *CREATION DATE: 1/5/00
 *LAST MODIFIED: 1/5/00
 *PURPOSE:
-* Attempts to load the built in map by loading the 
+* Attempts to load the built in map by loading the
 * compress resource. Returns Success
 *
 *ARGUMENTS:
@@ -503,7 +503,7 @@ bool gameFrontLoadInBuiltMap();
 *CREATION DATE: 1/5/00
 *LAST MODIFIED: 1/5/00
 *PURPOSE:
-* Attempts to load the built in tutorial by loading the 
+* Attempts to load the built in tutorial by loading the
 * compress resource. Returns Success
 *
 *ARGUMENTS:

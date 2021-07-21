@@ -317,7 +317,7 @@ GtkRequisition req;
 gint configure_event (GtkWidget *widget, GdkEventConfigure *event) {
   GdkPixmap *pixmap;
   GdkBitmap *mask;
-  pixmap = gdk_pixmap_create_from_xpm_d (gtk_widget_get_window(window), &mask, &window->style->bg[GTK_STATE_NORMAL], boloicon_xpm);
+  pixmap = gdk_pixmap_create_from_xpm_d (gtk_widget_get_window(window), &mask, gtk_widget_get_style(&window)->bg[GTK_STATE_NORMAL], boloicon_xpm);
 gdk_window_set_icon (gtk_widget_get_window(window), NULL, pixmap, mask);
   return TRUE;
 }
@@ -2682,7 +2682,7 @@ on_save_map1_activate                  (GtkMenuItem     *menuitem,
   gint res = gtk_dialog_run(GTK_DIALOG(saveFileW));
   if(res == GTK_RESPONSE_ACCEPT) {
         saveFileOK();
-  } 
+  }
   if(res == GTK_RESPONSE_CANCEL) {
   	safeFileCancle();
   }
