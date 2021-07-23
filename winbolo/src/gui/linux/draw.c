@@ -24,7 +24,7 @@
 *Purpose:
 *  System Specific Drawing routines (Uses Direct Draw)
 *********************************************************/
- 
+
 
 /* The size of the main window EXCLUDING Menus and Toolbar */
 #define SCREEN_SIZE_X 515
@@ -41,7 +41,7 @@
 #include <X11/xpm.h>
 #include <gdk/gdkx.h>
 #include <math.h>
-#include "SDL.h" 
+#include "SDL.h"
 #include "SDL_ttf.h"
 #include <string.h>
 #include "../../bolo/global.h"
@@ -114,7 +114,7 @@ int drawGetFrameRate() {
 *  Returns whether the operation was successful or not
 *
 *ARGUMENTS:
-* appInst - Handle to the application (Required to 
+* appInst - Handle to the application (Required to
 *           load bitmaps from resources)
 * appWnd  - Main Window Handle (Required for clipper)
 *********************************************************/
@@ -130,7 +130,7 @@ bool drawSetup(GtkWidget *appWnd) {
   char fileName[FILENAME_MAX];
   char *tf;
   FILE *fp;
-  
+
   buff = malloc(80438);
   /* Get tmp file */
   strcpy(fileName, g_get_tmp_dir());
@@ -151,7 +151,7 @@ bool drawSetup(GtkWidget *appWnd) {
     returnValue = FALSE;
     MessageBox("Can't build main surface", DIALOG_BOX_TITLE);
   }
-  
+
 
   /* Create the back buffer surface */
   if (returnValue == TRUE) {
@@ -185,7 +185,7 @@ bool drawSetup(GtkWidget *appWnd) {
       ret = SDL_SetColorKey(lpTiles, SDL_SRCCOLORKEY, SDL_MapRGB(lpTiles->format, 0, 0xFF, 0));
       if (ret == -1) {
         MessageBox("Couldn't map colour key", DIALOG_BOX_TITLE);
-	returnValue = FALSE; 
+	returnValue = FALSE;
       } else {
   //      lpTiles = SDL_DisplayFormat(lpTemp);
 //	SDL_FreeSurface(lpTemp);
@@ -196,12 +196,12 @@ bool drawSetup(GtkWidget *appWnd) {
       }
     }
   }
-  
+
   out.w = zoomFactor * TILE_SIZE_X;
   out.h = zoomFactor * TILE_SIZE_Y;
   in.w = zoomFactor * TILE_SIZE_X;
   in.h = zoomFactor * TILE_SIZE_Y;
-  
+
   /* Create the Base status window */
   if (returnValue == TRUE) {
     lpTemp = SDL_CreateRGBSurface(0, zoomFactor * STATUS_BASES_WIDTH, zoomFactor * STATUS_BASES_HEIGHT, 16, 0, 0, 0, 0);
@@ -228,7 +228,7 @@ bool drawSetup(GtkWidget *appWnd) {
          out.y = zoomFactor * STATUS_BASES_MIDDLE_ICON_Y;
          SDL_BlitSurface(lpTiles, &in, lpBasesStatus, &out);
        }
-     } 
+     }
   }
   /* Makes the pills status */
   if (returnValue == TRUE) {
@@ -242,7 +242,7 @@ bool drawSetup(GtkWidget *appWnd) {
        if (lpTemp == FALSE) {
          returnValue = FALSE;
          MessageBox("Can't build a status pills buffer", DIALOG_BOX_TITLE);
-       } else {	      
+       } else {
          /* Fill the surface black */
          fill.x = 0;
          fill.y = 0;
@@ -255,10 +255,10 @@ bool drawSetup(GtkWidget *appWnd) {
          out.x = zoomFactor * STATUS_PILLS_MIDDLE_ICON_X;
          out.y = zoomFactor * STATUS_PILLS_MIDDLE_ICON_Y;
          SDL_BlitSurface(lpTiles, &in, lpPillsStatus, &out);
-       } 
+       }
      }
   }
- 
+
    /* Makes the tanks status */
   if (returnValue == TRUE) {
     lpTemp = SDL_CreateRGBSurface(0, zoomFactor * STATUS_TANKS_WIDTH, zoomFactor * STATUS_TANKS_HEIGHT, 16, 0, 0, 0, 0);
@@ -284,7 +284,7 @@ bool drawSetup(GtkWidget *appWnd) {
          out.x = zoomFactor * STATUS_TANKS_MIDDLE_ICON_X;
          out.y = zoomFactor * STATUS_TANKS_MIDDLE_ICON_Y;
          SDL_BlitSurface(lpTiles, &in, lpTankStatus, &out);
-       } 
+       }
     }
   }
   if (returnValue == TRUE) {
@@ -315,7 +315,7 @@ bool drawSetup(GtkWidget *appWnd) {
 *CREATION DATE: 13/12/98
 *LAST MODIFIED: 13/2/98
 *PURPOSE:
-*  Destroys and cleans up drawing systems, direct draw 
+*  Destroys and cleans up drawing systems, direct draw
 *  structures etc.
 *
 *ARGUMENTS:
@@ -368,17 +368,40 @@ int lastManY = 0;
 *********************************************************/
 void drawSetManClear() {
   int zoomFactor, left, top, width, height;
-
-//  jm removed today gdk_threads_enter(); 
+  //  jm removed today gdk_threads_enter();
   zoomFactor = 1; //FIXME
   left = zoomFactor * MAN_STATUS_X;
   top = (zoomFactor * MAN_STATUS_Y);
   width = zoomFactor * MAN_STATUS_WIDTH + 5;
   height =  zoomFactor * MAN_STATUS_HEIGHT + 5;
-  gdk_draw_rectangle (gtk_widget_get_window (drawingarea1), gtk_widget_get_style(drawingarea1)->black_gc, TRUE, left, top, width, height);
+  SDL_Surface *sdlsurf = SDL_CreateRGBSurface (
+    0, width, height, 32,
+    0x00FF0000, /* Rmask */
+    0x0000FF00, /* Gmask */
+    0x000000FF, /* Bmask */
+    0); /* Amask */
+
+  /* ... make sure sdlsurf is locked or doesn't need locking ... */
+  cairo_t *cr;
+  cairo_surface_t *cairosurf = cairo_image_surface_create_for_data (
+      sdlsurf->pixels,
+      CAIRO_FORMAT_RGB24,
+      sdlsurf->w,
+      sdlsurf->h,
+      sdlsurf->pitch);
+
+  cr = gdk_cairo_create (gtk_widget_get_window (drawingarea1));
+
+
+
+  cairo_set_source_rgb(cr, 0., 0., 0.);
+
+  cairo_rectangle(cr, left, top, width, height);
+  cairo_stroke_preserve(cr);
+  cairo_fill(cr);
   lastManX = 0;
   lastManY = 0;
-//  gdk_threads_leave(); 
+//  gdk_threads_leave();
 }
 
 /*********************************************************
@@ -406,9 +429,24 @@ void drawSetManStatus(bool isDead, TURNTYPE angle, bool needLocking) {
   int midx, midy;
   int left, top;
   int width, height;
+  SDL_Surface *sdlsurf = SDL_CreateRGBSurface (
+    0, width, height, 32,
+    0x00FF0000, /* Rmask */
+    0x0000FF00, /* Gmask */
+    0x000000FF, /* Bmask */
+    0); /* Amask */
+
+  /* ... make sure sdlsurf is locked or doesn't need locking ... */
+  cairo_t *cr;
+  cairo_surface_t *cairosurf = cairo_image_surface_create_for_data (
+      sdlsurf->pixels,
+      CAIRO_FORMAT_RGB24,
+      sdlsurf->w,
+      sdlsurf->h,
+      sdlsurf->pitch);
   zoomFactor = 1; //FIXME windowGetZoomFactor();
 
-  
+
   //drawSetManClear(menuHeight); /* Clear the display */
 
   oldAngle = angle;
@@ -470,35 +508,43 @@ void drawSetManStatus(bool isDead, TURNTYPE angle, bool needLocking) {
     dbTemp = MAN_STATUS_RADIUS * (cos(dbAngle));
     addY -= (int) (zoomFactor * dbTemp);
   }
-  
- 
-  if (needLocking == TRUE) { 
-    gdk_threads_enter(); 
+
+
+  if (needLocking == TRUE) {
+    gdk_threads_enter();
   }
   left = zoomFactor * MAN_STATUS_X;
   top = (zoomFactor * MAN_STATUS_Y);
   width = zoomFactor * MAN_STATUS_WIDTH;
   height =  zoomFactor * MAN_STATUS_HEIGHT;
+  cr = gdk_cairo_create (gtk_widget_get_window (drawingarea1));
+  cairo_set_source_rgb(cr, 0., 0., 0.);
   if (lastManX != 0) {
-    gtk_widget_get_window (gdk_draw_line (drawingarea1), gtk_widget_get_style(drawingarea1)->black_gc, zoomFactor * MAN_STATUS_CENTER_X + left , top + zoomFactor * MAN_STATUS_CENTER_Y, lastManX, lastManY);
+    cairo_move_to(cr, zoomFactor * MAN_STATUS_CENTER_X + left , top + zoomFactor * MAN_STATUS_CENTER_Y);
+    cairo_line_to(cr, lastManX, lastManY);
+    cairo_stroke(cr);
   } else {
-     gdk_draw_rectangle (gtk_widget_get_window (drawingarea1), gtk_widget_get_style(drawingarea1)->black_gc, TRUE, left, top, width, height);
+     cairo_rectangle (cr, left, top, width, height);
+     cairo_fill (cr);
   }
   addY += top;
   addX += left;
+  cairo_set_source_rgb(cr, 1., 1., 1.);
   if (isDead == TRUE) {
      /* Draw dead circle */
-     gdk_draw_arc(gtk_widget_get_window (drawingarea1), gtk_widget_get_style(drawingarea1)->white_gc, TRUE, left, top, width, height, 0, 360 * 64);
+     cairo_arc(cr, left, top, width, height, 2 * M_PI);
+     cairo_fill(cr);
      lastManX = 0;
   } else {
-    gdk_draw_arc(gtk_widget_get_window (drawingarea1), gtk_widget_get_style(drawingarea1)->white_gc, FALSE, left, top, width, height, 0, 360 * 64);
-   gdk_draw_line(gtk_widget_get_window (drawingarea1), gtk_widget_get_style(drawingarea1)->white_gc, zoomFactor * MAN_STATUS_CENTER_X + left , top + zoomFactor * MAN_STATUS_CENTER_Y, addX, addY);
-
-    lastManX = addX;
-    lastManY = addY;
+     cairo_arc(cr, left, top, width, height, 2 * M_PI * 64);
+     cairo_move_to(cr, zoomFactor * MAN_STATUS_CENTER_X + left , top + zoomFactor * MAN_STATUS_CENTER_Y);
+     cairo_line_to(cr, addX, addY);
+     cairo_stroke(cr);
+     lastManX = addX;
+     lastManY = addY;
   }
   if (needLocking == TRUE) {
-    gdk_threads_leave(); 
+    gdk_threads_leave();
   }
 }
 
@@ -511,7 +557,7 @@ void drawSetManStatus(bool isDead, TURNTYPE angle, bool needLocking) {
 *  Draws shells and explosions on the backbuffer.
 *
 *ARGUMENTS:
-*  sBullets - The screen Bullets data structure 
+*  sBullets - The screen Bullets data structure
 *********************************************************/
 void drawShells(screenBullets *sBullets) {
   SDL_Rect output; /* Output Rectangle */
@@ -576,7 +622,7 @@ void drawShells(screenBullets *sBullets) {
      output.y = zf * EXPLOSION2_Y;
      output.w = zf * TILE_SIZE_X;
      output.h = zf * TILE_SIZE_Y;
-     break; 
+     break;
     case SHELL_EXPLOSION1:
       output.x = zf * EXPLOSION1_X;
       output.y = zf * EXPLOSION1_Y;
@@ -712,7 +758,7 @@ void drawTankLabel(char *str, int mx, int my, BYTE px, BYTE py) {
   int y;
   BYTE zf;
   SDL_Surface *lpTextSurface;
-   
+
 
   zf = 1; //FIXME: windowGetZoomFactor();
 /*  textRect.left = 0;
@@ -756,7 +802,7 @@ textRect.bottom = zf * ((MAIN_BACK_BUFFER_SIZE_Y * TILE_SIZE_Y) - y);
 *  Draws tanks on the backbuffer.
 *
 *ARGUMENTS:
-*  tks - The screen Tanks data structure 
+*  tks - The screen Tanks data structure
 *********************************************************/
 void drawTanks(screenTanks *tks) {
   int x;       /* X and Y Co-ordinates */
@@ -1203,7 +1249,7 @@ void drawTanks(screenTanks *tks) {
 *  Draws the builder
 *
 *ARGUMENTS:
-*  lgms - The screenLgm data structure 
+*  lgms - The screenLgm data structure
 *********************************************************/
 void drawLGMs(screenLgm *lgms) {
   BYTE total;   /* Total number to draw */
@@ -1278,7 +1324,7 @@ void drawNetFailed() {
   zoomFactor = 1; //FIXME windowGetZoomFactor();
   dest.x = zoomFactor * 3 * TILE_SIZE_X;
   dest.y = zoomFactor * 8 * TILE_SIZE_Y;
-  lpTextSurface = TTF_RenderText_Shaded(lpFont, "Network Failed -  Resyncing", white, black);  
+  lpTextSurface = TTF_RenderText_Shaded(lpFont, "Network Failed -  Resyncing", white, black);
   SDL_SetColorKey(lpTextSurface, SDL_SRCCOLORKEY, SDL_MapRGB(lpTextSurface->format, 0, 0, 0));
   dest.w = lpTextSurface->w;
   dest.h = lpTextSurface->h;
@@ -1307,7 +1353,7 @@ void drawPillInView() {
   zoomFactor = 1; //FIXME windowGetZoomFactor();
   dest.x = zoomFactor * TILE_SIZE_X;
   dest.y = zoomFactor * MAIN_SCREEN_SIZE_Y * TILE_SIZE_Y;
-  lpTextSurface = TTF_RenderText_Shaded(lpFont, langGetText(STR_DRAW_PILLBOXVIEW), white, black);  
+  lpTextSurface = TTF_RenderText_Shaded(lpFont, langGetText(STR_DRAW_PILLBOXVIEW), white, black);
   SDL_SetColorKey(lpTextSurface, SDL_SRCCOLORKEY, SDL_MapRGB(lpTextSurface->format, 0, 0, 0));
   dest.w = lpTextSurface->w;
   dest.h = lpTextSurface->h;
@@ -1337,7 +1383,7 @@ void drawStartDelay(long srtDelay) {
   SDL_Rect in;
 
   zoomFactor = 1; //FIXME
-  SDL_FillRect(lpBackBuffer, NULL, SDL_MapRGB(lpBackBuffer->format, 0, 0, 0)); 
+  SDL_FillRect(lpBackBuffer, NULL, SDL_MapRGB(lpBackBuffer->format, 0, 0, 0));
   /* Prepare the string */
   srtDelay /= GAME_NUMGAMETICKS_SEC; /* Convert ticks back to seconds */
   sprintf(strNum, "%d", srtDelay);
@@ -1346,7 +1392,7 @@ void drawStartDelay(long srtDelay) {
   lpTextSurface = TTF_RenderText_Shaded(lpFont, str, white, black);
   if (lpTextSurface) {
     src.x = zoomFactor * TILE_SIZE_X + 5;
-    src.y = zoomFactor * TILE_SIZE_Y + 5; 
+    src.y = zoomFactor * TILE_SIZE_Y + 5;
     src.w = lpTextSurface->w;
     src.h = lpTextSurface->h;
     SDL_BlitSurface(lpTextSurface, NULL, lpBackBuffer, &src);
@@ -1379,7 +1425,7 @@ void drawStartDelay(long srtDelay) {
 *  tks      - Pointer to the screen tank structure
 *  gs       - Pointer to the screen gunsight structure
 *  sBullets - The screen Bullets structure
-*  lgms     - Screen Builder structure 
+*  lgms     - Screen Builder structure
 *  rcWindow - Window region
 *  showPillLabels - Show the pillbox labels?
 *  showBaseLabels - Show the base labels?
@@ -1451,7 +1497,7 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
     output.x = x * zoomFactor * TILE_SIZE_X;
     output.y = y * zoomFactor * TILE_SIZE_Y;
     ret = SDL_BlitSurface(lpTiles, &in, lpBackBuffer, &output);
-    
+
     /* Draw Mines */
     if ((screenIsMine(mineView,x,y)) == TRUE) {
       in.x = zoomFactor * MINE_X;
@@ -1543,7 +1589,7 @@ void drawMainScreen(screen *value, screenMines *mineView, screenTanks *tks, scre
   output.y = (zoomFactor * MAIN_OFFSET_Y);
   output.w = in.w;
   output.h = in.h;
- 
+
   if (isPillView == TRUE) {
     /* we are in pillbox view - Write text here */
     drawPillInView();
@@ -1579,7 +1625,7 @@ g_dwFrameCount = 0;
 *
 *ARGUMENTS:
 *  appInst - The application instance
-*  appWnd  - The application Window 
+*  appWnd  - The application Window
 *  xValue  - The left position of the window
 *  yValue  - The top position of the window
 *********************************************************/
@@ -1593,7 +1639,7 @@ bool drawBackground(int width, int height) {
   char *tf;
   FILE *fp;
   int ret;
-  
+
   buff = malloc(168778);
   /* Get tmp file */
   strcpy(fileName, g_get_tmp_dir());
@@ -1620,7 +1666,7 @@ bool drawBackground(int width, int height) {
     if (SDL_BlitSurface(bg, NULL, lpScreen, &destRect) == 0) {
       returnValue = TRUE;
       SDL_UpdateRect(lpScreen, 0,0,0,0);
-    }  
+    }
     SDL_FreeSurface(bg);
   }
   free(buff);
@@ -1790,7 +1836,7 @@ void drawCopyTanksStatus() {
   dest.h = zf * STATUS_TANKS_HEIGHT;
   SDL_BlitSurface(lpTankStatus, NULL, lpScreen, &dest);
   SDL_UpdateRects(lpScreen, 1, &dest);
-}  
+}
 
 /*********************************************************
 *NAME:          drawStatusBase
@@ -1816,7 +1862,7 @@ void drawStatusBase(BYTE baseNum, baseAlliance ba, bool labels) {
 
   src.w = zf * STATUS_ITEM_SIZE_X;
   src.h = zf * STATUS_ITEM_SIZE_Y;
-  
+
   /* Set the co-ords of the tile file to get */
   switch (ba) {
   case baseDead:
@@ -1952,7 +1998,7 @@ void drawStatusPillbox(BYTE pillNum, pillAlliance pb, bool labels) {
   str[0] = '\0';
   src.w = zf * STATUS_ITEM_SIZE_X;
   src.h = zf * STATUS_ITEM_SIZE_Y;
- 
+
   /* Set the co-ords of the tile file to get */
   switch (pb) {
   case pillDead:
@@ -2096,7 +2142,7 @@ void drawStatusTank(BYTE tankNum, tankAlliance ta) {
   zf = 1; //FIXME: windowGetZoomFactor();
   src.w = zf * STATUS_ITEM_SIZE_X;
   src.h = zf * STATUS_ITEM_SIZE_Y;
- 
+
   /* Set the co-ords of the tile file to get */
   switch (ta) {
   case tankNone:
@@ -2214,11 +2260,11 @@ void drawStatusTankBars(int xValue, int yValue, BYTE shells, BYTE mines, BYTE ar
   SDL_Rect fill;
   BYTE zf;   /* Scaling factor */
   Uint32 color; /* Fill green colour */
-  
+
   zf = 1; //FIXME: windowGetZoomFactor();
   dest.w = zf * STATUS_TANK_BARS_WIDTH;
   color = SDL_MapRGB(lpScreen->format, 0, 0xFF, 0);
-  
+
   /* Make the area black first */
   fill.y = yValue + (zf * STATUS_TANK_BARS_TOP) + (zf * STATUS_TANK_BARS_HEIGHT) - ((zf * BAR_TANK_MULTIPLY) *  40);
   fill.h = yValue + (zf * STATUS_TANK_BARS_TOP) + (zf * STATUS_TANK_BARS_HEIGHT) - fill.y;
@@ -2231,7 +2277,7 @@ void drawStatusTankBars(int xValue, int yValue, BYTE shells, BYTE mines, BYTE ar
   dest.x = xValue + (zf * STATUS_TANK_SHELLS);
   dest.h = zf * BAR_TANK_MULTIPLY * shells;
   SDL_FillRect(lpScreen, &dest, color);
-  
+
   /* Mines */
   dest.y = yValue + (zf * STATUS_TANK_BARS_TOP) + (zf * STATUS_TANK_BARS_HEIGHT) - ((zf * BAR_TANK_MULTIPLY) * mines);
   dest.x = xValue + (zf * STATUS_TANK_MINES);
@@ -2243,7 +2289,7 @@ void drawStatusTankBars(int xValue, int yValue, BYTE shells, BYTE mines, BYTE ar
   dest.x = xValue + (zf * STATUS_TANK_ARMOUR);
   dest.h = zf * BAR_TANK_MULTIPLY * armour;
   SDL_FillRect(lpScreen, &dest, color);
-  
+
 /* Trees */
   dest.y = yValue + (zf * STATUS_TANK_BARS_TOP) + (zf * STATUS_TANK_BARS_HEIGHT) - ((zf * BAR_TANK_MULTIPLY) * trees);
   dest.x = xValue + (zf * STATUS_TANK_TREES);
@@ -2322,7 +2368,7 @@ void drawStatusBaseBars(int xValue, int yValue, BYTE shells, BYTE mines, BYTE ar
 *CREATION DATE: 20/12/98
 *LAST MODIFIED: 20/12/98
 *PURPOSE:
-*  Draws the indents around the five building selection 
+*  Draws the indents around the five building selection
 *  graphics on the left based on the buildSelect value.
 *  Draws the red dot as well.
 *
@@ -2425,7 +2471,7 @@ void drawSelectIndentsOn(buildSelect value, int xValue, int yValue) {
 *CREATION DATE: 20/12/98
 *LAST MODIFIED: 20/12/98
 *PURPOSE:
-*  Draws the indents around the five building selection 
+*  Draws the indents around the five building selection
 *  graphics off the left based on the buildSelect value.
 *  Draws the red dot as well.
 *
@@ -2479,7 +2525,7 @@ void drawSelectIndentsOff(buildSelect value, int xValue, int yValue) {
   /* Perform the drawing */
   SDL_BlitSurface(lpTiles, &src, lpScreen, &dest);
   SDL_UpdateRects(lpScreen, 1, &dest);
-    
+
   /* Set the co-ords of the tile file to get */
   src.x = zoomFactor * INDENT_DOT_OFF_X;
   src.y = zoomFactor * INDENT_DOT_OFF_Y;
@@ -2520,7 +2566,7 @@ void drawSelectIndentsOff(buildSelect value, int xValue, int yValue) {
   /* Perform the drawing */
   SDL_BlitSurface(lpTiles, &src, lpScreen, &dest);
   SDL_UpdateRects(lpScreen, 1, &dest);
-    
+
 }
 
 /*********************************************************
@@ -2567,7 +2613,7 @@ void drawRedrawAll(int width, int height, buildSelect value, bool showPillsStatu
     drawStatusBase(count, ba, showBasesStatus);
   }
   clientMutexRelease();
-  drawCopyBasesStatus();	  
+  drawCopyBasesStatus();
   /* Draw Pillbox Status */
   clientMutexWaitFor();
   drawSetPillsStatusClear();
@@ -2602,7 +2648,7 @@ void drawRedrawAll(int width, int height, buildSelect value, bool showPillsStatu
   screenGetLgmStatus(&lgmIsOut, &lgmIsDead, &lgmAngle);
   if (lgmIsOut == TRUE) {
     drawSetManStatus(lgmIsDead, lgmAngle, FALSE);
-  } 
+  }
   clientMutexRelease();
 }
 
@@ -2624,7 +2670,7 @@ void drawMessages(int xValue, int yValue, char *top, char *bottom) {
   SDL_Surface *lpTextSurface;
   SDL_Rect dest;   /* The dest square to draw it */
   BYTE zf;     /* Scaling factor */
-  
+
   zf = 1; //FIXME: windowGetZoomFactor();
   lpTextSurface = TTF_RenderText_Shaded(lpFont, top, white, black);
   if (lpTextSurface) {
@@ -2645,7 +2691,7 @@ void drawMessages(int xValue, int yValue, char *top, char *bottom) {
     SDL_BlitSurface(lpTextSurface, NULL, lpScreen, &dest);
     SDL_UpdateRects(lpScreen, 1, &dest);
     SDL_FreeSurface(lpTextSurface);
-  } 
+  }
 }
 
 /*********************************************************
@@ -2664,10 +2710,10 @@ void drawDownloadScreen(bool justBlack) {
   BYTE zoomFactor;        /* scaling factor */
   SDL_Rect output;        /* Output RECT */
   SDL_Rect in;
-  
+
   zoomFactor = 1; //FIXME windowGetZoomFactor();
   /* Fill the area black */
-  SDL_FillRect(lpBackBuffer, NULL, SDL_MapRGB(lpBackBuffer->format, 0, 0, 0)); 
+  SDL_FillRect(lpBackBuffer, NULL, SDL_MapRGB(lpBackBuffer->format, 0, 0, 0));
   /* Fill the downloaded area white */
   if (justBlack == FALSE) {
     output.x = 0;
@@ -2737,7 +2783,7 @@ void drawKillsDeaths(int xValue, int yValue, int kills, int deaths) {
     SDL_BlitSurface(lpTextSurface, NULL, lpScreen, &dest);
     SDL_UpdateRects(lpScreen, 1, &dest);
     SDL_FreeSurface(lpTextSurface);
-  } 
+  }
 }
 
 
@@ -3063,9 +3109,9 @@ void drawSetupArrays(BYTE zoomFactor) {
   drawPosX[FOREST_ABOVE] = zoomFactor * FOREST_ABOVE_X;
   drawPosY[FOREST_ABOVE] = zoomFactor * FOREST_ABOVE_Y;
   drawPosX[FOREST_BELOW] = zoomFactor * FOREST_BELOW_X;
-  drawPosY[FOREST_BELOW] = zoomFactor * FOREST_BELOW_Y;    
+  drawPosY[FOREST_BELOW] = zoomFactor * FOREST_BELOW_Y;
   drawPosX[FOREST_LEFT] = zoomFactor * FOREST_LEFT_X;
-  drawPosY[FOREST_LEFT] = zoomFactor * FOREST_LEFT_Y;    
+  drawPosY[FOREST_LEFT] = zoomFactor * FOREST_LEFT_Y;
   drawPosX[FOREST_RIGHT] = zoomFactor * FOREST_RIGHT_X;
   drawPosY[FOREST_RIGHT] = zoomFactor * FOREST_RIGHT_Y;
 
@@ -3096,7 +3142,7 @@ void drawSetupArrays(BYTE zoomFactor) {
 
   /* Draw Tank frames */
 
-  /* Do I want to do this? 
+  /* Do I want to do this?
   drawTankPosX[TANK_SELF_0] = zoomFactor * TANK_SELF_0_X;
   drawTankPosY[TANK_SELF_0] = zoomFactor * TANK_SELF_0_Y;
   drawTankPosX[TANK_SELF_1] = zoomFactor * TANK_SELF_1_X;
@@ -3129,7 +3175,7 @@ void drawSetupArrays(BYTE zoomFactor) {
   drawTankPosY[TANK_SELF_14] = zoomFactor * TANK_SELF_14_Y;
   drawTankPosX[TANK_SELF_15] = zoomFactor * TANK_SELF_15_X;
   drawTankPosY[TANK_SELF_15] = zoomFactor * TANK_SELF_15_Y;
-  
+
   drawTankPosX[TANK_SELFBOAT_0] = zoomFactor * TANK_SELFBOAT_0_X;
   drawTankPosY[TANK_SELFBOAT_0] = zoomFactor * TANK_SELFBOAT_0_Y;
   drawTankPosX[TANK_SELFBOAT_1] = zoomFactor * TANK_SELFBOAT_1_X;
