@@ -29,7 +29,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <glib.h>
-#include "SDL.h"
+#include <SDL.h>
+#include <SDL_mixer.h>
 #include "../../bolo/global.h"
 #include "../../bolo/backend.h"
 #include "bolosounds.h"
