@@ -291,19 +291,9 @@ gint windowclose(GtkWidget *widget, gpointer gdata) {
 }
 
 
-char saveFileName[FILENAME_MAX];
+char* saveFileName;
 GtkWidget     *saveFileW;
 
-void saveFileCancel(GtkWidget *w, GtkFileSelection *fs) {
-  gtk_widget_destroy(saveFileW);
-}
-
-void saveFileOK(GtkWidget *w, GtkFileSelection *fs) {
-  gchar *sTempFile;
-  sTempFile = gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs));
-  strcpy(saveFileName, sTempFile);
-  gtk_widget_destroy(saveFileW);
-}
 
 gint saveFileDestroy(GtkWidget *widget, gpointer *data) {
   gtk_grab_remove(widget);
@@ -315,10 +305,11 @@ gint saveFileDestroy(GtkWidget *widget, gpointer *data) {
 
 GtkRequisition req;
 gint configure_event (GtkWidget *widget, GdkEventConfigure *event) {
-  GdkPixmap *pixmap;
+  //TODO: get the icon working
+  /*	GdkPixmap *pixmap;
   GdkBitmap *mask;
   pixmap = gdk_pixmap_create_from_xpm_d (gtk_widget_get_window(window), &mask, gtk_widget_get_style(&window)->bg[GTK_STATE_NORMAL], boloicon_xpm);
-gdk_window_set_icon (gtk_widget_get_window(window), NULL, pixmap, mask);
+  gdk_window_set_icon_list(gtk_widget_get_window(window), pixmap, mask);*/
   return TRUE;
 }
 GtkWidget *request_alliance1;
@@ -1330,7 +1321,7 @@ int main(int argc, char **argv) {
   gameFrontGetPrefs(&keys, &useAutoslow, &useAutohide);
   window = windowCreate();
 
-  XSync(GDK_DISPLAY(), FALSE);
+//XSync(GDK_DISPLAY(), FALSE);
  /* Hack to get SDL to use GTK window */
     //sprintf(SDL_windowhack, "SDL_WINDOWID=%ld", GDK_WINDOW_XWINDOW(gtk_widget_get_window(window)));
     sprintf(SDL_windowhack, "SDL_WINDOWID=%ld", GDK_WINDOW_XWINDOW(gtk_widget_get_window(drawingarea1)));
@@ -2681,12 +2672,9 @@ on_save_map1_activate                  (GtkMenuItem     *menuitem,
                                       NULL);
   gint res = gtk_dialog_run(GTK_DIALOG(saveFileW));
   if(res == GTK_RESPONSE_ACCEPT) {
-        saveFileOK();
+        saveFileName = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(saveFileW));
   }
-  if(res == GTK_RESPONSE_CANCEL) {
-  	safeFileCancle();
-  }
-
+  gtk_widget_destroy (saveFileW);
   gtk_file_selection_set_filename (GTK_FILE_SELECTION(saveFileW), saveFileName);
   gtk_widget_show (saveFileW);
 

@@ -375,7 +375,7 @@ void drawSetManClear() {
   top = (zoomFactor * MAN_STATUS_Y);
   width = zoomFactor * MAN_STATUS_WIDTH + 5;
   height =  zoomFactor * MAN_STATUS_HEIGHT + 5;
-  gdk_draw_rectangle (drawingarea1->window, drawingarea1->style->black_gc, TRUE, left, top, width, height);
+  gdk_draw_rectangle (gtk_widget_get_window (drawingarea1), gtk_widget_get_style(drawingarea1)->black_gc, TRUE, left, top, width, height);
   lastManX = 0;
   lastManY = 0;
 //  gdk_threads_leave(); 
@@ -480,19 +480,19 @@ void drawSetManStatus(bool isDead, TURNTYPE angle, bool needLocking) {
   width = zoomFactor * MAN_STATUS_WIDTH;
   height =  zoomFactor * MAN_STATUS_HEIGHT;
   if (lastManX != 0) {
-    gdk_draw_line (drawingarea1->window, drawingarea1->style->black_gc, zoomFactor * MAN_STATUS_CENTER_X + left , top + zoomFactor * MAN_STATUS_CENTER_Y, lastManX, lastManY);
+    gtk_widget_get_window (gdk_draw_line (drawingarea1), gtk_widget_get_style(drawingarea1)->black_gc, zoomFactor * MAN_STATUS_CENTER_X + left , top + zoomFactor * MAN_STATUS_CENTER_Y, lastManX, lastManY);
   } else {
-     gdk_draw_rectangle (drawingarea1->window, drawingarea1->style->black_gc, TRUE, left, top, width, height);
+     gdk_draw_rectangle (gtk_widget_get_window (drawingarea1), gtk_widget_get_style(drawingarea1)->black_gc, TRUE, left, top, width, height);
   }
   addY += top;
   addX += left;
   if (isDead == TRUE) {
      /* Draw dead circle */
-     gdk_draw_arc(drawingarea1->window, drawingarea1->style->white_gc, TRUE, left, top, width, height, 0, 360 * 64);
+     gdk_draw_arc(gtk_widget_get_window (drawingarea1), gtk_widget_get_style(drawingarea1)->white_gc, TRUE, left, top, width, height, 0, 360 * 64);
      lastManX = 0;
   } else {
-    gdk_draw_arc(drawingarea1->window, drawingarea1->style->white_gc, FALSE, left, top, width, height, 0, 360 * 64);
-   gdk_draw_line(drawingarea1->window, drawingarea1->style->white_gc, zoomFactor * MAN_STATUS_CENTER_X + left , top + zoomFactor * MAN_STATUS_CENTER_Y, addX, addY);
+    gdk_draw_arc(gtk_widget_get_window (drawingarea1), gtk_widget_get_style(drawingarea1)->white_gc, FALSE, left, top, width, height, 0, 360 * 64);
+   gdk_draw_line(gtk_widget_get_window (drawingarea1), gtk_widget_get_style(drawingarea1)->white_gc, zoomFactor * MAN_STATUS_CENTER_X + left , top + zoomFactor * MAN_STATUS_CENTER_Y, addX, addY);
 
     lastManX = addX;
     lastManY = addY;
